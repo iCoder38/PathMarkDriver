@@ -449,7 +449,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
                               tfBorderWidth: 0,
                               tfBorderColor: .clear,
                               tfAppearance: .dark,
-                              tfKeyboardType: .emailAddress,
+                              tfKeyboardType: .default,
                               tfBackgroundColor: .white,
                               tfPlaceholderText: "Vehicle Number")
             

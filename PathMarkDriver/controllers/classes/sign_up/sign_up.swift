@@ -28,6 +28,8 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     var strSaveStateName:String!
     var strSaveZipcodeName:String!
     
+    var arr_country_array:NSArray!
+    
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -56,7 +58,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        self.get_country_list_WB()
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -64,56 +66,12 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         return true
     }
     
-    
-    /*@objc func convert_country_list_params_into_encode() {
-        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-        
-        let params = payload_country_list(action: "countrylist")
-        
-        
-        let secret = sha_token_api_key
-        let privateKey = SymmetricKey(data: Data(secret.utf8))
-
-        let headerJSONData = try! JSONEncoder().encode(Header())
-        let headerBase64String = headerJSONData.urlSafeBase64EncodedString()
-
-        let payloadJSONData = try! JSONEncoder().encode(params)
-        let payloadBase64String = payloadJSONData.urlSafeBase64EncodedString()
-
-        let toSign = Data((headerBase64String + "." + payloadBase64String).utf8)
-
-        let signature = HMAC<SHA512>.authenticationCode(for: toSign, using: privateKey)
-        let signatureBase64String = Data(signature).urlSafeBase64EncodedString()
-        // print(signatureBase64String)
-        
-        let token = [headerBase64String, payloadBase64String, signatureBase64String].joined(separator: ".")
-        print(token)
-        // ERProgressHud.sharedInstance.hide()
-        
-        // send this token to server
-        self.get_country_list_WB(get_encrpyt_token: token)
-        
-        // decode
-        do {
-            let jwt = try decode(jwt: token)
-            print(jwt)
-
-            print(type(of: jwt))
-
-
-            print(jwt["body"])
-            } catch {
-                print("The file could not be loaded")
-         }
-        
-    }*/
-    
     // get country list
     @objc func get_country_list_WB() {
         
         self.view.endEditing(true)
         
-        // ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+         ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
         
         let params = payload_country_list(action: "countrylist")
         
@@ -138,7 +96,9 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                 if strSuccess == String("success") {
                     print("yes")
                     
-                    ERProgressHud.sharedInstance.hide()
+                    self.arr_country_array = (JSON["data"] as! NSArray)
+                    
+                    self.country_click_method()
                     
                 } else {
                     
@@ -165,60 +125,6 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         }
     }
     
-    /*@objc func convert_sign_up_params_into_encode() {
-        let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
-        
-        
-        let params = payload_registration(action: "registration",
-                                          fullName: String(cell.txt_full_name.text!),
-                                          email: String(cell.txtEmailAddress.text!),
-                                          countryCode: String("91"),
-                                          contactNumber: String(cell.txt_phone_number.text!),
-                                          password: String(cell.txtPassword.text!),
-                                          role: "Driver",
-                                          INDNo: String(cell.txt_nid_number.text!))
-        
-        print(params as Any)
-        
-        let secret = sha_token_api_key
-        let privateKey = SymmetricKey(data: Data(secret.utf8))
-
-        let headerJSONData = try! JSONEncoder().encode(Header())
-        let headerBase64String = headerJSONData.urlSafeBase64EncodedString()
-
-        let payloadJSONData = try! JSONEncoder().encode(params)
-        let payloadBase64String = payloadJSONData.urlSafeBase64EncodedString()
-
-        let toSign = Data((headerBase64String + "." + payloadBase64String).utf8)
-
-        let signature = HMAC<SHA512>.authenticationCode(for: toSign, using: privateKey)
-        let signatureBase64String = Data(signature).urlSafeBase64EncodedString()
-        // print(signatureBase64String)
-        
-        let token = [headerBase64String, payloadBase64String, signatureBase64String].joined(separator: ".")
-        print(token)
-        
-        // decode for testing
-        // decode
-        do {
-            let jwt = try decode(jwt: token)
-            print(jwt)
-
-            print(type(of: jwt))
-
-
-            print(jwt["body"])
-            } catch {
-                print("The file could not be loaded")
-         }
-        
-        // send this token to server
-        sign_up_WB(get_encrpyt_token: token)
-        
-        
-    }*/
-    
     @objc func sign_up_WB() {
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
@@ -230,10 +136,78 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         // let params = main_token(body: get_encrpyt_token)
         
+        // print(cell.txt_country.text!)
+        
+        var phone_number_code : String!
+        
+        if (cell.txt_full_name.text! == "") {
+            
+            // print("please select country first")
+            self.hide_loading_UI()
+            return
+            
+        } else if (cell.txtEmailAddress.text! == "") {
+            
+            // print("please select country first")
+            self.hide_loading_UI()
+            return
+            
+        }else if (cell.txt_phone_number.text! == "") {
+            
+            // print("please select country first")
+            self.hide_loading_UI()
+            return
+            
+        }  else if (cell.txt_nid_number.text! == "") {
+            
+            // print("please select country first")
+            self.hide_loading_UI()
+            return
+            
+        }  else if (cell.txt_address.text! == "") {
+            
+            // print("please select country first")
+            self.hide_loading_UI()
+            return
+            
+        }  else if (cell.txtPassword.text! == "") {
+            
+            // print("please select country first")
+            self.hide_loading_UI()
+            return
+            
+        } else if (cell.txt_country.text! == "") {
+            
+            // print("please select country first")
+            self.hide_loading_UI()
+            return
+            
+        } else if (cell.txt_nid_number.text!.count < 17) {
+            
+             print("please enter valid NID Number")
+            self.hide_loading_UI()
+            return
+            
+        } else {
+            
+            for indexx in 0..<self.arr_country_array.count {
+                
+                let item = self.arr_country_array[indexx] as? [String:Any]
+                print(item as Any)
+                
+                if (cell.txt_country.text! == (item!["name"] as! String)) {
+                    print("yes matched")
+                    phone_number_code = (item!["phonecode"] as! String)
+                }
+                
+            }
+            
+        }
+        
         let params = payload_registration(action: "registration",
                                           fullName: String(cell.txt_full_name.text!),
                                           email: String(cell.txtEmailAddress.text!),
-                                          countryCode: String("91"),
+                                          countryCode: String(phone_number_code),
                                           contactNumber: String(cell.txt_phone_number.text!),
                                           password: String(cell.txtPassword.text!),
                                           role: "Driver",
@@ -285,11 +259,13 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                     self.hide_loading_UI()
                     ERProgressHud.sharedInstance.hide()
                     
-                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "verify_phone_number_id") as? verify_phone_number
+                    self.navigationController?.popViewController(animated: true)
+                    
+                    /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "verify_phone_number_id") as? verify_phone_number
                     
                     push!.str_get_user_id = "\(dict["userId"]!)"
                     
-                    self.navigationController?.pushViewController(push!, animated: true)
+                    self.navigationController?.pushViewController(push!, animated: true)*/
                     
                 } else {
                     
@@ -317,7 +293,86 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             }
         }
     }
+    
+    @objc func alert_warning () {
+        
+        let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: "Field should not be empty.", style: .alert)
+        let cancel = NewYorkButton(title: "Ok", style: .cancel)
+        alert.addButtons([cancel])
+        self.present(alert, animated: true)
+        
+    }
+    
+    @objc func before_open_popup() {
+        self.get_country_list_WB()
+    }
+    @objc func country_click_method() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
+        
+        print(self.arr_country_array as Any)
+        
+        var arr_mut:NSMutableArray = []
+        
+        for index in 0..<self.arr_country_array.count {
+            
+            // print(self.arr_country_array[index])
+            
+            let item = self.arr_country_array[index] as? [String:Any]
+            print(item as Any)
+            
+            arr_mut.add(item!["name"] as! String)
+            
+        }
+        
+        if let swiftArray = arr_mut as NSArray as? [String] {
+            ERProgressHud.sharedInstance.hide()
+            RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: swiftArray, selectedIndex: 0) { (selctedText, atIndex) in
+                cell.txt_country.text = String(selctedText)
+                
+                
+                
+                //
+                for indexx in 0..<self.arr_country_array.count {
+                    
+                    let item = self.arr_country_array[indexx] as? [String:Any]
+                    // print(item as Any)
+                    
+                    if (cell.txt_country.text! == (item!["name"] as! String)) {
+                        print("yes matched")
+                        cell.txt_phone_code.text = (item!["phonecode"] as! String)
+                    }
+                    
+                }
+                
+                
+            }
+            
+        }
+       
+        
+    }
 
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
+        
+       if textField == cell.txt_nid_number {
+           
+           guard let textFieldText = textField.text,
+               let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                   return false
+           }
+           let substringToReplace = textFieldText[rangeOfTextToReplace]
+           let count = textFieldText.count - substringToReplace.count + string.count
+           return count <= 17
+       }
+        
+        return true
+    }
+    
 }
 
 extension sign_up: UITableViewDataSource  , UITableViewDelegate {
@@ -344,10 +399,13 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         cell.txt_address.delegate = self
         cell.txt_full_name.delegate = self
         cell.txt_address.delegate = self
+        cell.txt_nid_number.delegate = self
         
         cell.btn_accept_terms.addTarget(self, action: #selector(accept_terms_click_method), for: .touchUpInside)
         
         cell.btnSignUp.addTarget(self, action: #selector(sign_up_click_method), for: .touchUpInside)
+        
+        cell.btn_country.addTarget(self, action: #selector(before_open_popup), for: .touchUpInside)
         
         return cell
     }
@@ -411,7 +469,7 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 900
+        return 1200
     }
     
 }
@@ -442,6 +500,30 @@ class sign_up_table_cell: UITableViewCell {
     @IBOutlet weak var viewBGForUpperImage:UIView! {
         didSet {
             viewBGForUpperImage.backgroundColor = .clear
+        }
+    }
+    
+    @IBOutlet weak var btn_country:UIButton!
+    
+    @IBOutlet weak var txt_country:UITextField! {
+        didSet {
+            Utils.textFieldUI(textField: txt_country,
+                              tfName: txt_country.text!,
+                              tfCornerRadius: 12,
+                              tfpadding: 20,
+                              tfBorderWidth: 0,
+                              tfBorderColor: .clear,
+                              tfAppearance: .dark,
+                              tfKeyboardType: .emailAddress,
+                              tfBackgroundColor: .white,
+                              tfPlaceholderText: "Country")
+            
+            txt_country.layer.masksToBounds = false
+            txt_country.layer.shadowColor = UIColor.black.cgColor
+            txt_country.layer.shadowOffset =  CGSize.zero
+            txt_country.layer.shadowOpacity = 0.5
+            txt_country.layer.shadowRadius = 2
+            
         }
     }
     
@@ -508,6 +590,28 @@ class sign_up_table_cell: UITableViewCell {
             txt_full_name.layer.shadowOffset =  CGSize.zero
             txt_full_name.layer.shadowOpacity = 0.5
             txt_full_name.layer.shadowRadius = 2
+            
+        }
+    }
+    
+    @IBOutlet weak var txt_phone_code:UITextField! {
+        didSet {
+            Utils.textFieldUI(textField: txt_phone_code,
+                              tfName: txt_phone_code.text!,
+                              tfCornerRadius: 12,
+                              tfpadding: 0,
+                              tfBorderWidth: 0,
+                              tfBorderColor: .clear,
+                              tfAppearance: .dark,
+                              tfKeyboardType: .default,
+                              tfBackgroundColor: .white,
+                              tfPlaceholderText: "+91")
+            
+            txt_phone_code.layer.masksToBounds = false
+            txt_phone_code.layer.shadowColor = UIColor.black.cgColor
+            txt_phone_code.layer.shadowOffset =  CGSize.zero
+            txt_phone_code.layer.shadowOpacity = 0.5
+            txt_phone_code.layer.shadowRadius = 2
             
         }
     }

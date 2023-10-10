@@ -212,7 +212,7 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
                     "action"                    : "editcarinformation",
                     "userId"                    : String(myString),
                     "carinformationId"          : "\(item!["carinformationId"]!)",
-                    "vehiclePermitNo"           : cell.txt_vehicle_permit_number.text,
+                    "vehiclePermitNo"           : String(cell.txt_vehicle_permit_number.text!),
                     // "drivingLicenceNo"          : String(cell.txt_license_number.text!),
                     // "CarRegistrationNo"         : String(cell.txt_vehicle_Registration_number.text!),
                     "vehiclePermitIsssuesDate"  : String(cell.txt_permit_issue.text!),
@@ -676,10 +676,13 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
     @objc func issued_on_click_method() {
         self.view.endEditing(true)
         
+        let minDate = Date().dateByAddingYears(-60)
+        let maxDate = Date().dateByAddingYears(0)
+        
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_reg_permit_table_cell
         
-        RPicker.selectDate(title: "Issued Date", didSelectDate: {[] (selectedDate) in
+        RPicker.selectDate(title: "Issued Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
            
             cell.txt_permit_issue.text = selectedDate.dateString("yyyy-MM-dd")
         })
@@ -688,10 +691,13 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
     @objc func exp_on_click_method() {
         self.view.endEditing(true)
         
+        let minDate = Date().dateByAddingYears(0)
+        let maxDate = Date().dateByAddingYears(60)
+        
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_reg_permit_table_cell
         
-        RPicker.selectDate(title: "Expiry Date", didSelectDate: {[] (selectedDate) in
+        RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
            
             cell.txt_permit_exp.text = selectedDate.dateString("yyyy-MM-dd")
         })
@@ -834,7 +840,6 @@ class upload_reg_permit_table_cell: UITableViewCell {
 
     @IBOutlet weak var btn_open_issued_on_calendar:UIButton!
     @IBOutlet weak var btn_open_exp_on_calendar:UIButton!
-    @IBOutlet weak var btn_select_car_type:UIButton!
     
     @IBOutlet weak var txt_vehicle_permit_number:UITextField! {
         didSet {

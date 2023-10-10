@@ -48,6 +48,7 @@ class upload_documents: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.btn_back.isHidden = true
         self.tbleView.separatorColor = .clear
         
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
@@ -121,6 +122,33 @@ class upload_documents: UIViewController {
         }
     }
     
+    @objc
+    func vehicle_reg_four_click_method(sender:UITapGestureRecognizer) {
+        print("tap working")
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            // print(person as Any)
+            
+            let arr_mut_order_history:NSMutableArray! = []
+            var ar : NSArray!
+            
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
+            if (arr_mut_order_history.count == 0) {
+                
+                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Vehicle Insurance first."), style: .alert)
+                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                alert.addButtons([cancel])
+                self.present(alert, animated: true)
+                
+            } else {
+                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_vehicle_reg_document_id") as? upload_vehicle_reg_document
+                self.navigationController?.pushViewController(push!, animated: true)
+            }
+        }
+    }
+    
     
     
     @objc
@@ -149,6 +177,36 @@ class upload_documents: UIViewController {
             }
         }
     }
+    
+    
+    
+    @objc
+    func four_click_method(sender:UITapGestureRecognizer) {
+        print("four tap working")
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            // print(person as Any)
+            
+            let arr_mut_order_history:NSMutableArray! = []
+            var ar : NSArray!
+            
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
+            if (arr_mut_order_history.count == 0) {
+                
+                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Vehicle Insurance first."), style: .alert)
+                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                alert.addButtons([cancel])
+                self.present(alert, animated: true)
+                
+            } else {
+                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_tax_id") as? upload_tax
+                self.navigationController?.pushViewController(push!, animated: true)
+            }
+        }
+    }
+    
     
     
     /*@objc func create_dummy_car_info() {
@@ -395,7 +453,6 @@ class upload_documents: UIViewController {
     }
 }
 
-
 extension upload_documents: UITableViewDataSource  , UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -477,8 +534,6 @@ extension upload_documents: UITableViewDataSource  , UITableViewDelegate {
                 ar = (person["carinfromation"] as! Array<Any>) as NSArray
                 arr_mut_order_history.addObjects(from: ar as! [Any])
                 
-                
-                
                 if (arr_mut_order_history.count == 0) {
                     
                     cell.btn_vehicle_insurance.setBackgroundImage(UIImage(named: "rem1"), for: .normal)
@@ -506,13 +561,10 @@ extension upload_documents: UITableViewDataSource  , UITableViewDelegate {
             let tap = UITapGestureRecognizer(target: self, action: #selector(upload_documents.insurance_click_method))
             cell.lbl_please_upload_your_vehicle_insurance.isUserInteractionEnabled = true
             cell.lbl_please_upload_your_vehicle_insurance.addGestureRecognizer(tap)
-             
-            
-            
+
             return cell
             
         } else if (indexPath.row == 2) {
-            
             
             let cell:upload_documents_table_cell = tableView.dequeueReusableCell(withIdentifier: "vehicle_registration_permit") as! upload_documents_table_cell
             
@@ -564,12 +616,66 @@ extension upload_documents: UITableViewDataSource  , UITableViewDelegate {
             let tap = UITapGestureRecognizer(target: self, action: #selector(upload_documents.reg_permit_click_method))
             cell.lbl_please_upload_your_vehicle_registration_permit.isUserInteractionEnabled = true
             cell.lbl_please_upload_your_vehicle_registration_permit.addGestureRecognizer(tap)
-             
             
             return cell
             
         }  else if (indexPath.row == 3) {
             
+            let cell:upload_documents_table_cell = tableView.dequeueReusableCell(withIdentifier: "vehicle_registration_four") as! upload_documents_table_cell
+            
+            cell.backgroundColor = .clear
+            
+            let backgroundView = UIView()
+            backgroundView.backgroundColor = .clear
+            cell.selectedBackgroundView = backgroundView
+            
+            if (self.str_vehicle_registration_four == "0") {
+
+                cell.lbl_vehicle_registration_four_seaprator.isHidden = true
+                cell.btn_vehicle_registration_four_arrow.setImage(UIImage(systemName: "chevron.right"), for: .normal)
+            } else {
+                cell.lbl_vehicle_registration_four_seaprator.isHidden = false
+                cell.btn_vehicle_registration_four_arrow.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+            }
+            
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                print(person as Any)
+                
+                let arr_mut_order_history:NSMutableArray! = []
+                var ar : NSArray!
+                
+                ar = (person["carinfromation"] as! Array<Any>) as NSArray
+                arr_mut_order_history.addObjects(from: ar as! [Any])
+                
+                if (arr_mut_order_history.count == 0) {
+                    
+                    cell.btn_vehicle_registration_four.setBackgroundImage(UIImage(named: "rem1"), for: .normal)
+                    
+                } else {
+                    
+                    let item = arr_mut_order_history[0] as? [String:Any]
+                    
+                    if (item!["registration_state"] as! String) == "" {
+                        
+                        cell.btn_vehicle_registration_four.setBackgroundImage(UIImage(named: "rem1"), for: .normal)
+                    } else {
+                        self.str_vehicle_registration_four = "1"
+                        cell.lbl_vehicle_registration_four_seaprator.isHidden = false
+                        cell.btn_vehicle_registration_four_arrow.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+                        
+                        cell.btn_vehicle_registration_four.setBackgroundImage(UIImage(named: "rem"), for: .normal)
+                    }
+                }
+            }
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(upload_documents.vehicle_reg_four_click_method))
+            cell.lbl_vehicle_registration_four_permit.isUserInteractionEnabled = true
+            cell.lbl_vehicle_registration_four_permit.addGestureRecognizer(tap)
+             
+            return cell
+            
+            
+        }  else {
             
             let cell:upload_documents_table_cell = tableView.dequeueReusableCell(withIdentifier: "vehicle_registration_tax") as! upload_documents_table_cell
             
@@ -624,72 +730,7 @@ extension upload_documents: UITableViewDataSource  , UITableViewDelegate {
              
             return cell
             
-        }  else if (indexPath.row == 4) {
             
-            
-            let cell:upload_documents_table_cell = tableView.dequeueReusableCell(withIdentifier: "vehicle_registration_four") as! upload_documents_table_cell
-            
-            cell.backgroundColor = .clear
-            
-            let backgroundView = UIView()
-            backgroundView.backgroundColor = .clear
-            cell.selectedBackgroundView = backgroundView
-            
-            if (self.str_vehicle_registration_four == "0") {
-
-                cell.lbl_tax_seaprator.isHidden = true
-                cell.btn_tax_arrow.setImage(UIImage(systemName: "chevron.right"), for: .normal)
-            } else {
-                cell.lbl_tax_seaprator.isHidden = false
-                cell.btn_tax_arrow.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-            }
-            
-            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-                print(person as Any)
-                
-                let arr_mut_order_history:NSMutableArray! = []
-                var ar : NSArray!
-                
-                ar = (person["carinfromation"] as! Array<Any>) as NSArray
-                arr_mut_order_history.addObjects(from: ar as! [Any])
-                
-                if (arr_mut_order_history.count == 0) {
-                    
-                    cell.btn_tax_permit.setBackgroundImage(UIImage(named: "rem1"), for: .normal)
-                    
-                } else {
-                    
-                    let item = arr_mut_order_history[0] as? [String:Any]
-                    
-                    if (item!["taxTokenImage"] as! String) == "" {
-                        
-                        cell.btn_tax_permit.setBackgroundImage(UIImage(named: "rem1"), for: .normal)
-                    } else {
-                        self.str_vehicle_registration_four = "1"
-                        cell.lbl_tax_seaprator.isHidden = false
-                        cell.btn_tax_arrow.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-                        
-                        cell.btn_tax_permit.setBackgroundImage(UIImage(named: "rem"), for: .normal)
-                    }
-                }
-            }
-            
-            let tap = UITapGestureRecognizer(target: self, action: #selector(upload_documents.tax_click_method))
-            cell.lbl_tax_permit.isUserInteractionEnabled = true
-            cell.lbl_tax_permit.addGestureRecognizer(tap)
-             
-            return cell
-            
-        } else {
-            let cell:upload_documents_table_cell = tableView.dequeueReusableCell(withIdentifier: "driving_license") as! upload_documents_table_cell
-            
-            cell.backgroundColor = .clear
-            
-            let backgroundView = UIView()
-            backgroundView.backgroundColor = .clear
-            cell.selectedBackgroundView = backgroundView
-            
-            return cell
         }
         
         
@@ -723,12 +764,20 @@ extension upload_documents: UITableViewDataSource  , UITableViewDelegate {
                 self.str_vehicle_registration_permit = "0"
             }
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             
             if (self.str_tax_permit == "0") {
                 self.str_tax_permit = "1"
             } else {
                 self.str_tax_permit = "0"
+            }
+            
+        } else if (indexPath.row == 3) {
+            
+            if (self.str_vehicle_registration_four == "0") {
+                self.str_vehicle_registration_four = "1"
+            } else {
+                self.str_vehicle_registration_four = "0"
             }
             
         }
@@ -757,7 +806,7 @@ extension upload_documents: UITableViewDataSource  , UITableViewDelegate {
             }
             
         }
-        else  if indexPath.row == 3 {
+        else  if indexPath.row == 4 {
            
            if (self.str_tax_permit == "1") {
                return 114
@@ -765,7 +814,15 @@ extension upload_documents: UITableViewDataSource  , UITableViewDelegate {
                return 64
            }
            
-       } else {
+       } else  if indexPath.row == 3 {
+           
+           if (self.str_vehicle_registration_four == "1") {
+               return 114
+           } else {
+               return 64
+           }
+           
+       }  else {
             
             if (self.str_vehicle_registration_permit == "1") {
                 return 114

@@ -157,9 +157,7 @@ class vehicle_list: UIViewController {
     @objc func list_of_all_category_WB(str_show_loader:String) {
         
         self.view.endEditing(true)
-        self.show_gif_loader()
-        
-        // ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
         
         let params = payload_vehicle_list(action: "category",
                                           TYPE: String(str_get_vehicle_type))

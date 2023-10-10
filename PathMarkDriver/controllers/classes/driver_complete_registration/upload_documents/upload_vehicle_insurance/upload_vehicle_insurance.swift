@@ -694,10 +694,13 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
     @objc func issued_on_click_method() {
         self.view.endEditing(true)
         
+        let minDate = Date().dateByAddingYears(-60)
+        let maxDate = Date().dateByAddingYears(0)
+        
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
         
-        RPicker.selectDate(title: "Issued Date", didSelectDate: {[] (selectedDate) in
+        RPicker.selectDate(title: "Issued Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
            
             cell.txt_commencing_date.text = selectedDate.dateString("yyyy-MM-dd")
         })
@@ -706,10 +709,13 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
     @objc func exp_on_click_method() {
         self.view.endEditing(true)
         
+        let minDate = Date().dateByAddingYears(0)
+        let maxDate = Date().dateByAddingYears(60)
+        
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
         
-        RPicker.selectDate(title: "Expiry Date", didSelectDate: {[] (selectedDate) in
+        RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
            
             cell.txt_exp_date.text = selectedDate.dateString("yyyy-MM-dd")
         })

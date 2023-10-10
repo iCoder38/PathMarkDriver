@@ -32,7 +32,7 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Upload Vehicle Registration / Permit"
+            view_navigation_title.text = "Upload Vehicle Regsitration"
             view_navigation_title.textColor = .white
         }
     }
@@ -51,11 +51,13 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         
         self.tbleView.reloadData()
+        
+        self.parse_data()
     }
     
     @objc func parse_data() {
         let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_reg_permit_table_cell
+        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_reg_document_table_cell
         
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             
@@ -68,16 +70,16 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
             let item = arr_mut_order_history[0] as? [String:Any]
             print(item as Any)
             
-            if (item!["vehiclePermitImage"] as! String != "") {
+            if (item!["vehicleRegistationImage"] as! String != "") {
                 cell.img_upload_photo_or_document.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
-                cell.img_upload_photo_or_document.sd_setImage(with: URL(string: (item!["vehiclePermitImage"] as! String)), placeholderImage: UIImage(named: "logo33"))
+                cell.img_upload_photo_or_document.sd_setImage(with: URL(string: (item!["vehicleRegistationImage"] as! String)), placeholderImage: UIImage(named: "logo33"))
             }
             
             //
             // cell.txt_vehicle_Registration_number.text = (item!["CarRegistrationNo"] as! String)
-            cell.txt_vehicle_permit_number.text = (item!["vehiclePermitNo"] as! String)
-            cell.txt_permit_issue.text = (item!["vehiclePermitIsssuesDate"] as! String)
-            cell.txt_permit_exp.text = (item!["vehiclePermitIsssuesExpDate"] as! String)
+            cell.txt_vehicle_registration_state.text = (item!["registration_state"] as! String)
+            cell.txt_vehicle_registration_number.text = (item!["CarRegistrationNo"] as! String)
+            cell.txt_expiry_date.text = (item!["expDate"] as! String)
         }
         
     }
@@ -134,7 +136,7 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
+        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_reg_document_table_cell
         
         let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
 
@@ -150,7 +152,7 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
     
     @objc func upload_vehicle_insurance_with_image_WB(str_show_loader:String) {
         let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
+        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_reg_document_table_cell
         
         if (str_show_loader == "yes") {
             ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
@@ -201,13 +203,16 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
                 parameterDict.setValue("editcarinformation", forKey: "action")
                 parameterDict.setValue(String(myString), forKey: "userId")
                 parameterDict.setValue("\(item!["carinformationId"]!)", forKey: "carinformationId")
-                parameterDict.setValue(String(cell.txt_policy_number.text!), forKey: "carInsuranceNo")
-                parameterDict.setValue(String(cell.txt_insurance_policy.text!), forKey: "isurenceCompony")
-                parameterDict.setValue(String(cell.txt_commencing_date.text!), forKey: "insurenceissueDate")
-                parameterDict.setValue(String(cell.txt_policy_holder.text!), forKey: "policeholder")
-                parameterDict.setValue(String(cell.txt_registration_number.text!), forKey: "CarRegistrationNo")
-                parameterDict.setValue(String(cell.txt_number_of_passengers.text!), forKey: "noOfPassagenger")
-                parameterDict.setValue(String(cell.txt_exp_date.text!), forKey: "expDate")
+                
+                parameterDict.setValue(String(cell.txt_vehicle_registration_state.text!), forKey: "registration_state")
+                parameterDict.setValue(String(cell.txt_vehicle_registration_number.text!), forKey: "CarRegistrationNo")
+                parameterDict.setValue(String(cell.txt_expiry_date.text!), forKey: "expDate")
+                
+               /*
+                "registration_state"    : String(cell.txt_vehicle_registration_state.text!),
+                "CarRegistrationNo"   : String(cell.txt_vehicle_registration_number.text!),
+                "expDate"    : String(cell.txt_expiry_date.text!),
+                */
                 
                 
                 print(parameterDict as Any)
@@ -235,7 +240,7 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
                         }
                     }
                     //
-                    multiPart.append(self.img_data_banner, withName: "carInsuranceImage", fileName: "upload_car_isurance.png", mimeType: "image/png")
+                    multiPart.append(self.img_data_banner, withName: "vehicleRegistationImage", fileName: "upload_vehicle_registration.png", mimeType: "image/png")
                 }, with: urlRequest)
                 .uploadProgress(queue: .main, closure: { progress in
                     //Current upload progress of file
@@ -365,7 +370,7 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
         }
         
         let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
+        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_reg_document_table_cell
         
         var parameters:Dictionary<AnyHashable, Any>!
         
@@ -391,16 +396,12 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
                 ]
                 
                 parameters = [
-                    "action"            : "editcarinformation",
-                    "userId"            : String(myString),
-                    "carinformationId"  : "\(item!["carinformationId"]!)",
-                    "carInsuranceNo"    : String(cell.txt_policy_number.text!),
-                    "isurenceCompony"   : String(cell.txt_insurance_policy.text!),
-                    "insurenceissueDate"    : String(cell.txt_commencing_date.text!),
-                    "policeholder"      : String(cell.txt_policy_holder.text!),
-                    "CarRegistrationNo" : String(cell.txt_registration_number.text!),
-                    "noOfPassagenger"   : String(cell.txt_number_of_passengers.text!),
-                    "expDate"           : String(cell.txt_exp_date.text!)
+                    "action"                : "editcarinformation",
+                    "userId"                : String(myString),
+                    "carinformationId"      : "\(item!["carinformationId"]!)",
+                    "registration_state"    : String(cell.txt_vehicle_registration_state.text!),
+                    "CarRegistrationNo"     : String(cell.txt_vehicle_registration_number.text!),
+                    "expDate"               : String(cell.txt_expiry_date.text!),
                     
                 ]
                 
@@ -585,12 +586,15 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
     @objc func exp_on_click_method() {
         self.view.endEditing(true)
         
-        let indexPath = IndexPath.init(row: 0, section: 0)
-        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
+        let minDate = Date().dateByAddingYears(0)
+        let maxDate = Date().dateByAddingYears(60)
         
-        RPicker.selectDate(title: "Expiry Date", didSelectDate: {[] (selectedDate) in
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_reg_document_table_cell
+        
+        RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
            
-            cell.txt_exp_date.text = selectedDate.dateString("yyyy-MM-dd")
+            cell.txt_expiry_date.text = selectedDate.dateString("yyyy-MM-dd")
         })
         
     }
@@ -626,7 +630,21 @@ extension upload_vehicle_reg_document: UITableViewDataSource  , UITableViewDeleg
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             print(person)
             
-            cell.txt_vehicle_registration_number.text = (person["CarRegistrationNo"] as! String)
+            let arr_mut_order_history:NSMutableArray! = []
+            
+            // DRIVER
+            var ar : NSArray!
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
+            let item = arr_mut_order_history[0] as? [String:Any]
+            print(item as Any)
+            
+            if (item!["carInsuranceNo"] as! String) != "" {
+                
+                cell.txt_vehicle_registration_number.text = (item!["CarRegistrationNo"] as! String)
+            }
                 
         }
         

@@ -536,10 +536,13 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
     @objc func issued_on_click_method() {
         self.view.endEditing(true)
         
+        let minDate = Date().dateByAddingYears(-60)
+        let maxDate = Date().dateByAddingYears(0)
+        
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_license_table_cell
         
-        RPicker.selectDate(title: "Issued Date", didSelectDate: {[] (selectedDate) in
+        RPicker.selectDate(title: "Issued Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
            
             cell.txt_issued_on.text = selectedDate.dateString("yyyy-MM-dd")
         })
@@ -548,10 +551,13 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
     @objc func exp_on_click_method() {
         self.view.endEditing(true)
         
+        let minDate = Date().dateByAddingYears(0)
+        let maxDate = Date().dateByAddingYears(60)
+        
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_license_table_cell
         
-        RPicker.selectDate(title: "Expiry Date", didSelectDate: {[] (selectedDate) in
+        RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
            
             cell.txt_exp_date.text = selectedDate.dateString("yyyy-MM-dd")
         })
@@ -646,7 +652,7 @@ extension upload_vehicle_license: UITableViewDataSource  , UITableViewDelegate {
         
         cell.btn_open_issued_on_calendar.addTarget(self, action: #selector(issued_on_click_method), for: .touchUpInside)
         cell.btn_open_exp_on_calendar.addTarget(self, action: #selector(exp_on_click_method), for: .touchUpInside)
-        cell.btn_select_car_type.addTarget(self, action: #selector(car_types_click_method), for: .touchUpInside)
+        // cell.btn_select_car_type.addTarget(self, action: #selector(car_types_click_method), for: .touchUpInside)
         
         
          
@@ -668,7 +674,11 @@ class upload_vehicle_license_table_cell: UITableViewCell {
 
     @IBOutlet weak var btn_open_issued_on_calendar:UIButton!
     @IBOutlet weak var btn_open_exp_on_calendar:UIButton!
-    @IBOutlet weak var btn_select_car_type:UIButton!
+    @IBOutlet weak var btn_select_car_type:UIButton! {
+        didSet {
+            btn_select_car_type.isHidden = true
+        }
+    }
     
     @IBOutlet weak var header_full_view_navigation_bar:UIView! {
         didSet {

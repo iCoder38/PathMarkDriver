@@ -8,8 +8,11 @@
 import UIKit
 import Alamofire
 import SDWebImage
+import UniformTypeIdentifiers
+import WebKit
+import PDFKit
 
-class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentPickerDelegate, WKNavigationDelegate {
 
     var img_data_banner : Data!
     var img_Str_banner : String!
@@ -49,6 +52,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
             btn_upload_tax.layer.shadowOpacity = 0.5
             btn_upload_tax.layer.shadowRadius = 2
             
+            btn_upload_tax.isHidden = true
         }
     }
     
@@ -94,7 +98,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
     // MARK: - OPEN CAMERA OR GALLERY -
     @objc func open_camera_gallery() {
         
-        let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
+        /*let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
         
         // actionSheet.addImage(UIImage(named: "camera"))
         
@@ -114,26 +118,72 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
         
         actionSheet.addButtons([cameraa, gallery, cancel])
         
-        self.present(actionSheet, animated: true)
+        self.present(actionSheet, animated: true)*/
         
+        open_camera_or_gallery(str_type: "")
     }
     
     // MARK: - OPEN CAMERA or GALLERY -
     @objc func open_camera_or_gallery(str_type:String) {
         
+        var documentPicker: UIDocumentPickerViewController!
+        
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         
-        if str_type == "c" {
+        let supportedTypes: [UTType] = [.pdf]
+        documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: supportedTypes)
+        
+        documentPicker.delegate = self
+        documentPicker.allowsMultipleSelection = true
+        documentPicker.modalPresentationStyle = .formSheet
+        self.present(documentPicker, animated: true)
+        
+        /*if str_type == "c" {
             imagePicker.sourceType = .camera
         } else {
             imagePicker.sourceType = .photoLibrary
-        }
+        }*/
         
-        imagePicker.allowsEditing = false
-        self.present(imagePicker, animated: true, completion: nil)
+        /*imagePicker.allowsEditing = false
+        self.present(imagePicker, animated: true, completion: nil)*/
         
     }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+            
+            for url in urls {
+                
+                // Start accessing a security-scoped resource.
+                guard url.startAccessingSecurityScopedResource() else {
+                    // Handle the failure here.
+                    return
+                }
+                
+                do {
+                    let data = try Data.init(contentsOf: url)
+                    print(data)
+                    print(url)
+                    // You will have data of the selected file
+                    
+                    self.img_data_banner = data
+                     
+                     
+                    self.validation_before_upload_tax()
+                    
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
+                
+                // Make sure you release the security-scoped resource when you finish.
+                defer { url.stopAccessingSecurityScopedResource() }
+            }
+        }
+        
+        func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+            controller.dismiss(animated: true, completion: nil)
+        }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -216,7 +266,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
                             })
                         }
                     }
-                    multiPart.append(self.img_data_banner, withName: "taxTokenImage", fileName: "upload_tax.png", mimeType: "image/png")
+                    multiPart.append(self.img_data_banner, withName: "taxTokenImage", fileName: "upload_tax.pdf", mimeType: "pdf")
                 }, with: urlRequest)
                 .uploadProgress(queue: .main, closure: { progress in
                     //Current upload progress of file
