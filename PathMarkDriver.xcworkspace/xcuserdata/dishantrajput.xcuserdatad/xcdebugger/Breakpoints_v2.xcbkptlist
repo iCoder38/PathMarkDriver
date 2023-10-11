@@ -390,10 +390,57 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
             landmarkName = "upload_tax_image(str_show_loader:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be35ee5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.upload_tax.upload_tax_image(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "332"
+                  endingLineNumber = "332"
+                  offsetFromSymbolStart = "5364">
+               </Location>
+               <Location
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - 21f643027ef36a00"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.upload_tax.upload_tax_image(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "299"
+                  endingLineNumber = "299"
+                  offsetFromSymbolStart = "5132">
+               </Location>
+               <Location
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be352a2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.upload_tax.upload_tax_image(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "299"
+                  endingLineNumber = "299"
+                  offsetFromSymbolStart = "5232">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

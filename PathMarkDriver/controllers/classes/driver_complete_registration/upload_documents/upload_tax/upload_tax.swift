@@ -39,7 +39,6 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
     @IBOutlet weak var img_tax_profile:UIImageView!
     @IBOutlet weak var btn_upload_tax:UIButton! {
         didSet {
-             
             Utils.buttonStyle(button: btn_upload_tax,
                               bCornerRadius: 12,
                               bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
@@ -98,29 +97,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
     // MARK: - OPEN CAMERA OR GALLERY -
     @objc func open_camera_gallery() {
         
-        /*let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
-        
-        // actionSheet.addImage(UIImage(named: "camera"))
-        
-        let cameraa = NewYorkButton(title: "Camera", style: .default) { _ in
-            // print("camera clicked done")
-            
-            self.open_camera_or_gallery(str_type: "c")
-        }
-        
-        let gallery = NewYorkButton(title: "Gallery", style: .default) { _ in
-            // print("camera clicked done")
-            
-            self.open_camera_or_gallery(str_type: "g")
-        }
-        
-        let cancel = NewYorkButton(title: "Cancel", style: .cancel)
-        
-        actionSheet.addButtons([cameraa, gallery, cancel])
-        
-        self.present(actionSheet, animated: true)*/
-        
-        open_camera_or_gallery(str_type: "")
+        self.open_camera_or_gallery(str_type: "")
     }
     
     // MARK: - OPEN CAMERA or GALLERY -
@@ -139,51 +116,41 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
         documentPicker.modalPresentationStyle = .formSheet
         self.present(documentPicker, animated: true)
         
-        /*if str_type == "c" {
-            imagePicker.sourceType = .camera
-        } else {
-            imagePicker.sourceType = .photoLibrary
-        }*/
-        
-        /*imagePicker.allowsEditing = false
-        self.present(imagePicker, animated: true, completion: nil)*/
-        
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-            
-            for url in urls {
-                
-                // Start accessing a security-scoped resource.
-                guard url.startAccessingSecurityScopedResource() else {
-                    // Handle the failure here.
-                    return
-                }
-                
-                do {
-                    let data = try Data.init(contentsOf: url)
-                    print(data)
-                    print(url)
-                    // You will have data of the selected file
-                    
-                    self.img_data_banner = data
-                     
-                     
-                    self.validation_before_upload_tax()
-                    
-                }
-                catch {
-                    print(error.localizedDescription)
-                }
-                
-                // Make sure you release the security-scoped resource when you finish.
-                defer { url.stopAccessingSecurityScopedResource() }
-            }
-        }
         
-        func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-            controller.dismiss(animated: true, completion: nil)
+        for url in urls {
+            
+            // Start accessing a security-scoped resource.
+            guard url.startAccessingSecurityScopedResource() else {
+                // Handle the failure here.
+                return
+            }
+            
+            do {
+                let data = try Data.init(contentsOf: url)
+                print(data)
+                print(url)
+                // You will have data of the selected file
+                
+                self.img_data_banner = data
+                
+                self.validation_before_upload_tax()
+                
+            }
+            catch {
+                print(error.localizedDescription)
+            }
+            
+            // Make sure you release the security-scoped resource when you finish.
+            defer { url.stopAccessingSecurityScopedResource() }
         }
+    }
+        
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        controller.dismiss(animated: true, completion: nil)
+    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         

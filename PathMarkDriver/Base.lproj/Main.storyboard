@@ -1491,12 +1491,12 @@
                                                                 <constraint firstAttribute="height" constant="80" id="8RN-RV-iHY"/>
                                                             </constraints>
                                                         </view>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car_logo" translatesAutoresizingMaskIntoConstraints="NO" id="WDI-ys-fh8">
-                                                            <rect key="frame" x="128" y="45.666666666666657" width="136" height="69"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="license" translatesAutoresizingMaskIntoConstraints="NO" id="WDI-ys-fh8">
+                                                            <rect key="frame" x="7.6666666666666572" y="8" width="377" height="144"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="136" id="bDk-9z-cu5"/>
-                                                                <constraint firstAttribute="height" constant="69" id="zO3-gK-j62"/>
+                                                                <constraint firstAttribute="width" constant="377" id="bDk-9z-cu5"/>
+                                                                <constraint firstAttribute="height" constant="144" id="zO3-gK-j62"/>
                                                             </constraints>
                                                         </imageView>
                                                     </subviews>

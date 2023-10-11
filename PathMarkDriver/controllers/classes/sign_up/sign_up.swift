@@ -131,8 +131,8 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         self.view.endEditing(true)
         
-        self.show_loading_UI()
-        // ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        // self.show_loading_UI()
+        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
         
         // let params = main_token(body: get_encrpyt_token)
         
@@ -142,50 +142,82 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         if (cell.txt_full_name.text! == "") {
             
-            // print("please select country first")
-            self.hide_loading_UI()
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter full name"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
             return
             
         } else if (cell.txtEmailAddress.text! == "") {
             
-            // print("please select country first")
-            self.hide_loading_UI()
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter email address"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
             return
             
         }else if (cell.txt_phone_number.text! == "") {
             
-            // print("please select country first")
-            self.hide_loading_UI()
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter phone number"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
             return
             
         }  else if (cell.txt_nid_number.text! == "") {
             
-            // print("please select country first")
-            self.hide_loading_UI()
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter nid number"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
             return
             
         }  else if (cell.txt_address.text! == "") {
             
-            // print("please select country first")
-            self.hide_loading_UI()
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter address"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
             return
             
         }  else if (cell.txtPassword.text! == "") {
             
-            // print("please select country first")
-            self.hide_loading_UI()
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter password"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
             return
             
         } else if (cell.txt_country.text! == "") {
             
-            // print("please select country first")
-            self.hide_loading_UI()
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter country name"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
             return
             
         } else if (cell.txt_nid_number.text!.count < 17) {
             
-             print("please enter valid NID Number")
-            self.hide_loading_UI()
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid NID No."), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
             return
             
         } else {
@@ -256,7 +288,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                     alert.addButtons([cancel])
                     self.present(alert, animated: true)
                     
-                    self.hide_loading_UI()
+                    // self.hide_loading_UI()
                     ERProgressHud.sharedInstance.hide()
                     
                     self.navigationController?.popViewController(animated: true)
@@ -603,7 +635,7 @@ class sign_up_table_cell: UITableViewCell {
                               tfBorderWidth: 0,
                               tfBorderColor: .clear,
                               tfAppearance: .dark,
-                              tfKeyboardType: .default,
+                              tfKeyboardType: .numberPad,
                               tfBackgroundColor: .white,
                               tfPlaceholderText: "+91")
             
@@ -625,7 +657,7 @@ class sign_up_table_cell: UITableViewCell {
                               tfBorderWidth: 0,
                               tfBorderColor: .clear,
                               tfAppearance: .dark,
-                              tfKeyboardType: .default,
+                              tfKeyboardType: .numberPad,
                               tfBackgroundColor: .white,
                               tfPlaceholderText: "Phone Number")
             
@@ -647,7 +679,7 @@ class sign_up_table_cell: UITableViewCell {
                               tfBorderWidth: 0,
                               tfBorderColor: .clear,
                               tfAppearance: .dark,
-                              tfKeyboardType: .default,
+                              tfKeyboardType: .numberPad,
                               tfBackgroundColor: .white,
                               tfPlaceholderText: "NID No.")
             
