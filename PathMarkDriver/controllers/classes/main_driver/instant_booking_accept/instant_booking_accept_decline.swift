@@ -7,10 +7,27 @@
 
 import UIKit
 import Alamofire
+import Firebase
 
-class instant_booking_accept_decline: UIViewController {
+// MARK:- LOCATION -
+import CoreLocation
+import MapKit
+
+class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
 
     var dict_get_all_data_from_notification:NSDictionary!
+    
+    let locationManager = CLLocationManager()
+    
+    // MARK:- SAVE LOCATION STRING -
+    var strSaveLatitude:String! = "0.0"
+    var strSaveLongitude:String! = "0.0"
+    var strSaveCountryName:String!
+    var strSaveLocalAddress:String!
+    var strSaveLocality:String!
+    var strSaveLocalAddressMini:String!
+    var strSaveStateName:String!
+    var strSaveZipcodeName:String!
     
     @IBOutlet weak var view_big:UIView! {
         didSet {
@@ -56,13 +73,14 @@ class instant_booking_accept_decline: UIViewController {
         }
     }
     
+    @IBOutlet weak var mapView:MKMapView!
+    
     @IBOutlet weak var lbl_from:UILabel!
     @IBOutlet weak var lbl_to:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
         
         print(self.dict_get_all_data_from_notification as Any)
         
@@ -75,8 +93,161 @@ class instant_booking_accept_decline: UIViewController {
         
         self.lbl_from.text = (self.dict_get_all_data_from_notification["RequestPickupAddress"] as! String)
         self.lbl_to.text = (self.dict_get_all_data_from_notification["RequestDropAddress"] as! String)
+        
+        self.current_location_click_method()
+        
     }
 
+    @objc func current_location_click_method() {
+        
+         self.iAmHereForLocationPermission()
+    }
+    
+    @objc func iAmHereForLocationPermission() {
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+              
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined, .restricted, .denied:
+                print("No access")
+                self.strSaveLatitude = "0"
+                self.strSaveLongitude = "0"
+                
+            case .authorizedAlways, .authorizedWhenInUse:
+                print("Access")
+                          
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                locationManager.startUpdatingLocation()
+                      
+            @unknown default:
+                break
+            }
+        }
+    }
+    
+    // MARK:- GET CUSTOMER LOCATION -
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        
+        let location = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        print(location)
+        
+        self.strSaveLatitude = "\(locValue.latitude)"
+        self.strSaveLongitude = "\(locValue.longitude)"
+        
+        print("**********************")
+        let customer_lat_long = "\(self.dict_get_all_data_from_notification["RequestPickupLatLong"]!)".components(separatedBy: ",")
+        print(customer_lat_long)
+        
+        let restaurantLatitudeDouble    = Double(String(customer_lat_long[0]))
+        let restaurantLongitudeDouble   = Double(String(customer_lat_long[1]))
+        let driverLatitudeDouble        = Double(String(self.strSaveLatitude))
+        let driverLongitudeDouble       = Double(String(self.strSaveLongitude))
+        
+        print(restaurantLatitudeDouble as Any)
+        print(restaurantLongitudeDouble as Any)
+        print(driverLatitudeDouble as Any)
+        print(driverLongitudeDouble as Any)
+        
+        let coordinate₀ = CLLocation(latitude: restaurantLatitudeDouble!, longitude: restaurantLongitudeDouble!)
+        let coordinate₁ = CLLocation(latitude: driverLatitudeDouble!, longitude: driverLongitudeDouble!)
+        
+        /************************************** CUSTOMER LATITUTDE AND LONGITUDE  ********************************/
+        // first location
+        let sourceLocation = CLLocationCoordinate2D(latitude: restaurantLatitudeDouble!, longitude: restaurantLongitudeDouble!)
+        /********************************************************************************************************************/
+        
+        
+        /************************************* DRIVER LATITUTDE AND LONGITUDE ******************************************/
+        // second location
+        let destinationLocation = CLLocationCoordinate2D(latitude: driverLatitudeDouble!, longitude: driverLongitudeDouble!)
+        /********************************************************************************************************************/
+        
+        print(sourceLocation)
+        print(destinationLocation)
+        
+        let sourcePin = customPin(pinTitle: "Drop Location", pinSubTitle: "", location: sourceLocation)
+        
+        let destinationPin = customPin(pinTitle: "Pick Location", pinSubTitle: "", location: destinationLocation)
+        
+        /***************** REMOVE PREVIUOS ANNOTATION TO GENERATE NEW ANNOTATION *******************************************/
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        /********************************************************************************************************************/
+        
+        self.mapView.addAnnotation(sourcePin)
+        self.mapView.addAnnotation(destinationPin)
+        
+        let sourcePlaceMark = MKPlacemark(coordinate: sourceLocation)
+        let destinationPlaceMark = MKPlacemark(coordinate: destinationLocation)
+        
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
+        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+        directionRequest.transportType = .automobile
+        
+        let directions = MKDirections(request: directionRequest)
+        directions.calculate { (response, error) in
+            guard let directionResonse = response else {
+                if let error = error {
+                    print("we have error getting directions==\(error.localizedDescription)")
+                }
+                return
+            }
+            
+            /***************** REMOVE PREVIUOS POLYLINE TO GENERATE NEW POLYLINE *******************************/
+            let overlays = self.mapView.overlays
+            self.mapView.removeOverlays(overlays)
+            /************************************************************************************/
+            
+            
+            /***************** GET DISTANCE BETWEEN TWO CORDINATES *******************************/
+            
+            let distanceInMeters = coordinate₀.distance(from: coordinate₁)
+            // print(distanceInMeters as Any)
+            
+            // remove decimal
+            let distanceFloat: Double = (distanceInMeters as Any as! Double)
+            
+            //            cell.lbl_distance.text = (String(format: "%.0f Miles away", distanceFloat/1609.344))
+            
+            print(String(format: "%.0f", distanceFloat/1000))
+            // cell.lbl_distance.text = (String(format: "%.0f", distanceFloat/1000))
+            
+            print(String(format: "Distance : %.0f KM away", distanceFloat/1000))
+            print(String(format: "Distance : %.0f Miles away", distanceFloat/1609.344))
+            
+            /************************************************************************/
+            
+            /***************** GENERATE NEW POLYLINE *******************************/
+            
+            let route = directionResonse.routes[0]
+            self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+            
+            /***********************************************************************/
+            
+        }
+        
+        self.mapView.delegate = self
+        
+        self.locationManager.stopUpdatingLocation()
+        
+        print("=================================")
+        print("LOCATION UPDATE")
+        print("=================================")
+        
+        // self.tbleView.reloadData()
+        
+        // speed = distance / time
+    }
+    
     @objc func validation_before_accept_booking() {
 
          self.accept_booking_WB(str_show_loader: "yes")
@@ -154,12 +325,36 @@ class instant_booking_accept_decline: UIViewController {
                                 UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             }
                             
-                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
-                            push.get_booking_data_for_pickup = dict_get_all_data_from_notification
-                            self.navigationController?.pushViewController(push, animated: true)
+                            let db = Firestore.firestore()
                             
-                            ERProgressHud.sharedInstance.hide()
-                            self.dismiss(animated: true)
+                            db.collection("mode/driver/tracking/India/private_track").addDocument(data: [
+                                
+                                "bookingId"     : "\(self.dict_get_all_data_from_notification["bookingId"]!)",
+                                "driverId"      : String(myString),
+                                "driverLats"    : String(self.strSaveLatitude),
+                                "driverLngs"    : String(self.strSaveLongitude),
+                                "time_stamp"    : "",
+                                "trackingId"    : "\(self.dict_get_all_data_from_notification["bookingId"]!)+\(String(myString))",
+                                
+                            ]) {
+                                err in
+                                
+                                if let err = err {
+                                    print("\(err)")
+                                } else {
+                                    // print("\()")
+                                    print("successfully registered in firebase")
+                                    
+                                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
+                                    push.get_booking_data_for_pickup = self.dict_get_all_data_from_notification
+                                    self.navigationController?.pushViewController(push, animated: true)
+                                    
+                                    ERProgressHud.sharedInstance.hide()
+                                    self.dismiss(animated: true)
+                                }
+                            }
+                            
+                            
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_wb()
@@ -190,6 +385,7 @@ class instant_booking_accept_decline: UIViewController {
             }
         }
     }
+     
     
     @objc func login_refresh_token_wb() {
         
@@ -243,5 +439,7 @@ class instant_booking_accept_decline: UIViewController {
         }
         
     }
+    
+    
     
 }

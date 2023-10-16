@@ -7,10 +7,32 @@
 
 import UIKit
 import Alamofire
+import Firebase
 
-class start_ride_now: UIViewController {
+// MARK:- LOCATION -
+import CoreLocation
+import MapKit
 
+class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
+
+    var firestore_id:String!
+    
+    var str_driver_lat:String!
+    var str_driver_long:String!
+    
     var get_booking_data_for_start_ride:NSDictionary!
+    
+    let locationManager = CLLocationManager()
+    
+    // MARK:- SAVE LOCATION STRING -
+    var strSaveLatitude:String! = "0.0"
+    var strSaveLongitude:String! = "0.0"
+    var strSaveCountryName:String!
+    var strSaveLocalAddress:String!
+    var strSaveLocality:String!
+    var strSaveLocalAddressMini:String!
+    var strSaveStateName:String!
+    var strSaveZipcodeName:String!
     
     @IBOutlet weak var view_big:UIView! {
         didSet {
@@ -70,6 +92,7 @@ class start_ride_now: UIViewController {
         }
     }
     
+    @IBOutlet weak var mapView:MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,6 +101,173 @@ class start_ride_now: UIViewController {
         
         self.btn_start_ride_now.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
         
+        // print(self.firestore_id as Any)
+        // print(self.str_driver_lat as Any)
+        // print(self.str_driver_long as Any)
+        
+        print(self.get_booking_data_for_start_ride as Any)
+        
+        self.current_location_click_method()
+    }
+    
+    @objc func current_location_click_method() {
+        
+         self.iAmHereForLocationPermission()
+    }
+    
+    @objc func iAmHereForLocationPermission() {
+        // Ask for Authorisation from the User.
+        self.locationManager.requestAlwaysAuthorization()
+
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
+              
+        if CLLocationManager.locationServicesEnabled() {
+            switch CLLocationManager.authorizationStatus() {
+            case .notDetermined, .restricted, .denied:
+                print("No access")
+                self.strSaveLatitude = "0"
+                self.strSaveLongitude = "0"
+                
+            case .authorizedAlways, .authorizedWhenInUse:
+                print("Access")
+                          
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+                locationManager.startUpdatingLocation()
+                      
+            @unknown default:
+                break
+            }
+        }
+    }
+    
+    // MARK:- GET CUSTOMER LOCATION -
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+        print("locations = \(locValue.latitude) \(locValue.longitude)")
+        
+        let location = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+        print(location)
+        
+        self.strSaveLatitude = "\(locValue.latitude)"
+        self.strSaveLongitude = "\(locValue.longitude)"
+        
+        print("**********************")
+        let customer_lat_long = "\(self.get_booking_data_for_start_ride["RequestPickupLatLong"]!)".components(separatedBy: ",")
+        print(customer_lat_long)
+        let restaurantLatitudeDouble    = Double(String(customer_lat_long[0]))
+        let restaurantLongitudeDouble   = Double(String(customer_lat_long[1]))
+        let driverLatitudeDouble        = Double(String(self.strSaveLatitude))
+        let driverLongitudeDouble       = Double(String(self.strSaveLongitude))
+        
+        print(restaurantLatitudeDouble as Any)
+        print(restaurantLongitudeDouble as Any)
+        print(driverLatitudeDouble as Any)
+        print(driverLongitudeDouble as Any)
+        
+        let coordinate₀ = CLLocation(latitude: restaurantLatitudeDouble!, longitude: restaurantLongitudeDouble!)
+        let coordinate₁ = CLLocation(latitude: driverLatitudeDouble!, longitude: driverLongitudeDouble!)
+        
+        /************************************** CUSTOMER LATITUTDE AND LONGITUDE  ********************************/
+        // first location
+        let sourceLocation = CLLocationCoordinate2D(latitude: restaurantLatitudeDouble!, longitude: restaurantLongitudeDouble!)
+        /********************************************************************************************************************/
+        
+        
+        /************************************* DRIVER LATITUTDE AND LONGITUDE ******************************************/
+        // second location
+        let destinationLocation = CLLocationCoordinate2D(latitude: driverLatitudeDouble!, longitude: driverLongitudeDouble!)
+        /********************************************************************************************************************/
+        
+        print(sourceLocation)
+        print(destinationLocation)
+        
+        let sourcePin = customPin(pinTitle: "Drop Location", pinSubTitle: "", location: sourceLocation)
+        
+        let destinationPin = customPin(pinTitle: "Pick Location", pinSubTitle: "", location: destinationLocation)
+        
+        /***************** REMOVE PREVIUOS ANNOTATION TO GENERATE NEW ANNOTATION *******************************************/
+        self.mapView.removeAnnotations(self.mapView.annotations)
+        /********************************************************************************************************************/
+        
+        self.mapView.addAnnotation(sourcePin)
+        self.mapView.addAnnotation(destinationPin)
+        
+        let sourcePlaceMark = MKPlacemark(coordinate: sourceLocation)
+        let destinationPlaceMark = MKPlacemark(coordinate: destinationLocation)
+        
+        let directionRequest = MKDirections.Request()
+        directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
+        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+        directionRequest.transportType = .automobile
+        
+        let directions = MKDirections(request: directionRequest)
+        directions.calculate { (response, error) in
+            guard let directionResonse = response else {
+                if let error = error {
+                    print("we have error getting directions==\(error.localizedDescription)")
+                }
+                return
+            }
+            
+            /***************** REMOVE PREVIUOS POLYLINE TO GENERATE NEW POLYLINE *******************************/
+            let overlays = self.mapView.overlays
+            self.mapView.removeOverlays(overlays)
+            /************************************************************************************/
+            
+            
+            /***************** GET DISTANCE BETWEEN TWO CORDINATES *******************************/
+            
+            let distanceInMeters = coordinate₀.distance(from: coordinate₁)
+            // print(distanceInMeters as Any)
+            
+            // remove decimal
+            let distanceFloat: Double = (distanceInMeters as Any as! Double)
+            
+            //            cell.lbl_distance.text = (String(format: "%.0f Miles away", distanceFloat/1609.344))
+            
+            print(String(format: "%.0f", distanceFloat/1000))
+            // cell.lbl_distance.text = (String(format: "%.0f", distanceFloat/1000))
+            
+            print(String(format: "Distance : %.0f KM away", distanceFloat/1000))
+            print(String(format: "Distance : %.0f Miles away", distanceFloat/1609.344))
+            
+            /************************************************************************/
+            
+            /***************** GENERATE NEW POLYLINE *******************************/
+            
+            let route = directionResonse.routes[0]
+            self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+            let rect = route.polyline.boundingMapRect
+            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+            
+            /***********************************************************************/
+            
+        }
+        
+        self.mapView.delegate = self
+        
+        // self.locManager.stopUpdatingLocation()
+        
+        self.locationManager.startUpdatingLocation()
+        
+        // self.locManager.stopUpdatingLocation()
+        
+        print("=================================")
+        print("LOCATION UPDATE")
+        print("=================================")
+        
+        // self.tbleView.reloadData()
+        
+        // speed = distance / time
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.systemOrange
+        renderer.lineWidth = 4.0
+        return renderer
     }
     
     @objc func get_and_parse_UI() {

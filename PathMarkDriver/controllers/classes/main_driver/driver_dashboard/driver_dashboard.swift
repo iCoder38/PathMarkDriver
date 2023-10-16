@@ -11,6 +11,7 @@ import Firebase
 
 // MARK:- LOCATION -
 import CoreLocation
+import MapKit
 
 class driver_dashboard: UIViewController, CLLocationManagerDelegate {
     
@@ -65,7 +66,7 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
             view_sub_big.clipsToBounds = true
         }
     }
-    
+    @IBOutlet weak var mapView:MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -84,57 +85,8 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         
         
         // self.ride_end(str_show_loader: "yes")
-         self.update_value_on_firebase()
+         
     }
-    
-    @objc func update_value_on_firebase() {
-        
-        var _:DocumentReference? = nil
-        
-        let db = Firestore.firestore()
-        
-        db.collection("mode/driver/tracking/India/private_track").addDocument(data: [
-            "bookingId":"",
-            "driverId":"",
-            "driverLats":"",
-            "driverLngs":"",
-            "time_stamp":"",
-            "trackingId":"",
-        ]) {
-            err in
-            
-            if let err = err {
-                print("\(err)")
-            } else {
-                // print("\()")
-                print("successfully registered in firebase")
-                
-                /*
-                 var bookingId = ""
-                   var driverId = ""
-                   var driverLats = ""
-                   var driverLngs = ""
-                   var time_stamp = 0L
-                   var trackingId = bookingId+driverId
-                 */
-            }
-        }
-        
-        
-        // ref = Firestore.firebase().collection("").addDocument(data: "name":"dishant")
-        
-        
-        
-        
-        
-    }
-    
-    
-    
-    
-    
-    
-    
     
     @objc func iAmHereForLocationPermission() {
         // Ask for Authorisation from the User.
@@ -203,14 +155,16 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
             //MARK:- STOP LOCATION -
             self.locationManager.stopUpdatingLocation()
             
-            // let indexPath = IndexPath.init(row: 0, section: 0)
-            // let cell = self.tbleView.cellForRow(at: indexPath) as! dashboard_table_cell
-            
-            /*cell.lbl_my_full_address.text = String(self.strSaveLocality)+" "+String(self.strSaveLocalAddress)+" "+String(self.strSaveLocalAddressMini)+","+String(self.strSaveStateName)+","+String(self.strSaveCountryName)*/
-//
             print(self.strSaveLatitude as Any)
             print(self.strSaveLongitude as Any)
 
+            let newYorkLocation = CLLocationCoordinate2DMake(locValue.latitude, locValue.longitude)
+            // Drop a pin
+            let dropPin = MKPointAnnotation()
+            dropPin.coordinate = newYorkLocation
+            dropPin.title = "My Current Location"
+            self.mapView.addAnnotation(dropPin)
+            
             self.update_token_WB(str_show_loader: "yes")
         }
     }

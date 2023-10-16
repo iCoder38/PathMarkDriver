@@ -96,6 +96,12 @@ let JOBHISTORY_NAVIGATION_TITLE = "JOB HISTORY"
 let booking_order_details = "Booking details"
 // let driver_accept_request = "Booking details"
 
+
+ 
+/******************************************/
+let send_tracking_path_to_real_time = "mode/driver/tracking/India/private_track"
+/******************************************/
+
 class Utils: NSObject {
     
     

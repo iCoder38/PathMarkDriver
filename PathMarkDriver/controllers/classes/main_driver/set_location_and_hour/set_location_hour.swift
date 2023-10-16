@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class set_location_hour: UIViewController , UITextFieldDelegate {
 
@@ -53,6 +54,8 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         self.tbleView.separatorColor = .clear
         
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -146,6 +149,276 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         })
     }
     
+    @objc func working_time_from_click_method() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
+        
+        RPicker.selectDate(title: "Select Date", minDate: Date(), maxDate: Date().dateByAddingYears(30), didSelectDate: { (selectedDate) in
+                // TODO: Your implementation for date
+            cell.txt_working_time_from.text = selectedDate.dateString("yyyy-MM-dd")
+            })
+    }
+    
+    @objc func working_time_to_click_method() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
+        
+        RPicker.selectDate(title: "Select Date", minDate: Date(), maxDate: Date().dateByAddingYears(30), didSelectDate: { (selectedDate) in
+                // TODO: Your implementation for date
+            cell.txt_working_time_to.text = selectedDate.dateString("yyyy-MM-dd")
+            })
+    }
+    
+    
+    @objc func validation_before_accept_booking() {
+        self.set_location_hour_WB(str_show_loader: "yes")
+    }
+    
+    @objc func set_location_hour_WB(str_show_loader:String) {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
+        
+        if (str_show_loader == "yes") {
+            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        }
+        
+        
+        self.view.endEditing(true)
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+
+                parameters = [
+                    "action"            : "editProfile",
+                    "userId"            : String(myString),
+                    
+                    "pickupAddress"     : String(cell.txt_from_location.text!),
+                    "dropAddress"       : String(cell.txt_to_location.text!),
+                    
+                    "drop_Longitude"    : String(self.str_to_longitude),
+                    "drop_Latitude"     : String(self.str_to_latitude),
+                    
+                    "pickup_Latitude"   : String(self.str_from_latitude),
+                    "pickup_Longitude"  : String(self.str_from_longitude),
+                    
+                    "Working_startDate" : String(cell.txt_working_time_from.text!),
+                    "Working_endDate"   : String(cell.txt_working_time_to.text!),
+                    
+                    "Working_startTime" : String(cell.txt_working_hour_from.text!),
+                    "Working_endTime"   : String(cell.txt_working_hour_to.text!),
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON { [self]
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                        
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        var message : String!
+                        message = (JSON["msg"] as? String)
+                        
+                        print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                            
+                            if (JSON["AuthToken"] == nil) {
+                                print("TOKEN NOT RETURN IN THIS ACTION = editProfile")
+                            } else {
+                                let str_token = (JSON["AuthToken"] as! String)
+                                UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                                UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            }
+
+                            self.get_login_user_full_data()
+                            
+                        } else if strSuccess == String("Success") {
+                            print("yes")
+                            
+                            if (JSON["AuthToken"] == nil) {
+                                print("TOKEN NOT RETURN IN THIS ACTION = editProfile")
+                            } else {
+                                let str_token = (JSON["AuthToken"] as! String)
+                                UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                                UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            }
+
+                            self.get_login_user_full_data()
+                            
+                        } else if message == String(not_authorize_api) {
+                            self.login_refresh_token_wb()
+                            
+                        } else {
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func login_refresh_token_wb() {
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
+            print(get_login_details as Any)
+            
+            parameters = [
+                "action"    : "login",
+                "email"     : (get_login_details["email"] as! String),
+                "password"  : (get_login_details["password"] as! String),
+            ]
+            
+            print("parameters-------\(String(describing: parameters))")
+            
+            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
+                response in
+                
+                switch(response.result) {
+                case .success(_):
+                    if let data = response.value {
+                        
+                        let JSON = data as! NSDictionary
+                        print(JSON)
+                        
+                        var strSuccess : String!
+                        strSuccess = JSON["status"] as? String
+                        
+                        if strSuccess.lowercased() == "success" {
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            self.set_location_hour_WB(str_show_loader: "no")
+                            
+                        } else {
+                            ERProgressHud.sharedInstance.hide()
+                        }
+                        
+                    }
+                    
+                case .failure(_):
+                    print("Error message:\(String(describing: response.error))")
+                    ERProgressHud.sharedInstance.hide()
+                    self.please_check_your_internet_connection()
+                    
+                    break
+                }
+            }
+        }
+        
+    }
+    
+    @objc func get_login_user_full_data() {
+        
+        self.view.endEditing(true)
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            let params = payload_profile(action: "profile",
+                                         userId: String(myString))
+            
+            print(params as Any)
+            
+            AF.request(application_base_url,
+                       method: .post,
+                       parameters: params,
+                       encoder: JSONParameterEncoder.default).responseJSON { response in
+                // debugPrint(response.result)
+                
+                switch response.result {
+                case let .success(value):
+                    
+                    let JSON = value as! NSDictionary
+                    print(JSON as Any)
+                    
+                    var strSuccess : String!
+                    strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                    
+                    print(strSuccess as Any)
+                    if strSuccess == String("success") {
+                        print("yes")
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        let defaults = UserDefaults.standard
+                        defaults.setValue(JSON["data"], forKey: str_save_login_user_data)
+                        
+                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (JSON["msg"] as! String), style: .alert)
+                        let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                        alert.addButtons([cancel])
+                        self.present(alert, animated: true)
+                        
+                    } else {
+                        
+                        print("no")
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        var strSuccess2 : String!
+                        strSuccess2 = JSON["msg"]as Any as? String
+                        
+                        let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                        let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                        alert.addButtons([cancel])
+                        self.present(alert, animated: true)
+                        
+                    }
+                    
+                case let .failure(error):
+                    print(error)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    self.please_check_your_internet_connection()
+                    
+                }
+            }
+        }
+    }
+    
+    
+    
 }
 
 extension set_location_hour: UITableViewDataSource , UITableViewDelegate {
@@ -177,11 +450,36 @@ extension set_location_hour: UITableViewDataSource , UITableViewDelegate {
             cell.txt_to_location.text = String(self.str_to_location)
         }
         
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+             
+            self.str_to_longitude = (person["drop_Longitude"] as! String)
+            self.str_to_latitude = (person["drop_Latitude"] as! String)
+            
+            self.str_from_latitude = (person["pickup_Latitude"] as! String)
+            self.str_from_longitude = (person["pickup_Longitude"] as! String)
+            
+            cell.txt_from_location.text = (person["pickupAddress"] as! String)
+            cell.txt_to_location.text = (person["dropAddress"] as! String)
+            
+            cell.txt_working_hour_from.text = (person["Working_endTime"] as! String)
+            cell.txt_working_hour_to.text = (person["Working_startTime"] as! String)
+            
+            cell.txt_working_time_from.text = (person["Working_startDate"] as! String)
+            cell.txt_working_time_to.text = (person["Working_endDate"] as! String)
+        }
+        
+        
         cell.btn_working_hour_from.addTarget(self, action: #selector(working_hour_from_click_method), for: .touchUpInside)
         cell.btn_working_hour_to.addTarget(self, action: #selector(working_hour_to_click_method), for: .touchUpInside)
         
+        cell.btn_working_time_from.addTarget(self, action: #selector(working_time_from_click_method), for: .touchUpInside)
+        cell.btn_working_time_to.addTarget(self, action: #selector(working_time_to_click_method), for: .touchUpInside)
+        
         cell.btn_from_location.addTarget(self, action: #selector(from_location_click_method), for: .touchUpInside)
         cell.btn_to_location.addTarget(self, action: #selector(to_location_click_method), for: .touchUpInside)
+        
+        cell.btn_save_details.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
         
         return cell
     }
@@ -310,7 +608,7 @@ class set_location_hour_table_cell: UITableViewCell {
     
     @IBOutlet weak var btn_save_details:UIButton! {
         didSet {
-            btn_save_details.setTitle("SAVE DETAILS", for: .normal)
+            btn_save_details.setTitle("Update", for: .normal)
             btn_save_details.setTitleColor(.white, for: .normal)
             btn_save_details.layer.cornerRadius = 6
             btn_save_details.clipsToBounds = true
