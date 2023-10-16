@@ -125,8 +125,17 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
                         
                     } else {
                         
-                        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
-                        self.navigationController?.pushViewController(push, animated: true)
+                        if ("\(person["AdminApproved"]!)") == "0" {
+                            
+                            let alert = NewYorkAlertController(title: String("Not Approved.").uppercased(), message: String("Your profile is not approved yet. Please wait or contact our customer support."), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        } else {
+                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
+                            self.navigationController?.pushViewController(push, animated: true)
+                        }
                         
                     }
                 }

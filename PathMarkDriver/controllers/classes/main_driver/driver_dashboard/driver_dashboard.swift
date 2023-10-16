@@ -7,13 +7,14 @@
 
 import UIKit
 import Alamofire
+import Firebase
 
 // MARK:- LOCATION -
 import CoreLocation
 
 class driver_dashboard: UIViewController, CLLocationManagerDelegate {
     
-    
+
     let locationManager = CLLocationManager()
     
     // MARK:- SAVE LOCATION STRING -
@@ -27,6 +28,8 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
     var strSaveZipcodeName:String!
     
     var str_token_id:String!
+    
+    // var db = Firestore.firestore()
     
     @IBOutlet weak var lbl_total_price:UILabel!
     
@@ -81,7 +84,57 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         
         
         // self.ride_end(str_show_loader: "yes")
+         self.update_value_on_firebase()
     }
+    
+    @objc func update_value_on_firebase() {
+        
+        var _:DocumentReference? = nil
+        
+        let db = Firestore.firestore()
+        
+        db.collection("mode/driver/tracking/India/private_track").addDocument(data: [
+            "bookingId":"",
+            "driverId":"",
+            "driverLats":"",
+            "driverLngs":"",
+            "time_stamp":"",
+            "trackingId":"",
+        ]) {
+            err in
+            
+            if let err = err {
+                print("\(err)")
+            } else {
+                // print("\()")
+                print("successfully registered in firebase")
+                
+                /*
+                 var bookingId = ""
+                   var driverId = ""
+                   var driverLats = ""
+                   var driverLngs = ""
+                   var time_stamp = 0L
+                   var trackingId = bookingId+driverId
+                 */
+            }
+        }
+        
+        
+        // ref = Firestore.firebase().collection("").addDocument(data: "name":"dishant")
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
     
     @objc func iAmHereForLocationPermission() {
         // Ask for Authorisation from the User.

@@ -75,9 +75,11 @@
 		B98988FE2A8619F6003B1BD3 /* emergency_contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98988FD2A8619F6003B1BD3 /* emergency_contacts.swift */; };
 		B98989012A861CE0003B1BD3 /* add_contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98989002A861CE0003B1BD3 /* add_contacts.swift */; };
 		B98989042A861F0D003B1BD3 /* help.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98989032A861F0D003B1BD3 /* help.swift */; };
+		B99FEBE82AD6BE9900BD0A07 /* success_registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99FEBE72AD6BE9900BD0A07 /* success_registration.swift */; };
 		B9A5918F2A6FE07C003DEC9F /* driver_dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A5918E2A6FE07C003DEC9F /* driver_dashboard.swift */; };
 		B9ACC43B2A67C100000A4530 /* upload_vehicle_insurance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACC43A2A67C100000A4530 /* upload_vehicle_insurance.swift */; };
 		B9ACC43E2A680AFF000A4530 /* upload_reg_permit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACC43D2A680AFF000A4530 /* upload_reg_permit.swift */; };
+		B9C29A922ADD20AE00574A94 /* map_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C29A912ADD20AE00574A94 /* map_view.swift */; };
 		B9DAF6F32AD446DD00739122 /* upload_vehicle_reg_document.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */; };
 		B9E1B4322A84FD500060DCAF /* instant_booking_accept_decline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4312A84FD500060DCAF /* instant_booking_accept_decline.swift */; };
 		B9E1B4352A85052D0060DCAF /* after_accept_request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4342A85052D0060DCAF /* after_accept_request.swift */; };
@@ -191,9 +193,11 @@
 		B98988FD2A8619F6003B1BD3 /* emergency_contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emergency_contacts.swift; sourceTree = "<group>"; };
 		B98989002A861CE0003B1BD3 /* add_contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = add_contacts.swift; sourceTree = "<group>"; };
 		B98989032A861F0D003B1BD3 /* help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = help.swift; sourceTree = "<group>"; };
+		B99FEBE72AD6BE9900BD0A07 /* success_registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = success_registration.swift; sourceTree = "<group>"; };
 		B9A5918E2A6FE07C003DEC9F /* driver_dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = driver_dashboard.swift; sourceTree = "<group>"; };
 		B9ACC43A2A67C100000A4530 /* upload_vehicle_insurance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_insurance.swift; sourceTree = "<group>"; };
 		B9ACC43D2A680AFF000A4530 /* upload_reg_permit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_reg_permit.swift; sourceTree = "<group>"; };
+		B9C29A912ADD20AE00574A94 /* map_view.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = map_view.swift; sourceTree = "<group>"; };
 		B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_reg_document.swift; sourceTree = "<group>"; };
 		B9E1B4312A84FD500060DCAF /* instant_booking_accept_decline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = instant_booking_accept_decline.swift; sourceTree = "<group>"; };
 		B9E1B4342A85052D0060DCAF /* after_accept_request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = after_accept_request.swift; sourceTree = "<group>"; };
@@ -500,10 +504,12 @@
 		B9852DD92A651EEA008244F3 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				B9C29A902ADD20A000574A94 /* search_map_location */,
 				B9852DD32A651B8E008244F3 /* login */,
 				B9852DD62A651B9D008244F3 /* sign_up */,
 				B9852DDA2A651F00008244F3 /* verify_phone_number */,
 				B9852DDD2A652B8D008244F3 /* driver_complete_registration */,
+				B99FEBE42AD6BE3E00BD0A07 /* sucess */,
 				B9E1B42F2A84FD1C0060DCAF /* main_driver */,
 				B9E1B43E2A850E4B0060DCAF /* custom_alert_show.swift */,
 			);
@@ -585,6 +591,14 @@
 			path = help;
 			sourceTree = "<group>";
 		};
+		B99FEBE42AD6BE3E00BD0A07 /* sucess */ = {
+			isa = PBXGroup;
+			children = (
+				B99FEBE72AD6BE9900BD0A07 /* success_registration.swift */,
+			);
+			path = sucess;
+			sourceTree = "<group>";
+		};
 		B9A5918D2A6FE069003DEC9F /* driver_dashboard */ = {
 			isa = PBXGroup;
 			children = (
@@ -607,6 +621,14 @@
 				B9ACC43D2A680AFF000A4530 /* upload_reg_permit.swift */,
 			);
 			path = upload_reg_permit;
+			sourceTree = "<group>";
+		};
+		B9C29A902ADD20A000574A94 /* search_map_location */ = {
+			isa = PBXGroup;
+			children = (
+				B9C29A912ADD20AE00574A94 /* map_view.swift */,
+			);
+			path = search_map_location;
 			sourceTree = "<group>";
 		};
 		B9DAF6F12AD446A900739122 /* upload_veh_reg_document */ = {
@@ -1024,6 +1046,7 @@
 				B9DAF6F32AD446DD00739122 /* upload_vehicle_reg_document.swift in Sources */,
 				B9FE3F212A666FB1009A2E5C /* upload_vehicle_license.swift in Sources */,
 				B9514E232AA8AB5B005EDF39 /* earnings.swift in Sources */,
+				B99FEBE82AD6BE9900BD0A07 /* success_registration.swift in Sources */,
 				B9852D972A651AE7008244F3 /* NewYorkAlertController.swift in Sources */,
 				B9852DDF2A652BAE008244F3 /* select_vehicle_type.swift in Sources */,
 				B98989012A861CE0003B1BD3 /* add_contacts.swift in Sources */,
@@ -1044,6 +1067,7 @@
 				B9852DE22A653419008244F3 /* vehicle_list.swift in Sources */,
 				B9050FC12A974844000305BC /* api_refresh_token.swift in Sources */,
 				B9852D562A651884008244F3 /* ViewController.swift in Sources */,
+				B9C29A922ADD20AE00574A94 /* map_view.swift in Sources */,
 				B96B0F172A98E1B400835208 /* success_ride_done.swift in Sources */,
 				B9852D9A2A651AE7008244F3 /* AlertView.swift in Sources */,
 				B9852DDC2A651F0D008244F3 /* verify_phone_number.swift in Sources */,
@@ -1249,7 +1273,7 @@
 				CODE_SIGN_ENTITLEMENTS = PathMarkDriver/PathMarkDriver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = 8LW9RF96D4;
+				DEVELOPMENT_TEAM = NHVZESNL9B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PathMarkDriver/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Zarib - Driver";
@@ -1272,7 +1296,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dev.pathmarkDriver.PathMarkDriver1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dev.pathmarkDriver.PathMarkDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1295,7 +1319,7 @@
 				CODE_SIGN_ENTITLEMENTS = PathMarkDriver/PathMarkDriver.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 0;
-				DEVELOPMENT_TEAM = 8LW9RF96D4;
+				DEVELOPMENT_TEAM = NHVZESNL9B;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PathMarkDriver/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Zarib - Driver";
@@ -1318,7 +1342,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dev.pathmarkDriver.PathMarkDriver1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dev.pathmarkDriver.PathMarkDriver;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

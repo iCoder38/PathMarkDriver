@@ -310,6 +310,14 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                 
+            } else if arr_driver_title [indexPath.row] == "Set Working Details" {
+                
+                let obj = self.storyboard?.instantiateViewController(withIdentifier: "set_location_hour_id") as! set_location_hour
+                let navController = UINavigationController(rootViewController: obj)
+                navController.setViewControllers([obj], animated:true)
+                self.revealViewController().setFront(navController, animated: true)
+                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+                
             } else if arr_driver_title [indexPath.row] == "Logout" {
                 
                 self.validation_before_logout()

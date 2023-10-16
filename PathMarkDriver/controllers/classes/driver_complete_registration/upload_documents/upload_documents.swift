@@ -57,7 +57,125 @@ class upload_documents: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tbleView.reloadData()
+        
+        var sum = 0
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            // print(person as Any)
+            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "checking...")
+            
+            // # 1 = driving license
+            if (person["drivingLicenceNo"] as! String == "") {
+
+                print("==============================")
+                print("Driving license is not done")
+                print("==============================")
+                
+            } else {
+                
+                print("==============================")
+                print("Driving license is done")
+                print("==============================")
+                sum += 1
+            }
+            
+            // # 2 : insurance company
+            let arr_mut_order_history:NSMutableArray! = []
+            var ar : NSArray!
+            
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
+            if (arr_mut_order_history.count == 0) {
+                
+                print("==============================")
+                print("Vehicle is not Registered")
+                print("==============================")
+                
+            } else {
+                
+                let item = arr_mut_order_history[0] as? [String:Any]
+                
+                // # 2 : insurance company
+                if (item!["isurenceCompony"] as! String) == "" {
+                    
+                    print("==============================")
+                    print("Insurance is not done")
+                    print("==============================")
+                    
+                } else {
+                    
+                    print("==============================")
+                    print("Insurance is done")
+                    print("==============================")
+                    sum += 1
+                }
+                
+                //  # 2 : insurance company
+                if (item!["vehiclePermitIsssuesDate"] as! String) == "" {
+                    
+                    print("==============================")
+                    print("Permit is not done")
+                    print("==============================")
+                    
+                } else {
+                    
+                    print("==============================")
+                    print("Permit is done")
+                    print("==============================")
+                    sum += 1
+                }
+                
+                //  # 3 : Regsitration state
+                if (item!["registration_state"] as! String) == "" {
+                    
+                    print("==============================")
+                    print("Registration State is not done")
+                    print("==============================")
+                    
+                } else {
+                    
+                    print("==============================")
+                    print("Registration State is done")
+                    print("==============================")
+                    sum += 1
+                }
+                
+                //  # 4 : TAX TOKEN
+                if (item!["taxTokenImage"] as! String) == "" {
+                    
+                    print("==============================")
+                    print("Tax Token is not done")
+                    print("==============================")
+                    
+                } else {
+                    
+                    print("==============================")
+                    print("Tax Token State is done")
+                    print("==============================")
+                    sum += 1
+                }
+                
+            }
+            
+            // print(sum as Any)
+            
+        }
+        
+        if (sum == 5) {
+            ERProgressHud.sharedInstance.hide()
+            self.push_to_success()
+        } else {
+            //
+            ERProgressHud.sharedInstance.hide()
+            self.tbleView.reloadData()
+        }
+        
+ 
+    }
+    
+    @objc func push_to_success() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_registration_id") as? success_registration
+        self.navigationController?.pushViewController(push!, animated: true)
     }
 
     @objc

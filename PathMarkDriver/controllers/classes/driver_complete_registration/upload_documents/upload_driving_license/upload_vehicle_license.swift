@@ -532,7 +532,6 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
         
     }
     
-    
     @objc func issued_on_click_method() {
         self.view.endEditing(true)
         
@@ -542,7 +541,7 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_license_table_cell
         
-        RPicker.selectDate(title: "Issued Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+        RPicker.selectDate(title: "Issued Date", minDate: minDate, maxDate: maxDate, didSelectDate: {[] (selectedDate) in
            
             cell.txt_issued_on.text = selectedDate.dateString("yyyy-MM-dd")
         })
@@ -654,8 +653,6 @@ extension upload_vehicle_license: UITableViewDataSource  , UITableViewDelegate {
         cell.btn_open_exp_on_calendar.addTarget(self, action: #selector(exp_on_click_method), for: .touchUpInside)
         // cell.btn_select_car_type.addTarget(self, action: #selector(car_types_click_method), for: .touchUpInside)
         
-        
-         
         return cell
     }
      

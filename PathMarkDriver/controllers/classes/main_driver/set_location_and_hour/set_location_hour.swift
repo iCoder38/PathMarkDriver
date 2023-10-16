@@ -23,7 +23,7 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "SET LOCATION & HOUR"
+            view_navigation_title.text = "Set location & Hour"
             view_navigation_title.textColor = .white
         }
     }
@@ -37,9 +37,74 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         }
     }
     
+    var str_location_type:String! = "0"
+    
+    var str_from_location:String!
+    var str_to_location:String!
+    
+    var str_from_latitude:String!
+    var str_from_longitude:String!
+    var str_to_latitude:String!
+    var str_to_longitude:String!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tbleView.separatorColor = .clear
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        // latitude
+        if let load_latitude = UserDefaults.standard.string(forKey: "key_saved_latitude") {
+            print(load_latitude)
+            
+            if (self.str_location_type == "1") {
+                self.str_from_latitude = load_latitude
+            } else {
+                self.str_to_latitude = load_latitude
+            }
+            
+        }
+        
+        // longitude
+        if let load_longitude = UserDefaults.standard.string(forKey: "key_saved_longitude") {
+            print(load_longitude)
+            
+            if (self.str_location_type == "1") {
+                self.str_from_longitude = load_longitude
+            } else {
+                self.str_to_longitude = load_longitude
+            }
+            
+        }
+        
+        // address
+        if let load_address = UserDefaults.standard.string(forKey: "key_saved_address") {
+            print(load_address)
+            
+            if (self.str_location_type == "1") {
+                self.str_from_location = load_address
+            } else {
+                self.str_to_location = load_address
+            }
+            
+        }
+        
+        UserDefaults.standard.set("", forKey: "key_saved_latitude")
+        UserDefaults.standard.set("", forKey: "key_saved_longitude")
+        UserDefaults.standard.set("", forKey: "key_saved_address")
+        
+        print(self.str_from_latitude as Any)
+        print(self.str_from_longitude as Any)
+        print(self.str_from_location as Any)
+        print(self.str_to_latitude as Any)
+        print(self.str_to_longitude as Any)
+        print(self.str_to_location as Any)
+        
+        self.tbleView.reloadData()
         
     }
     
@@ -47,6 +112,40 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
+    
+    @objc func from_location_click_method() {
+        self.str_location_type = "1"
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
+        self.navigationController?.pushViewController(push!, animated: true)
+    }
+    
+    @objc func to_location_click_method() {
+        self.str_location_type = "2"
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "map_view_id") as? map_view
+        self.navigationController?.pushViewController(push!, animated: true)
+    }
+    
+    
+    @objc func working_hour_from_click_method() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
+        
+        RPicker.selectDate(title: "Select Time", cancelText: "Cancel", datePickerMode: .time, didSelectDate: { (selectedDate) in
+            // TODO: Your implementation for date
+            cell.txt_working_hour_from.text = selectedDate.dateString("hh:mm a")
+        })
+    }
+    
+    @objc func working_hour_to_click_method() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
+        
+        RPicker.selectDate(title: "Select Time", cancelText: "Cancel", datePickerMode: .time, didSelectDate: { (selectedDate) in
+            // TODO: Your implementation for date
+            cell.txt_working_hour_to.text = selectedDate.dateString("hh:mm a")
+        })
+    }
+    
 }
 
 extension set_location_hour: UITableViewDataSource , UITableViewDelegate {
@@ -73,6 +172,17 @@ extension set_location_hour: UITableViewDataSource , UITableViewDelegate {
         cell.txt_from_location.delegate = self
         cell.txt_to_location.delegate = self
         
+        if (self.str_location_type != "0") {
+            cell.txt_from_location.text = String(self.str_from_location)
+            cell.txt_to_location.text = String(self.str_to_location)
+        }
+        
+        cell.btn_working_hour_from.addTarget(self, action: #selector(working_hour_from_click_method), for: .touchUpInside)
+        cell.btn_working_hour_to.addTarget(self, action: #selector(working_hour_to_click_method), for: .touchUpInside)
+        
+        cell.btn_from_location.addTarget(self, action: #selector(from_location_click_method), for: .touchUpInside)
+        cell.btn_to_location.addTarget(self, action: #selector(to_location_click_method), for: .touchUpInside)
+        
         return cell
     }
     
@@ -89,6 +199,9 @@ extension set_location_hour: UITableViewDataSource , UITableViewDelegate {
 }
 
 class set_location_hour_table_cell: UITableViewCell {
+    
+    @IBOutlet weak var btn_from_location:UIButton!
+    @IBOutlet weak var btn_to_location:UIButton!
     
     @IBOutlet weak var txt_from_location:UITextField! {
         didSet {

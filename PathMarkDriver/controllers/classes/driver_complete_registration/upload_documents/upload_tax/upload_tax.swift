@@ -26,6 +26,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
     @IBOutlet weak var btn_back:UIButton! {
         didSet {
             btn_back.tintColor = .white
+            
         }
     }
     

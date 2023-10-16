@@ -81,7 +81,7 @@ class vehicle_list: UIViewController {
         
         print(self.arr_mut_list_of_category as Any)
         
-        var get_category_id:String!
+        var get_category_id:String! = "0"
         
         for indexx in 0..<self.arr_mut_list_of_category.count {
             
@@ -95,11 +95,16 @@ class vehicle_list: UIViewController {
             
         }
         
-        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "add_vehicle_details_id") as? add_vehicle_details
+        if String(get_category_id) != "0" {
+         
+            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "add_vehicle_details_id") as? add_vehicle_details
+            
+            push!.str_vehicle_category_id = String(get_category_id)
+            
+            self.navigationController?.pushViewController(push!, animated: true)
+            
+        }
         
-        push!.str_vehicle_category_id = String(get_category_id)
-        
-        self.navigationController?.pushViewController(push!, animated: true)
         
         
     }
