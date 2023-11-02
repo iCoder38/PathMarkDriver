@@ -67,6 +67,11 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         }
     }
     @IBOutlet weak var mapView:MKMapView!
+    
+    var str_switch_value:String!
+    
+    @IBOutlet weak var switch_value:UISwitch!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -83,9 +88,31 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
             
         }
         
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            if ("\(person["DriverOn"]!)" == "0") {
+                // false
+                self.str_switch_value = "0"
+                switch_value.isOn = false
+            } else {
+                // true
+                self.str_switch_value = "1"
+                switch_value.isOn = true
+            }
+        }
         
+        self.switch_value.addTarget(self, action: #selector(switch_click_method), for: .valueChanged)
+        
+        //
         // self.ride_end(str_show_loader: "yes")
          
+    }
+    
+    @objc func switch_click_method() {
+        print(self.switch_value.isOn)
+        
+        self.update_switch(str_show_loader: "yes")
     }
     
     @objc func iAmHereForLocationPermission() {
@@ -475,6 +502,159 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             
                             self.get_todays_earning_WB(str_show_loader: "no")
+                            
+                        } else {
+                            ERProgressHud.sharedInstance.hide()
+                        }
+                        
+                    }
+                    
+                case .failure(_):
+                    print("Error message:\(String(describing: response.error))")
+                    ERProgressHud.sharedInstance.hide()
+                    self.please_check_your_internet_connection()
+                    
+                    break
+                }
+            }
+        }
+        
+    }
+    
+    @objc func update_switch(str_show_loader:String) {
+       
+        if (str_show_loader == "yes") {
+            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        }
+        
+        if (self.switch_value.isOn == true) {
+            self.str_switch_value = "1"
+        } else {
+            self.str_switch_value = "0"
+        }
+        
+        self.view.endEditing(true)
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+                
+                parameters = [
+                    "action"    : "editprofile",
+                    "userId"    : String(myString),
+                    "DriverOn"  : String(self.str_switch_value),
+                    
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON {
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                        
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        var message : String!
+                        message = (JSON["msg"] as? String)
+                        
+                        print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            let defaults = UserDefaults.standard
+                            defaults.setValue(JSON["data"], forKey: str_save_login_user_data)
+                            
+                            ERProgressHud.sharedInstance.hide()
+                            
+                        } else if message == String(not_authorize_api) {
+                            self.login_refresh_token_for_update_switch_wb()
+                            
+                        } else {
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
+                    }
+                }
+            } else {
+                self.login_refresh_token_wb()
+            }
+        }
+    }
+        
+    
+    @objc func login_refresh_token_for_update_switch_wb() {
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
+            print(get_login_details as Any)
+            
+            parameters = [
+                "action"    : "login",
+                "email"     : (get_login_details["email"] as! String),
+                "password"  : (get_login_details["password"] as! String),
+            ]
+           
+            print("parameters-------\(String(describing: parameters))")
+            
+            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
+                response in
+                
+                switch(response.result) {
+                case .success(_):
+                    if let data = response.value {
+                        
+                        let JSON = data as! NSDictionary
+                        print(JSON)
+                        
+                        var strSuccess : String!
+                        strSuccess = JSON["status"] as? String
+                        
+                        if strSuccess.lowercased() == "success" {
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+
+                            self.update_switch(str_show_loader: "no")
                             
                         } else {
                             ERProgressHud.sharedInstance.hide()

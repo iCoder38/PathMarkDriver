@@ -3504,13 +3504,22 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="list.dash" catalog="system"/>
                                     </button>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OKK-Kr-EvJ">
+                                        <rect key="frame" x="336" y="53" width="49" height="31"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="47" id="8Cy-yn-gKH"/>
+                                            <constraint firstAttribute="height" constant="31" id="9e3-1G-dxz"/>
+                                        </constraints>
+                                    </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="OlM-Dw-37d" firstAttribute="leading" secondItem="iWT-23-Lr1" secondAttribute="leading" constant="8" id="Cxr-Zr-ai4"/>
+                                    <constraint firstItem="OKK-Kr-EvJ" firstAttribute="top" secondItem="iWT-23-Lr1" secondAttribute="top" constant="53" id="H5w-3c-PSl"/>
                                     <constraint firstAttribute="bottom" secondItem="OlM-Dw-37d" secondAttribute="bottom" constant="8" id="JJO-VM-ueg"/>
                                     <constraint firstItem="Jbq-C7-6V0" firstAttribute="leading" secondItem="iWT-23-Lr1" secondAttribute="leading" constant="42" id="TOo-EH-mmq"/>
                                     <constraint firstAttribute="bottom" secondItem="Jbq-C7-6V0" secondAttribute="bottom" constant="4" id="Tqz-A6-UWo"/>
+                                    <constraint firstAttribute="trailing" secondItem="OKK-Kr-EvJ" secondAttribute="trailing" constant="10" id="pXT-9Z-oq8"/>
                                     <constraint firstAttribute="height" constant="88" id="qhE-hm-xlm"/>
                                     <constraint firstAttribute="trailing" secondItem="Jbq-C7-6V0" secondAttribute="trailing" constant="42" id="zxQ-xK-VQT"/>
                                 </constraints>
@@ -3640,6 +3649,7 @@
                         <outlet property="btn_back" destination="OlM-Dw-37d" id="8eU-DQ-NTF"/>
                         <outlet property="lbl_total_price" destination="QC0-AE-I9O" id="X7P-9a-fNI"/>
                         <outlet property="mapView" destination="O3Q-fq-HhD" id="gWx-TM-GEh"/>
+                        <outlet property="switch_value" destination="OKK-Kr-EvJ" id="YCd-z0-Cgn"/>
                         <outlet property="view_big" destination="9dK-fW-3ln" id="Qbz-fn-pDj"/>
                         <outlet property="view_navigation_bar" destination="iWT-23-Lr1" id="Uvf-If-heQ"/>
                         <outlet property="view_navigation_title" destination="Jbq-C7-6V0" id="CIL-h1-7No"/>
