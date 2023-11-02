@@ -49,4 +49,6 @@ pod 'OTPFieldView'
 #pod 'CryptoSwift'
 pod 'JWTDecode', '~> 3.1'
  
+ pod 'RealTimePicker', '0.0.6'
+ 
 end

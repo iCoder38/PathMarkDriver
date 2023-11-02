@@ -846,6 +846,7 @@ PODS:
   - nanopb/encode (2.30909.0)
   - OTPFieldView (1.0.1)
   - PromisesObjC (2.2.0)
+  - RealTimePicker (0.0.6)
   - SDWebImage (5.16.0):
     - SDWebImage/Core (= 5.16.0)
   - SDWebImage/Core (5.16.0)
@@ -885,6 +886,7 @@ DEPENDENCIES:
   - GooglePlaces
   - JWTDecode (~> 3.1)
   - OTPFieldView
+  - RealTimePicker (= 0.0.6)
   - SDWebImage
   - Stripe
   - SwiftGifOrigin
@@ -921,6 +923,7 @@ SPEC REPOS:
     - nanopb
     - OTPFieldView
     - PromisesObjC
+    - RealTimePicker
     - SDWebImage
     - Stripe
     - StripeApplePay
@@ -961,6 +964,7 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   OTPFieldView: 700a752fe62c41d1c4914c78aa500fb30d97c255
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
+  RealTimePicker: 868a116f8f147849adc5e25cb3a1c4632884e0d7
   SDWebImage: 2aea163b50bfcb569a2726b6a754c54a4506fcf6
   Stripe: 58b4e0833be29ef08c5fd674edb94f2510430f35
   StripeApplePay: 0c20d16e4b769699a3e6ecfd208d94bbe4730bd1
@@ -971,6 +975,6 @@ SPEC CHECKSUMS:
   SwiftGifOrigin: fbd6cf37afcfcf97a5c3db996ddc0492e5c5c145
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 1db8fdc78db996eaeb423f0830aeceb91acbb07d
+PODFILE CHECKSUM: dd734efef41ed3f9148f3880803c5680f2adb340
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.13.0

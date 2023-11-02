@@ -48,13 +48,42 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
     var str_to_latitude:String!
     var str_to_longitude:String!
     
-    
+    /*
+     [action] => editProfile
+        [userId] => 71
+        [pickupAddress] => 9/1, Block C, Yojna Vihar, Anand Vihar, Ghaziabad, Uttar Pradesh 110092, India
+        [pickup_Latitude] => 28.6634564
+        [pickup_Longitude] => 77.3240168
+        [dropAddress] => G6HC+WWV, Sector 6, Pushp Vihar, New Delhi, Delhi 110017, India
+        [drop_Latitude] => 28.529733
+        [drop_Longitude] => 77.2223521
+        [Working_startDate] => 2023-11-02
+        [Working_endDate] => 2024-04-23
+        [Working_startTime] => 06:00
+        [Working_endTime] => 23:00
+     */
+    let timePicker = UIDatePicker()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.sideBarMenu()
+        
         self.tbleView.separatorColor = .clear
         
     }
     
+    @objc func sideBarMenu() {
+        
+        if revealViewController() != nil {
+            
+            btn_back.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+            
+            revealViewController().rearViewRevealWidth = 300
+            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            
+        }
+        
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -135,18 +164,35 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         
         RPicker.selectDate(title: "Select Time", cancelText: "Cancel", datePickerMode: .time, didSelectDate: { (selectedDate) in
             // TODO: Your implementation for date
-            cell.txt_working_hour_from.text = selectedDate.dateString("hh:mm a")
+            cell.txt_working_hour_from.text = selectedDate.dateString("hh:mm")
         })
     }
     
     @objc func working_hour_to_click_method() {
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
+        //
+        
+        /*timePicker.datePickerMode = UIDatePicker.Mode.time
+        timePicker.frame = CGRect(x: 0.0, y: (self.view.frame.height/2 + 60), width: self.view.frame.width, height: 150.0)
+        timePicker.backgroundColor = UIColor.white
+        self.view.addSubview(timePicker)
+        timePicker.addTarget(self, action: #selector(startTimeDiveChanged), for: .valueChanged)*/
         
         RPicker.selectDate(title: "Select Time", cancelText: "Cancel", datePickerMode: .time, didSelectDate: { (selectedDate) in
             // TODO: Your implementation for date
-            cell.txt_working_hour_to.text = selectedDate.dateString("hh:mm a")
+            cell.txt_working_hour_to.text = selectedDate.dateString("HH:MM")
         })
+    }
+    
+    @objc func startTimeDiveChanged(sender: UIDatePicker) {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
+        
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        cell.txt_working_hour_to.text = formatter.string(from: sender.date)
+        timePicker.removeFromSuperview() // if you want to remove time picker
     }
     
     @objc func working_time_from_click_method() {
@@ -154,9 +200,9 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
         
         RPicker.selectDate(title: "Select Date", minDate: Date(), maxDate: Date().dateByAddingYears(30), didSelectDate: { (selectedDate) in
-                // TODO: Your implementation for date
+            // TODO: Your implementation for date
             cell.txt_working_time_from.text = selectedDate.dateString("yyyy-MM-dd")
-            })
+        })
     }
     
     @objc func working_time_to_click_method() {
@@ -164,9 +210,9 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
         
         RPicker.selectDate(title: "Select Date", minDate: Date(), maxDate: Date().dateByAddingYears(30), didSelectDate: { (selectedDate) in
-                // TODO: Your implementation for date
+            // TODO: Your implementation for date
             cell.txt_working_time_to.text = selectedDate.dateString("yyyy-MM-dd")
-            })
+        })
     }
     
     
@@ -450,7 +496,7 @@ extension set_location_hour: UITableViewDataSource , UITableViewDelegate {
             cell.txt_to_location.text = String(self.str_to_location)
         }
         
-        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+        /*if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             print(person)
              
             self.str_to_longitude = (person["drop_Longitude"] as! String)
@@ -467,7 +513,7 @@ extension set_location_hour: UITableViewDataSource , UITableViewDelegate {
             
             cell.txt_working_time_from.text = (person["Working_startDate"] as! String)
             cell.txt_working_time_to.text = (person["Working_endDate"] as! String)
-        }
+        }*/
         
         
         cell.btn_working_hour_from.addTarget(self, action: #selector(working_hour_from_click_method), for: .touchUpInside)
