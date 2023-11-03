@@ -12,6 +12,8 @@ import Alamofire
 
 class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    var str_for_update:String!
+    
     var str_vehicle_category_id:String!
     
     var img_data_banner : Data!
@@ -49,6 +51,8 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
     override func viewDidLoad() {
         super.viewDidLoad()
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
+        
+        print(self.str_for_update as Any)
         
         print(self.str_vehicle_category_id as Any)
         // self.get_login_user_full_data()
@@ -91,9 +95,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             self.add_vehicle_WB(str_show_loader: "yes")
         }
         
-        
     }
-    
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         self.open_camera_gallery()
@@ -170,7 +172,6 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
         }
         
-        
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             
             let x : Int = person["userId"] as! Int
@@ -210,7 +211,6 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                         print("yes")
                         
                         self.get_login_user_full_data()
-                        
                         
                     } else if message == String(not_authorize_api) {
                         self.login_refresh_token_wb()

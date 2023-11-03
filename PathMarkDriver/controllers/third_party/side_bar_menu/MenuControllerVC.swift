@@ -79,7 +79,7 @@ class MenuControllerVC: UIViewController {
                             "Review and Rating",
                             "Cashout",
                             "Set Working Details",
-                            "Edit Car Details",
+                            "Update vehicle details",
                             "Update Documents",
                             "Change Password",
                             "About Us",
@@ -259,7 +259,7 @@ extension MenuControllerVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+        // if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
 
             if arr_driver_title [indexPath.row] == "Booking History" {
                 
@@ -313,6 +313,15 @@ extension MenuControllerVC: UITableViewDataSource {
             } else if arr_driver_title [indexPath.row] == "Set Working Details" {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "set_location_hour_id") as! set_location_hour
+                let navController = UINavigationController(rootViewController: obj)
+                navController.setViewControllers([obj], animated:true)
+                self.revealViewController().setFront(navController, animated: true)
+                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+                
+            } else if arr_driver_title [indexPath.row] == "Update vehicle details" {
+                
+                let obj = self.storyboard?.instantiateViewController(withIdentifier: "add_vehicle_details_id") as! add_vehicle_details
+                obj.str_for_update = "yes"
                 let navController = UINavigationController(rootViewController: obj)
                 navController.setViewControllers([obj], animated:true)
                 self.revealViewController().setFront(navController, animated: true)
@@ -431,7 +440,7 @@ extension MenuControllerVC: UITableViewDataSource {
              
              }
              */
-        }
+        // }
     }
     
     @objc func validation_before_logout() {

@@ -101,6 +101,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
                     if (item!["carNumber"] as! String) == "" {
                         
                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "add_vehicle_details_id") as! add_vehicle_details
+                        push.str_for_update = "no"
                         self.navigationController?.pushViewController(push, animated: true)
                         
                     } else if (person["drivingLicenceNo"] as! String) == "" {

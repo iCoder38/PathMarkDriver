@@ -99,6 +99,7 @@ class vehicle_list: UIViewController {
          
             let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "add_vehicle_details_id") as? add_vehicle_details
             
+            push!.str_for_update = "no"
             push!.str_vehicle_category_id = String(get_category_id)
             
             self.navigationController?.pushViewController(push!, animated: true)
