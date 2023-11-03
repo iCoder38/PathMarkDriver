@@ -81,8 +81,8 @@ class MenuControllerVC: UIViewController {
                             "Set Working Details",
                             "Update vehicle details",
                             "Update Documents",
-                            "Change Password",
                             "About Us",
+                            "Change Password",
                             "Privacy Policy",
                             "Terms and Condition",
                             "FAQs",
@@ -327,6 +327,23 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                 
+            } else if arr_driver_title [indexPath.row] == "Update Documents" {
+                
+                let obj = self.storyboard?.instantiateViewController(withIdentifier: "upload_documents_id") as! upload_documents
+                 obj.str_for_update = "yes"
+                let navController = UINavigationController(rootViewController: obj)
+                navController.setViewControllers([obj], animated:true)
+                self.revealViewController().setFront(navController, animated: true)
+                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+                 
+            } else if arr_driver_title [indexPath.row] == "About Us" {
+                
+                let obj = self.storyboard?.instantiateViewController(withIdentifier: "about_us_id") as! about_us
+                let navController = UINavigationController(rootViewController: obj)
+                navController.setViewControllers([obj], animated:true)
+                self.revealViewController().setFront(navController, animated: true)
+                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+                 
             } else if arr_driver_title [indexPath.row] == "Logout" {
                 
                 self.validation_before_logout()

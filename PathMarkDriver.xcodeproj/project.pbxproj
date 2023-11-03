@@ -80,6 +80,7 @@
 		B9ACC43B2A67C100000A4530 /* upload_vehicle_insurance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACC43A2A67C100000A4530 /* upload_vehicle_insurance.swift */; };
 		B9ACC43E2A680AFF000A4530 /* upload_reg_permit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACC43D2A680AFF000A4530 /* upload_reg_permit.swift */; };
 		B9C29A922ADD20AE00574A94 /* map_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C29A912ADD20AE00574A94 /* map_view.swift */; };
+		B9D834592AF53547003884D9 /* about_us.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D834582AF53547003884D9 /* about_us.swift */; };
 		B9DAF6F32AD446DD00739122 /* upload_vehicle_reg_document.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */; };
 		B9E1B4322A84FD500060DCAF /* instant_booking_accept_decline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4312A84FD500060DCAF /* instant_booking_accept_decline.swift */; };
 		B9E1B4352A85052D0060DCAF /* after_accept_request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4342A85052D0060DCAF /* after_accept_request.swift */; };
@@ -198,6 +199,7 @@
 		B9ACC43A2A67C100000A4530 /* upload_vehicle_insurance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_insurance.swift; sourceTree = "<group>"; };
 		B9ACC43D2A680AFF000A4530 /* upload_reg_permit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_reg_permit.swift; sourceTree = "<group>"; };
 		B9C29A912ADD20AE00574A94 /* map_view.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = map_view.swift; sourceTree = "<group>"; };
+		B9D834582AF53547003884D9 /* about_us.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = about_us.swift; sourceTree = "<group>"; };
 		B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_reg_document.swift; sourceTree = "<group>"; };
 		B9E1B4312A84FD500060DCAF /* instant_booking_accept_decline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = instant_booking_accept_decline.swift; sourceTree = "<group>"; };
 		B9E1B4342A85052D0060DCAF /* after_accept_request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = after_accept_request.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 		B9852DD92A651EEA008244F3 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				B9D834572AF53520003884D9 /* about_zarib */,
 				B9C29A902ADD20A000574A94 /* search_map_location */,
 				B9852DD32A651B8E008244F3 /* login */,
 				B9852DD62A651B9D008244F3 /* sign_up */,
@@ -629,6 +632,14 @@
 				B9C29A912ADD20AE00574A94 /* map_view.swift */,
 			);
 			path = search_map_location;
+			sourceTree = "<group>";
+		};
+		B9D834572AF53520003884D9 /* about_zarib */ = {
+			isa = PBXGroup;
+			children = (
+				B9D834582AF53547003884D9 /* about_us.swift */,
+			);
+			path = about_zarib;
 			sourceTree = "<group>";
 		};
 		B9DAF6F12AD446A900739122 /* upload_veh_reg_document */ = {
@@ -1073,6 +1084,7 @@
 				B9852DDC2A651F0D008244F3 /* verify_phone_number.swift in Sources */,
 				B9852DA02A651AF9008244F3 /* ERProgressHud.swift in Sources */,
 				B9852D522A651884008244F3 /* AppDelegate.swift in Sources */,
+				B9D834592AF53547003884D9 /* about_us.swift in Sources */,
 				B98988FB2A861354003B1BD3 /* set_location_hour.swift in Sources */,
 				B9ACC43B2A67C100000A4530 /* upload_vehicle_insurance.swift in Sources */,
 				B9E1B4322A84FD500060DCAF /* instant_booking_accept_decline.swift in Sources */,

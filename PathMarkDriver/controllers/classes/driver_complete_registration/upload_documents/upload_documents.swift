@@ -12,6 +12,8 @@ import Alamofire
 
 class upload_documents: UIViewController {
     
+    var str_for_update:String!
+    
     var str_driving_license:String! = "0"
     var str_vehicle_insurance:String! = "0"
     var str_vehicle_registration_permit:String! = "0"
@@ -48,10 +50,10 @@ class upload_documents: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.btn_back.isHidden = true
+        
         self.tbleView.separatorColor = .clear
         
-        self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
+        
         
     }
     
@@ -163,7 +165,17 @@ class upload_documents: UIViewController {
         
         if (sum == 5) {
             ERProgressHud.sharedInstance.hide()
-            self.push_to_success()
+            if (self.str_for_update != "yes") {
+                self.push_to_success()
+                
+                self.btn_back.isHidden = true
+                self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
+            } else {
+                self.sideBarMenu()
+                self.btn_back.isHidden = false
+                
+            }
+            
         } else {
             //
             ERProgressHud.sharedInstance.hide()
@@ -171,6 +183,16 @@ class upload_documents: UIViewController {
         }
         
  
+    }
+    
+    @objc func sideBarMenu() {
+        
+        if revealViewController() != nil {
+            self.btn_back.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+        
+            revealViewController().rearViewRevealWidth = 300
+            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+          }
     }
     
     @objc func push_to_success() {
@@ -850,8 +872,6 @@ extension upload_documents: UITableViewDataSource  , UITableViewDelegate {
             
             
         }
-        
-        
         
     }
     

@@ -107,21 +107,25 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
                     } else if (person["drivingLicenceNo"] as! String) == "" {
                         
                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_documents_id") as! upload_documents
+                        push.str_for_update = "no"
                         self.navigationController?.pushViewController(push, animated: true)
                         
                     }  else if (item!["insurenceissueDate"] as! String) == "" {
                         
                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_documents_id") as! upload_documents
+                        push.str_for_update = "no"
                         self.navigationController?.pushViewController(push, animated: true)
                         
                     }  else if (item!["vehiclePermitIsssuesDate"] as! String) == "" {
                         
                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_documents_id") as! upload_documents
+                        push.str_for_update = "no"
                         self.navigationController?.pushViewController(push, animated: true)
                         
                     }  else if (item!["taxTokenImage"] as! String) == "" {
                         
                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_documents_id") as! upload_documents
+                        push.str_for_update = "no"
                         self.navigationController?.pushViewController(push, animated: true)
                         
                     } else {

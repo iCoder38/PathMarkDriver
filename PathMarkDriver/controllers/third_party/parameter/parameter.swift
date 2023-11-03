@@ -68,6 +68,20 @@ struct payload_vehicle_list: Encodable {
     let TYPE :String
 }
 
+// edit
+struct payload_edit_vehicle_details: Encodable {
+    let action :String
+    let userId :String
+    let carinformationId:String
+    // let categoryId :String
+    let carNumber :String
+    let carModel :String
+    let carYear :String
+    let carColor :String
+    let carBrand :String
+}
+
+// add
 struct payload_add_vehicle_details: Encodable {
     let action :String
     let userId :String

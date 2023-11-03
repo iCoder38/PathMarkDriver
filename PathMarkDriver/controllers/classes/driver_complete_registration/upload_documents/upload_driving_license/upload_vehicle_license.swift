@@ -47,6 +47,8 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         self.tbleView.reloadData()
         
