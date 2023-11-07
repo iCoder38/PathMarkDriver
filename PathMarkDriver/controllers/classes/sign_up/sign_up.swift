@@ -200,6 +200,26 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
             return
             
+        }  else if (cell.txt_confirm_password.text! == "") {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter confirm password"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
+            return
+            
+        }  else if (cell.txt_confirm_password.text! != cell.txtPassword.text!) {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Password not matched"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
+            return
+            
         } else if (cell.txt_country.text! == "") {
             
             let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter country name"), style: .alert)
@@ -362,8 +382,6 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: swiftArray, selectedIndex: 0) { (selctedText, atIndex) in
                 cell.txt_country.text = String(selctedText)
                 
-                
-                
                 //
                 for indexx in 0..<self.arr_country_array.count {
                     
@@ -405,6 +423,38 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         return true
     }
     
+    @objc func eye_one_click_method() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
+        
+        if (cell.btn_eyes_one.tag == 0) {
+            cell.btn_eyes_one.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+            cell.txtPassword.isSecureTextEntry = true
+            cell.btn_eyes_one.tag = 1
+        } else {
+            cell.btn_eyes_one.setImage(UIImage(systemName: "eye"), for: .normal)
+            cell.txtPassword.isSecureTextEntry = false
+            cell.btn_eyes_one.tag = 0
+        }
+        
+    }
+    
+    @objc func eye_two_click_method() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
+        
+        if (cell.btn_eyes_two.tag == 0) {
+            cell.btn_eyes_two.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+            cell.txt_confirm_password.isSecureTextEntry = true
+            cell.btn_eyes_two.tag = 1
+        } else {
+            cell.btn_eyes_two.setImage(UIImage(systemName: "eye"), for: .normal)
+            cell.txt_confirm_password.isSecureTextEntry = false
+            cell.btn_eyes_two.tag = 0
+        }
+        
+    }
+    
 }
 
 extension sign_up: UITableViewDataSource  , UITableViewDelegate {
@@ -438,6 +488,9 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         cell.btnSignUp.addTarget(self, action: #selector(sign_up_click_method), for: .touchUpInside)
         
         cell.btn_country.addTarget(self, action: #selector(before_open_popup), for: .touchUpInside)
+        
+        cell.btn_eyes_one.addTarget(self, action: #selector(eye_one_click_method), for: .touchUpInside)
+        cell.btn_eyes_two.addTarget(self, action: #selector(eye_two_click_method), for: .touchUpInside)
         
         return cell
     }
@@ -599,6 +652,28 @@ class sign_up_table_cell: UITableViewCell {
             txtPassword.layer.shadowOffset =  CGSize.zero
             txtPassword.layer.shadowOpacity = 0.5
             txtPassword.layer.shadowRadius = 2
+            
+        }
+    }
+    
+    @IBOutlet weak var txt_confirm_password:UITextField! {
+        didSet {
+            Utils.textFieldUI(textField: txt_confirm_password,
+                              tfName: txt_confirm_password.text!,
+                              tfCornerRadius: 12,
+                              tfpadding: 20,
+                              tfBorderWidth: 0,
+                              tfBorderColor: .clear,
+                              tfAppearance: .dark,
+                              tfKeyboardType: .default,
+                              tfBackgroundColor: .white,
+                              tfPlaceholderText: "Confirm Password")
+            
+            txt_confirm_password.layer.masksToBounds = false
+            txt_confirm_password.layer.shadowColor = UIColor.black.cgColor
+            txt_confirm_password.layer.shadowOffset =  CGSize.zero
+            txt_confirm_password.layer.shadowOpacity = 0.5
+            txt_confirm_password.layer.shadowRadius = 2
             
         }
     }
@@ -789,7 +864,23 @@ class sign_up_table_cell: UITableViewCell {
     
     @IBOutlet weak var btnDontHaveAnAccount:UIButton! {
         didSet {
-            Utils.buttonStyle(button: btnDontHaveAnAccount, bCornerRadius: 6, bBackgroundColor: .clear, bTitle: "Don't have an Account - Sign Up", bTitleColor: UIColor(red: 87.0/255.0, green: 77.0/255.0, blue: 112.0/255.0, alpha: 1))
+            Utils.buttonStyle(button: btnDontHaveAnAccount,
+                              bCornerRadius: 6,
+                              bBackgroundColor: .clear,
+                              bTitle: "Don't have an Account - Sign Up", bTitleColor: UIColor(red: 87.0/255.0, green: 77.0/255.0, blue: 112.0/255.0, alpha: 1))
+        }
+    }
+    
+    @IBOutlet weak var btn_eyes_one:UIButton! {
+        didSet {
+            btn_eyes_one.tag = 0
+            btn_eyes_one.setImage(UIImage(systemName: "eye"), for: .normal)
+        }
+    }
+    @IBOutlet weak var btn_eyes_two:UIButton! {
+        didSet {
+            btn_eyes_two.tag = 0
+            btn_eyes_two.setImage(UIImage(systemName: "eye"), for: .normal)
         }
     }
     

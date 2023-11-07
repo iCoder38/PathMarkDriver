@@ -459,8 +459,6 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
             RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: swiftArray, selectedIndex: 0) { (selctedText, atIndex) in
                 cell.txt_country.text = String(selctedText)
                 
-                
-                
                 //
                 for indexx in 0..<self.arr_country_array.count {
                     
@@ -473,13 +471,8 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                     }
                     
                 }
-                
-                
             }
-            
         }
-       
-        
     }
 
     

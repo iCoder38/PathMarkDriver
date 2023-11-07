@@ -549,50 +549,7 @@
                                                     </constraints>
                                                     <color key="tintColor" red="0.58450383979999998" green="0.65720130210000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="lock" catalog="system"/>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oub-Gh-xoI">
-                                                    <rect key="frame" x="20" y="660" width="34" height="34"/>
-                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="34" id="Msd-Np-Lig"/>
-                                                        <constraint firstAttribute="height" constant="34" id="jtJ-HA-ehm"/>
-                                                    </constraints>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpG-iF-a9C">
-                                                    <rect key="frame" x="20" y="706" width="353" height="60"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="60" id="u6O-Y6-VCW"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Sign In">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngI-0b-fNl">
-                                                    <rect key="frame" x="62" y="660" width="164" height="34"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="34" id="5se-IJ-whF"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Terms &amp; Conditions.">
-                                                        <color key="titleColor" systemColor="tintColor"/>
-                                                    </state>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YzL-c9-Rwk">
-                                                    <rect key="frame" x="263" y="660" width="110" height="34"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="110" id="BkS-t8-65D"/>
-                                                        <constraint firstAttribute="height" constant="34" id="gRe-zH-di7"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" title="Disclaimer">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
+                                                    <state key="normal" image="eye.slash" catalog="system"/>
                                                 </button>
                                                 <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qFP-4p-I0k">
                                                     <rect key="frame" x="20" y="452" width="353" height="60"/>
@@ -613,10 +570,72 @@
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <state key="normal" image="person.crop.square.filled.and.at.rectangle" catalog="system"/>
                                                 </button>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YYr-vV-D4U">
+                                                    <rect key="frame" x="20" y="656" width="353" height="60"/>
+                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="fYl-0r-GkX"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GsJ-uw-fZO">
+                                                    <rect key="frame" x="325" y="668" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="CDa-Ag-eda"/>
+                                                        <constraint firstAttribute="height" constant="36" id="N1D-d7-P48"/>
+                                                    </constraints>
+                                                    <color key="tintColor" red="0.58450383979999998" green="0.65720130210000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" image="eye" catalog="system"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oub-Gh-xoI">
+                                                    <rect key="frame" x="20" y="724" width="34" height="34"/>
+                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="34" id="Msd-Np-Lig"/>
+                                                        <constraint firstAttribute="height" constant="34" id="jtJ-HA-ehm"/>
+                                                    </constraints>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vpG-iF-a9C">
+                                                    <rect key="frame" x="20" y="770" width="353" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="u6O-Y6-VCW"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="18"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="Sign In">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ngI-0b-fNl">
+                                                    <rect key="frame" x="62" y="724" width="164" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="34" id="5se-IJ-whF"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="Terms &amp; Conditions.">
+                                                        <color key="titleColor" systemColor="tintColor"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YzL-c9-Rwk">
+                                                    <rect key="frame" x="263" y="724" width="110" height="34"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="110" id="BkS-t8-65D"/>
+                                                        <constraint firstAttribute="height" constant="34" id="gRe-zH-di7"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="Disclaimer">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="XQl-9A-Yel" firstAttribute="leading" secondItem="9Bg-wK-HxP" secondAttribute="leadingMargin" id="2hz-Wh-CfD"/>
-                                                <constraint firstItem="YzL-c9-Rwk" firstAttribute="top" secondItem="W8Q-Qq-0GL" secondAttribute="bottom" constant="12" id="3NC-M7-CPb"/>
+                                                <constraint firstItem="YzL-c9-Rwk" firstAttribute="top" secondItem="W8Q-Qq-0GL" secondAttribute="bottom" constant="76" id="3NC-M7-CPb"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="yJY-ci-WGk" secondAttribute="trailing" constant="12" id="8eZ-VT-hnf"/>
                                                 <constraint firstItem="5uF-Gl-XpA" firstAttribute="trailing" secondItem="9Bg-wK-HxP" secondAttribute="trailingMargin" constant="20" id="ATa-Re-ktz"/>
                                                 <constraint firstItem="vpG-iF-a9C" firstAttribute="top" secondItem="Oub-Gh-xoI" secondAttribute="bottom" constant="12" id="Awj-zN-P7a"/>
@@ -629,16 +648,19 @@
                                                 <constraint firstItem="f8n-gc-hPT" firstAttribute="trailing" secondItem="9Bg-wK-HxP" secondAttribute="trailingMargin" id="J88-PP-kvL"/>
                                                 <constraint firstItem="W8Q-Qq-0GL" firstAttribute="top" secondItem="f8n-gc-hPT" secondAttribute="bottom" constant="8" symbolic="YES" id="Jq1-vv-lCP"/>
                                                 <constraint firstItem="5Wr-Tp-3M9" firstAttribute="top" secondItem="CMb-V8-OtB" secondAttribute="bottom" constant="20" id="KPB-lY-rh3"/>
-                                                <constraint firstItem="ngI-0b-fNl" firstAttribute="top" secondItem="W8Q-Qq-0GL" secondAttribute="bottom" constant="12" id="KoZ-EO-Y7k"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="GsJ-uw-fZO" secondAttribute="trailing" constant="12" id="Kgp-ld-o1N"/>
+                                                <constraint firstItem="ngI-0b-fNl" firstAttribute="top" secondItem="W8Q-Qq-0GL" secondAttribute="bottom" constant="76" id="KoZ-EO-Y7k"/>
                                                 <constraint firstItem="sdE-WI-Vq6" firstAttribute="top" secondItem="5uF-Gl-XpA" secondAttribute="bottom" constant="32" id="L3S-66-0EE"/>
                                                 <constraint firstItem="f8n-gc-hPT" firstAttribute="leading" secondItem="9Bg-wK-HxP" secondAttribute="leadingMargin" id="Lbo-qP-f5K"/>
                                                 <constraint firstItem="CMb-V8-OtB" firstAttribute="top" secondItem="5uF-Gl-XpA" secondAttribute="bottom" constant="20" id="MT6-PJ-oS3"/>
-                                                <constraint firstItem="Oub-Gh-xoI" firstAttribute="top" secondItem="W8Q-Qq-0GL" secondAttribute="bottom" constant="12" id="Me7-1s-OPw"/>
+                                                <constraint firstItem="Oub-Gh-xoI" firstAttribute="top" secondItem="W8Q-Qq-0GL" secondAttribute="bottom" constant="76" id="Me7-1s-OPw"/>
                                                 <constraint firstItem="CMb-V8-OtB" firstAttribute="trailing" secondItem="9Bg-wK-HxP" secondAttribute="trailingMargin" id="OKF-7m-m7k"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="sdE-WI-Vq6" secondAttribute="trailing" constant="12" id="OYN-sW-wGD"/>
+                                                <constraint firstItem="YYr-vV-D4U" firstAttribute="top" secondItem="W8Q-Qq-0GL" secondAttribute="bottom" constant="8" symbolic="YES" id="OxQ-8d-nnT"/>
                                                 <constraint firstItem="f8n-gc-hPT" firstAttribute="top" secondItem="Lpe-1J-QYO" secondAttribute="bottom" constant="76" id="PcP-ja-cNO"/>
                                                 <constraint firstItem="BIL-1a-0VS" firstAttribute="trailing" secondItem="9Bg-wK-HxP" secondAttribute="trailingMargin" id="Pym-4o-lGl"/>
                                                 <constraint firstItem="DSx-Lb-bjd" firstAttribute="trailing" secondItem="9Bg-wK-HxP" secondAttribute="trailingMargin" id="QjI-1k-AID"/>
+                                                <constraint firstItem="YYr-vV-D4U" firstAttribute="leading" secondItem="9Bg-wK-HxP" secondAttribute="leadingMargin" id="V4t-Ne-Mah"/>
                                                 <constraint firstItem="DSx-Lb-bjd" firstAttribute="leading" secondItem="9Bg-wK-HxP" secondAttribute="leadingMargin" id="WAf-Nn-UPb"/>
                                                 <constraint firstItem="ngI-0b-fNl" firstAttribute="leading" secondItem="Oub-Gh-xoI" secondAttribute="trailing" constant="8" symbolic="YES" id="XPj-rF-BWr"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="xVR-Mo-Gii" secondAttribute="trailing" constant="12" id="YAO-AX-Cf4"/>
@@ -648,6 +670,7 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="5Wr-Tp-3M9" secondAttribute="trailing" constant="12" id="aRk-EA-wTP"/>
                                                 <constraint firstItem="5uF-Gl-XpA" firstAttribute="leading" secondItem="9Bg-wK-HxP" secondAttribute="leadingMargin" constant="-20" id="bH0-ba-QjL"/>
                                                 <constraint firstItem="VlV-wS-7EX" firstAttribute="top" secondItem="qAN-Pl-2Hu" secondAttribute="bottom" constant="88" id="bno-gw-czR"/>
+                                                <constraint firstItem="GsJ-uw-fZO" firstAttribute="top" secondItem="W8Q-Qq-0GL" secondAttribute="bottom" constant="20" id="bv4-Ut-79M"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="fS2-UY-n9B" secondAttribute="trailing" constant="12" id="chR-Ea-Z6t"/>
                                                 <constraint firstItem="XQl-9A-Yel" firstAttribute="top" secondItem="DSx-Lb-bjd" secondAttribute="bottom" constant="8" symbolic="YES" id="cqD-D5-9vh"/>
                                                 <constraint firstItem="YzL-c9-Rwk" firstAttribute="trailing" secondItem="9Bg-wK-HxP" secondAttribute="trailingMargin" id="d8L-85-S4T"/>
@@ -656,6 +679,7 @@
                                                 <constraint firstItem="eEj-qP-JQ9" firstAttribute="top" secondItem="f8n-gc-hPT" secondAttribute="bottom" constant="20" id="fQC-hS-SkX"/>
                                                 <constraint firstItem="CMb-V8-OtB" firstAttribute="leading" secondItem="9Bg-wK-HxP" secondAttribute="leadingMargin" id="hmt-lj-uLz"/>
                                                 <constraint firstItem="BIL-1a-0VS" firstAttribute="top" secondItem="qAN-Pl-2Hu" secondAttribute="bottom" constant="8" symbolic="YES" id="ho4-DN-Jrc"/>
+                                                <constraint firstItem="YYr-vV-D4U" firstAttribute="trailing" secondItem="9Bg-wK-HxP" secondAttribute="trailingMargin" id="kYM-ng-aAg"/>
                                                 <constraint firstItem="qAN-Pl-2Hu" firstAttribute="leading" secondItem="9Bg-wK-HxP" secondAttribute="leadingMargin" id="ngq-pb-Prh"/>
                                                 <constraint firstItem="Lpe-1J-QYO" firstAttribute="top" secondItem="5Wr-Tp-3M9" secondAttribute="bottom" constant="88" id="oqr-dY-01x"/>
                                                 <constraint firstItem="qAN-Pl-2Hu" firstAttribute="trailing" secondItem="9Bg-wK-HxP" secondAttribute="trailingMargin" id="p6R-w2-v8z"/>
@@ -674,12 +698,15 @@
                                             <outlet property="btn_accept_terms" destination="Oub-Gh-xoI" id="ys1-fy-2yQ"/>
                                             <outlet property="btn_country" destination="BIL-1a-0VS" id="9an-3t-bkr"/>
                                             <outlet property="btn_disclaimer" destination="YzL-c9-Rwk" id="BoQ-gF-04A"/>
+                                            <outlet property="btn_eyes_one" destination="eEj-qP-JQ9" id="R79-md-83I"/>
+                                            <outlet property="btn_eyes_two" destination="GsJ-uw-fZO" id="N6I-YR-A6g"/>
                                             <outlet property="header_full_view_navigation_bar" destination="5uF-Gl-XpA" id="f4w-ww-6Hr"/>
                                             <outlet property="header_half_view_navigation_bar" destination="0Hi-eU-K6o" id="nWX-pr-5dL"/>
                                             <outlet property="img_upload" destination="GRe-wJ-CJz" id="wYe-gl-U4N"/>
                                             <outlet property="txtEmailAddress" destination="qAN-Pl-2Hu" id="YLE-nM-3cL"/>
                                             <outlet property="txtPassword" destination="W8Q-Qq-0GL" id="NEx-Eo-1tN"/>
                                             <outlet property="txt_address" destination="f8n-gc-hPT" id="ong-d4-KwG"/>
+                                            <outlet property="txt_confirm_password" destination="YYr-vV-D4U" id="oED-Pw-924"/>
                                             <outlet property="txt_country" destination="DSx-Lb-bjd" id="DaG-r3-QNU"/>
                                             <outlet property="txt_full_name" destination="CMb-V8-OtB" id="6Ub-uG-EAS"/>
                                             <outlet property="txt_nid_number" destination="qFP-4p-I0k" id="0Ib-Ku-rOt"/>
@@ -975,8 +1002,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s97-Kb-Z9G">
-                                                    <rect key="frame" x="20" y="14" width="22" height="22"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollarsign.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="s97-Kb-Z9G">
+                                                    <rect key="frame" x="20" y="14.999999999999998" width="22" height="20.666666666666664"/>
                                                     <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="3JA-6V-Xez"/>
@@ -9618,7 +9645,10 @@
         <image name="clock" width="21.333333969116211" height="21.333333969116211"/>
         <image name="destination_mark" width="21" height="100"/>
         <image name="distance" width="128" height="128"/>
+        <image name="dollarsign.circle" catalog="system" width="128" height="123"/>
         <image name="envelope" catalog="system" width="128" height="85"/>
+        <image name="eye" catalog="system" width="128" height="79"/>
+        <image name="eye.slash" catalog="system" width="128" height="95"/>
         <image name="facebook" width="24" height="24"/>
         <image name="gear" catalog="system" width="128" height="122"/>
         <image name="globe" catalog="system" width="128" height="123"/>

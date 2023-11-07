@@ -119,6 +119,7 @@ class MenuControllerVC: UIViewController {
         
         self.arr_driver_title = [String(self.str_menu_title_home),
                                  String(self.str_menu_title_edit_profile),
+                                 String(self.str_menu_title_booking_history),
                                  String(self.str_menu_title_earnings),
                                  String(self.str_menu_title_review),
                                  String(self.str_menu_title_cashout),
@@ -136,6 +137,7 @@ class MenuControllerVC: UIViewController {
         ]
         
         self.arr_driver_image = ["home",
+                                 "doc",
                                  "doc",
                                  "cashbout",
                                  "rating",
