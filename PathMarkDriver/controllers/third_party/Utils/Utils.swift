@@ -102,6 +102,22 @@ let booking_order_details = "Booking details"
 let send_tracking_path_to_real_time = "mode/driver/tracking/India/private_track"
 /******************************************/
 
+/*extension String {
+    var htmlAttributedString: NSAttributedString? {
+        do {
+            return try NSAttributedString(data: Data(utf8), options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType, NSCharacterEncodingDocumentAttribute: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            print("error:", error)
+            return nil
+        }
+    }
+    var htmlString: String {
+        return htmlAttributedString?.string ?? ""
+
+}*/
+    
+var str_bangladesh_currency_symbol = "৳ "
+
 class Utils: NSObject {
     
     

@@ -28,7 +28,7 @@ class faq: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "FAQ"
+            view_navigation_title.text = "FAQ(s)"
             view_navigation_title.textColor = .white
         }
     }
@@ -236,7 +236,7 @@ extension faq: UITableViewDataSource , UITableViewDelegate {
         let item = self.arr_faq[indexPath.row] as? [String:Any]
         
         cell.lbl_title.text = (item!["question"] as! String)
-        cell.lbl_sub_title.text = (item!["answer"] as! String)
+        cell.lbl_sub_title.text = (item!["answer"] as! String).html2String
         
         return cell
         
@@ -294,4 +294,25 @@ class faq_table_cell: UITableViewCell {
     @IBOutlet weak var lbl_sub_title:UILabel!
     @IBOutlet weak var btn_arrow:UIButton!
     
+}
+
+extension Data {
+    var html2AttributedString: NSAttributedString? {
+        do {
+            return try NSAttributedString(data: self, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            print("error:", error)
+            return  nil
+        }
+    }
+    var html2String: String { html2AttributedString?.string ?? "" }
+}
+
+extension StringProtocol {
+    var html2AttributedString: NSAttributedString? {
+        Data(utf8).html2AttributedString
+    }
+    var html2String: String {
+        html2AttributedString?.string ?? ""
+    }
 }

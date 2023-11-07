@@ -12,6 +12,7 @@ class help: UIViewController {
     @IBOutlet weak var btn_back:UIButton! {
         didSet {
             btn_back.tintColor = .white
+            btn_back.isUserInteractionEnabled = true
         }
     }
     
@@ -31,6 +32,19 @@ class help: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.sideBarMenu()
     }
 
+    @objc func sideBarMenu() {
+        
+        if revealViewController() != nil {
+            
+            self.btn_back.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+            revealViewController().rearViewRevealWidth = 300
+            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            
+        }
+        
+    }
+    
 }

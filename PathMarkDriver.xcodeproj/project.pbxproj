@@ -13,6 +13,7 @@
 		B9325D012AA9B9E400DEA0A5 /* upload_tax.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9325D002AA9B9E400DEA0A5 /* upload_tax.swift */; };
 		B93E4FF82AA9A9E400C5F918 /* rating_review.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93E4FF72AA9A9E400C5F918 /* rating_review.swift */; };
 		B9457D1F2A977AE800C39F66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9457D1E2A977AE800C39F66 /* GoogleService-Info.plist */; };
+		B94CC3562AFA135000453626 /* cashout_history.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CC3552AFA135000453626 /* cashout_history.swift */; };
 		B9514E1B2AA88F65005EDF39 /* ride_history_details.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9514E1A2AA88F65005EDF39 /* ride_history_details.swift */; };
 		B9514E1D2AA8909E005EDF39 /* double-check.gif in Resources */ = {isa = PBXBuildFile; fileRef = B9514E1C2AA8909E005EDF39 /* double-check.gif */; };
 		B9514E202AA8A018005EDF39 /* success.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9514E1F2AA8A018005EDF39 /* success.swift */; };
@@ -88,6 +89,7 @@
 		B9E1B43B2A8509DD0060DCAF /* ride_complete.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B43A2A8509DD0060DCAF /* ride_complete.swift */; };
 		B9E1B43F2A850E4B0060DCAF /* custom_alert_show.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B43E2A850E4B0060DCAF /* custom_alert_show.swift */; };
 		B9E1B4422A85159C0060DCAF /* ride_invoice_details.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4412A85159C0060DCAF /* ride_invoice_details.swift */; };
+		B9E713B52AF8F60B007CC10E /* cashout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E713B42AF8F60B007CC10E /* cashout.swift */; };
 		B9FE3F1E2A666069009A2E5C /* loading_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = B9FE3F1D2A666069009A2E5C /* loading_gif.gif */; };
 		B9FE3F212A666FB1009A2E5C /* upload_vehicle_license.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FE3F202A666FB1009A2E5C /* upload_vehicle_license.swift */; };
 		D9BEA99E23D57AE1483B2493 /* Pods_PathMarkDriver_PathMarkDriverUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6FF3D20FD9F81B60841AC1C /* Pods_PathMarkDriver_PathMarkDriverUITests.framework */; };
@@ -123,6 +125,7 @@
 		B93E4FF72AA9A9E400C5F918 /* rating_review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rating_review.swift; sourceTree = "<group>"; };
 		B9457D1D2A97796B00C39F66 /* PathMarkDriver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PathMarkDriver.entitlements; sourceTree = "<group>"; };
 		B9457D1E2A977AE800C39F66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B94CC3552AFA135000453626 /* cashout_history.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cashout_history.swift; sourceTree = "<group>"; };
 		B9514E1A2AA88F65005EDF39 /* ride_history_details.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ride_history_details.swift; sourceTree = "<group>"; };
 		B9514E1C2AA8909E005EDF39 /* double-check.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "double-check.gif"; sourceTree = "<group>"; };
 		B9514E1F2AA8A018005EDF39 /* success.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = success.swift; sourceTree = "<group>"; };
@@ -207,6 +210,7 @@
 		B9E1B43A2A8509DD0060DCAF /* ride_complete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ride_complete.swift; sourceTree = "<group>"; };
 		B9E1B43E2A850E4B0060DCAF /* custom_alert_show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = custom_alert_show.swift; sourceTree = "<group>"; };
 		B9E1B4412A85159C0060DCAF /* ride_invoice_details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ride_invoice_details.swift; sourceTree = "<group>"; };
+		B9E713B42AF8F60B007CC10E /* cashout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cashout.swift; sourceTree = "<group>"; };
 		B9FE3F1D2A666069009A2E5C /* loading_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_gif.gif; sourceTree = "<group>"; };
 		B9FE3F202A666FB1009A2E5C /* upload_vehicle_license.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_license.swift; sourceTree = "<group>"; };
 		D6FF3D20FD9F81B60841AC1C /* Pods_PathMarkDriver_PathMarkDriverUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PathMarkDriver_PathMarkDriverUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,6 +259,14 @@
 				B93E4FF72AA9A9E400C5F918 /* rating_review.swift */,
 			);
 			path = review;
+			sourceTree = "<group>";
+		};
+		B94CC3542AFA133E00453626 /* cashout_history */ = {
+			isa = PBXGroup;
+			children = (
+				B94CC3552AFA135000453626 /* cashout_history.swift */,
+			);
+			path = cashout_history;
 			sourceTree = "<group>";
 		};
 		B9514E192AA88F5B005EDF39 /* ride_history_details */ = {
@@ -506,6 +518,7 @@
 		B9852DD92A651EEA008244F3 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				B9E713B32AF8F5E3007CC10E /* cashout */,
 				B9D834572AF53520003884D9 /* about_zarib */,
 				B9C29A902ADD20A000574A94 /* search_map_location */,
 				B9852DD32A651B8E008244F3 /* login */,
@@ -713,6 +726,15 @@
 				B9E1B4412A85159C0060DCAF /* ride_invoice_details.swift */,
 			);
 			path = ride_invoice_details;
+			sourceTree = "<group>";
+		};
+		B9E713B32AF8F5E3007CC10E /* cashout */ = {
+			isa = PBXGroup;
+			children = (
+				B9E713B42AF8F60B007CC10E /* cashout.swift */,
+				B94CC3542AFA133E00453626 /* cashout_history */,
+			);
+			path = cashout;
 			sourceTree = "<group>";
 		};
 		B9FE3F1C2A66605B009A2E5C /* gif */ = {
@@ -1068,6 +1090,7 @@
 				B93E4FF82AA9A9E400C5F918 /* rating_review.swift in Sources */,
 				B98988F82A860BD2003B1BD3 /* schedule_ride_details.swift in Sources */,
 				B9852DD82A651BA4008244F3 /* sign_up.swift in Sources */,
+				B9E713B52AF8F60B007CC10E /* cashout.swift in Sources */,
 				B9325D012AA9B9E400DEA0A5 /* upload_tax.swift in Sources */,
 				B9852DAB2A651B0D008244F3 /* SWRevealViewController.m in Sources */,
 				B9852D9C2A651AED008244F3 /* RPicker.swift in Sources */,
@@ -1105,6 +1128,7 @@
 				B98988FE2A8619F6003B1BD3 /* emergency_contacts.swift in Sources */,
 				B9852D9E2A651AF3008244F3 /* parameter.swift in Sources */,
 				B9852DAA2A651B0D008244F3 /* MenuControllerVC.swift in Sources */,
+				B94CC3562AFA135000453626 /* cashout_history.swift in Sources */,
 				B9514E1B2AA88F65005EDF39 /* ride_history_details.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

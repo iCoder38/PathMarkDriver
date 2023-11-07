@@ -44,69 +44,33 @@ class MenuControllerVC: UIViewController {
     @IBOutlet weak var imgSidebarMenuImage:UIImageView! {
         didSet {
             imgSidebarMenuImage.backgroundColor = .clear
-            imgSidebarMenuImage.layer.cornerRadius = 35
+            imgSidebarMenuImage.layer.cornerRadius = 30
             imgSidebarMenuImage.clipsToBounds = true
         }
     }
-    
-    // Member
-    var arr_customer_title = ["Dashboard",
-                              "Booking History",
-                              "Earnings",
-                              "Review and Rating",
-                              "Cashout",
-                              "Set Working Details",
-                              "Edit Car Details",
-                              "Edit Car Details",
-                              "Change Password",
-    ]
-    
-    var arr_customer_image = ["home",
-                              "home",
-                              "edit2",
-                              "trip",
-                              "lock",
-                              "help",
-                              "logout",
-                              "logout",
-                              "logout",
-    ]
+  
+    var str_menu_title_home:String! = "Home"
+    var str_menu_title_edit_profile:String! = "Edit Profile"
+    var str_menu_title_booking_history:String! = "Booking History"
+    var str_menu_title_earnings:String! = "Earnings"
+    var str_menu_title_review:String! = "Review and Rating"
+    var str_menu_title_cashout:String! = "Cashout"
+    var str_menu_title_set_working_details:String! = "Set Working Details"
+    var str_menu_title_update_vehicle_details:String! = "Update vehicle details"
+    var str_menu_title_upload_documents:String! = "Upload Documents"
+    var str_menu_title_about_us:String! = "About Us"
+    var str_menu_title_change_password:String! = "Change Password"
+    var str_menu_title_privacy_policy:String! = "Privacy Policy"
+    var str_menu_title_terms:String! = "Terms and Condition"
+    var str_menu_title_emergency_contacts:String! = "Emergency Contacts"
+    var str_menu_title_help:String! = "Help"
+    var str_menu_title_faq:String! = "FAQ(s)"
+    var str_menu_title_logout:String! = "Logout"
     
     // driver
-    var arr_driver_title = ["Dashboard",
-                            "Booking History",
-                            "Earnings",
-                            "Review and Rating",
-                            "Cashout",
-                            "Set Working Details",
-                            "Update vehicle details",
-                            "Update Documents",
-                            "About Us",
-                            "Change Password",
-                            "Privacy Policy",
-                            "Terms and Condition",
-                            "FAQs",
-                            "Emergency Contacts",
-                            "Help",
-                            "Logout",
-  ]
-    var arr_driver_image = ["home",
-                            "doc",
-                            "cashbout",
-                            "rating",
-                            "cashbout",
-                            "reminder",
-                            "doc",
-                            "file",
-                            "lock",
-                            "AppIcon",
-                            "doc",
-                            "doc",
-                            "help",
-                            "doc",
-                            "help",
-                            "logout",
-  ]
+    var arr_driver_title: NSArray!
+  
+    var arr_driver_image: NSArray!
     
     
     @IBOutlet weak var lblUserName:UILabel! {
@@ -134,8 +98,7 @@ class MenuControllerVC: UIViewController {
     
     @IBOutlet weak var tbleView: UITableView! {
         didSet {
-            tbleView.delegate = self
-            tbleView.dataSource = self
+            
             tbleView.tableFooterView = UIView.init()
             tbleView.backgroundColor = navigation_color
             // tbleView.separatorInset = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 50)
@@ -154,6 +117,45 @@ class MenuControllerVC: UIViewController {
 
         self.view.backgroundColor = .white
         
+        self.arr_driver_title = [String(self.str_menu_title_home),
+                                 String(self.str_menu_title_edit_profile),
+                                 String(self.str_menu_title_earnings),
+                                 String(self.str_menu_title_review),
+                                 String(self.str_menu_title_cashout),
+                                 String(self.str_menu_title_set_working_details),
+                                 String(self.str_menu_title_update_vehicle_details),
+                                 String(self.str_menu_title_upload_documents),
+                                 String(self.str_menu_title_about_us),
+                                 String(self.str_menu_title_change_password),
+                                 String(self.str_menu_title_privacy_policy),
+                                 String(self.str_menu_title_terms),
+                                 String(self.str_menu_title_faq),
+                                 String(self.str_menu_title_emergency_contacts),
+                                 String(self.str_menu_title_help),
+                                 String(self.str_menu_title_logout)
+        ]
+        
+        self.arr_driver_image = ["home",
+                                 "doc",
+                                 "cashbout",
+                                 "rating",
+                                 "cashbout",
+                                 "reminder",
+                                 "doc",
+                                 "file",
+                                 "lock",
+                                 "AppIcon",
+                                 "doc",
+                                 "doc",
+                                 "help",
+                                 "doc",
+                                 "help",
+                                 "logout",
+       ]
+        
+        self.tbleView.delegate = self
+        self.tbleView.dataSource = self
+        
         self.sideBarMenuClick()
     }
     
@@ -163,22 +165,14 @@ class MenuControllerVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
         self.view.backgroundColor = navigation_color
+        
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             print(person as Any)
             
-             if person["role"] as! String == "Member" {
-                
-                // self.lblUserName.text = (person["fullName"] as! String)
-                 // self.lblAddress.text = (person["address"] as! String)
-                 
-             } else {
-                
-                self.lblUserName.text = (person["fullName"] as! String)
-                // self.lblPhoneNumber.text = (person["contactNumber"] as! String)
-                
-                // imgSidebarMenuImage.sd_setImage(with: URL(string: (person["image"] as! String)), placeholderImage: UIImage(named: "logo"))
-            }
-             
+            self.lblUserName.text = (person["fullName"] as! String)
+            self.imgSidebarMenuImage.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+            self.imgSidebarMenuImage.sd_setImage(with: URL(string: (person["image"] as! String)), placeholderImage: UIImage(named: "logo"))
+            
         }
         
     }
@@ -206,18 +200,8 @@ extension MenuControllerVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-        
-            if person["role"] as! String == "Member" {
-                return arr_customer_title.count
-            } else {
-                return self.arr_driver_title.count
-            }
-            
-        } else {
-            return 0
-        }
-        
+        return self.arr_driver_title.count
+      
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -230,23 +214,11 @@ extension MenuControllerVC: UITableViewDataSource {
         
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             
-            if person["role"] as! String == "Member" {
-                
-                cell.lblName.text = self.arr_customer_title[indexPath.row]
-                cell.lblName.textColor = .white
-                
-                cell.imgProfile.image = UIImage(named: self.arr_customer_image[indexPath.row])
-                cell.imgProfile.backgroundColor = .clear
-                
-            } else {
-                
-                cell.lblName.text = self.arr_driver_title[indexPath.row]
-                cell.lblName.textColor = .white
-                
-                 cell.imgProfile.image = UIImage(named: self.arr_driver_image[indexPath.row])
-                 cell.imgProfile.backgroundColor = .clear
-                
-            }
+            cell.lblName.text = (self.arr_driver_title[indexPath.row] as! String)
+            cell.lblName.textColor = .white
+            
+            cell.imgProfile.image = UIImage(named: self.arr_driver_image[indexPath.row] as! String)
+            cell.imgProfile.backgroundColor = .clear
             
         } else {
             
@@ -259,9 +231,7 @@ extension MenuControllerVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        // if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-
-            if arr_driver_title [indexPath.row] == "Booking History" {
+        if (arr_driver_title [indexPath.row] as! String) ==  String(self.str_menu_title_booking_history) {
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
@@ -270,7 +240,7 @@ extension MenuControllerVC: UITableViewDataSource {
                 let navigationController = UINavigationController(rootViewController: destinationController!)
                 sw.setFront(navigationController, animated: true)
                 
-            } else if arr_driver_title [indexPath.row] == "Dashboard" {
+        } else if (arr_driver_title [indexPath.row] as! String) == String(self.str_menu_title_home) {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
                 let navController = UINavigationController(rootViewController: obj)
@@ -278,7 +248,7 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                 
-            } else if arr_driver_title [indexPath.row] == "Earnings" {
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_earnings) {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "earnings_id") as! earnings
                 let navController = UINavigationController(rootViewController: obj)
@@ -286,7 +256,7 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                 
-            } else if arr_driver_title [indexPath.row] == "Review and Rating" {
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_review) {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "rating_review_id") as! rating_review
                 let navController = UINavigationController(rootViewController: obj)
@@ -294,7 +264,7 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                 
-            } else if arr_driver_title [indexPath.row] == "FAQs" {
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_faq) {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "faq_id") as! faq
                 let navController = UINavigationController(rootViewController: obj)
@@ -302,7 +272,7 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                 
-            } else if arr_driver_title [indexPath.row] == "Emergency Contacts" {
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_emergency_contacts) {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "emergency_contacts_id") as! emergency_contacts
                 let navController = UINavigationController(rootViewController: obj)
@@ -310,7 +280,7 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                 
-            } else if arr_driver_title [indexPath.row] == "Set Working Details" {
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_set_working_details) {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "set_location_hour_id") as! set_location_hour
                 let navController = UINavigationController(rootViewController: obj)
@@ -318,7 +288,7 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                 
-            } else if arr_driver_title [indexPath.row] == "Update vehicle details" {
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_update_vehicle_details) {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "add_vehicle_details_id") as! add_vehicle_details
                 obj.str_for_update = "yes"
@@ -327,7 +297,7 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                 
-            } else if arr_driver_title [indexPath.row] == "Update Documents" {
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_upload_documents) {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "upload_documents_id") as! upload_documents
                  obj.str_for_update = "yes"
@@ -336,7 +306,7 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                  
-            } else if arr_driver_title [indexPath.row] == "About Us" {
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_about_us) {
                 
                 let obj = self.storyboard?.instantiateViewController(withIdentifier: "about_us_id") as! about_us
                 let navController = UINavigationController(rootViewController: obj)
@@ -344,120 +314,27 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                  
-            } else if arr_driver_title [indexPath.row] == "Logout" {
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_cashout) {
                 
-                self.validation_before_logout()
-            }
+                let obj = self.storyboard?.instantiateViewController(withIdentifier: "cashout_id") as! cashout
+                let navController = UINavigationController(rootViewController: obj)
+                navController.setViewControllers([obj], animated:true)
+                self.revealViewController().setFront(navController, animated: true)
+                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+                 
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_help) {
+                
+                let obj = self.storyboard?.instantiateViewController(withIdentifier: "help_id") as! help
+                let navController = UINavigationController(rootViewController: obj)
+                navController.setViewControllers([obj], animated:true)
+                self.revealViewController().setFront(navController, animated: true)
+                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+                 
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_logout) {
             
-            
-            
-            
-            
-            
-            /*
-             if person["role"] as! String == "Member" {
-             
-             if self.arr_customer_title[indexPath.row] == "Change Password" {
-             
-             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-             let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
-             self.view.window?.rootViewController = sw
-             let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "ChangePassword")
-             let navigationController = UINavigationController(rootViewController: destinationController!)
-             sw.setFront(navigationController, animated: true)
-             
-             }
-             
-             else if self.arr_customer_title[indexPath.row] == "Dashboard" {
-             
-             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-             let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
-             self.view.window?.rootViewController = sw
-             let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "UPDSDashboardId")
-             let navigationController = UINavigationController(rootViewController: destinationController!)
-             sw.setFront(navigationController, animated: true)
-             
-             }
-             
-             else if self.arr_customer_title[indexPath.row] == "Order History" {
-             
-             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-             let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
-             self.view.window?.rootViewController = sw
-             let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "UPDSOrderHistory")
-             let navigationController = UINavigationController(rootViewController: destinationController!)
-             sw.setFront(navigationController, animated: true)
-             
-             }
-             
-             else if self.arr_customer_title[indexPath.row] == "Help" {
-             
-             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-             let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
-             self.view.window?.rootViewController = sw
-             let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "Help")
-             let navigationController = UINavigationController(rootViewController: destinationController!)
-             sw.setFront(navigationController, animated: true)
-             
-             }
-             
-             else if arr_customer_title[indexPath.row] == "Logout" {
-             
-             let alert = UIAlertController(title: String("Logout"), message: String("Are you sure you want to logout ?"), preferredStyle: UIAlertController.Style.alert)
-             alert.addAction(UIAlertAction(title: "Yes, Logout", style: .default, handler: { action in
-             self.logoutWB()
-             }))
-             alert.addAction(UIAlertAction(title: "Dismiss", style: .destructive, handler: { action in
-             }))
-             self.present(alert, animated: true, completion: nil)
-             
-             }
-             
-             if let person = UserDefaults.standard.value(forKey: "keyLoginFullData") as? [String:Any] {
-             
-             if person["role"] as! String == "Driver" {
-             
-             if arr_customer_title[indexPath.row] == "Logout" {
-             
-             let alert = UIAlertController(title: String("Logout"), message: String("Are you sure you want to logout ?"), preferredStyle: UIAlertController.Style.alert)
-             alert.addAction(UIAlertAction(title: "Yes, Logout", style: .default, handler: { action in
-             // self.logoutWB()
-             }))
-             alert.addAction(UIAlertAction(title: "Dismiss", style: .destructive, handler: { action in
-             }))
-             self.present(alert, animated: true, completion: nil)
-             
-             }
-             
-             }
-             
-             }
-             
-             } else {
-             
-             if self.arr_driver_title[indexPath.row] == "Order History" {
-             
-             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-             let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
-             self.view.window?.rootViewController = sw
-             let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "order_history_for_driver_id") as? order_history_for_driver
-             let navigationController = UINavigationController(rootViewController: destinationController!)
-             sw.setFront(navigationController, animated: true)
-             
-             } else if self.arr_driver_title[indexPath.row] == "New Orders" {
-             
-             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-             let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
-             self.view.window?.rootViewController = sw
-             let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "driver_new_orders_id") as? driver_new_orders
-             let navigationController = UINavigationController(rootViewController: destinationController!)
-             sw.setFront(navigationController, animated: true)
-             
-             }
-             
-             }
-             */
-        // }
+            self.validation_before_logout()
+        }
+           
     }
     
     @objc func validation_before_logout() {

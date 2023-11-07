@@ -35,7 +35,7 @@ class about_us: UIViewController {
         super.viewDidLoad()
         
         self.sideBarMenuClick()
-        self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        // self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         
         self.validation_before_accept_booking()
     }
@@ -43,11 +43,13 @@ class about_us: UIViewController {
     @objc func sideBarMenuClick() {
         
         if revealViewController() != nil {
-            self.btn_back.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-        
+            
+            btn_back.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
+            
             revealViewController().rearViewRevealWidth = 300
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-          }
+            
+        }
     }
     
     @objc func validation_before_accept_booking() {

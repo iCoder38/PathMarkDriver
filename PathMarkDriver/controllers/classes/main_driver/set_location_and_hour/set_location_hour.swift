@@ -164,7 +164,7 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         
         RPicker.selectDate(title: "Select Time", cancelText: "Cancel", datePickerMode: .time, didSelectDate: { (selectedDate) in
             // TODO: Your implementation for date
-            cell.txt_working_hour_from.text = selectedDate.dateString("hh:mm")
+            cell.txt_working_hour_from.text = selectedDate.dateString("HH:mm")
         })
     }
     
@@ -172,17 +172,49 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
         //
-        
-        /*timePicker.datePickerMode = UIDatePicker.Mode.time
-        timePicker.frame = CGRect(x: 0.0, y: (self.view.frame.height/2 + 60), width: self.view.frame.width, height: 150.0)
-        timePicker.backgroundColor = UIColor.white
-        self.view.addSubview(timePicker)
-        timePicker.addTarget(self, action: #selector(startTimeDiveChanged), for: .valueChanged)*/
-        
         RPicker.selectDate(title: "Select Time", cancelText: "Cancel", datePickerMode: .time, didSelectDate: { (selectedDate) in
             // TODO: Your implementation for date
-            cell.txt_working_hour_to.text = selectedDate.dateString("HH:MM")
+            cell.txt_working_hour_to.text = selectedDate.dateString("HH:mm")
         })
+        // self.showTimePicker()
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        showTimePicker()
+        return true
+    }
+    
+    func showTimePicker() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
+        
+        timePicker.datePickerMode = .time
+        timePicker.locale = Locale(identifier: "en_GB") // Change to your locale
+
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(doneTimePicker));
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelTimePicker));
+
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+
+        cell.txt_working_hour_to.inputAccessoryView = toolbar
+        cell.txt_working_hour_to.inputView = timePicker
+    }
+
+     @objc func doneTimePicker() {
+         let indexPath = IndexPath.init(row: 0, section: 0)
+         let cell = self.tbleView.cellForRow(at: indexPath) as! set_location_hour_table_cell
+         
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+         cell.txt_working_hour_to.text = timeFormatter.string(from: timePicker.date)
+        self.view.endEditing(true)
+    }
+
+    @objc func cancelTimePicker() {
+        self.view.endEditing(true)
     }
     
     @objc func startTimeDiveChanged(sender: UIDatePicker) {
@@ -518,6 +550,7 @@ extension set_location_hour: UITableViewDataSource , UITableViewDelegate {
         
         cell.btn_working_hour_from.addTarget(self, action: #selector(working_hour_from_click_method), for: .touchUpInside)
         cell.btn_working_hour_to.addTarget(self, action: #selector(working_hour_to_click_method), for: .touchUpInside)
+        cell.btn_working_hour_to.isHidden = true
         
         cell.btn_working_time_from.addTarget(self, action: #selector(working_time_from_click_method), for: .touchUpInside)
         cell.btn_working_time_to.addTarget(self, action: #selector(working_time_to_click_method), for: .touchUpInside)
