@@ -53,6 +53,20 @@ struct payload_registration: Encodable {
     let deviceToken:String
 }
 
+struct payload_edit_profile: Encodable {
+    let action :String
+    let fullName:String
+    let email:String
+    let countryCode:String
+    let contactNumber:String
+    let role: String  //Member    Driver
+    let INDNo:String
+    let latitude:String
+    let longitude:String
+    let device:String
+    let deviceToken:String
+}
+
 struct payload_country_list: Encodable {
     let action :String
 }

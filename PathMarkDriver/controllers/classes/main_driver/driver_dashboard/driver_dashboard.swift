@@ -242,7 +242,7 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
                 parameters = [
                     "action"        : "editprofile",
                     "userId"        : String(myString),
-                    "deviceToken"   : String(token_id_is),
+                    "deviceToken"   : String(self.str_token_id),
                     "latitude"      : String(self.strSaveLatitude),
                     "longitude"     : String(self.strSaveLongitude),
                     "device"        : String("iOS")

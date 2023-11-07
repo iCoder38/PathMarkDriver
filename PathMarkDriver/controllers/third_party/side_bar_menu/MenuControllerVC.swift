@@ -330,6 +330,14 @@ extension MenuControllerVC: UITableViewDataSource {
                 self.revealViewController().setFront(navController, animated: true)
                 self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
                  
+        }  else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_edit_profile) {
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "edit_profile_id") as! edit_profile
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+             
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_logout) {
             
             self.validation_before_logout()

@@ -43,10 +43,10 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
     var str_from_location:String!
     var str_to_location:String!
     
-    var str_from_latitude:String!
-    var str_from_longitude:String!
-    var str_to_latitude:String!
-    var str_to_longitude:String!
+    var str_from_latitude:String! = "0"
+    var str_from_longitude:String! = "0"
+    var str_to_latitude:String! = "0"
+    var str_to_longitude:String! = "0"
     
     /*
      [action] => editProfile
@@ -63,6 +63,9 @@ class set_location_hour: UIViewController , UITextFieldDelegate {
         [Working_endTime] => 23:00
      */
     let timePicker = UIDatePicker()
+    
+    var str_status:String! = "0"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -528,29 +531,41 @@ extension set_location_hour: UITableViewDataSource , UITableViewDelegate {
             cell.txt_to_location.text = String(self.str_to_location)
         }
         
-        /*if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+         
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             print(person)
-             
-            self.str_to_longitude = (person["drop_Longitude"] as! String)
-            self.str_to_latitude = (person["drop_Latitude"] as! String)
             
-            self.str_from_latitude = (person["pickup_Latitude"] as! String)
-            self.str_from_longitude = (person["pickup_Longitude"] as! String)
             
-            cell.txt_from_location.text = (person["pickupAddress"] as! String)
-            cell.txt_to_location.text = (person["dropAddress"] as! String)
             
-            cell.txt_working_hour_from.text = (person["Working_endTime"] as! String)
-            cell.txt_working_hour_to.text = (person["Working_startTime"] as! String)
+            if (self.str_location_type == "1") {
+                
+            } else if (self.str_location_type == "2") {
+                
+            } else {
+                
+                self.str_to_longitude = (person["drop_Longitude"] as! String)
+                self.str_to_latitude = (person["drop_Latitude"] as! String)
+                
+                self.str_from_latitude = (person["pickup_Latitude"] as! String)
+                self.str_from_longitude = (person["pickup_Longitude"] as! String)
+                
+                cell.txt_from_location.text = (person["pickupAddress"] as! String)
+                cell.txt_to_location.text = (person["dropAddress"] as! String)
+                
+                cell.txt_working_hour_from.text = (person["Working_startTime"] as! String)
+                cell.txt_working_hour_to.text = (person["Working_endTime"] as! String)
+                
+                cell.txt_working_time_from.text = (person["Working_startDate"] as! String)
+                cell.txt_working_time_to.text = (person["Working_endDate"] as! String)
+            }
             
-            cell.txt_working_time_from.text = (person["Working_startDate"] as! String)
-            cell.txt_working_time_to.text = (person["Working_endDate"] as! String)
-        }*/
+            
+            
+        }
         
         
         cell.btn_working_hour_from.addTarget(self, action: #selector(working_hour_from_click_method), for: .touchUpInside)
         cell.btn_working_hour_to.addTarget(self, action: #selector(working_hour_to_click_method), for: .touchUpInside)
-        cell.btn_working_hour_to.isHidden = true
         
         cell.btn_working_time_from.addTarget(self, action: #selector(working_time_from_click_method), for: .touchUpInside)
         cell.btn_working_time_to.addTarget(self, action: #selector(working_time_to_click_method), for: .touchUpInside)
