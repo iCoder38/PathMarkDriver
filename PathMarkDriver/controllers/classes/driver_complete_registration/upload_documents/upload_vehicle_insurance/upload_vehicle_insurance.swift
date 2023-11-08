@@ -169,12 +169,40 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
     }*/
     
     @objc func validation_before_insurance() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
         
-        if (self.str_user_select_image == "1") {
-            self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+        if (cell.txt_policy_number.text == "") {
+            show_alert(text: "Please upload your Policy Number.")
+            return
+        } else if (cell.txt_insurance_policy.text == "") {
+            show_alert(text: "Please upload your Insurance Company Name.")
+            return
+        } else if (cell.txt_policy_holder.text == "") {
+            show_alert(text: "Please enter Policy holder.")
+            return
+        } else if (cell.txt_registration_number.text == "") {
+            show_alert(text: "Please enter your registration number.")
+            return
+        } else if (cell.txt_number_of_passengers.text == "") {
+            show_alert(text: "Please enter How many passenger you carry in your vehicle.")
+            return
+        } else if (cell.txt_commencing_date.text == "") {
+            show_alert(text: "Please enter Date.")
+            return
+        } else if (cell.txt_exp_date.text == "") {
+            show_alert(text: "Please enter Expiry Date.")
+            return
         } else {
-            self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+            if (self.str_user_select_image == "1") {
+                self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+            } else {
+                // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+                show_alert(text: "Please upload your Vehicle Insurance.")
+                return
+            }
         }
+        
         
     }
     

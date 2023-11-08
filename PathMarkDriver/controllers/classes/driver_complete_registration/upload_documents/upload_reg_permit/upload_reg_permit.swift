@@ -164,12 +164,29 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
     }*/
     
     @objc func validation_before_submit() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_reg_permit_table_cell
         
-        if (self.str_user_select_image == "1") {
-            self.upload_permit_document_WB(str_show_loader: "yes")
+        if (cell.txt_vehicle_permit_number.text == "") {
+            show_alert(text: "Please enter Vehicle permit Number.")
+            return
+        } else if (cell.txt_permit_issue.text == "") {
+            show_alert(text: "Please enter Issue Date.")
+            return
+        } else if (cell.txt_permit_exp.text == "") {
+            show_alert(text: "Please enter Expiry Date.")
+            return
         } else {
-            self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+            if (self.str_user_select_image == "1") {
+                self.upload_permit_document_WB(str_show_loader: "yes")
+            } else {
+                // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+                show_alert(text: "Please upload your Vehicle Insurance.")
+                return
+            }
         }
+        
+        
         
     }
     

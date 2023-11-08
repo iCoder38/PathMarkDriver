@@ -30,8 +30,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_vehicle_insurance/upload_vehicle_insurance.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "254"
-            endingLineNumber = "254"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "upload_vehicle_insurance_WB(str_show_loader:)"
             landmarkType = "7">
             <Locations>
@@ -309,8 +309,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_vehicle_insurance/upload_vehicle_insurance.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "558"
-            endingLineNumber = "558"
+            startingLineNumber = "586"
+            endingLineNumber = "586"
             landmarkName = "upload_vehicle_insurance_with_image_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
