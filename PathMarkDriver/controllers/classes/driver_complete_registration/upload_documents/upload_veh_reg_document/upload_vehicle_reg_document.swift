@@ -352,12 +352,29 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
     }
     
     @objc func validation_before_insurance() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_reg_document_table_cell
         
-        if (self.str_user_select_image == "1") {
-            self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+        if (cell.txt_vehicle_registration_number.text == "") {
+            show_alert(text: "Please enter your Vehicle Registration Number.")
+            return
+        } else if (cell.txt_vehicle_registration_state.text == "") {
+            show_alert(text: "Please enter your Vehicle Registration State.")
+            return
+        } else if (cell.txt_expiry_date.text == "") {
+            show_alert(text: "Please enter your Expiry Date.")
+            return
         } else {
-            self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+            if (self.str_user_select_image == "1") {
+                self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+            } else {
+                // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+                show_alert(text: "Please upload your Vehicle Registration.")
+                return
+            }
         }
+        
+        
         
     }
     
