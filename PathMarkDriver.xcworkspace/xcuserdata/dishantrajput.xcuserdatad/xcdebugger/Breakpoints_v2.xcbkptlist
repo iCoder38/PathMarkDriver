@@ -201,8 +201,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_driving_license/upload_vehicle_license.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "455"
-            endingLineNumber = "455"
+            startingLineNumber = "475"
+            endingLineNumber = "475"
             landmarkName = "upload_licence_image_document_WB(str_show_loader:)"
             landmarkType = "7">
             <Locations>

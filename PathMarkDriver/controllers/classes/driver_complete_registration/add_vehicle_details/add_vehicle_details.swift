@@ -1059,8 +1059,8 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
         cell.img_upload.isUserInteractionEnabled = true
         cell.img_upload.addGestureRecognizer(tapGestureRecognizer)
         
-//        cell.btn_accept_terms.addTarget(self, action: #selector(accept_terms_click_method), for: .touchUpInside)
-        
+        cell.btn_continue.backgroundColor = UIColor(red: 108.0/255.0, green: 216.0/255.0, blue: 134.0/255.0, alpha: 1)
+        cell.btn_continue.isUserInteractionEnabled = true
         cell.btn_continue.addTarget(self, action: #selector(add_car_details_click_method), for: .touchUpInside)
         
         return cell

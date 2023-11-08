@@ -71,13 +71,33 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
     }
     
     @objc func validation_before_upload_license() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_license_table_cell
         
-        if (self.str_user_select_image == "1") {
-            // with image
-            self.upload_licence_image_document_WB(str_show_loader: "yes")
+        if (cell.txt_license_number.text == "") {
+            show_alert(text: "Please add your License Number.")
+            return
+        } else if (cell.txt_vehicle_type.text == "") {
+            show_alert(text: "Please add your Vehicle Type.")
+            return
+        } else if (cell.txt_issued_on.text == "") {
+            show_alert(text: "Please enter License Issue Date.")
+            return
+        } else if (cell.txt_exp_date.text == "") {
+            show_alert(text: "Please enter License Expiry Date.")
+            return
         } else {
-            self.upload_license_WB(str_show_loader: "yes")
+            if (self.str_user_select_image == "1") {
+                // with image
+                self.upload_licence_image_document_WB(str_show_loader: "yes")
+            } else {
+                // self.upload_license_WB(str_show_loader: "yes")
+                show_alert(text: "Please upload your Driving License Image.")
+                return
+            }
         }
+        
+       
         
     }
 
