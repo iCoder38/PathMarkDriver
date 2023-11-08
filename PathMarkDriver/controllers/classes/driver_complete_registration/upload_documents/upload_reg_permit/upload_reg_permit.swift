@@ -185,12 +185,7 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
                 return
             }
         }
-        
-        
-        
     }
-    
-    
     
     @objc func upload_vehicle_insurance_WB(str_show_loader:String) {
         let indexPath = IndexPath.init(row: 0, section: 0)
