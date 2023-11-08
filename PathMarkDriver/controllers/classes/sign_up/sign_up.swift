@@ -14,7 +14,7 @@ import JWTDecode
 // MARK:- LOCATION -
 import CoreLocation
 
-class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate {
+class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     let locationManager = CLLocationManager()
     
@@ -30,6 +30,9 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     
     var arr_country_array:NSArray!
     
+    var str_user_select_image:String! = "0"
+    var img_data_banner : Data!
+    var img_Str_banner : String!
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -131,12 +134,17 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         self.view.endEditing(true)
         
-        // self.show_loading_UI()
-        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        if (self.str_user_select_image == "0") {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Profile Picture"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            
+            return
+        }
         
-        // let params = main_token(body: get_encrpyt_token)
         
-        // print(cell.txt_country.text!)
         
         var phone_number_code : String!
         
@@ -256,94 +264,265 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
         }
         
-        let params = payload_registration(action: "registration",
-                                          fullName: String(cell.txt_full_name.text!),
-                                          email: String(cell.txtEmailAddress.text!),
-                                          countryCode: String(phone_number_code),
-                                          contactNumber: String(cell.txt_phone_number.text!),
-                                          password: String(cell.txtPassword.text!),
-                                          role: "Driver",
-                                          INDNo: String(cell.txt_nid_number.text!),
-                                          latitude: "",
-                                          longitude: "",
-                                          device: "iOS",
-                                          deviceToken: "")
+        // self.show_loading_UI()
+        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
         
+        //Set Your URL
+        let api_url = application_base_url
+        guard let url = URL(string: api_url) else {
+            return
+        }
         
-        print(params as Any)
+        var urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0 * 1000)
+        urlRequest.httpMethod = "POST"
+        // urlRequest.allHTTPHeaderFields = ["token":String(token_id_is)]
+        urlRequest.addValue("application/json",
+                            forHTTPHeaderField: "Accept")
         
-        AF.request(application_base_url,
-                   method: .post,
-                   parameters: params,
-                   encoder: JSONParameterEncoder.default).responseJSON { response in
-            // debugPrint(response.result)
+        //Set Your Parameter
+        let parameterDict = NSMutableDictionary()
+         
+        /*
+         (action: "registration",
+         fullName: String(cell.txt_full_name.text!),
+         email: String(cell.txtEmailAddress.text!),
+         countryCode: String(phone_number_code),
+         contactNumber: String(cell.txt_phone_number.text!),
+         password: String(cell.txtPassword.text!),
+         role: "Driver",
+         INDNo: String(cell.txt_nid_number.text!),
+         latitude: "",
+         longitude: "",
+         device: "iOS",
+         deviceToken: "")
+         */
+        
+        var str_device_token:String! = ""
+        
+        if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
             
-            switch response.result {
-            case let .success(value):
+            str_device_token = String(device_token)
+        }
+        
+        // car information
+        parameterDict.setValue("registration", forKey: "action")
+        parameterDict.setValue(String(cell.txt_full_name.text!), forKey: "fullName")
+        parameterDict.setValue(String(cell.txtEmailAddress.text!), forKey: "email")
+        parameterDict.setValue(String(phone_number_code), forKey: "countryCode")
+        parameterDict.setValue(String(cell.txt_phone_number.text!), forKey: "contactNumber")
+        parameterDict.setValue(String(cell.txtPassword.text!), forKey: "password")
+        parameterDict.setValue("Driver", forKey: "role")
+        parameterDict.setValue(String(cell.txt_nid_number.text!), forKey: "INDNo")
+        parameterDict.setValue("", forKey: "latitude")
+        parameterDict.setValue("", forKey: "longitude")
+        parameterDict.setValue("iOS", forKey: "device")
+        parameterDict.setValue(String(str_device_token), forKey: "deviceToken")
+        
+        print(parameterDict as Any)
+        
+        // Now Execute
+        AF.upload(multipartFormData: { multiPart in
+            for (key, value) in parameterDict {
+                if let temp = value as? String {
+                    multiPart.append(temp.data(using: .utf8)!, withName: key as! String)
+                }
+                if let temp = value as? Int {
+                    multiPart.append("\(temp)".data(using: .utf8)!, withName: key as! String)
+                }
+                if let temp = value as? NSArray {
+                    temp.forEach({ element in
+                        let keyObj = key as! String + "[]"
+                        if let string = element as? String {
+                            multiPart.append(string.data(using: .utf8)!, withName: keyObj)
+                        } else
+                        if let num = element as? Int {
+                            let value = "\(num)"
+                            multiPart.append(value.data(using: .utf8)!, withName: keyObj)
+                        }
+                    })
+                }
+            }
+            multiPart.append(self.img_data_banner, withName: "image", fileName: "register.png", mimeType: "image/png")
+        }, with: urlRequest)
+        .uploadProgress(queue: .main, closure: { progress in
+            //Current upload progress of file
+            print("Upload Progress: \(progress.fractionCompleted)")
+        })
+        .responseJSON(completionHandler: { data in
+            
+            switch data.result {
                 
-                let JSON = value as! NSDictionary
-                print(JSON as Any)
-                
-                var strSuccess : String!
-                strSuccess = (JSON["status"]as Any as? String)?.lowercased()
-                
-                print(strSuccess as Any)
-                if strSuccess == String("success") {
-                    print("yes")
+            case .success(_):
+                do {
                     
-                    var dict: Dictionary<AnyHashable, Any>
-                    dict = JSON["data"] as! Dictionary<AnyHashable, Any>
+                    let dictionary = try JSONSerialization.jsonObject(with: data.data!, options: .fragmentsAllowed) as! NSDictionary
+                    print(dictionary)
                     
-                    let defaults = UserDefaults.standard
-                    defaults.setValue(dict, forKey: str_save_login_user_data)
+                    var message : String!
+                    message = (dictionary["msg"] as? String)
                     
-                    // save email and password
-                    let custom_email_pass = ["email":cell.txtEmailAddress.text!,
-                                             "password":cell.txtPassword.text!]
+                    if (dictionary["status"] as! String) == "success" {
+                        print("yes")
+                        
+                        var dict: Dictionary<AnyHashable, Any>
+                        dict = dictionary["data"] as! Dictionary<AnyHashable, Any>
+                        
+                        let defaults = UserDefaults.standard
+                        defaults.setValue(dict, forKey: str_save_login_user_data)
+                        
+                        // save email and password
+                        let custom_email_pass = ["email":cell.txtEmailAddress.text!,
+                                                 "password":cell.txtPassword.text!]
+                        
+                        UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
+                        
+                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                        let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                        alert.addButtons([cancel])
+                        self.present(alert, animated: true)
+                        
+                        // self.hide_loading_UI()
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.navigationController?.popViewController(animated: true)
+                        
+                    } else if (dictionary["status"] as! String) == "Success" {
+                        print("yes")
+                        
+                        var dict: Dictionary<AnyHashable, Any>
+                        dict = dictionary["data"] as! Dictionary<AnyHashable, Any>
+                        
+                        let defaults = UserDefaults.standard
+                        defaults.setValue(dict, forKey: str_save_login_user_data)
+                        
+                        // save email and password
+                        let custom_email_pass = ["email":cell.txtEmailAddress.text!,
+                                                 "password":cell.txtPassword.text!]
+                        
+                        UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
+                        
+                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                        let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                        alert.addButtons([cancel])
+                        self.present(alert, animated: true)
+                        
+                        // self.hide_loading_UI()
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.navigationController?.popViewController(animated: true)
+                        
+                    }
                     
-                    UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
                     
-                    let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (JSON["msg"] as! String), style: .alert)
-                    let cancel = NewYorkButton(title: "Ok", style: .cancel)
-                    alert.addButtons([cancel])
-                    self.present(alert, animated: true)
-                    
-                    // self.hide_loading_UI()
-                    ERProgressHud.sharedInstance.hide()
-                    
-                    self.navigationController?.popViewController(animated: true)
-                    
-                    /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "verify_phone_number_id") as? verify_phone_number
-                    
-                    push!.str_get_user_id = "\(dict["userId"]!)"
-                    
-                    self.navigationController?.pushViewController(push!, animated: true)*/
-                    
-                } else {
-                    
-                    print("no")
-                    self.hide_loading_UI()
-                    ERProgressHud.sharedInstance.hide()
-                    
-                    var strSuccess2 : String!
-                    strSuccess2 = JSON["msg"]as Any as? String
-                    
-                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
-                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-                    alert.addButtons([cancel])
-                    self.present(alert, animated: true)
                     
                 }
+                catch {
+                    // catch error.
+                    print("catch error")
+                    ERProgressHud.sharedInstance.hide()
+                }
+                break
                 
-            case let .failure(error):
-                print(error)
-                self.hide_loading_UI()
+            case .failure(_):
+                print("failure")
                 ERProgressHud.sharedInstance.hide()
-                
-                self.please_check_your_internet_connection()
+                break
                 
             }
-        }
+            
+            
+        })
+        
+        
+        
+        /*let params = payload_registration(action: "registration",
+         fullName: String(cell.txt_full_name.text!),
+         email: String(cell.txtEmailAddress.text!),
+         countryCode: String(phone_number_code),
+         contactNumber: String(cell.txt_phone_number.text!),
+         password: String(cell.txtPassword.text!),
+         role: "Driver",
+         INDNo: String(cell.txt_nid_number.text!),
+         latitude: "",
+         longitude: "",
+         device: "iOS",
+         deviceToken: "")
+         
+         
+         print(params as Any)
+         
+         AF.request(application_base_url,
+         method: .post,
+         parameters: params,
+         encoder: JSONParameterEncoder.default).responseJSON { response in
+         // debugPrint(response.result)
+         
+         switch response.result {
+         case let .success(value):
+         
+         let JSON = value as! NSDictionary
+         print(JSON as Any)
+         
+         var strSuccess : String!
+         strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+         
+         print(strSuccess as Any)
+         if strSuccess == String("success") {
+         print("yes")
+         
+         var dict: Dictionary<AnyHashable, Any>
+         dict = JSON["data"] as! Dictionary<AnyHashable, Any>
+         
+         let defaults = UserDefaults.standard
+         defaults.setValue(dict, forKey: str_save_login_user_data)
+         
+         // save email and password
+         let custom_email_pass = ["email":cell.txtEmailAddress.text!,
+         "password":cell.txtPassword.text!]
+         
+         UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
+         
+         let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (JSON["msg"] as! String), style: .alert)
+         let cancel = NewYorkButton(title: "Ok", style: .cancel)
+         alert.addButtons([cancel])
+         self.present(alert, animated: true)
+         
+         // self.hide_loading_UI()
+         ERProgressHud.sharedInstance.hide()
+         
+         self.navigationController?.popViewController(animated: true)
+         
+         /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "verify_phone_number_id") as? verify_phone_number
+          
+          push!.str_get_user_id = "\(dict["userId"]!)"
+          
+          self.navigationController?.pushViewController(push!, animated: true)*/
+         
+         } else {
+         
+         print("no")
+         self.hide_loading_UI()
+         ERProgressHud.sharedInstance.hide()
+         
+         var strSuccess2 : String!
+         strSuccess2 = JSON["msg"]as Any as? String
+         
+         let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+         let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+         alert.addButtons([cancel])
+         self.present(alert, animated: true)
+         
+         }
+         
+         case let .failure(error):
+         print(error)
+         self.hide_loading_UI()
+         ERProgressHud.sharedInstance.hide()
+         
+         self.please_check_your_internet_connection()
+         
+         }
+         }*/
     }
     
     @objc func alert_warning () {
@@ -403,6 +582,23 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
     }
 
+    /*@objc func registerWithImage() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
+        
+        
+        
+        
+        //Set Your URL
+        let api_url = application_base_url
+        guard let url = URL(string: api_url) else {
+            return
+        }
+        
+         else {
+          print("session")
+        }
+    }*/
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
 
@@ -429,11 +625,11 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         if (cell.btn_eyes_one.tag == 0) {
             cell.btn_eyes_one.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-            cell.txtPassword.isSecureTextEntry = true
+            cell.txtPassword.isSecureTextEntry = false
             cell.btn_eyes_one.tag = 1
         } else {
             cell.btn_eyes_one.setImage(UIImage(systemName: "eye"), for: .normal)
-            cell.txtPassword.isSecureTextEntry = false
+            cell.txtPassword.isSecureTextEntry = true
             cell.btn_eyes_one.tag = 0
         }
         
@@ -445,14 +641,79 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         if (cell.btn_eyes_two.tag == 0) {
             cell.btn_eyes_two.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-            cell.txt_confirm_password.isSecureTextEntry = true
+            cell.txt_confirm_password.isSecureTextEntry = false
             cell.btn_eyes_two.tag = 1
         } else {
             cell.btn_eyes_two.setImage(UIImage(systemName: "eye"), for: .normal)
-            cell.txt_confirm_password.isSecureTextEntry = false
+            cell.txt_confirm_password.isSecureTextEntry = true
             cell.btn_eyes_two.tag = 0
         }
         
+    }
+    
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        self.open_camera_gallery()
+    }
+    
+    // MARK: - OPEN CAMERA OR GALLERY -
+    @objc func open_camera_gallery() {
+        
+        let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
+        
+        // actionSheet.addImage(UIImage(named: "camera"))
+        
+        let cameraa = NewYorkButton(title: "Camera", style: .default) { _ in
+            // print("camera clicked done")
+            
+            self.open_camera_or_gallery(str_type: "c")
+        }
+        
+        let gallery = NewYorkButton(title: "Gallery", style: .default) { _ in
+            // print("camera clicked done")
+            
+            self.open_camera_or_gallery(str_type: "g")
+        }
+        
+        let cancel = NewYorkButton(title: "Cancel", style: .cancel)
+        
+        actionSheet.addButtons([cameraa, gallery, cancel])
+        
+        self.present(actionSheet, animated: true)
+        
+    }
+    
+    // MARK: - OPEN CAMERA or GALLERY -
+    @objc func open_camera_or_gallery(str_type:String) {
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        if str_type == "c" {
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        
+        imagePicker.allowsEditing = false
+        self.present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
+        
+        let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+
+        cell.img_upload.image = image_data
+        let imageData:Data = image_data!.pngData()!
+        self.img_Str_banner = imageData.base64EncodedString()
+        self.dismiss(animated: true, completion: nil)
+        self.img_data_banner = image_data!.jpegData(compressionQuality: 0.2)!
+        self.dismiss(animated: true, completion: nil)
+   
+        self.str_user_select_image = "1"
     }
     
 }
@@ -491,6 +752,10 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         
         cell.btn_eyes_one.addTarget(self, action: #selector(eye_one_click_method), for: .touchUpInside)
         cell.btn_eyes_two.addTarget(self, action: #selector(eye_two_click_method), for: .touchUpInside)
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        cell.img_upload.isUserInteractionEnabled = true
+        cell.img_upload.addGestureRecognizer(tapGestureRecognizer)
         
         return cell
     }
@@ -652,7 +917,7 @@ class sign_up_table_cell: UITableViewCell {
             txtPassword.layer.shadowOffset =  CGSize.zero
             txtPassword.layer.shadowOpacity = 0.5
             txtPassword.layer.shadowRadius = 2
-            
+            txtPassword.isSecureTextEntry = true
         }
     }
     
@@ -674,7 +939,7 @@ class sign_up_table_cell: UITableViewCell {
             txt_confirm_password.layer.shadowOffset =  CGSize.zero
             txt_confirm_password.layer.shadowOpacity = 0.5
             txt_confirm_password.layer.shadowRadius = 2
-            
+            txt_confirm_password.isSecureTextEntry = true
         }
     }
     

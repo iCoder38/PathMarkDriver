@@ -116,25 +116,48 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
     }
     
     @objc func add_car_details_click_method() {
-         
-        if (self.str_for_update == "yes") {
-            
-            if (self.str_user_select_image == "1") {
-                 self.edit_vehicle_image_details_WB(str_show_loader: "yes")
-            } else {
-                // print("Please upload image")
-                self.edit_vehicle_WB(str_show_loader: "yes")
-            }
-            
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
+        
+        if (cell.txt_vehicle_number.text == "") {
+            show_alert(text: "Please add your vehicle number")
+            return
+        } else if (cell.txt_brand.text == "") {
+            show_alert(text: "Please enter card brand")
+            return
+        } else if (cell.txt_modal.text == "") {
+            show_alert(text: "Please enter car modal")
+            return
+        } else if (cell.txt_year.text == "") {
+            show_alert(text: "Please enter year")
+            return
+        } else if (cell.txt_color.text == "") {
+            show_alert(text: "Please enter color of your car")
+            return
         } else {
-            
-            if (self.str_user_select_image == "1") {
-                self.upload_vehicle_details_WB(str_show_loader: "yes")
+            if (self.str_for_update == "yes") {
+                
+                if (self.str_user_select_image == "1") {
+                     self.edit_vehicle_image_details_WB(str_show_loader: "yes")
+                } else {
+                    // print("Please upload image")
+                    self.edit_vehicle_WB(str_show_loader: "yes")
+                }
+                
             } else {
-                self.add_vehicle_WB(str_show_loader: "yes")
+                
+                if (self.str_user_select_image == "1") {
+                    self.upload_vehicle_details_WB(str_show_loader: "yes")
+                } else {
+                    // self.add_vehicle_WB(str_show_loader: "yes")
+                    show_alert(text: "Please add your Vehicle Image.")
+                    return
+                }
+                
             }
-            
         }
+        
+       
        
     }
     
@@ -1036,7 +1059,7 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
         cell.img_upload.isUserInteractionEnabled = true
         cell.img_upload.addGestureRecognizer(tapGestureRecognizer)
         
-        cell.btn_accept_terms.addTarget(self, action: #selector(accept_terms_click_method), for: .touchUpInside)
+//        cell.btn_accept_terms.addTarget(self, action: #selector(accept_terms_click_method), for: .touchUpInside)
         
         cell.btn_continue.addTarget(self, action: #selector(add_car_details_click_method), for: .touchUpInside)
         

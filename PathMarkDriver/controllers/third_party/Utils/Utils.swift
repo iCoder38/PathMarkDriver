@@ -332,6 +332,8 @@ extension UIViewController {
     }
     
     
+    
+    
     @objc func scroll_to_top(table_view:UITableView) {
         
         let topRow = IndexPath(row: 0, section: 0)
@@ -348,6 +350,14 @@ extension UIViewController {
         present(myAlert, animated: true, completion: nil)
         
     }
+    
+    func show_alert(text:String) {
+        let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(text), style: .alert)
+        let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+        alert.addButtons([cancel])
+        self.present(alert, animated: true)
+    }
+    
     
     func show_custom_alert() {
         
