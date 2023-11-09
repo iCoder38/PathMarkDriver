@@ -165,8 +165,10 @@ class schedule_ride_details: UIViewController {
         
         if "\(self.dict_get_upcoming_ride_details["rideStatus"]!)" == "4" {
             self.btn_pickup.isHidden = true
+            self.btn_decline.isHidden = true
         } else {
             self.btn_pickup.isHidden = false
+            self.btn_decline.isHidden = false
         }
         // self.btn_pickup.addTarget(self, action: #selector(compare_date_is_today), for: .touchUpInside)
         // self.lbl_.text = (self.dict_get_upcoming_ride_details["RequestPickupAddress"] as! String)
@@ -191,6 +193,7 @@ class schedule_ride_details: UIViewController {
                 self.btn_pickup.isUserInteractionEnabled = false
             } else if date.isInToday {
                 print("Date is today")
+                self.btn_pickup.addTarget(self, action: #selector(pick_up), for: .touchUpInside)
             } else {
                 print("Date is future")
                 self.btn_pickup.backgroundColor = .systemGray
@@ -199,6 +202,12 @@ class schedule_ride_details: UIViewController {
         }
     }
     
+    @objc func pick_up() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
+        push.str_from_direct_notification = "no"
+        push.get_booking_data_for_pickup = self.dict_get_upcoming_ride_details
+        self.navigationController?.pushViewController(push, animated: true)
+    }
     @objc func get_fare_and_distance(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
@@ -352,11 +361,19 @@ class schedule_ride_details: UIViewController {
         }
         
     }
+    /*
+     [action] => ridecancel
+         [userId] => 71
+         [bookingId] => 52
+         [userType] => Driver
+         [cancelReason] => Passenger denied to go destination
+         [cancelComment] => 
+     */
 }
-    extension Date {
-        static var noon: Date { Date().noon }
-        var noon: Date { Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)! }
-        var isInToday: Bool { Calendar.current.isDateInToday(self) }
-        var isInThePast: Bool { noon < .noon }
-        var isInTheFuture: Bool { noon > .noon }
-    }
+extension Date {
+    static var noon: Date { Date().noon }
+    var noon: Date { Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)! }
+    var isInToday: Bool { Calendar.current.isDateInToday(self) }
+    var isInThePast: Bool { noon < .noon }
+    var isInTheFuture: Bool { noon > .noon }
+}

@@ -15,6 +15,8 @@ import MapKit
 
 class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
 
+    var str_from_direct_notification_start_ride:String!
+    
     var firestore_id:String!
     
     var str_driver_lat:String!
@@ -94,6 +96,15 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     
     @IBOutlet weak var mapView:MKMapView!
     
+    @IBOutlet weak var img_passenger_profile:UIImageView! {
+        didSet {
+            img_passenger_profile.layer.cornerRadius = 15
+            img_passenger_profile.clipsToBounds = true
+        }
+    }
+    @IBOutlet weak var lbl_passenger_name:UILabel!
+    @IBOutlet weak var lbl_passenger_number:UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -105,7 +116,15 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         // print(self.str_driver_lat as Any)
         // print(self.str_driver_long as Any)
         
+        print("==================================================")
+        print(self.str_from_direct_notification_start_ride as Any)
         print(self.get_booking_data_for_start_ride as Any)
+        print("==================================================")
+        
+        
+        self.lbl_passenger_name.text = (self.get_booking_data_for_start_ride["fullName"] as! String)
+        self.lbl_passenger_number.text = (self.get_booking_data_for_start_ride["contactNumber"] as! String)
+        
         
         self.current_location_click_method()
     }

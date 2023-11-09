@@ -115,6 +115,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let dict = notification.request.content.userInfo
         print(dict as Any)
         
+        /*
+         User Info dishu =  [AnyHashable("RequestPickupLatLong"): 28.5849492,77.05828439999999, AnyHashable("distance"): 21.9, AnyHashable("estimateAmount"): 21.9, AnyHashable("deviceToken"): fxAsM18HlUdQi_KqGt508b:APA91bF7gVb0tUqkJi3DP9B6capyIJ22MmI3QFl3oCUEuMvonKKXubjqhRENpVn17jDx4nNRNUjx7CbYyF_D8jucJFd2esI-NRpDSCbL9Tq4w376rDNzreB2gBALE3ohM6L4npRG3yvr, AnyHashable("bookingId"): 83, AnyHashable("duration"): 1 hour 3 mins, AnyHashable("google.c.sender.id"): 750959835757, AnyHashable("type"): request, AnyHashable("google.c.a.e"): 1, AnyHashable("RequestDropAddress"): 290, Patparganj Industrial Area, Patparganj, Delhi, 110092, India , AnyHashable("RequestDropLatLong"): 28.643166852250797,77.31291197240353, AnyHashable("CustomerPhone"): 6867675443, AnyHashable("gcm.message_id"): 1699543611604198, AnyHashable("google.c.fid"): fxAsM18HlUdQi_KqGt508b, AnyHashable("CustomerImage"): , AnyHashable("message"): New booking request for Confir or Cancel., AnyHashable("device"): iOS, AnyHashable("CustomerName"): p driver 128, AnyHashable("aps"): {
+             alert = "New booking request for Confir or Cancel.";
+         }, AnyHashable("RequestPickupAddress"): Sector 10 Dwarka, Dwarka, Delhi, 110075, India]
+         */
         // if user send request
         if (dict["type"] == nil) {
             print("NOTIFICATION FROM SOMEWHERE ELSE")

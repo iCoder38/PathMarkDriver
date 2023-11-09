@@ -78,11 +78,16 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     @IBOutlet weak var lbl_from:UILabel!
     @IBOutlet weak var lbl_to:UILabel!
     
+    @IBOutlet weak var lbl_est_earn:UILabel!
+    @IBOutlet weak var lbl_distance:UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
+        print("=============================================")
         print(self.dict_get_all_data_from_notification as Any)
+        print("==============================================")
         
         self.parse_all_data_and_show_UI()
         
@@ -93,6 +98,12 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         
         self.lbl_from.text = (self.dict_get_all_data_from_notification["RequestPickupAddress"] as! String)
         self.lbl_to.text = (self.dict_get_all_data_from_notification["RequestDropAddress"] as! String)
+        
+        self.lbl_est_earn.text = "\(self.dict_get_all_data_from_notification["estimateAmount"]!)"
+        self.lbl_distance.text = "\(self.dict_get_all_data_from_notification["distance"]!)"
+        
+        self.btn_distance.setTitle("", for: .normal)
+        self.btn_est_earn.setTitle("", for: .normal)
         
         self.current_location_click_method()
         
@@ -346,6 +357,7 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
                                     print("successfully registered in firebase")
                                     
                                     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
+                                    push.str_from_direct_notification = "yes"
                                     push.get_booking_data_for_pickup = self.dict_get_all_data_from_notification
                                     self.navigationController?.pushViewController(push, animated: true)
                                     

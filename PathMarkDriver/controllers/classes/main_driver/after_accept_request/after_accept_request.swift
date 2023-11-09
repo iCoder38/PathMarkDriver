@@ -15,6 +15,8 @@ import MapKit
 
 class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
 
+    var str_from_direct_notification:String!
+    
     var store_firestore_id:String!
     
     var get_booking_data_for_pickup:NSDictionary!
@@ -76,6 +78,15 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
         }
     }
     
+    @IBOutlet weak var img_passenger_profile:UIImageView! {
+        didSet {
+            img_passenger_profile.layer.cornerRadius = 15
+            img_passenger_profile.clipsToBounds = true
+        }
+    }
+    @IBOutlet weak var lbl_passenger_name:UILabel!
+    @IBOutlet weak var lbl_passenger_number:UILabel!
+    
     @IBOutlet weak var lbl_from:UILabel!
     @IBOutlet weak var lbl_to:UILabel!
     
@@ -102,12 +113,26 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
+        print("=====================================")
+        print(self.str_from_direct_notification as Any)
+        print(self.get_booking_data_for_pickup as Any)
+        print("=====================================")
+        
         self.get_and_parse_UI()
         
         self.btn_accept.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
     }
     
     @objc func get_and_parse_UI() {
+        
+        if (self.str_from_direct_notification != "yes") {
+            self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["fullName"] as! String)
+            self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["contactNumber"] as! String)
+        } else {
+            self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["CustomerName"] as! String)
+            self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
+        }
+        
         self.lbl_from.text = (self.get_booking_data_for_pickup["RequestPickupAddress"] as! String)
         self.lbl_to.text = (self.get_booking_data_for_pickup["RequestDropAddress"] as! String)
         
@@ -158,10 +183,14 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
         self.strSaveLongitude = "\(locValue.longitude)"
         
         print("**********************")
-        let customer_lat_long = "\(self.get_booking_data_for_pickup["RequestPickupLatLong"]!)".components(separatedBy: ",")
-        print(customer_lat_long)
-        let restaurantLatitudeDouble    = Double(String(customer_lat_long[0]))
-        let restaurantLongitudeDouble   = Double(String(customer_lat_long[1]))
+        let customer_pick_lat_long = "\(self.get_booking_data_for_pickup["RequestPickupLatLong"]!)".components(separatedBy: ",")
+        print(customer_pick_lat_long)
+        
+        // let customer_lat_long = "\(self.get_booking_data_for_pickup["RequestPickupLatLong"]!)".components(separatedBy: ",")
+        // print(customer_lat_long)
+        
+        let restaurantLatitudeDouble    = Double(String(customer_pick_lat_long[0]))
+        let restaurantLongitudeDouble   = Double(String(customer_pick_lat_long[1]))
         let driverLatitudeDouble        = Double(String(self.strSaveLatitude))
         let driverLongitudeDouble       = Double(String(self.strSaveLongitude))
         

@@ -678,6 +678,7 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             } else if "\(item!["rideStatus"]!)" == "1" { // after accept
                 
                 let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
+                push.str_from_direct_notification = "yes"
                 push.get_booking_data_for_pickup = (item! as NSDictionary)
                 self.navigationController?.pushViewController(push, animated: true)
                 

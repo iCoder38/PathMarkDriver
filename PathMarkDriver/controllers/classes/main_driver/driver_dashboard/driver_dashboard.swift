@@ -200,12 +200,11 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         
         if revealViewController() != nil {
             
-            btn_back.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-            
+            self.btn_back.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
             revealViewController().rearViewRevealWidth = 300
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             
-        } 
+        }
         
     }
     

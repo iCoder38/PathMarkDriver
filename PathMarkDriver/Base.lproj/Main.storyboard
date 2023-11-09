@@ -3883,6 +3883,8 @@
                         <outlet property="btn_decline" destination="WrL-VI-GcC" id="Tna-x3-GfZ"/>
                         <outlet property="btn_distance" destination="750-pa-snO" id="QCX-B2-VjP"/>
                         <outlet property="btn_est_earn" destination="5QA-9m-mB5" id="ube-Sm-SyV"/>
+                        <outlet property="lbl_distance" destination="oGv-jQ-Nhv" id="Bnn-43-8Sx"/>
+                        <outlet property="lbl_est_earn" destination="LlF-MR-O98" id="Gyv-yj-SW4"/>
                         <outlet property="lbl_from" destination="Z0G-X8-JEf" id="zIW-Xz-QWw"/>
                         <outlet property="lbl_to" destination="LFQ-bG-5r9" id="nKN-Ms-vNg"/>
                         <outlet property="mapView" destination="zcU-o2-0co" id="5A4-ne-cve"/>
@@ -3977,8 +3979,9 @@
                                             <constraint firstAttribute="width" constant="24" id="ea1-aC-R3F"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ava" translatesAutoresizingMaskIntoConstraints="NO" id="Wi2-JF-1Dt">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-white" translatesAutoresizingMaskIntoConstraints="NO" id="Wi2-JF-1Dt">
                                         <rect key="frame" x="11" y="12" width="60" height="60"/>
+                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="Bxa-ho-gbo"/>
                                             <constraint firstAttribute="height" constant="60" id="KF0-y3-sQ6"/>
@@ -4104,7 +4107,10 @@
                         <outlet property="btn_call" destination="Ada-gt-zwm" id="hKT-Fj-h7o"/>
                         <outlet property="btn_decline" destination="qHi-zS-GBz" id="dt7-Dw-4QN"/>
                         <outlet property="btn_message" destination="Pwi-Pf-rr5" id="DlH-dY-CQn"/>
+                        <outlet property="img_passenger_profile" destination="Wi2-JF-1Dt" id="Ihz-rp-xQz"/>
                         <outlet property="lbl_from" destination="byw-cB-V3i" id="BEg-Qu-pKK"/>
+                        <outlet property="lbl_passenger_name" destination="2QY-3L-9nr" id="d07-bU-yC5"/>
+                        <outlet property="lbl_passenger_number" destination="Dtk-uG-fNR" id="BCN-kK-fJ0"/>
                         <outlet property="lbl_to" destination="RQ4-Wb-h9M" id="QBv-uP-Zit"/>
                         <outlet property="mapView" destination="eZH-7b-6FT" id="iQF-8Y-7He"/>
                         <outlet property="view_big" destination="Vw6-Ci-yvM" id="7Fp-zD-NVv"/>
@@ -4186,8 +4192,9 @@
                                             <constraint firstAttribute="width" constant="24" id="Xus-BE-VkP"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ava" translatesAutoresizingMaskIntoConstraints="NO" id="aZ8-Ba-k9a">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-white" translatesAutoresizingMaskIntoConstraints="NO" id="aZ8-Ba-k9a">
                                         <rect key="frame" x="11" y="12" width="60" height="60"/>
+                                        <color key="backgroundColor" red="0.75967609879999998" green="0.83396500350000002" blue="0.92544841769999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="09M-WL-SrN"/>
                                             <constraint firstAttribute="height" constant="60" id="JvY-cA-ofj"/>
@@ -4308,7 +4315,10 @@
                         <outlet property="btn_call" destination="FM5-sm-jda" id="VUk-eT-K66"/>
                         <outlet property="btn_message" destination="PVA-V1-7ad" id="EWl-gr-y6L"/>
                         <outlet property="btn_start_ride_now" destination="EDh-aT-Ar3" id="FBu-Ku-azk"/>
+                        <outlet property="img_passenger_profile" destination="aZ8-Ba-k9a" id="Fq4-6V-NiQ"/>
                         <outlet property="lbl_from" destination="yai-DQ-kma" id="IqE-lq-7Lm"/>
+                        <outlet property="lbl_passenger_name" destination="rOh-Uz-kQg" id="YPW-Hl-2Dv"/>
+                        <outlet property="lbl_passenger_number" destination="6t0-zT-KWb" id="vWI-2X-exM"/>
                         <outlet property="lbl_to" destination="UlH-no-ee0" id="0TO-ld-Nrm"/>
                         <outlet property="mapView" destination="gxW-ND-7ef" id="qCA-Ni-BkH"/>
                         <outlet property="view_big" destination="VbR-sa-hPE" id="LOJ-xB-JnL"/>
