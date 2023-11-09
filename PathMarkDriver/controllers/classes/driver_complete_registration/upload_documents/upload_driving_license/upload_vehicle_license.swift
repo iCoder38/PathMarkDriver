@@ -13,6 +13,8 @@ import SDWebImage
 
 class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    var str_for_profile:String!
+    
     var img_data_banner : Data!
     var img_Str_banner : String!
     
@@ -87,14 +89,26 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
             show_alert(text: "Please enter License Expiry Date.")
             return
         } else {
-            if (self.str_user_select_image == "1") {
-                // with image
-                self.upload_licence_image_document_WB(str_show_loader: "yes")
+            
+            if (self.str_for_profile == "yes") {
+                if (self.str_user_select_image == "1") {
+                    // with image
+                    self.upload_licence_image_document_WB(str_show_loader: "yes")
+                } else {
+                    self.upload_license_WB(str_show_loader: "yes")
+                }
             } else {
-                // self.upload_license_WB(str_show_loader: "yes")
-                show_alert(text: "Please upload your Driving License Image.")
-                return
+                if (self.str_user_select_image == "1") {
+                    // with image
+                    self.upload_licence_image_document_WB(str_show_loader: "yes")
+                } else {
+                    // self.upload_license_WB(str_show_loader: "yes")
+                    show_alert(text: "Please upload your Driving License Image.")
+                    return
+                }
             }
+            
+           
         }
         
        

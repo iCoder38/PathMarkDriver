@@ -57,6 +57,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
             txt_email.layer.masksToBounds = false
             txt_email.layer.cornerRadius = 12
             txt_email.backgroundColor = .white
+            txt_email.keyboardType = .emailAddress
             
             let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20 , height: txt_email.frame.height))
             txt_email.leftView = paddingView
@@ -74,6 +75,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
             txt_phone.layer.masksToBounds = false
             txt_phone.layer.cornerRadius = 12
             txt_phone.backgroundColor = .white
+            txt_phone.keyboardType = .numberPad
             
             let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20 , height: txt_phone.frame.height))
             txt_phone.leftView = paddingView
@@ -81,6 +83,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
         }
     }
     
+    @IBOutlet weak var btn_relation:UIButton!
     @IBOutlet weak var txt_relation:UITextField! {
         didSet {
             // shadow
@@ -138,6 +141,17 @@ class add_contacts: UIViewController , UITextFieldDelegate {
             self.txt_relation.text = (self.dict_emergency["relation"] as! String)
         }
         
+        self.btn_relation.addTarget(self, action: #selector(open_relation_drop_down), for: .touchUpInside)
+        
+    }
+    
+    @objc func open_relation_drop_down() {
+        var arr_relation = ["Friend", "Family", "Other"]
+        
+        RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_relation, selectedIndex: 0) { (selctedText, atIndex) in
+            self.txt_relation.text = String(selctedText)
+             
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -174,8 +188,8 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                      "token":String(token_id_is),
                 ]
                 parameters = [
-                    "action"    : "emergencyedit",
-                    "emergencyId"   : "\(self.dict_emergency["emergencyId"]!)",
+                    "action"    : "emergencyadd",
+                    "addressId"   : "\(self.dict_emergency["emergencyId"]!)",
                     "userId"    : String(myString),
                     "Name"      : String(self.txt_full_name.text!),
                     "phone"     : String(self.txt_phone.text!),

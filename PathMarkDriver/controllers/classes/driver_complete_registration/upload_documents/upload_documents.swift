@@ -204,6 +204,13 @@ class upload_documents: UIViewController {
     func tapFunction(sender:UITapGestureRecognizer) {
         print("tap working")
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_vehicle_license_id") as? upload_vehicle_license
+        
+        if (self.str_for_update == "yes") {
+            push!.str_for_profile = "yes"
+        } else {
+            push!.str_for_profile = "no"
+        }
+        
         self.navigationController?.pushViewController(push!, animated: true)
         
     }
@@ -228,6 +235,11 @@ class upload_documents: UIViewController {
             } else {
                 
                 let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_vehicle_insurance_id") as? upload_vehicle_insurance
+                if (self.str_for_update == "yes") {
+                    push!.str_for_profile = "yes"
+                } else {
+                    push!.str_for_profile = "no"
+                }
                 self.navigationController?.pushViewController(push!, animated: true)
             }
             
@@ -257,6 +269,11 @@ class upload_documents: UIViewController {
                 
             } else {
                 let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_reg_permit_id") as? upload_reg_permit
+                if (self.str_for_update == "yes") {
+                    push!.str_for_profile = "yes"
+                } else {
+                    push!.str_for_profile = "no"
+                }
                 self.navigationController?.pushViewController(push!, animated: true)
             }
         }
@@ -284,6 +301,11 @@ class upload_documents: UIViewController {
                 
             } else {
                 let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_vehicle_reg_document_id") as? upload_vehicle_reg_document
+                if (self.str_for_update == "yes") {
+                    push!.str_for_profile = "yes"
+                } else {
+                    push!.str_for_profile = "no"
+                }
                 self.navigationController?.pushViewController(push!, animated: true)
             }
         }
@@ -313,6 +335,11 @@ class upload_documents: UIViewController {
                 
             } else {
                 let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_tax_id") as? upload_tax
+                if (self.str_for_update == "yes") {
+                    push!.str_for_profile = "yes"
+                } else {
+                    push!.str_for_profile = "no"
+                }
                 self.navigationController?.pushViewController(push!, animated: true)
             }
         }

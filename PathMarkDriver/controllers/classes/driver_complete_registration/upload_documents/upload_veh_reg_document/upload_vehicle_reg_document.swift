@@ -13,6 +13,8 @@ import SDWebImage
 
 class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    var str_for_profile:String!
+    
     var img_data_banner : Data!
     var img_Str_banner : String!
     
@@ -48,6 +50,8 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         
         self.tbleView.reloadData()
@@ -365,13 +369,24 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
             show_alert(text: "Please enter your Expiry Date.")
             return
         } else {
-            if (self.str_user_select_image == "1") {
-                self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+            
+            if (self.str_for_profile == "yes") {
+                if (self.str_user_select_image == "1") {
+                    self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+                } else {
+                     self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+                    
+                }
             } else {
-                // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
-                show_alert(text: "Please upload your Vehicle Registration.")
-                return
+                if (self.str_user_select_image == "1") {
+                    self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+                } else {
+                    // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+                    show_alert(text: "Please upload your Vehicle Registration.")
+                    return
+                }
             }
+            
         }
         
         

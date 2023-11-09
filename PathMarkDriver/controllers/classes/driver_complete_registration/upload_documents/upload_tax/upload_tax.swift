@@ -14,6 +14,8 @@ import PDFKit
 
 class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentPickerDelegate, WKNavigationDelegate {
 
+    var str_for_profile:String!
+    
     var img_data_banner : Data!
     var img_Str_banner : String!
     

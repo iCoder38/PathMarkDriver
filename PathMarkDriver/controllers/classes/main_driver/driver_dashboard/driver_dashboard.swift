@@ -48,7 +48,7 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Welcome"
+            view_navigation_title.text = "Dashboard"
             view_navigation_title.textColor = .white
         }
     }
@@ -205,7 +205,7 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
             revealViewController().rearViewRevealWidth = 300
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             
-        }
+        } 
         
     }
     
@@ -277,11 +277,11 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             
-                            // ERProgressHud.sharedInstance.hide()
-                            // self.dismiss(animated: true)
+                            ERProgressHud.sharedInstance.hide()
+                            self.dismiss(animated: true)
                             
                             
-                            self.get_todays_earning_WB(str_show_loader: "no")
+                            // self.get_todays_earning_WB(str_show_loader: "no")
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_wb()

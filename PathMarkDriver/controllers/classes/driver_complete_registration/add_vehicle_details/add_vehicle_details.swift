@@ -14,7 +14,7 @@ import SDWebImage
 class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     var str_for_update:String!
-    var dishantRajputIsABoy:String!
+    
     
         
     
@@ -1044,8 +1044,8 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
                     cell.txt_color.text = (item!["carColor"] as! String)
                     self.str_vehicle_category_id = "\(item!["categoryId"]!)"
                     
-                    cell.btn_accept_terms.tag = 0
-                    cell.btn_accept_terms.setImage(UIImage(named: "rem"), for: .normal)
+                    // cell.btn_accept_terms.tag = 0
+                    // cell.btn_accept_terms.setImage(UIImage(named: "rem"), for: .normal)
                     cell.btn_continue.isUserInteractionEnabled = true
                     cell.btn_continue.backgroundColor = UIColor(red: 108.0/255.0, green: 216.0/255.0, blue: 134.0/255.0, alpha: 1)
                 }

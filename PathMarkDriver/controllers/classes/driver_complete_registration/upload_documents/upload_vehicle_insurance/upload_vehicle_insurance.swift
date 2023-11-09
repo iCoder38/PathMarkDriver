@@ -13,6 +13,8 @@ import SDWebImage
 
 class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    var str_for_profile:String!
+    
     var img_data_banner : Data!
     var img_Str_banner : String!
     
@@ -47,6 +49,8 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         
         self.tbleView.reloadData()
@@ -173,10 +177,10 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
         
         if (cell.txt_policy_number.text == "") {
-            show_alert(text: "Please upload your Policy Number.")
+            show_alert(text: "Please enter your Policy Number.")
             return
         } else if (cell.txt_insurance_policy.text == "") {
-            show_alert(text: "Please upload your Insurance Company Name.")
+            show_alert(text: "Please enter your Insurance Company Name.")
             return
         } else if (cell.txt_policy_holder.text == "") {
             show_alert(text: "Please enter Policy holder.")
@@ -194,13 +198,25 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
             show_alert(text: "Please enter Expiry Date.")
             return
         } else {
-            if (self.str_user_select_image == "1") {
-                self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+            
+            if (self.str_for_profile == "yes") {
+                
+                if (self.str_user_select_image == "1") {
+                    self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+                } else {
+                     self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+                     
+                }
             } else {
-                // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
-                show_alert(text: "Please upload your Vehicle Insurance.")
-                return
+                if (self.str_user_select_image == "1") {
+                    self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
+                } else {
+                    // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+                    show_alert(text: "Please upload your Vehicle Insurance.")
+                    return
+                }
             }
+            
         }
         
         

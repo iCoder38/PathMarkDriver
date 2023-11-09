@@ -13,6 +13,8 @@ import SDWebImage
 
 class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    var str_for_profile:String!
+    
     var img_data_banner : Data!
     var img_Str_banner : String!
     
@@ -32,7 +34,7 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Upload Vehicle Registration / Permit"
+            view_navigation_title.text = "Upload Vehicle Permit and Fitness"
             view_navigation_title.textColor = .white
         }
     }
@@ -47,6 +49,8 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         
         self.tbleView.reloadData()
@@ -177,13 +181,25 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
             show_alert(text: "Please enter Expiry Date.")
             return
         } else {
-            if (self.str_user_select_image == "1") {
-                self.upload_permit_document_WB(str_show_loader: "yes")
+            
+            if (self.str_for_profile == "yes") {
+                
+                if (self.str_user_select_image == "1") {
+                    self.upload_permit_document_WB(str_show_loader: "yes")
+                } else {
+                     self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+                     
+                }
             } else {
-                // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
-                show_alert(text: "Please upload your Vehicle Insurance.")
-                return
+                if (self.str_user_select_image == "1") {
+                    self.upload_permit_document_WB(str_show_loader: "yes")
+                } else {
+                    // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
+                    show_alert(text: "Please upload your Vehicle Permit and Fitness.")
+                    return
+                }
             }
+            
         }
     }
     

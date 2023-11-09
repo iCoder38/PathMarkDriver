@@ -26,7 +26,7 @@ class emergency_contacts: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "EMERGENCY CONTACTS"
+            view_navigation_title.text = "Emergency Contact"
             view_navigation_title.textColor = .white
         }
     }

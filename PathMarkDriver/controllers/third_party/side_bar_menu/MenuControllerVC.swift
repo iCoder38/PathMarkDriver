@@ -58,7 +58,7 @@ class MenuControllerVC: UIViewController {
     var str_menu_title_set_working_details:String! = "Set Working Details"
     var str_menu_title_update_vehicle_details:String! = "Update vehicle details"
     var str_menu_title_upload_documents:String! = "Upload Documents"
-    var str_menu_title_about_us:String! = "About Us"
+    var str_menu_title_about_us:String! = "About Zarib"
     var str_menu_title_change_password:String! = "Change Password"
     var str_menu_title_privacy_policy:String! = "Privacy Policy"
     var str_menu_title_terms:String! = "Terms and Condition"
@@ -127,7 +127,7 @@ class MenuControllerVC: UIViewController {
                                  String(self.str_menu_title_update_vehicle_details),
                                  String(self.str_menu_title_upload_documents),
                                  String(self.str_menu_title_about_us),
-                                 String(self.str_menu_title_change_password),
+                                 // String(self.str_menu_title_change_password),
                                  String(self.str_menu_title_privacy_policy),
                                  String(self.str_menu_title_terms),
                                  String(self.str_menu_title_faq),
@@ -137,20 +137,20 @@ class MenuControllerVC: UIViewController {
         ]
         
         self.arr_driver_image = ["home",
-                                 "doc",
-                                 "doc",
-                                 "cashbout",
+                                 "menu_edit",
+                                 "note",
+                                 "earning",
                                  "rating",
-                                 "cashbout",
-                                 "reminder",
-                                 "doc",
+                                 "cashout",
+                                 "gh",
+                                 "edit1",
                                  "file",
-                                 "lock",
-                                 "AppIcon",
-                                 "doc",
-                                 "doc",
+                                 "logo-white",
+                                 // "AppIcon",
+                                 "note",
+                                 "note",
                                  "help",
-                                 "doc",
+                                 "emergency_contact",
                                  "help",
                                  "logout",
        ]
@@ -218,6 +218,7 @@ extension MenuControllerVC: UITableViewDataSource {
             
             cell.lblName.text = (self.arr_driver_title[indexPath.row] as! String)
             cell.lblName.textColor = .white
+            
             
             cell.imgProfile.image = UIImage(named: self.arr_driver_image[indexPath.row] as! String)
             cell.imgProfile.backgroundColor = .clear
