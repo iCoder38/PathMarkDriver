@@ -9,6 +9,8 @@ import UIKit
 
 class schedule_ride_details: UIViewController {
 
+    var dict_get_upcoming_ride_details:NSDictionary!
+    
     @IBOutlet weak var view_navigation:UIView! {
         didSet {
             view_navigation.backgroundColor = navigation_color
@@ -53,6 +55,9 @@ class schedule_ride_details: UIViewController {
             lbl_total_distance.textColor = .white
         }
     }
+    
+    @IBOutlet weak var lbl_to:UILabel!
+    @IBOutlet weak var lbl_from:UILabel!
     
     @IBOutlet weak var view_from_to:UIView! {
         didSet {
@@ -133,6 +138,18 @@ class schedule_ride_details: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("==============================================")
+        print(self.dict_get_upcoming_ride_details as Any)
+        print("==============================================")
+        
+        self.parse_data()
+    }
+    
+    @objc func parse_data() {
+        self.lbl_name.text = (self.dict_get_upcoming_ride_details["fullName"] as! String)
+        
+         
+        self.lblfrom.text = (self.dict_get_upcoming_ride_details["fullName"] as! String)
         
     }
 }

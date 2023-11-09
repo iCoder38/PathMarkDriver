@@ -32,10 +32,7 @@ class ride_history: UIViewController {
             view_navigation_title.textColor = .white
         }
     }
-    
-    
-    
-    
+
     // 250 218 78
     @IBOutlet weak var btn_upcoming_ride:UIButton! {
         didSet {
@@ -71,8 +68,7 @@ class ride_history: UIViewController {
     
     @IBOutlet weak var tbleView: UITableView! {
         didSet {
-            tbleView.delegate = self
-            tbleView.dataSource = self
+            
             tbleView.tableFooterView = UIView.init(frame: CGRect(origin: .zero, size: .zero))
             tbleView.backgroundColor = .clear
         }
@@ -88,6 +84,9 @@ class ride_history: UIViewController {
         self.lbl_upcoming_mark.isHidden = false
         self.btn_upcoming_ride.addTarget(self, action: #selector(upcoming_ride_click_method), for: .touchUpInside)
         self.btn_completed_ride.addTarget(self, action: #selector(completed_ride_click_method), for: .touchUpInside)
+        
+        self.arr_mut_dashboard_data.removeAllObjects()
+        self.upcoming_ride_WB(str_show_loader: "yes")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,7 +120,10 @@ class ride_history: UIViewController {
         
         //
         self.str_which_panel_select = "0"
-        self.tbleView.reloadData()
+        // self.tbleView.reloadData()
+        
+        self.arr_mut_dashboard_data.removeAllObjects()
+        self.upcoming_ride_WB(str_show_loader: "yes")
         
     }
     
@@ -222,6 +224,7 @@ class ride_history: UIViewController {
                             self.arr_mut_dashboard_data.addObjects(from: ar as! [Any])
                             
                             print(self.arr_mut_dashboard_data.count as Any)
+                            ERProgressHud.sharedInstance.hide()
                             
                             self.tbleView.delegate = self
                             self.tbleView.dataSource = self
@@ -309,13 +312,7 @@ class ride_history: UIViewController {
         }
         
     }
-    
-    
-    
-    
-    
-    
-    
+  
     @objc func booking_history(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
@@ -502,7 +499,7 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if self.str_which_panel_select == "0" {
-            return 6
+            return self.arr_mut_dashboard_data.count
         } else {
             return self.arr_mut_dashboard_data.count
         }
@@ -517,6 +514,21 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             
             cell.backgroundColor = .clear
             
+            let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]
+            print(item as Any)
+            
+            cell.lbl_name.text = (item!["fullName"] as! String)
+            cell.lbl_car_model.text = (item!["CarName"] as! String)
+            cell.lbl_car_number.text = (item!["vehicleNumber"] as! String)+" ("+(item!["VehicleColor"] as! String)+")"
+            
+            cell.lbl_from.text = (item!["RequestPickupAddress"] as! String)
+            cell.lbl_to.text = (item!["RequestDropAddress"] as! String)
+            
+            if "\(item!["rideStatus"]!)" == "1" {
+                cell.lbl_status.backgroundColor = .systemOrange
+                cell.lbl_status.text = "Pending"
+            }
+            
             return cell
             
         } else {
@@ -524,7 +536,6 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             let cell:ride_history_completed_table_cell = tableView.dequeueReusableCell(withIdentifier: "ride_history_completed_table_cell") as! ride_history_completed_table_cell
             
             cell.backgroundColor = .white
-            
             
             let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]
             print(item as Any)
@@ -609,6 +620,11 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
         self.navigationController?.pushViewController(push, animated: true)*/
         
         if self.str_which_panel_select == "0" {
+            let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]
+            
+            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
+             push!.dict_get_upcoming_ride_details = (item! as NSDictionary)
+            self.navigationController?.pushViewController(push!, animated: true)
             
         } else {
             let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]
@@ -700,6 +716,11 @@ class ride_history_upcoming_table_cell: UITableViewCell {
     @IBOutlet weak var lbl_name:UILabel!
     @IBOutlet weak var lbl_car_model:UILabel!
     @IBOutlet weak var lbl_car_number:UILabel!
+    
+    @IBOutlet weak var lbl_to:UILabel!
+    @IBOutlet weak var lbl_from:UILabel!
+    
+    @IBOutlet weak var lbl_status:UILabel!
     
     @IBOutlet weak var lbl_date:UILabel! {
         didSet {
