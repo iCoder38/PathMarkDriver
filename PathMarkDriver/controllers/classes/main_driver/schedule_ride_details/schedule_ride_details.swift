@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class schedule_ride_details: UIViewController {
 
@@ -41,6 +42,10 @@ class schedule_ride_details: UIViewController {
     
     @IBOutlet weak var lbl_name:UILabel!
     @IBOutlet weak var lbl_phone:UILabel!
+    
+    @IBOutlet weak var lbl_date:UILabel!
+    @IBOutlet weak var lbl_time:UILabel!
+    @IBOutlet weak var lbl_car:UILabel!
     
     @IBOutlet weak var lbl_total_fare:UILabel! {
         didSet {
@@ -148,8 +153,210 @@ class schedule_ride_details: UIViewController {
     @objc func parse_data() {
         self.lbl_name.text = (self.dict_get_upcoming_ride_details["fullName"] as! String)
         
-         
-        self.lblfrom.text = (self.dict_get_upcoming_ride_details["fullName"] as! String)
+        self.lbl_to.text = (self.dict_get_upcoming_ride_details["RequestDropAddress"] as! String)
+        self.lbl_from.text = (self.dict_get_upcoming_ride_details["RequestPickupAddress"] as! String)
+        
+        self.lbl_date.text = "Date : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+        self.lbl_time.text = "Time : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+        
+        self.lbl_time.text = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+        self.lbl_time.text = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+        self.lbl_car.text = "0000\(self.dict_get_upcoming_ride_details["bookingId"]!)"
+        
+        if "\(self.dict_get_upcoming_ride_details["rideStatus"]!)" == "4" {
+            self.btn_pickup.isHidden = true
+        } else {
+            self.btn_pickup.isHidden = false
+        }
+        // self.btn_pickup.addTarget(self, action: #selector(compare_date_is_today), for: .touchUpInside)
+        // self.lbl_.text = (self.dict_get_upcoming_ride_details["RequestPickupAddress"] as! String)
+        // compare date
+        self.compare_date_is_today()
+        
+        self.get_fare_and_distance(str_show_loader: "yes")
+    }
+    
+    @objc func compare_date_is_today() {
+        let dateString = (self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let stringDate = String(dateString)
+        if let date = dateFormatter.date(from: stringDate) {
+            if date.isInThePast {
+                print("Date is past")
+                self.btn_pickup.backgroundColor = .systemRed
+                self.btn_pickup.setTitle("Expired", for: .normal)
+                self.btn_pickup.isUserInteractionEnabled = false
+            } else if date.isInToday {
+                print("Date is today")
+            } else {
+                print("Date is future")
+                self.btn_pickup.backgroundColor = .systemGray
+                self.btn_pickup.isUserInteractionEnabled = false
+            }
+        }
+    }
+    
+    @objc func get_fare_and_distance(str_show_loader:String) {
+        
+        if (str_show_loader == "yes") {
+            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        }
+        
+        
+        self.view.endEditing(true)
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            var ar : NSArray!
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            
+            let arr_mut_order_history:NSMutableArray! = []
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+                
+                parameters = [
+                    "action"        : "getprice",
+                    "userId"        : String(myString),
+                    "pickuplatLong" : (self.dict_get_upcoming_ride_details["RequestPickupLatLong"] as! String),
+                    "droplatLong"   : (self.dict_get_upcoming_ride_details["RequestDropLatLong"] as! String),
+                    "categoryId"    : "1"
+                     
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON {
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                        
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        // var message : String!
+                        // message = (JSON["msg"] as? String)
+                        
+                        // print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                            
+                            /*let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)*/
+                            
+                            var dict: Dictionary<AnyHashable, Any>
+                            dict = JSON["data"] as! Dictionary<AnyHashable, Any>
+                            
+                            self.lbl_total_fare.text = "\(str_bangladesh_currency_symbol) \(dict["total"]!)"
+                            self.lbl_total_distance.text = "\(dict["distance"]!) KM"
+                            
+                            ERProgressHud.sharedInstance.hide()
+                            self.dismiss(animated: true)
+                            
+                        } else {
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func login_refresh_token_wb() {
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
+            print(get_login_details as Any)
+            
+            parameters = [
+                "action"    : "login",
+                "email"     : (get_login_details["email"] as! String),
+                "password"  : (get_login_details["password"] as! String),
+            ]
+            
+            print("parameters-------\(String(describing: parameters))")
+            
+            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
+                response in
+                
+                switch(response.result) {
+                case .success(_):
+                    if let data = response.value {
+                        
+                        let JSON = data as! NSDictionary
+                        print(JSON)
+                        
+                        var strSuccess : String!
+                        strSuccess = JSON["status"] as? String
+                        
+                        if strSuccess.lowercased() == "success" {
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            self.get_fare_and_distance(str_show_loader: "no")
+                            
+                        } else {
+                            ERProgressHud.sharedInstance.hide()
+                        }
+                        
+                    }
+                    
+                case .failure(_):
+                    print("Error message:\(String(describing: response.error))")
+                    ERProgressHud.sharedInstance.hide()
+                    self.please_check_your_internet_connection()
+                    
+                    break
+                }
+            }
+        }
         
     }
 }
+    extension Date {
+        static var noon: Date { Date().noon }
+        var noon: Date { Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)! }
+        var isInToday: Bool { Calendar.current.isDateInToday(self) }
+        var isInThePast: Bool { noon < .noon }
+        var isInTheFuture: Bool { noon > .noon }
+    }

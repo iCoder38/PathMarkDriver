@@ -524,10 +524,45 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             cell.lbl_from.text = (item!["RequestPickupAddress"] as! String)
             cell.lbl_to.text = (item!["RequestDropAddress"] as! String)
             
-            if "\(item!["rideStatus"]!)" == "1" {
-                cell.lbl_status.backgroundColor = .systemOrange
-                cell.lbl_status.text = "Pending"
+            cell.lbl_date.text = (item!["bookingDate"] as! String)
+            
+            if "\(item!["rideStatus"]!)" == "4" {
+                cell.lbl_status.backgroundColor = .systemGreen
+                cell.lbl_status.text = "Completed"
+                cell.lbl_status.textColor = .white
+            } else {
+                // compare date
+                let dateString = (item!["bookingDate"] as! String)
+                
+                let dateFormatter = DateFormatter()
+                dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let stringDate = String(dateString)
+                if let date = dateFormatter.date(from: stringDate) {
+                    if date.isInThePast {
+                        print("Date is past")
+                        
+                        cell.lbl_status.backgroundColor = .systemRed
+                        cell.lbl_status.text = "Expired"
+                        
+                    } else if date.isInToday {
+                        print("Date is today")
+                        if "\(item!["rideStatus"]!)" == "1" {
+                            cell.lbl_status.backgroundColor = .systemOrange
+                            cell.lbl_status.text = "Pending"
+                        }
+                    } else {
+                        print("Date is future")
+                        if "\(item!["rideStatus"]!)" == "1" {
+                            cell.lbl_status.backgroundColor = .systemOrange
+                            cell.lbl_status.text = "Pending"
+                        }
+                    }
+                }
             }
+            
+            
+            
             
             return cell
             
@@ -720,7 +755,12 @@ class ride_history_upcoming_table_cell: UITableViewCell {
     @IBOutlet weak var lbl_to:UILabel!
     @IBOutlet weak var lbl_from:UILabel!
     
-    @IBOutlet weak var lbl_status:UILabel!
+    @IBOutlet weak var lbl_status:UILabel! {
+        didSet {
+            lbl_status.layer.cornerRadius = 8
+            lbl_status.clipsToBounds = true
+        }
+    }
     
     @IBOutlet weak var lbl_date:UILabel! {
         didSet {
