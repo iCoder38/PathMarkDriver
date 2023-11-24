@@ -120,6 +120,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
              alert = "New booking request for Confir or Cancel.";
          }, AnyHashable("RequestPickupAddress"): Sector 10 Dwarka, Dwarka, Delhi, 110075, India]
          */
+        
         // if user send request
         if (dict["type"] == nil) {
             print("NOTIFICATION FROM SOMEWHERE ELSE")
@@ -168,7 +169,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
             
             window?.makeKeyAndVisible()
-            
         }
         
     }

@@ -1,19 +1,17 @@
 //
-//  earnings.swift
-//  PathMarkDriver
+//  shared_booking.swift
+//  PathMark
 //
-//  Created by Dishant Rajput on 06/09/23.
+//  Created by Dishant Rajput on 23/11/23.
 //
 
 import UIKit
 import Alamofire
 import SDWebImage
 
-class earnings: UIViewController {
+class shared_booking: UIViewController {
 
-    var str_user_select:String! = "TODAY"
-    
-    var arr_earnings:NSMutableArray! = []
+    var arr_shared_booking:NSMutableArray! = []
     
     @IBOutlet weak var btn_back:UIButton! {
         didSet {
@@ -29,101 +27,40 @@ class earnings: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Earnings"
+            view_navigation_title.text = "Schedule ride details"
             view_navigation_title.textColor = .white
         }
     }
     
-    @IBOutlet weak var tbleView: UITableView! {
+    @IBOutlet weak var tbleView:UITableView! {
         didSet {
-            tbleView.tableFooterView = UIView.init(frame: CGRect(origin: .zero, size: .zero))
             tbleView.backgroundColor = .clear
         }
     }
     
-    @IBOutlet weak var btn_today:UIButton! {
-        didSet {
-            btn_today.setTitleColor(.black, for: .normal)
-            btn_today.tag = 0
-            btn_today.backgroundColor = UIColor.init(red: 250.0/255.0, green: 218.0/255.0, blue: 78.0/255.0, alpha: 1)
-            btn_today.setTitle("Today", for: .normal)
-        }
-    }
-    @IBOutlet weak var btn_week:UIButton! {
-        didSet {
-            btn_week.setTitleColor(.black, for: .normal)
-            btn_week.tag = 0
-            btn_week.backgroundColor = UIColor.init(red: 250.0/255.0, green: 218.0/255.0, blue: 78.0/255.0, alpha: 1)
-            btn_week.setTitle("Weekly", for: .normal)
-        }
-    }
-    
-    @IBOutlet weak var lbl_today_line:UILabel! {
-        didSet {
-            lbl_today_line.backgroundColor = .black
-        }
-    }
-    @IBOutlet weak var lbl_week_line:UILabel! {
-        didSet {
-            lbl_week_line.backgroundColor = .black
-        }
-    }
-    
-    @IBOutlet weak var lbl_my_earnings:UILabel!
-    @IBOutlet weak var lbl_spend_time:UILabel!
-    @IBOutlet weak var lbl_completed_trips:UILabel!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.sideBarMenuClick()
+        self.share_booking_list_WB(str_show_loader: "yes")
         
-        self.sideBarMenu()
-        
-        self.lbl_today_line.isHidden = false
-        self.lbl_week_line.isHidden = true
-        
-        self.btn_today.addTarget(self, action: #selector(today_earning_click_method), for: .touchUpInside)
-        self.btn_week.addTarget(self, action: #selector(weekly_earning_click_method), for: .touchUpInside)
-        
-        self.str_user_select = "TODAY"
-        self.earning_history(str_show_loader: "yes")
     }
-    
-    @objc func sideBarMenu() {
+
+    @objc func sideBarMenuClick() {
         
+        self.view.endEditing(true)
         if revealViewController() != nil {
-            
             btn_back.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-            
             revealViewController().rearViewRevealWidth = 300
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-            
         }
     }
     
-    @objc func today_earning_click_method() {
-        self.lbl_today_line.isHidden = false
-        self.lbl_week_line.isHidden = true
-        
-        self.arr_earnings.removeAllObjects()
-        self.str_user_select = "TODAY"
-        self.earning_history(str_show_loader: "yes")
-    }
-    
-    @objc func weekly_earning_click_method() {
-        self.lbl_today_line.isHidden = true
-        self.lbl_week_line.isHidden = false
-        
-        self.arr_earnings.removeAllObjects()
-        self.str_user_select = "WEEK"
-        self.earning_history(str_show_loader: "yes")
-    }
-    
-    @objc func earning_history(str_show_loader:String) {
+    @objc func share_booking_list_WB(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
             ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
         }
+        
         
         self.view.endEditing(true)
         
@@ -135,6 +72,12 @@ class earnings: UIViewController {
             let x : Int = person["userId"] as! Int
             let myString = String(x)
             
+            var ar : NSArray!
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            
+            let arr_mut_order_history:NSMutableArray! = []
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
             if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
                 print(token_id_is as Any)
                 
@@ -143,10 +86,10 @@ class earnings: UIViewController {
                 ]
                 
                 parameters = [
-                    "action"    : "earninghistory",
-                    "userId"    : String(myString),
-                    "usertype"  : String("Driver"),
-                    "reportType"  : String(self.str_user_select),
+                    "action"        : "sharelist",
+                    "userId"        : String(myString),
+                    // "userId"        : String("111"),
+                    
                 ]
                 
                 print(parameters as Any)
@@ -175,23 +118,12 @@ class earnings: UIViewController {
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             
-                            ERProgressHud.sharedInstance.hide()
-                            self.dismiss(animated: true)
-                            /*
-                             status = success;
-                             totalAmount = "947.0999999999999";
-                             totalDriverAmount = "644.02";
-                             totalRide = 15;
-                             */
-                            self.lbl_my_earnings.text = "\(JSON["totalDriverAmount"]!)"
-                            // self.lbl_spend_time.text = "n.a."// "\(JSON["msg"]!)"
-                            self.lbl_completed_trips.text = "\(JSON["totalRide"]!)"
-                            
                             var ar : NSArray!
                             ar = (JSON["data"] as! Array<Any>) as NSArray
-                            self.arr_earnings.addObjects(from: ar as! [Any])
+                            self.arr_shared_booking.addObjects(from: ar as! [Any])
                             
-                            // print(self.arr_earnings.count as Any)
+                            print(self.arr_shared_booking.count as Any)
+                            ERProgressHud.sharedInstance.hide()
                             
                             self.tbleView.delegate = self
                             self.tbleView.dataSource = self
@@ -260,7 +192,7 @@ class earnings: UIViewController {
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             
-                            self.earning_history(str_show_loader: "no")
+                            self.share_booking_list_WB(str_show_loader: "no")
                             
                         } else {
                             ERProgressHud.sharedInstance.hide()
@@ -279,83 +211,141 @@ class earnings: UIViewController {
         }
         
     }
+    
 }
 
 
-extension earnings: UITableViewDataSource , UITableViewDelegate {
-    
+
+//MARK:- TABLE VIEW -
+extension shared_booking: UITableViewDataSource , UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return self.arr_earnings.count
+        return self.arr_shared_booking.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell:earnings_table_cell = tableView.dequeueReusableCell(withIdentifier: "earnings_table_cell") as! earnings_table_cell
+        let cell:shared_booking_table_cell = tableView.dequeueReusableCell(withIdentifier: "shared_booking_table_cell") as! shared_booking_table_cell
+        
+        cell.backgroundColor = .white
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = .clear
         cell.selectedBackgroundView = backgroundView
-
-        cell.backgroundColor = .clear
+        //
+        //
+        let item = self.arr_shared_booking[indexPath.row] as? [String:Any]
+        print(item as Any)
         
-        let item = self.arr_earnings[indexPath.row] as? [String:Any]
-        cell.lbl_user_name.text = "\(item!["fullName"]!)"
-        cell.lbl_distance.text = "\(item!["totalDistance"]!)"
-        cell.lbl_time.text = "\(item!["created"]!)"
+        if "\(item!["rideStatus"]!)" == "1" { 
+            cell.lbl_address_name.text = (item!["fullName"] as! String)+" ( Driver accepted )"
+        } else if "\(item!["rideStatus"]!)" == "2" {
+            cell.lbl_address_name.text = (item!["fullName"] as! String)+" ( Picked you up )"
+        } else if "\(item!["rideStatus"]!)" == "3" {
+            cell.lbl_address_name.text = (item!["fullName"] as! String)+" ( On the way )"
+        } else {
+            cell.lbl_address_name.text = (item!["fullName"] as! String)+" ( Driver accepted )"
+        }
+        //
+        //
+        cell.lbl_from.text = (item!["RequestPickupAddress"] as! String)
+        cell.lbl_to.text = (item!["RequestDropAddress"] as! String)
+        
+        cell.lbl_vehicle_type.text = (item!["car_name"] as! String)
+        cell.lbl_vehicle_number.text = (item!["vehicleNumber"] as! String)+"("+(item!["VehicleColor"] as! String)+")"
+        
+        cell.lbl_type.text = "Driver's name : \(item!["driver_fullName"] as! String) - \(item!["driver_AVGRating"]!)"
         
         cell.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-        cell.img_profile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo33"))
+        cell.img_profile.sd_setImage(with: URL(string: (item!["car_image"] as! String)), placeholderImage: UIImage(named: "1024"))
         
-       
+        cell.img_car_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+        cell.img_car_profile.sd_setImage(with: URL(string: (item!["driver_image"] as! String)), placeholderImage: UIImage(named: "1024"))
+        
+        cell.btn_call.tag = indexPath.row
+        cell.btn_call.addTarget(self, action: #selector(call), for: .touchUpInside)
         
         return cell
-        
     }
     
+    @objc func call(sender:UIButton) {
+        print(sender as Any)
+        
+        let item = self.arr_shared_booking[sender.tag] as? [String:Any]
+        
+        if let url = URL(string: "tel://\(item!["contactNumber"] as! String)") {
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+         }
+        
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView .deselectRow(at: indexPath, animated: true)
- 
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let item = self.arr_shared_booking[indexPath.row] as? [String:Any]
+        
+        if "\(item!["rideStatus"]!)" == "4" {
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Ride ended"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+        } else if "\(item!["rideStatus"]!)" == "5" {
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Ride ended"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+        } else {
+            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "share_track_id") as? share_track
+            push!.dict_get_all_shared_booking_details = (item! as NSDictionary)
+            self.navigationController?.pushViewController(push!, animated: true)
+        }
+        
+        
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           
-        return 80
+        return 290
     }
     
 }
 
-class earnings_table_cell: UITableViewCell {
+
+class shared_booking_table_cell: UITableViewCell {
     
-    @IBOutlet weak var view_from_to:UIView! {
+    @IBOutlet weak var btn_call:UIButton!
+    @IBOutlet weak var btn_chat:UIButton!
+    
+    @IBOutlet weak var lbl_address_name:UILabel!
+    
+    @IBOutlet weak var lbl_to:UILabel! {
         didSet {
-            view_from_to.backgroundColor = .white
-            
-            // shadow
-            view_from_to.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-            view_from_to.layer.shadowOffset = CGSize(width: 0, height: 3)
-            view_from_to.layer.shadowOpacity = 1.0
-            view_from_to.layer.shadowRadius = 10.0
-            view_from_to.layer.masksToBounds = false
-            view_from_to.layer.cornerRadius = 12
+            lbl_to.textColor = .black
+        }
+    }
+    @IBOutlet weak var lbl_from:UILabel! {
+        didSet {
+            lbl_from.textColor = .black
         }
     }
     
+    @IBOutlet weak var lbl_vehicle_type:UILabel!
+    @IBOutlet weak var lbl_vehicle_number:UILabel!
+    
+    @IBOutlet weak var lbl_type:UILabel!
     @IBOutlet weak var img_profile:UIImageView! {
         didSet {
-            img_profile.layer.cornerRadius = 30
+            img_profile.layer.cornerRadius = 25
             img_profile.clipsToBounds = true
         }
     }
-    
-    @IBOutlet weak var lbl_user_name:UILabel!
-    @IBOutlet weak var lbl_distance:UILabel!
-    @IBOutlet weak var lbl_distance_text:UILabel!
-    @IBOutlet weak var lbl_time:UILabel!
-    
-    
+    @IBOutlet weak var img_car_profile:UIImageView! {
+        didSet {
+            img_car_profile.layer.cornerRadius = 25
+            img_car_profile.clipsToBounds = true
+        }
+    }
 }

@@ -238,7 +238,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
             return
             
-        } else if (cell.txt_nid_number.text!.count < 17) {
+        } else if (cell.txt_nid_number.text!.count < 13) {
             
             let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid NID No."), style: .alert)
             let cancel = NewYorkButton(title: "dismiss", style: .cancel)
@@ -530,7 +530,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
            }
            let substringToReplace = textFieldText[rangeOfTextToReplace]
            let count = textFieldText.count - substringToReplace.count + string.count
-           return count <= 17
+           return count <= 13
        }
         
         return true

@@ -101,6 +101,7 @@ class vehicle_list: UIViewController {
             
             push!.str_for_update = "no"
             push!.str_vehicle_category_id = String(get_category_id)
+            push!.str_vehicle_type = String(self.str_get_vehicle_type)
             
             self.navigationController?.pushViewController(push!, animated: true)
             

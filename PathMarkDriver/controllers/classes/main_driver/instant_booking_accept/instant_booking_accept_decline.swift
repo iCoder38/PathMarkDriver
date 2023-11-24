@@ -92,6 +92,16 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         self.parse_all_data_and_show_UI()
         
         self.btn_accept.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
+        self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+    }
+    
+    @objc func cancancel_ride_click_method() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
+        myAlert!.dict_booking_details = self.dict_get_all_data_from_notification
+        myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(myAlert!, animated: true, completion: nil)
     }
     
     @objc func parse_all_data_and_show_UI() {
@@ -257,6 +267,42 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         // self.tbleView.reloadData()
         
         // speed = distance / time
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // Don't want to show a custom image if the annotation is the user's location.
+        guard !(annotation is MKUserLocation) else {
+            return nil
+        }
+
+        // Better to make this class property
+        let annotationIdentifier = "AnnotationIdentifier"
+
+        var annotationView: MKAnnotationView?
+        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
+            annotationView = dequeuedAnnotationView
+            annotationView?.annotation = annotation
+        }
+        else {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+
+        if let annotationView = annotationView {
+            // Configure your annotation view here
+            annotationView.canShowCallout = true
+            
+            if(annotation.title == "Drop Location") {
+                annotationView.image = UIImage(systemName: "car")
+            } else {
+                annotationView.image = UIImage(systemName: "person")
+            }
+            annotationView.tintColor = .systemBlue
+            
+            
+        }
+
+        return annotationView
     }
     
     @objc func validation_before_accept_booking() {

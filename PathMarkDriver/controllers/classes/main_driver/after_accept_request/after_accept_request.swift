@@ -121,6 +121,16 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
         self.get_and_parse_UI()
         
         self.btn_accept.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
+        self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+    }
+    
+    @objc func cancancel_ride_click_method() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
+        myAlert!.dict_booking_details = self.get_booking_data_for_pickup
+        myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(myAlert!, animated: true, completion: nil)
     }
     
     @objc func get_and_parse_UI() {
@@ -295,6 +305,42 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
         renderer.strokeColor = UIColor.systemBrown
         renderer.lineWidth = 4.0
         return renderer
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // Don't want to show a custom image if the annotation is the user's location.
+        guard !(annotation is MKUserLocation) else {
+            return nil
+        }
+
+        // Better to make this class property
+        let annotationIdentifier = "AnnotationIdentifier"
+
+        var annotationView: MKAnnotationView?
+        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
+            annotationView = dequeuedAnnotationView
+            annotationView?.annotation = annotation
+        }
+        else {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+
+        if let annotationView = annotationView {
+            // Configure your annotation view here
+            annotationView.canShowCallout = true
+            
+            if(annotation.title == "Drop Location") {
+                annotationView.image = UIImage(systemName: "car")
+            } else {
+                annotationView.image = UIImage(systemName: "person")
+            }
+            annotationView.tintColor = .systemBlue
+            
+            
+        }
+
+        return annotationView
     }
     
     @objc func refresh_location_in_firebase() {

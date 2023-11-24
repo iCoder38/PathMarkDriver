@@ -394,6 +394,7 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
                  "vechicleType"      : String(cell.txt_vehicle_type.text!),
                  "issueDate"         : String(cell.txt_issued_on.text!),
                  */
+                
                 //Set Your Parameter
                 let parameterDict = NSMutableDictionary()
                 parameterDict.setValue("editprofile", forKey: "action")
@@ -840,7 +841,12 @@ class upload_vehicle_license_table_cell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var img_upload_photo_or_document:UIImageView!
+    @IBOutlet weak var img_upload_photo_or_document:UIImageView!  {
+        didSet {
+            img_upload_photo_or_document.layer.cornerRadius = 12
+            img_upload_photo_or_document.clipsToBounds = true
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

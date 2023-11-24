@@ -126,13 +126,13 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_driving_license/upload_vehicle_license.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "489"
-            endingLineNumber = "489"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
             landmarkName = "upload_licence_image_document_WB(str_show_loader:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "E7A3779A-F942-4B9A-B54E-ADA816FEA4EF - 40f49ad135f7d465"
+                  uuid = "E7A3779A-F942-4B9A-B54E-ADA816FEA4EF - 40f49ad135f7d4a3"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -142,12 +142,12 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_driving_license/upload_vehicle_license.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "489"
-                  endingLineNumber = "489"
-                  offsetFromSymbolStart = "7916">
+                  startingLineNumber = "491"
+                  endingLineNumber = "491"
+                  offsetFromSymbolStart = "7860">
                </Location>
                <Location
-                  uuid = "E7A3779A-F942-4B9A-B54E-ADA816FEA4EF - 40f49ad135f7d465"
+                  uuid = "E7A3779A-F942-4B9A-B54E-ADA816FEA4EF - 40f49ad135f7d484"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -157,8 +157,8 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_driving_license/upload_vehicle_license.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "489"
-                  endingLineNumber = "489"
+                  startingLineNumber = "490"
+                  endingLineNumber = "490"
                   offsetFromSymbolStart = "7832">
                </Location>
             </Locations>
@@ -190,8 +190,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "304"
+            endingLineNumber = "304"
             landmarkName = "edit_vehicle_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -206,8 +206,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "edit_vehicle_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "360"
-            endingLineNumber = "360"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
             landmarkName = "login_refresh_token_for_edit_wb()"
             landmarkType = "7">
          </BreakpointContent>
@@ -238,10 +238,57 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "436"
-            endingLineNumber = "436"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
             landmarkName = "edit_vehicle_image_details_WB(str_show_loader:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "5EDE52E0-D747-497D-BA38-8065391CA504 - 63320885eb830174"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.add_vehicle_details.edit_vehicle_image_details_WB(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "439"
+                  endingLineNumber = "439"
+                  offsetFromSymbolStart = "7996">
+               </Location>
+               <Location
+                  uuid = "5EDE52E0-D747-497D-BA38-8065391CA504 - 985b0bcaed588fc4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.MultipartFormData) -&gt; () in PathMarkDriver.add_vehicle_details.edit_vehicle_image_details_WB(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "439"
+                  endingLineNumber = "439"
+                  offsetFromSymbolStart = "276">
+               </Location>
+               <Location
+                  uuid = "5EDE52E0-D747-497D-BA38-8065391CA504 - 63320885eb830113"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.add_vehicle_details.edit_vehicle_image_details_WB(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "438"
+                  endingLineNumber = "438"
+                  offsetFromSymbolStart = "7888">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -254,8 +301,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611"
+            startingLineNumber = "613"
+            endingLineNumber = "613"
             landmarkName = "add_vehicle_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,10 +317,57 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "460"
-            endingLineNumber = "460"
+            startingLineNumber = "462"
+            endingLineNumber = "462"
             landmarkName = "edit_vehicle_image_details_WB(str_show_loader:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E0062618-B433-438D-A90E-2B83FB8FAFFD - 63320885eb83027b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.add_vehicle_details.edit_vehicle_image_details_WB(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "462"
+                  endingLineNumber = "462"
+                  offsetFromSymbolStart = "8292">
+               </Location>
+               <Location
+                  uuid = "E0062618-B433-438D-A90E-2B83FB8FAFFD - 9fc674cda86e0aaa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (__C.NSProgress) -&gt; () in PathMarkDriver.add_vehicle_details.edit_vehicle_image_details_WB(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "462"
+                  endingLineNumber = "462"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "E0062618-B433-438D-A90E-2B83FB8FAFFD - 985b0bcaed588ccb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.MultipartFormData) -&gt; () in PathMarkDriver.add_vehicle_details.edit_vehicle_image_details_WB(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "462"
+                  endingLineNumber = "462"
+                  offsetFromSymbolStart = "412">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

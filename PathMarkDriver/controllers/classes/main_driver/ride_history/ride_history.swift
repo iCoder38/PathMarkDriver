@@ -605,6 +605,11 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                         cell.lbl_status_for_complete.textColor = .systemGreen
                     }
                     
+                } else if "\(item!["rideStatus"]!)" == "7" {
+                    
+                    cell.lbl_status_for_complete.text = "Cancelled"
+                    cell.lbl_status_for_complete.textColor = .systemRed
+                    
                 }  else if "\(item!["rideStatus"]!)" == "5" {
                     
                     if "\(item!["paymentStatus"]!)" == "" {

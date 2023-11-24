@@ -97,6 +97,9 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
     
     @objc func get_and_parse_UI() {
         
+        
+        print(self.get_booking_data_for_end_ride as Any)
+        
         if (self.get_booking_data_for_end_ride["distance"] == nil) {
             self.btn_distance.setTitle("\(self.get_booking_data_for_end_ride["totalDistance"]!)", for: .normal)
             self.lbl_distance.text = "\(self.get_booking_data_for_end_ride["totalDistance"]!)"
@@ -111,7 +114,7 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
         self.btn_est_earn.setTitle("n.a.", for: .normal)
         
         
-        self.lbl_duration.text = "n.a."
+        self.lbl_duration.text = (self.get_booking_data_for_end_ride["duration"] as! String)
         
         self.lbl_drop_location.text = (self.get_booking_data_for_end_ride["RequestDropAddress"] as! String)
         
@@ -282,7 +285,41 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
         return renderer
     }
     
-    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        // Don't want to show a custom image if the annotation is the user's location.
+        guard !(annotation is MKUserLocation) else {
+            return nil
+        }
+
+        // Better to make this class property
+        let annotationIdentifier = "AnnotationIdentifier"
+
+        var annotationView: MKAnnotationView?
+        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
+            annotationView = dequeuedAnnotationView
+            annotationView?.annotation = annotation
+        }
+        else {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+
+        if let annotationView = annotationView {
+            // Configure your annotation view here
+            annotationView.canShowCallout = true
+            
+            if(annotation.title == "Drop Location") {
+                annotationView.image = UIImage(systemName: "car")
+            } else {
+                annotationView.image = UIImage(systemName: "person")
+            }
+            annotationView.tintColor = .systemBlue
+            
+            
+        }
+
+        return annotationView
+    }
     
     
     @objc func validation_before_accept_booking() {

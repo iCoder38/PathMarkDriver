@@ -16,7 +16,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
     var str_for_update:String!
     
     
-        
+    var str_vehicle_type:String!
     
     var str_vehicle_category_id:String!
     
@@ -74,6 +74,8 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         
         print(self.str_vehicle_category_id as Any)
         // self.get_login_user_full_data()
+        
+        
     }
     
     @objc func sideBarMenuClick() {
@@ -981,6 +983,20 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         }
     }
     
+    @objc func modal_year() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
+        
+        var arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
+        
+        RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_year, selectedIndex: 0) { (selctedText, atIndex) in
+             cell.txt_modal.text = String(selctedText)
+            
+        }
+        
+    }
+    
+    
 }
 
 extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
@@ -1008,14 +1024,16 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
         cell.txt_year.delegate = self
         cell.txt_color.delegate = self
         
+        if (self.str_vehicle_type == "BIKE") {
+//            cell.txt_vehicle_number
+            cell.img_vehicle_logo.image = UIImage(named: "bike_license")
+        } else {
+            cell.img_vehicle_logo.image = UIImage(named: "vehicle_details")
+        }
+        
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             
             print(person)
-            
-            
-            
-            
-            
             
             var arr_mut_order_history:NSMutableArray! = []
             
@@ -1063,6 +1081,8 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
         cell.btn_continue.isUserInteractionEnabled = true
         cell.btn_continue.addTarget(self, action: #selector(add_car_details_click_method), for: .touchUpInside)
         
+        cell.btn_modal.addTarget(self, action: #selector(modal_year), for: .touchUpInside)
+        
         return cell
     }
     
@@ -1079,6 +1099,8 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
 
 class add_vehicle_details_table_cell: UITableViewCell {
 
+    @IBOutlet weak var img_vehicle_logo:UIImageView!
+    
     @IBOutlet weak var lbl_note:UILabel! {
         didSet {
             lbl_note.textAlignment = .center
@@ -1256,6 +1278,8 @@ class add_vehicle_details_table_cell: UITableViewCell {
             Utils.buttonStyle(button: btnDontHaveAnAccount, bCornerRadius: 6, bBackgroundColor: .clear, bTitle: "Don't have an Account - Sign Up", bTitleColor: UIColor(red: 87.0/255.0, green: 77.0/255.0, blue: 112.0/255.0, alpha: 1))
         }
     }
+    
+    @IBOutlet weak var btn_modal:UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

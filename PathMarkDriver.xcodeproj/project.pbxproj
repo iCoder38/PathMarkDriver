@@ -11,6 +11,10 @@
 		3C109D205C5EE622E881B470 /* Pods_PathMarkDriverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6634C3BADF19EAC2762DCEF3 /* Pods_PathMarkDriverTests.framework */; };
 		B9050FC12A974844000305BC /* api_refresh_token.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9050FC02A974844000305BC /* api_refresh_token.swift */; };
 		B9325D012AA9B9E400DEA0A5 /* upload_tax.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9325D002AA9B9E400DEA0A5 /* upload_tax.swift */; };
+		B93500DB2B107E8A004D8C95 /* shared_booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93500DA2B107E8A004D8C95 /* shared_booking.swift */; };
+		B93500DD2B107E92004D8C95 /* share_track.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93500DC2B107E92004D8C95 /* share_track.swift */; };
+		B93500DF2B107E9C004D8C95 /* decline_request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93500DE2B107E9C004D8C95 /* decline_request.swift */; };
+		B93500E12B107EA1004D8C95 /* cancel_your_ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93500E02B107EA1004D8C95 /* cancel_your_ride.swift */; };
 		B93E4FF82AA9A9E400C5F918 /* rating_review.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93E4FF72AA9A9E400C5F918 /* rating_review.swift */; };
 		B9457D1F2A977AE800C39F66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9457D1E2A977AE800C39F66 /* GoogleService-Info.plist */; };
 		B94CC3562AFA135000453626 /* cashout_history.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CC3552AFA135000453626 /* cashout_history.swift */; };
@@ -123,6 +127,10 @@
 		94E944AEAFBB534B102897EC /* Pods-PathMarkDriverTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PathMarkDriverTests.release.xcconfig"; path = "Target Support Files/Pods-PathMarkDriverTests/Pods-PathMarkDriverTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9050FC02A974844000305BC /* api_refresh_token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = api_refresh_token.swift; sourceTree = "<group>"; };
 		B9325D002AA9B9E400DEA0A5 /* upload_tax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_tax.swift; sourceTree = "<group>"; };
+		B93500DA2B107E8A004D8C95 /* shared_booking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shared_booking.swift; sourceTree = "<group>"; };
+		B93500DC2B107E92004D8C95 /* share_track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = share_track.swift; sourceTree = "<group>"; };
+		B93500DE2B107E9C004D8C95 /* decline_request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = decline_request.swift; sourceTree = "<group>"; };
+		B93500E02B107EA1004D8C95 /* cancel_your_ride.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cancel_your_ride.swift; sourceTree = "<group>"; };
 		B93E4FF72AA9A9E400C5F918 /* rating_review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rating_review.swift; sourceTree = "<group>"; };
 		B9457D1D2A97796B00C39F66 /* PathMarkDriver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PathMarkDriver.entitlements; sourceTree = "<group>"; };
 		B9457D1E2A977AE800C39F66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -253,6 +261,39 @@
 				B9325D002AA9B9E400DEA0A5 /* upload_tax.swift */,
 			);
 			path = upload_tax;
+			sourceTree = "<group>";
+		};
+		B93500D62B107E56004D8C95 /* decline_request */ = {
+			isa = PBXGroup;
+			children = (
+				B93500DE2B107E9C004D8C95 /* decline_request.swift */,
+			);
+			path = decline_request;
+			sourceTree = "<group>";
+		};
+		B93500D72B107E68004D8C95 /* cancel_your_ride */ = {
+			isa = PBXGroup;
+			children = (
+				B93500E02B107EA1004D8C95 /* cancel_your_ride.swift */,
+			);
+			path = cancel_your_ride;
+			sourceTree = "<group>";
+		};
+		B93500D82B107E72004D8C95 /* share_track */ = {
+			isa = PBXGroup;
+			children = (
+				B93500DC2B107E92004D8C95 /* share_track.swift */,
+			);
+			path = share_track;
+			sourceTree = "<group>";
+		};
+		B93500D92B107E7B004D8C95 /* share_list */ = {
+			isa = PBXGroup;
+			children = (
+				B93500DA2B107E8A004D8C95 /* shared_booking.swift */,
+				B93500D82B107E72004D8C95 /* share_track */,
+			);
+			path = share_list;
 			sourceTree = "<group>";
 		};
 		B93E4FF62AA9A9D500C5F918 /* review */ = {
@@ -399,6 +440,9 @@
 		B9852D812A651A8B008244F3 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B93500D92B107E7B004D8C95 /* share_list */,
+				B93500D72B107E68004D8C95 /* cancel_your_ride */,
+				B93500D62B107E56004D8C95 /* decline_request */,
 				B9852D822A651A95008244F3 /* third_party */,
 				B9852DD92A651EEA008244F3 /* classes */,
 			);
@@ -1102,11 +1146,13 @@
 				B98988F82A860BD2003B1BD3 /* schedule_ride_details.swift in Sources */,
 				B9852DD82A651BA4008244F3 /* sign_up.swift in Sources */,
 				B9E713B52AF8F60B007CC10E /* cashout.swift in Sources */,
+				B93500DF2B107E9C004D8C95 /* decline_request.swift in Sources */,
 				B9325D012AA9B9E400DEA0A5 /* upload_tax.swift in Sources */,
 				B9852DAB2A651B0D008244F3 /* SWRevealViewController.m in Sources */,
 				B9852D9C2A651AED008244F3 /* RPicker.swift in Sources */,
 				B967A84D2AFA5EFD001D5715 /* edit_profile.swift in Sources */,
 				B98988F52A85FD52003B1BD3 /* ride_history.swift in Sources */,
+				B93500DD2B107E92004D8C95 /* share_track.swift in Sources */,
 				B98989042A861F0D003B1BD3 /* help.swift in Sources */,
 				B9514E202AA8A018005EDF39 /* success.swift in Sources */,
 				B9852DD52A651B97008244F3 /* login.swift in Sources */,
@@ -1117,6 +1163,7 @@
 				B96B0F172A98E1B400835208 /* success_ride_done.swift in Sources */,
 				B9852D9A2A651AE7008244F3 /* AlertView.swift in Sources */,
 				B9852DDC2A651F0D008244F3 /* verify_phone_number.swift in Sources */,
+				B93500DB2B107E8A004D8C95 /* shared_booking.swift in Sources */,
 				B9852DA02A651AF9008244F3 /* ERProgressHud.swift in Sources */,
 				B9852D522A651884008244F3 /* AppDelegate.swift in Sources */,
 				B9D834592AF53547003884D9 /* about_us.swift in Sources */,
@@ -1131,6 +1178,7 @@
 				B9A5918F2A6FE07C003DEC9F /* driver_dashboard.swift in Sources */,
 				B9852D942A651AE7008244F3 /* NewYorkAlertViewType.swift in Sources */,
 				B9852D932A651AE7008244F3 /* Color.swift in Sources */,
+				B93500E12B107EA1004D8C95 /* cancel_your_ride.swift in Sources */,
 				B9E1B4422A85159C0060DCAF /* ride_invoice_details.swift in Sources */,
 				B9E1B43F2A850E4B0060DCAF /* custom_alert_show.swift in Sources */,
 				B9E1B4352A85052D0060DCAF /* after_accept_request.swift in Sources */,

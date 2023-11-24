@@ -214,7 +214,7 @@ extension MenuControllerVC: UITableViewDataSource {
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero
         
-        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+       // if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             
             cell.lblName.text = (self.arr_driver_title[indexPath.row] as! String)
             cell.lblName.textColor = .white
@@ -223,10 +223,10 @@ extension MenuControllerVC: UITableViewDataSource {
             cell.imgProfile.image = UIImage(named: self.arr_driver_image[indexPath.row] as! String)
             cell.imgProfile.backgroundColor = .clear
             
-        } else {
+       /* } else {
             
             // temp
-        }
+        }*/
         
         return cell
     }

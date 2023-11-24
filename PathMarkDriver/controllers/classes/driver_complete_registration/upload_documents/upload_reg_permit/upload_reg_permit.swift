@@ -954,7 +954,12 @@ class upload_reg_permit_table_cell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var img_upload_photo_or_document:UIImageView!
+    @IBOutlet weak var img_upload_photo_or_document:UIImageView!   {
+        didSet {
+            img_upload_photo_or_document.layer.cornerRadius = 12
+            img_upload_photo_or_document.clipsToBounds = true
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
