@@ -775,6 +775,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.11.1):
     - GoogleUtilities/Logger
+  - GrowingTextView (0.7.2)
   - "gRPC-C++ (1.50.1)":
     - "gRPC-C++/Implementation (= 1.50.1)"
     - "gRPC-C++/Interface (= 1.50.1)"
@@ -884,6 +885,7 @@ DEPENDENCIES:
   - FirebaseFirestore
   - GoogleMaps
   - GooglePlaces
+  - GrowingTextView
   - JWTDecode (~> 3.1)
   - OTPFieldView
   - RealTimePicker (= 0.0.6)
@@ -915,6 +917,7 @@ SPEC REPOS:
     - GoogleMaps
     - GooglePlaces
     - GoogleUtilities
+    - GrowingTextView
     - "gRPC-C++"
     - gRPC-Core
     - GTMSessionFetcher
@@ -956,6 +959,7 @@ SPEC CHECKSUMS:
   GoogleMaps: 0dce473ab18742d0f327887853630927cbee9127
   GooglePlaces: 46231f49e2dc52aa9a604f99e2e6b29996f30cc7
   GoogleUtilities: 9aa0ad5a7bc171f8bae016300bfcfa3fb8425749
+  GrowingTextView: 876bf42005b5e4a4fd740597db12caaf41f0fe6c
   "gRPC-C++": 0968bace703459fd3e5dcb0b2bed4c573dbff046
   gRPC-Core: 17108291d84332196d3c8466b48f016fc17d816d
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
@@ -975,6 +979,6 @@ SPEC CHECKSUMS:
   SwiftGifOrigin: fbd6cf37afcfcf97a5c3db996ddc0492e5c5c145
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: dd734efef41ed3f9148f3880803c5680f2adb340
+PODFILE CHECKSUM: 39079d72eb4ba9d4312fbce7ee45033fb128a6c8
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.14.3

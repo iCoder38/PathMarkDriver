@@ -104,6 +104,7 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         
         self.switch_value.addTarget(self, action: #selector(switch_click_method), for: .valueChanged)
         
+        
         //
         // self.ride_end(str_show_loader: "yes")
          
@@ -191,6 +192,10 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
             dropPin.coordinate = newYorkLocation
             dropPin.title = "My Current Location"
             self.mapView.addAnnotation(dropPin)
+            
+            UserDefaults.standard.set(self.strSaveLatitude, forKey: "key_current_latitude")
+            UserDefaults.standard.set(self.strSaveLongitude, forKey: "key_current_latitude")
+            UserDefaults.standard.set(locality+","+localAddress+","+localAddressMini, forKey: "key_current_address")
             
             self.update_token_WB(str_show_loader: "yes")
         }

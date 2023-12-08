@@ -29,6 +29,19 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     var strSaveStateName:String!
     var strSaveZipcodeName:String!
     
+    @IBOutlet weak var view_navigation_bar:UIView! {
+        didSet {
+            view_navigation_bar.backgroundColor = navigation_color
+        }
+    }
+    
+    @IBOutlet weak var view_navigation_title:UILabel! {
+        didSet {
+            view_navigation_title.text = "Dashboard"
+            view_navigation_title.textColor = .white
+        }
+    }
+    
     @IBOutlet weak var view_big:UIView! {
         didSet {
             view_big.backgroundColor = .white
@@ -96,12 +109,28 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     }
     
     @objc func cancancel_ride_click_method() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
         myAlert!.dict_booking_details = self.dict_get_all_data_from_notification
         myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
-        present(myAlert!, animated: true, completion: nil)
+        present(myAlert!, animated: true, completion: nil)*/
+        
+        var window: UIWindow?
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        let destinationController = storyboard.instantiateViewController(withIdentifier:"driver_dashboard_id") as? driver_dashboard
+        let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+        let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+        let mainRevealController = SWRevealViewController()
+        mainRevealController.rearViewController = rearViewController
+        mainRevealController.frontViewController = frontNavigationController
+        DispatchQueue.main.async {
+            UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+        }
+        window?.makeKeyAndVisible()
+        
     }
     
     @objc func parse_all_data_and_show_UI() {
@@ -499,5 +528,185 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     }
     
     
+    // decline
+    @objc func validation_before_decline_booking() {
+
+         // self.accept_booking_WB(str_show_loader: "yes")
+    }
     
+    @objc func decline_booking_WB(str_show_loader:String) {
+        
+        if (str_show_loader == "yes") {
+            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        }
+        
+        
+        self.view.endEditing(true)
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+
+                parameters = [
+                    "action"        : "driverconfirm",
+                    "driverId"      : String(myString),
+                    "bookingId"     : "\(self.dict_get_all_data_from_notification["bookingId"]!)"
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON { [self]
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                        
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        var message : String!
+                        message = (JSON["msg"] as? String)
+                        
+                        print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                            
+                            if (JSON["AuthToken"] == nil) {
+                                print("TOKEN NOT RETURN IN THIS ACTION = driverconfirm")
+                            } else {
+                                let str_token = (JSON["AuthToken"] as! String)
+                                UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                                UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            }
+                            
+                            /*let db = Firestore.firestore()
+                            
+                            db.collection("mode/driver/tracking/India/private_track").addDocument(data: [
+                                
+                                "bookingId"     : "\(self.dict_get_all_data_from_notification["bookingId"]!)",
+                                "driverId"      : String(myString),
+                                "driverLats"    : String(self.strSaveLatitude),
+                                "driverLngs"    : String(self.strSaveLongitude),
+                                "time_stamp"    : "",
+                                "trackingId"    : "\(self.dict_get_all_data_from_notification["bookingId"]!)+\(String(myString))",
+                                
+                            ]) {
+                                err in
+                                
+                                if let err = err {
+                                    print("\(err)")
+                                } else {
+                                    // print("\()")
+                                    print("successfully registered in firebase")
+                                    
+                                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
+                                    push.str_from_direct_notification = "yes"
+                                    push.get_booking_data_for_pickup = self.dict_get_all_data_from_notification
+                                    self.navigationController?.pushViewController(push, animated: true)
+                                    
+                                    ERProgressHud.sharedInstance.hide()
+                                    self.dismiss(animated: true)
+                                }
+                            }*/
+                            
+                            
+                            
+                        } else if message == String(not_authorize_api) {
+                            self.login_refresh_token_for_decline_wb()
+                            
+                        } else {
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
+                    }
+                }
+            }
+        }
+    }
+     
+    
+    @objc func login_refresh_token_for_decline_wb() {
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
+            print(get_login_details as Any)
+            
+            parameters = [
+                "action"    : "login",
+                "email"     : (get_login_details["email"] as! String),
+                "password"  : (get_login_details["password"] as! String),
+            ]
+            
+            print("parameters-------\(String(describing: parameters))")
+            
+            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
+                response in
+                
+                switch(response.result) {
+                case .success(_):
+                    if let data = response.value {
+                        
+                        let JSON = data as! NSDictionary
+                        print(JSON)
+                        
+                        var strSuccess : String!
+                        strSuccess = JSON["status"] as? String
+                        
+                        if strSuccess.lowercased() == "success" {
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            self.decline_booking_WB(str_show_loader: "no")
+                            
+                        } else {
+                            ERProgressHud.sharedInstance.hide()
+                        }
+                        
+                    }
+                    
+                case .failure(_):
+                    print("Error message:\(String(describing: response.error))")
+                    ERProgressHud.sharedInstance.hide()
+                    self.please_check_your_internet_connection()
+                    
+                    break
+                }
+            }
+        }
+        
+    }
 }

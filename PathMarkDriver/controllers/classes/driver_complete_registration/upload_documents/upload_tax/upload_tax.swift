@@ -13,7 +13,7 @@ import WebKit
 import PDFKit
 
 class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIDocumentPickerDelegate, WKNavigationDelegate {
-
+    
     var str_for_profile:String!
     
     var img_data_banner : Data!
@@ -62,15 +62,17 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
-
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         self.img_tax_profile.isUserInteractionEnabled = true
         self.img_tax_profile.addGestureRecognizer(tapGestureRecognizer)
         
-        self.btn_upload_tax.addTarget(self, action: #selector(validation_before_upload_tax), for: .touchUpInside)
+        // self.btn_upload_tax.addTarget(self, action: #selector(validation_before_upload_tax), for: .touchUpInside)
         
         self.parse_data()
     }
+    
+    
     
     @objc func parse_data() {
         
@@ -88,13 +90,80 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
             if (item!["taxTokenImage"] as! String != "") {
                 self.img_tax_profile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
                 self.img_tax_profile.sd_setImage(with: URL(string: (item!["taxTokenImage"] as! String)), placeholderImage: UIImage(named: "logo33"))
+                
+                self.img_tax_profile.contentMode = .scaleAspectFill
             }
         }
         
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
-        self.open_camera_gallery()
+         self.open_camera_gallery()
+        
+        /*if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            
+            var ar : NSArray!
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            
+            let arr_mut_order_history:NSMutableArray! = []
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            
+            let item = arr_mut_order_history[0] as? [String:Any]
+            // print(item as Any)
+            
+            if (item!["taxTokenImage"] as! String != "") {
+                // self.img_tax_profile.sd_imageIndicator = SDWebImageActivityIndicator.whiteLarge
+                // self.img_tax_profile.sd_setImage(with: URL(string: (item!["taxTokenImage"] as! String)), placeholderImage: UIImage(named: "logo33"))
+                
+                let url = URL(string:(item!["taxTokenImage"] as! String))
+                if let data = try? Data(contentsOf: url!)
+                {
+                    let image2: UIImage = UIImage(data: data)!
+                    
+                    let image = image2
+                    let targetSize = CGSize(width: 100, height: 100)
+                    
+                    // Compute the scaling ratio for the width and height separately
+                    let widthScaleRatio = targetSize.width / image.size.width
+                    let heightScaleRatio = targetSize.height / image.size.height
+                    
+                    // To keep the aspect ratio, scale by the smaller scaling ratio
+                    let scaleFactor = min(widthScaleRatio, heightScaleRatio)
+                    
+                    // Multiply the original image’s dimensions by the scale factor
+                    // to determine the scaled image size that preserves aspect ratio
+                    let scaledImageSize = CGSize(
+                        width: image.size.width * scaleFactor,
+                        height: image.size.height * scaleFactor
+                    )
+                }
+                
+                
+                
+            }
+        }*/
+        
+    }
+    
+    func enlargeImage() {
+        
+        let image = UIImage(named: "")
+        let targetSize = CGSize(width: 100, height: 100)
+
+        // Compute the scaling ratio for the width and height separately
+        let widthScaleRatio = targetSize.width / image!.size.width
+        let heightScaleRatio = targetSize.height / image!.size.height
+
+        // To keep the aspect ratio, scale by the smaller scaling ratio
+        let scaleFactor = min(widthScaleRatio, heightScaleRatio)
+
+        // Multiply the original image’s dimensions by the scale factor
+        // to determine the scaled image size that preserves aspect ratio
+        let scaledImageSize = CGSize(
+            width: image!.size.width * scaleFactor,
+            height: image!.size.height * scaleFactor
+        )
+        
     }
     
     // MARK: - OPEN CAMERA OR GALLERY -
@@ -150,7 +219,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
             defer { url.stopAccessingSecurityScopedResource() }
         }
     }
-        
+    
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         controller.dismiss(animated: true, completion: nil)
     }
@@ -158,18 +227,48 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-
+        
         self.img_tax_profile.image = image_data
         let imageData:Data = image_data!.pngData()!
         self.img_Str_banner = imageData.base64EncodedString()
         self.dismiss(animated: true, completion: nil)
         self.img_data_banner = image_data!.jpegData(compressionQuality: 0.2)!
         self.dismiss(animated: true, completion: nil)
-   
+        
     }
     
     @objc func validation_before_upload_tax() {
         self.upload_tax_image(str_show_loader: "yes")
+        
+       
+        
+        
+    }
+    
+    func resizeImage2(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
     }
     
     @objc func upload_tax_image(str_show_loader:String) {
@@ -276,7 +375,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
                             }  else if message == String(not_authorize_api) {
                                 self.login_refresh_token_wb()
                                 
-                            } 
+                            }
                             
                             
                             
@@ -299,7 +398,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
                 })
             }
         } else {
-          print("session")
+            print("session")
         }
     }
     
@@ -314,7 +413,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
                 "email"     : (get_login_details["email"] as! String),
                 "password"  : (get_login_details["password"] as! String),
             ]
-           
+            
             print("parameters-------\(String(describing: parameters))")
             
             AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
@@ -335,7 +434,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
                             let str_token = (JSON["AuthToken"] as! String)
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-
+                            
                             self.upload_tax_image(str_show_loader: "no")
                             
                         } else {
@@ -400,7 +499,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
                         ERProgressHud.sharedInstance.hide()
                         
                         self.navigationController?.popViewController(animated: true)
-
+                        
                     } else {
                         
                         print("no")
@@ -430,3 +529,5 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
     
     
 }
+
+ 

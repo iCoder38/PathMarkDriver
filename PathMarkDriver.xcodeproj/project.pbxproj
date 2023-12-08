@@ -27,6 +27,8 @@
 		B967A84D2AFA5EFD001D5715 /* edit_profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B967A84C2AFA5EFD001D5715 /* edit_profile.swift */; };
 		B96B0F172A98E1B400835208 /* success_ride_done.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96B0F162A98E1B400835208 /* success_ride_done.swift */; };
 		B983DBCB2AA9F7EF00A660FA /* faq.swift in Sources */ = {isa = PBXBuildFile; fileRef = B983DBCA2AA9F7EF00A660FA /* faq.swift */; };
+		B98507A22B22F8A0001343BE /* BooCheckTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98507A02B22F89E001343BE /* BooCheckTableCell.swift */; };
+		B98507A32B22F8A0001343BE /* BooCheckChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98507A12B22F8A0001343BE /* BooCheckChat.swift */; };
 		B9852D522A651884008244F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9852D512A651884008244F3 /* AppDelegate.swift */; };
 		B9852D542A651884008244F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9852D532A651884008244F3 /* SceneDelegate.swift */; };
 		B9852D562A651884008244F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9852D552A651884008244F3 /* ViewController.swift */; };
@@ -144,6 +146,8 @@
 		B967A84C2AFA5EFD001D5715 /* edit_profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = edit_profile.swift; sourceTree = "<group>"; };
 		B96B0F162A98E1B400835208 /* success_ride_done.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = success_ride_done.swift; sourceTree = "<group>"; };
 		B983DBCA2AA9F7EF00A660FA /* faq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = faq.swift; sourceTree = "<group>"; };
+		B98507A02B22F89E001343BE /* BooCheckTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BooCheckTableCell.swift; path = "PathMarkDriver/controllers/classes/New Group/BooCheckTableCell.swift"; sourceTree = SOURCE_ROOT; };
+		B98507A12B22F8A0001343BE /* BooCheckChat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooCheckChat.swift; sourceTree = "<group>"; };
 		B9852D4E2A651884008244F3 /* PathMarkDriver.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PathMarkDriver.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9852D512A651884008244F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9852D532A651884008244F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -381,6 +385,15 @@
 			path = faq;
 			sourceTree = "<group>";
 		};
+		B985079F2B22F888001343BE /* single_chat */ = {
+			isa = PBXGroup;
+			children = (
+				B98507A12B22F8A0001343BE /* BooCheckChat.swift */,
+				B98507A02B22F89E001343BE /* BooCheckTableCell.swift */,
+			);
+			path = single_chat;
+			sourceTree = "<group>";
+		};
 		B9852D452A651884008244F3 = {
 			isa = PBXGroup;
 			children = (
@@ -572,6 +585,7 @@
 		B9852DD92A651EEA008244F3 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				B985079F2B22F888001343BE /* single_chat */,
 				B9E713B32AF8F5E3007CC10E /* cashout */,
 				B9D834572AF53520003884D9 /* about_zarib */,
 				B9C29A902ADD20A000574A94 /* search_map_location */,
@@ -1156,6 +1170,7 @@
 				B98989042A861F0D003B1BD3 /* help.swift in Sources */,
 				B9514E202AA8A018005EDF39 /* success.swift in Sources */,
 				B9852DD52A651B97008244F3 /* login.swift in Sources */,
+				B98507A22B22F8A0001343BE /* BooCheckTableCell.swift in Sources */,
 				B9852DE22A653419008244F3 /* vehicle_list.swift in Sources */,
 				B9050FC12A974844000305BC /* api_refresh_token.swift in Sources */,
 				B9852D562A651884008244F3 /* ViewController.swift in Sources */,
@@ -1174,6 +1189,7 @@
 				B9E1B4382A85087A0060DCAF /* start_ride_now.swift in Sources */,
 				B9852D542A651884008244F3 /* SceneDelegate.swift in Sources */,
 				B95DB6422A658AA000DAFA99 /* upload_documents.swift in Sources */,
+				B98507A32B22F8A0001343BE /* BooCheckChat.swift in Sources */,
 				B95DB63F2A657CD700DAFA99 /* add_vehicle_details.swift in Sources */,
 				B9A5918F2A6FE07C003DEC9F /* driver_dashboard.swift in Sources */,
 				B9852D942A651AE7008244F3 /* NewYorkAlertViewType.swift in Sources */,

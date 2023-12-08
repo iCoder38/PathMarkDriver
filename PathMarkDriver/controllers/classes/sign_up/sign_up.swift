@@ -61,7 +61,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        
+        self.get_country_list_WB()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -98,10 +98,10 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                 print(strSuccess as Any)
                 if strSuccess == String("success") {
                     print("yes")
-                    
+                    ERProgressHud.sharedInstance.hide()
                     self.arr_country_array = (JSON["data"] as! NSArray)
                     
-                    self.country_click_method()
+                    // self.country_click_method()
                     
                 } else {
                     
@@ -168,7 +168,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
             return
             
-        }else if (cell.txt_phone_number.text! == "") {
+        } else if (cell.txt_phone_number.text! == "") {
             
             let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter phone number"), style: .alert)
             let cancel = NewYorkButton(title: "dismiss", style: .cancel)
@@ -282,21 +282,6 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         //Set Your Parameter
         let parameterDict = NSMutableDictionary()
          
-        /*
-         (action: "registration",
-         fullName: String(cell.txt_full_name.text!),
-         email: String(cell.txtEmailAddress.text!),
-         countryCode: String(phone_number_code),
-         contactNumber: String(cell.txt_phone_number.text!),
-         password: String(cell.txtPassword.text!),
-         role: "Driver",
-         INDNo: String(cell.txt_nid_number.text!),
-         latitude: "",
-         longitude: "",
-         device: "iOS",
-         deviceToken: "")
-         */
-        
         var str_device_token:String! = ""
         
         if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
@@ -660,6 +645,9 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         cell.txt_full_name.delegate = self
         cell.txt_address.delegate = self
         cell.txt_nid_number.delegate = self
+        
+        cell.txt_phone_code.text = "+880"
+        cell.txt_country.text = "Bangladesh"
         
         cell.btn_accept_terms.addTarget(self, action: #selector(accept_terms_click_method), for: .touchUpInside)
         

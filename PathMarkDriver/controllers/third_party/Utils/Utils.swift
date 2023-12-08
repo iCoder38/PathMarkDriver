@@ -120,8 +120,6 @@ var str_bangladesh_currency_symbol = "৳ "
 
 class Utils: NSObject {
     
-    
-    
     // text field
     class func text_field_UI(text_field:UITextField) {
         text_field.layer.cornerRadius = 22

@@ -625,19 +625,25 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 }
                 
             } else {
-                // if payment done
-                if "\(item!["rideStatus"]!)" == "5" {
-                    
-                    if "\(item!["paymentStatus"]!)" == "" {
-                        cell.lbl_status_for_complete.text = "Payment Pending"
-                        cell.lbl_status_for_complete.textColor = .systemBrown
-                    } else {
-                        cell.lbl_status_for_complete.text = "Completed"
-                        cell.lbl_status_for_complete.textColor = .systemGreen
+                if "\(item!["rideStatus"]!)" == "7" {
+                    cell.lbl_status_for_complete.text = "Cancelled"
+                    cell.lbl_status_for_complete.textColor = .systemRed
+                } else {
+                    // if payment done
+                    if "\(item!["rideStatus"]!)" == "5" {
+                        
+                        if "\(item!["paymentStatus"]!)" == "" {
+                            cell.lbl_status_for_complete.text = "Payment Pending"
+                            cell.lbl_status_for_complete.textColor = .systemBrown
+                        } else {
+                            cell.lbl_status_for_complete.text = "Completed"
+                            cell.lbl_status_for_complete.textColor = .systemGreen
+                            
+                        }
                         
                     }
-                    
                 }
+               
                 
             }
             

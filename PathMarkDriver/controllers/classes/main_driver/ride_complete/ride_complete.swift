@@ -31,13 +31,26 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
         }
     }
     
+    @IBOutlet weak var view_navigation_bar:UIView! {
+        didSet {
+            view_navigation_bar.backgroundColor = navigation_color
+        }
+    }
+    
+    @IBOutlet weak var view_navigation_title:UILabel! {
+        didSet {
+            view_navigation_title.text = "ENJOY YOUR RIDE"
+            view_navigation_title.textColor = .white
+        }
+    }
+    
     @IBOutlet weak var btn_ride_complete:UIButton! {
         didSet {
-            btn_ride_complete.setTitle("RIDE COMPLETED", for: .normal)
+            btn_ride_complete.setTitle("END RIDE", for: .normal)
             btn_ride_complete.setTitleColor(.white, for: .normal)
             btn_ride_complete.layer.cornerRadius = 6
             btn_ride_complete.clipsToBounds = true
-            btn_ride_complete.backgroundColor = UIColor.init(red: 104.0/255.0, green: 218.0/255.0, blue: 134.0/255.0, alpha: 1)
+            btn_ride_complete.backgroundColor = .systemRed
             
             // shadow
             btn_ride_complete.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor

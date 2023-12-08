@@ -29,7 +29,7 @@ class rating_review: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Earnings"
+            view_navigation_title.text = "Review & Rating"
             view_navigation_title.textColor = .white
         }
     }

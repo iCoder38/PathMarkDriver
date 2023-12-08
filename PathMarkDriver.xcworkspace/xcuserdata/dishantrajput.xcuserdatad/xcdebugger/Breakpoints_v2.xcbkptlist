@@ -78,28 +78,28 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "upload_tax_image(str_show_loader:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be35107"
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - 28d97aef37abdca8"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.upload_tax.upload_tax_image(str_show_loader: Swift.String) -&gt; ()"
+                  symbolName = "PathMarkDriver.upload_tax.login_refresh_token_wb() -&gt; ()"
                   moduleName = "PathMarkDriver"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "302"
-                  endingLineNumber = "302"
-                  offsetFromSymbolStart = "5348">
+                  startingLineNumber = "399"
+                  endingLineNumber = "399"
+                  offsetFromSymbolStart = "720">
                </Location>
                <Location
-                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be35107"
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be36586"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -109,8 +109,23 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "302"
-                  endingLineNumber = "302"
+                  startingLineNumber = "399"
+                  endingLineNumber = "399"
+                  offsetFromSymbolStart = "5212">
+               </Location>
+               <Location
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be365d8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.upload_tax.upload_tax_image(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "401"
+                  endingLineNumber = "401"
                   offsetFromSymbolStart = "5212">
                </Location>
             </Locations>
@@ -380,13 +395,13 @@
             filePath = "PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
+            startingLineNumber = "400"
+            endingLineNumber = "400"
             landmarkName = "login_refresh_token_wb()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "B84BA536-83B8-4B69-A5F0-47C669705370 - fd3d46606ee322da"
+                  uuid = "B84BA536-83B8-4B69-A5F0-47C669705370 - fd3d46606ee32d67"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -396,12 +411,12 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "397"
-                  endingLineNumber = "397"
+                  startingLineNumber = "402"
+                  endingLineNumber = "402"
                   offsetFromSymbolStart = "856">
                </Location>
                <Location
-                  uuid = "B84BA536-83B8-4B69-A5F0-47C669705370 - fd3d46606ee3221c"
+                  uuid = "B84BA536-83B8-4B69-A5F0-47C669705370 - fd3d46606ee322b9"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -411,8 +426,8 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "395"
-                  endingLineNumber = "395"
+                  startingLineNumber = "400"
+                  endingLineNumber = "400"
                   offsetFromSymbolStart = "720">
                </Location>
             </Locations>
@@ -464,6 +479,102 @@
                   offsetFromSymbolStart = "200">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A2365881-8EB4-4978-91B3-C1DC5A36EF4A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "771"
+            endingLineNumber = "771"
+            landmarkName = "update_profile_with_image()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A2365881-8EB4-4978-91B3-C1DC5A36EF4A - 200203bf29ab6874"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.edit_profile.update_profile_with_image() -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "773"
+                  endingLineNumber = "773"
+                  offsetFromSymbolStart = "976">
+               </Location>
+               <Location
+                  uuid = "A2365881-8EB4-4978-91B3-C1DC5A36EF4A - 200203bf29ab67b2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.edit_profile.update_profile_with_image() -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "771"
+                  endingLineNumber = "771"
+                  offsetFromSymbolStart = "840">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC9A4E6B-C15B-4D3E-A3DB-97035CE32CDE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PathMarkDriver/controllers/classes/main_driver/ride_history/ride_history.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "683"
+            endingLineNumber = "683"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B6262122-F6F5-48B3-865D-1E4E4A8722B5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PathMarkDriver/controllers/classes/main_driver/ride_history/ride_history.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "691"
+            endingLineNumber = "691"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B7813A88-E516-4826-8517-4D9A293EDD37"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PathMarkDriver/controllers/classes/main_driver/ride_history/ride_history.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "706"
+            endingLineNumber = "706"
+            landmarkName = "tableView(_:didSelectRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

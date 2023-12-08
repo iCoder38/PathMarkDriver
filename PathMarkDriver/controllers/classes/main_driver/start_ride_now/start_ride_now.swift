@@ -36,6 +36,19 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     var strSaveStateName:String!
     var strSaveZipcodeName:String!
     
+    @IBOutlet weak var view_navigation_bar:UIView! {
+        didSet {
+            view_navigation_bar.backgroundColor = navigation_color
+        }
+    }
+    
+    @IBOutlet weak var view_navigation_title:UILabel! {
+        didSet {
+            view_navigation_title.text = "DRIVER HAS ARRIVED"
+            view_navigation_title.textColor = .white
+        }
+    }
+    
     @IBOutlet weak var view_big:UIView! {
         didSet {
             view_big.backgroundColor = .white
@@ -44,7 +57,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     
     @IBOutlet weak var btn_start_ride_now:UIButton! {
         didSet {
-            btn_start_ride_now.setTitle("START RIDE NOW", for: .normal)
+            btn_start_ride_now.setTitle("START RIDE", for: .normal)
             btn_start_ride_now.setTitleColor(.white, for: .normal)
             btn_start_ride_now.layer.cornerRadius = 6
             btn_start_ride_now.clipsToBounds = true
@@ -56,6 +69,18 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             btn_start_ride_now.layer.shadowOpacity = 1.0
             btn_start_ride_now.layer.shadowRadius = 10.0
             btn_start_ride_now.layer.masksToBounds = false
+        }
+    }
+    
+    @IBOutlet weak var btn_decline:UIButton! {
+        didSet {
+            btn_decline.setTitle("CANCEL", for: .normal)
+            btn_decline.setTitleColor(.systemPink, for: .normal)
+            btn_decline.layer.cornerRadius = 6
+            btn_decline.clipsToBounds = true
+            btn_decline.backgroundColor = .white
+            btn_decline.layer.borderColor = UIColor.systemPink.cgColor
+            btn_decline.layer.borderWidth = 2
         }
     }
     
@@ -111,6 +136,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         self.get_and_parse_UI()
         
         self.btn_start_ride_now.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
+        self.btn_message.addTarget(self, action: #selector(chat_click), for: .touchUpInside)
         
         // print(self.firestore_id as Any)
         // print(self.str_driver_lat as Any)
@@ -130,9 +156,29 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         }
         
         
-        
+        self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
         
         self.current_location_click_method()
+    }
+    
+    @objc func chat_click() {
+        
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
+        push!.str_get_user_id = "\(self.get_booking_data_for_start_ride["userId"]!)"
+        
+        push!.str_driver_id = "\(self.get_booking_data_for_start_ride["userId"]!)"
+        push!.str_booking_id = "\(self.get_booking_data_for_start_ride["bookingId"]!)"
+        
+        self.navigationController?.pushViewController(push!, animated: true)
+    }
+    
+    @objc func cancancel_ride_click_method() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
+        myAlert!.dict_booking_details = self.get_booking_data_for_start_ride
+        myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(myAlert!, animated: true, completion: nil)
     }
     
     @objc func current_location_click_method() {

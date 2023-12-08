@@ -363,7 +363,7 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
             show_alert(text: "Please enter your Vehicle Registration Number.")
             return
         } else if (cell.txt_vehicle_registration_state.text == "") {
-            show_alert(text: "Please enter your Vehicle Registration State.")
+            show_alert(text: "Please enter your Vehicle Registration City.")
             return
         } else if (cell.txt_expiry_date.text == "") {
             show_alert(text: "Please enter your Expiry Date.")
@@ -741,7 +741,7 @@ class upload_vehicle_reg_document_table_cell: UITableViewCell {
                               tfAppearance: .dark,
                               tfKeyboardType: .default,
                               tfBackgroundColor: .white,
-                              tfPlaceholderText: "Vehicle registration State")
+                              tfPlaceholderText: "Vehicle registration City")
             
             txt_vehicle_registration_state.layer.masksToBounds = false
             txt_vehicle_registration_state.layer.shadowColor = UIColor.black.cgColor

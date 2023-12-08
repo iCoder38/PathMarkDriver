@@ -13,8 +13,9 @@ import JWTDecode
 
 // MARK:- LOCATION -
 import CoreLocation
+import SDWebImage
 
-class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate {
+class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     let locationManager = CLLocationManager()
     
@@ -31,6 +32,10 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
     var arr_country_array:NSArray!
     
     var str_country_name:String!
+    
+    var str_user_select_image:String! = "0"
+    var img_data_banner : Data!
+    var img_Str_banner : String!
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -495,6 +500,445 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
         return true
     }
     
+    
+    
+    
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        self.open_camera_gallery()
+    }
+    
+    // MARK: - OPEN CAMERA OR GALLERY -
+    @objc func open_camera_gallery() {
+        
+        let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
+        
+        // actionSheet.addImage(UIImage(named: "camera"))
+        
+        let cameraa = NewYorkButton(title: "Camera", style: .default) { _ in
+            // print("camera clicked done")
+            
+            self.open_camera_or_gallery(str_type: "c")
+        }
+        
+        let gallery = NewYorkButton(title: "Gallery", style: .default) { _ in
+            // print("camera clicked done")
+            
+            self.open_camera_or_gallery(str_type: "g")
+        }
+        
+        let cancel = NewYorkButton(title: "Cancel", style: .cancel)
+        
+        actionSheet.addButtons([cameraa, gallery, cancel])
+        
+        self.present(actionSheet, animated: true)
+        
+    }
+    
+    // MARK: - OPEN CAMERA or GALLERY -
+    @objc func open_camera_or_gallery(str_type:String) {
+        
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        if str_type == "c" {
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        
+        imagePicker.allowsEditing = false
+        self.present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! edit_profile_table_cell
+        
+        let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+
+        cell.img_upload.image = image_data
+        let imageData:Data = image_data!.pngData()!
+        self.img_Str_banner = imageData.base64EncodedString()
+        self.dismiss(animated: true, completion: nil)
+        self.img_data_banner = image_data!.jpegData(compressionQuality: 0.2)!
+        self.dismiss(animated: true, completion: nil)
+   
+        self.str_user_select_image = "1"
+    }
+    
+    @objc func sign_up_click_method() {
+        if (self.str_user_select_image == "1") {
+            self.update_profile_with_image()
+        } else {
+            self.sign_up_WB()
+        }
+        
+    }
+    
+    @objc func update_profile_with_image() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! edit_profile_table_cell
+        
+        self.view.endEditing(true)
+        
+        if (self.str_user_select_image == "0") {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Profile Picture"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            
+            return
+        }
+        
+        
+        
+        var phone_number_code : String!
+        
+        if (cell.txt_full_name.text! == "") {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter full name"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
+            return
+            
+        } else if (cell.txtEmailAddress.text! == "") {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter email address"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
+            return
+            
+        }else if (cell.txt_phone_number.text! == "") {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter phone number"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
+            return
+            
+        }  else if (cell.txt_nid_number.text! == "") {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter nid number"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
+            return
+            
+        }  else if (cell.txt_address.text! == "") {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter address"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
+            return
+            
+        }else if (cell.txt_country.text! == "") {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter country name"), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
+            return
+            
+        } else if (cell.txt_nid_number.text!.count < 13) {
+            
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid NID No."), style: .alert)
+            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+            alert.addButtons([cancel])
+            self.present(alert, animated: true)
+            ERProgressHud.sharedInstance.hide()
+            
+            return
+            
+        } else {
+            
+            for indexx in 0..<self.arr_country_array.count {
+                
+                let item = self.arr_country_array[indexx] as? [String:Any]
+                print(item as Any)
+                
+                if (cell.txt_country.text! == (item!["name"] as! String)) {
+                    print("yes matched")
+                    phone_number_code = (item!["phonecode"] as! String)
+                }
+                
+            }
+            
+        }
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                // self.show_loading_UI()
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                
+                //Set Your URL
+                let api_url = application_base_url
+                guard let url = URL(string: api_url) else {
+                    return
+                }
+                
+                var urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0 * 1000)
+                urlRequest.httpMethod = "POST"
+                urlRequest.allHTTPHeaderFields = ["token":String(token_id_is)]
+                urlRequest.addValue("application/json",
+                                    forHTTPHeaderField: "Accept")
+                
+                //Set Your Parameter
+                let parameterDict = NSMutableDictionary()
+                
+                // var str_device_token:String! = ""
+                
+                /*if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
+                 
+                 str_device_token = String(device_token)
+                 }*/
+                
+                // car information
+                parameterDict.setValue("editProfile", forKey: "action")
+                
+                parameterDict.setValue(String(myString), forKey: "userId")
+                
+                parameterDict.setValue(String(cell.txt_full_name.text!), forKey: "fullName")
+                parameterDict.setValue(String(cell.txtEmailAddress.text!), forKey: "email")
+                parameterDict.setValue(String(phone_number_code), forKey: "countryCode")
+                parameterDict.setValue(String(cell.txt_phone_number.text!), forKey: "contactNumber")
+                // parameterDict.setValue(String(cell.txtPassword.text!), forKey: "password")
+                parameterDict.setValue("Driver", forKey: "role")
+                parameterDict.setValue(String(cell.txt_nid_number.text!), forKey: "INDNo")
+                parameterDict.setValue(String(cell.txt_address.text!), forKey: "address")
+                // parameterDict.setValue("", forKey: "latitude")
+                // parameterDict.setValue("", forKey: "longitude")
+                // parameterDict.setValue("iOS", forKey: "device")
+                // parameterDict.setValue(String(str_device_token), forKey: "deviceToken")
+                
+                print(parameterDict as Any)
+                
+                // Now Execute
+                AF.upload(multipartFormData: { multiPart in
+                    for (key, value) in parameterDict {
+                        if let temp = value as? String {
+                            multiPart.append(temp.data(using: .utf8)!, withName: key as! String)
+                        }
+                        if let temp = value as? Int {
+                            multiPart.append("\(temp)".data(using: .utf8)!, withName: key as! String)
+                        }
+                        if let temp = value as? NSArray {
+                            temp.forEach({ element in
+                                let keyObj = key as! String + "[]"
+                                if let string = element as? String {
+                                    multiPart.append(string.data(using: .utf8)!, withName: keyObj)
+                                } else
+                                if let num = element as? Int {
+                                    let value = "\(num)"
+                                    multiPart.append(value.data(using: .utf8)!, withName: keyObj)
+                                }
+                            })
+                        }
+                    }
+                    multiPart.append(self.img_data_banner, withName: "image", fileName: "edit_profile.png", mimeType: "image/png")
+                }, with: urlRequest)
+                .uploadProgress(queue: .main, closure: { progress in
+                    //Current upload progress of file
+                    print("Upload Progress: \(progress.fractionCompleted)")
+                })
+                .responseJSON(completionHandler: { data in
+                    
+                    switch data.result {
+                        
+                    case .success(_):
+                        do {
+                            
+                            let dictionary = try JSONSerialization.jsonObject(with: data.data!, options: .fragmentsAllowed) as! NSDictionary
+                            print(dictionary)
+                            
+                            var message : String!
+                            message = (dictionary["msg"] as? String)
+                            
+                            if (dictionary["status"] as! String) == "success" {
+                                print("yes")
+                                
+                                var dict: Dictionary<AnyHashable, Any>
+                                dict = dictionary["data"] as! Dictionary<AnyHashable, Any>
+                                
+                                let defaults = UserDefaults.standard
+                                defaults.setValue(dict, forKey: str_save_login_user_data)
+                                
+                                // save email and password
+                                /*let custom_email_pass = ["email":cell.txtEmailAddress.text!,
+                                 "password":cell.txtPassword.text!]
+                                 
+                                 UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)*/
+                                
+                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                                
+                                // self.hide_loading_UI()
+                                ERProgressHud.sharedInstance.hide()
+                                
+                                self.str_user_select_image = "0"
+                                
+                                // self.navigationController?.popViewController(animated: true)
+                                
+                            } else if (dictionary["status"] as! String) == "Success" {
+                                print("yes")
+                                
+                                var dict: Dictionary<AnyHashable, Any>
+                                dict = dictionary["data"] as! Dictionary<AnyHashable, Any>
+                                
+                                let defaults = UserDefaults.standard
+                                defaults.setValue(dict, forKey: str_save_login_user_data)
+                                
+                                // save email and password
+                                /*let custom_email_pass = ["email":cell.txtEmailAddress.text!,
+                                 "password":cell.txtPassword.text!]
+                                 
+                                 UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)*/
+                                
+                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                                
+                                // self.hide_loading_UI()
+                                ERProgressHud.sharedInstance.hide()
+                                
+                                // self.navigationController?.popViewController(animated: true)
+                                
+                            }  else if (dictionary["status"] as! String) == "Fails" {
+                                
+                                self.login_refresh_token_wb_two()
+                                
+                            } else {
+                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                                ERProgressHud.sharedInstance.hide()
+                            }
+                            
+                            
+                            
+                        }
+                        catch {
+                            // catch error.
+                            print("catch error")
+                            ERProgressHud.sharedInstance.hide()
+                        }
+                        break
+                        
+                    case .failure(_):
+                        print("failure")
+                        ERProgressHud.sharedInstance.hide()
+                        break
+                        
+                    }
+                    
+                    
+                })
+            }
+        }
+    }
+    
+    @objc func login_refresh_token_wb_two() {
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
+            print(get_login_details as Any)
+            
+            parameters = [
+                "action"    : "login",
+                "email"     : (get_login_details["email"] as! String),
+                "password"  : (get_login_details["password"] as! String),
+            ]
+            
+            print("parameters-------\(String(describing: parameters))")
+            
+            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
+                response in
+                
+                switch(response.result) {
+                case .success(_):
+                    if let data = response.value {
+                        
+                        let JSON = data as! NSDictionary
+                        print(JSON)
+                        
+                        var strSuccess : String!
+                        strSuccess = JSON["status"] as? String
+                        
+                        if strSuccess.lowercased() == "success" {
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            self.update_profile_with_image()
+                            
+                        } else {
+                            ERProgressHud.sharedInstance.hide()
+                        }
+                        
+                    }
+                    
+                case .failure(_):
+                    print("Error message:\(String(describing: response.error))")
+                    ERProgressHud.sharedInstance.hide()
+                    self.please_check_your_internet_connection()
+                    
+                    break
+                }
+            }
+        }
+        
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
 }
 
 extension edit_profile: UITableViewDataSource  , UITableViewDelegate {
@@ -533,6 +977,38 @@ extension edit_profile: UITableViewDataSource  , UITableViewDelegate {
             cell.txt_phone_code.text = (person["countryCode"] as! String)
             cell.txt_address.text = (person["address"] as! String)
             cell.txt_country.text = String(self.str_country_name)
+            
+            var ar : NSArray!
+            ar = (person["carinfromation"] as! Array<Any>) as NSArray
+            
+            let arr_mut_order_history:NSMutableArray! = []
+            arr_mut_order_history.addObjects(from: ar as! [Any])
+            print(arr_mut_order_history as Any)
+            
+            let item = arr_mut_order_history[0] as? [String:Any]
+            print(item as Any)
+            
+            cell.txt_car_type.isUserInteractionEnabled = false
+            cell.txt_car_type.text = (item!["categoryName"] as! String)
+            
+            if (item!["categoryName"] as! String) == "Sedan" {
+                cell.img_car_type.image = UIImage(named: "car_1")
+            } else if (item!["categoryName"] as! String) == "Luxury" {
+                cell.img_car_type.image = UIImage(named: "car_1")
+            } else if (item!["categoryName"] as! String) == "Economy" {
+                cell.img_car_type.image = UIImage(named: "car_1")
+            } else if (item!["categoryName"] as! String) == "SUV" {
+                cell.img_car_type.image = UIImage(named: "car_1")
+            } else {
+                cell.img_car_type.image = UIImage(named: "bike_1")
+            }
+            
+            cell.img_upload.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+            cell.img_upload.sd_setImage(with: URL(string: (person["image"] as! String)), placeholderImage: UIImage(named: "logo"))
+            
+            // cell.txt
+//            self.resizeImage(image: UIImage(named: "https://demo4.evirtualservices.net/pathmark/img/uploads/cars/1696970040upload_vehicle_registration.png")!, targetSize: CGSizeMake(200.0, 200.0))
+            
         }
         
         cell.btnSignUp.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1)
@@ -542,16 +1018,17 @@ extension edit_profile: UITableViewDataSource  , UITableViewDelegate {
         
         cell.btn_country.addTarget(self, action: #selector(before_open_popup), for: .touchUpInside)
         
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        cell.img_upload.isUserInteractionEnabled = true
+        cell.img_upload.addGestureRecognizer(tapGestureRecognizer)
+        
         return cell
     }
     
     // 989013037178
     // VLMBIP
     
-    @objc func sign_up_click_method() {
-        
-        self.sign_up_WB()
-    }
+    
     
     @objc func accept_terms_click_method() {
         
@@ -680,6 +1157,34 @@ class edit_profile_table_cell: UITableViewCell {
             txtEmailAddress.layer.shadowOffset =  CGSize.zero
             txtEmailAddress.layer.shadowOpacity = 0.5
             txtEmailAddress.layer.shadowRadius = 2
+            
+        }
+    }
+    
+    @IBOutlet weak var img_car_type:UIImageView! {
+        didSet {
+            img_car_type.layer.cornerRadius = 6
+            img_car_type.clipsToBounds = true
+        }
+    }
+    @IBOutlet weak var txt_car_type:UITextField! {
+        didSet {
+            Utils.textFieldUI(textField: txt_car_type,
+                              tfName: txt_car_type.text!,
+                              tfCornerRadius: 12,
+                              tfpadding: 20,
+                              tfBorderWidth: 0,
+                              tfBorderColor: .clear,
+                              tfAppearance: .dark,
+                              tfKeyboardType: .default,
+                              tfBackgroundColor: .white,
+                              tfPlaceholderText: "type")
+            
+            txt_car_type.layer.masksToBounds = false
+            txt_car_type.layer.shadowColor = UIColor.black.cgColor
+            txt_car_type.layer.shadowOffset =  CGSize.zero
+            txt_car_type.layer.shadowOpacity = 0.5
+            txt_car_type.layer.shadowRadius = 2
             
         }
     }

@@ -726,7 +726,6 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
         }
         
-        
         //Set Your URL
         let api_url = application_base_url
         guard let url = URL(string: api_url) else {
@@ -789,7 +788,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                             })
                         }
                     }
-                    multiPart.append(self.img_data_banner, withName: "DrivingLicenceImage", fileName: "upload_driving_license.png", mimeType: "image/png")
+                    multiPart.append(self.img_data_banner, withName: "carImage", fileName: "upload_driving_license.png", mimeType: "image/png")
                 }, with: urlRequest)
                 .uploadProgress(queue: .main, closure: { progress in
                     //Current upload progress of file
@@ -987,15 +986,55 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
         
-        var arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
+        let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
         
         RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_year, selectedIndex: 0) { (selctedText, atIndex) in
-             cell.txt_modal.text = String(selctedText)
+             cell.txt_year.text = String(selctedText)
             
         }
         
     }
     
+    @objc func brand_click_method() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
+        
+        let arr_brand = ["Toyota",
+                         "Honda",
+                         "Nissan",
+                         "Suzuki",
+                         "Hyundai"]
+        
+        RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
+             cell.txt_brand.text = String(selctedText)
+            
+        }
+    }
+    
+    @objc func year_click_method() {
+        
+    }
+    
+    @objc func color_click_method() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
+        
+        let arr_color = ["white",
+                        "black",
+                        "Gray",
+                        "Silver",
+                        "Red",
+                        "Blue",
+                        "Yellow",
+                        "Green",
+                        "Beige",
+                        "Gold"]
+        
+        RPicker.selectOption(title: "Select color", cancelText: "Cancel", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
+             cell.txt_color.text = String(selctedText)
+            
+        }
+    }
     
 }
 
@@ -1023,6 +1062,10 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
         cell.txt_modal.delegate = self
         cell.txt_year.delegate = self
         cell.txt_color.delegate = self
+        
+        cell.btn_brand.addTarget(self, action: #selector(brand_click_method), for: .touchUpInside)
+        // cell.btn_year.addTarget(self, action: #selector(year_click_method), for: .touchUpInside)
+        cell.btn_color.addTarget(self, action: #selector(color_click_method), for: .touchUpInside)
         
         if (self.str_vehicle_type == "BIKE") {
 //            cell.txt_vehicle_number
@@ -1182,6 +1225,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var btn_brand:UIButton!
     @IBOutlet weak var txt_brand:UITextField! {
         didSet {
             Utils.textFieldUI(textField: txt_brand,
@@ -1214,7 +1258,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
                               tfBorderWidth: 0,
                               tfBorderColor: .clear,
                               tfAppearance: .dark,
-                              tfKeyboardType: .numberPad,
+                              tfKeyboardType: .default,
                               tfBackgroundColor: .white,
                               tfPlaceholderText: "Modal")
             
@@ -1227,7 +1271,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
         }
     }
     
-    
+    @IBOutlet weak var btn_year:UIButton!
     @IBOutlet weak var txt_year:UITextField! {
         didSet {
             Utils.textFieldUI(textField: txt_year,
@@ -1250,7 +1294,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
         }
     }
     
-    
+    @IBOutlet weak var btn_color:UIButton!
     @IBOutlet weak var txt_color:UITextField! {
         didSet {
             Utils.textFieldUI(textField: txt_color,

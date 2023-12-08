@@ -33,6 +33,19 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
     var strSaveStateName:String!
     var strSaveZipcodeName:String!
     
+    @IBOutlet weak var view_navigation_bar:UIView! {
+        didSet {
+            view_navigation_bar.backgroundColor = navigation_color
+        }
+    }
+    
+    @IBOutlet weak var view_navigation_title:UILabel! {
+        didSet {
+            view_navigation_title.text = "DRIVER ARRIVING"
+            view_navigation_title.textColor = .white
+        }
+    }
+    
     @IBOutlet weak var view_big:UIView! {
         didSet {
             view_big.backgroundColor = .white
@@ -41,7 +54,7 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
     
     @IBOutlet weak var btn_accept:UIButton! {
         didSet {
-            btn_accept.setTitle("PICKUP", for: .normal)
+            btn_accept.setTitle("ARRIVING", for: .normal)
             btn_accept.setTitleColor(.white, for: .normal)
             btn_accept.layer.cornerRadius = 6
             btn_accept.clipsToBounds = true

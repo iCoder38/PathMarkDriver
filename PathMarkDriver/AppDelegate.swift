@@ -211,3 +211,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 }
 
+/*
+ 
+ [action] => driverconfirm
+     [bookingId] => 273
+     [driverId] => 123
+ 
+ [action] => driverarrived
+     [bookingId] => 273
+     [driverId] => 123
+ 
+ [action] => ridestart
+     [bookingId] => 273
+     [driverId] => 123
+     [Actual_Pickup_Lat_Long] => 28.6634489,77.3239817
+     [Actual_PickupAddress] => 9/1, Block C, Yojna Vihar, Anand Vihar, Ghaziabad, Uttar Pradesh 110092, India
+ 
+ [action] => rideend
+     [bookingId] => 273
+     [driverId] => 123
+     [Actual_Drop_Lat_Long] => 28.6634489,77.3239817
+     [Actual_Drop_Address] => 9/1, Block C, Yojna Vihar, Anand Vihar, Ghaziabad, Uttar Pradesh 110092, India
+ 
+ */
