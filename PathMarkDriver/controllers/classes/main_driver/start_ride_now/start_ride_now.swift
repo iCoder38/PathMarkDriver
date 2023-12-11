@@ -36,6 +36,8 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     var strSaveStateName:String!
     var strSaveZipcodeName:String!
     
+    var str_phone_number:String!
+    
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
             view_navigation_bar.backgroundColor = navigation_color
@@ -136,6 +138,8 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         self.get_and_parse_UI()
         
         self.btn_start_ride_now.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
+        
+        self.btn_call.addTarget(self, action: #selector(dialNumber), for: .touchUpInside)
         self.btn_message.addTarget(self, action: #selector(chat_click), for: .touchUpInside)
         
         // print(self.firestore_id as Any)
@@ -150,9 +154,11 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         if (self.get_booking_data_for_start_ride["fullName"]) == nil {
             self.lbl_passenger_name.text = (self.get_booking_data_for_start_ride["CustomerName"] as! String)
             self.lbl_passenger_number.text = (self.get_booking_data_for_start_ride["CustomerPhone"] as! String)
+            self.str_phone_number = (self.get_booking_data_for_start_ride["CustomerPhone"] as! String)
         } else {
             self.lbl_passenger_name.text = (self.get_booking_data_for_start_ride["fullName"] as! String)
             self.lbl_passenger_number.text = (self.get_booking_data_for_start_ride["contactNumber"] as! String)
+            self.str_phone_number = (self.get_booking_data_for_start_ride["contactNumber"] as! String)
         }
         
         
@@ -161,12 +167,19 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         self.current_location_click_method()
     }
     
+    @objc func dialNumber() {
+
+        let url: NSURL = URL(string: "tel://\(self.str_phone_number!)")! as NSURL
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        
+    }
+    
     @objc func chat_click() {
         
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
-        push!.str_get_user_id = "\(self.get_booking_data_for_start_ride["userId"]!)"
+                  //        push!.str_get_user_id = "\(self.get_booking_data_for_start_ride["userId"]!)"
         
-        push!.str_driver_id = "\(self.get_booking_data_for_start_ride["userId"]!)"
+        // push!.str_driver_id = "\(self.get_booking_data_for_start_ride["userId"]!)"
         push!.str_booking_id = "\(self.get_booking_data_for_start_ride["bookingId"]!)"
         
         self.navigationController?.pushViewController(push!, animated: true)

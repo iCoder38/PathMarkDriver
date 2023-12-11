@@ -63,7 +63,7 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
     }
     @IBOutlet weak var btn_decline:UIButton! {
         didSet {
-            btn_decline.setTitle("DECLINE", for: .normal)
+            btn_decline.setTitle("CANCEL", for: .normal)
             btn_decline.setTitleColor(.systemPink, for: .normal)
             btn_decline.layer.cornerRadius = 6
             btn_decline.clipsToBounds = true
@@ -118,13 +118,16 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
             btn_message.backgroundColor = UIColor.init(red: 210.0/255.0, green: 214.0/255.0, blue: 240.0/255.0, alpha: 1)
         }
     }
-    
+    var str_phone_number:String!
     // @IBOutlet weak var lbl_customer_name:UILabel!
     // @IBOutlet weak var lbl_customer_name:UILabel!
     @IBOutlet weak var mapView:MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        self.btn_call.addTarget(self, action: #selector(dialNumber), for: .touchUpInside)
+        self.btn_message.addTarget(self, action: #selector(chat_click), for: .touchUpInside)
         
         print("=====================================")
         print(self.str_from_direct_notification as Any)
@@ -137,6 +140,13 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
         self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
     }
     
+    @objc func dialNumber() {
+        
+        let url: NSURL = URL(string: "tel://\(self.str_phone_number!)")! as NSURL
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        
+    }
+    
     @objc func cancancel_ride_click_method() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
@@ -146,14 +156,34 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
         present(myAlert!, animated: true, completion: nil)
     }
     
+    @objc func chat_click() {
+        
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
+        // push!.str_get_user_id = "\(self.get_booking_data_for_pickup["userId"]!)"
+        
+        // push!.str_driver_id = "\(self.get_booking_data_for_pickup["userId"]!)"
+        push!.str_booking_id = "\(self.get_booking_data_for_pickup["bookingId"]!)"
+        
+        self.navigationController?.pushViewController(push!, animated: true)
+    }
+    
     @objc func get_and_parse_UI() {
         
         if (self.str_from_direct_notification != "yes") {
             self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["fullName"] as! String)
             self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["contactNumber"] as! String)
+            self.str_phone_number = (self.get_booking_data_for_pickup["contactNumber"] as! String)
         } else {
-            self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["CustomerName"] as! String)
-            self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
+            if (self.get_booking_data_for_pickup["CustomerName"] == nil) {
+                self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["fullName"] as! String)
+                self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["contactNumber"] as! String)
+                self.str_phone_number =  (self.get_booking_data_for_pickup["contactNumber"] as! String)
+            } else {
+                self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["CustomerName"] as! String)
+                self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
+                self.str_phone_number =  (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
+            }
+            
         }
         
         self.lbl_from.text = (self.get_booking_data_for_pickup["RequestPickupAddress"] as! String)

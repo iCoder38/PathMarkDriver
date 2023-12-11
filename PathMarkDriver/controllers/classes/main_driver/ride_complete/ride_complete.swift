@@ -127,7 +127,12 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
         self.btn_est_earn.setTitle("n.a.", for: .normal)
         
         
-        self.lbl_duration.text = (self.get_booking_data_for_end_ride["duration"] as! String)
+        if (self.get_booking_data_for_end_ride["duration"] == nil ) {
+            self.lbl_duration.text = "" // (self.get_booking_data_for_end_ride["duration"] as! String)
+        } else {
+            self.lbl_duration.text = (self.get_booking_data_for_end_ride["duration"] as! String)
+        }
+        
         
         self.lbl_drop_location.text = (self.get_booking_data_for_end_ride["RequestDropAddress"] as! String)
         

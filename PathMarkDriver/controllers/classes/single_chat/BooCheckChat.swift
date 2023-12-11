@@ -245,14 +245,15 @@ class BooCheckChat: UIViewController, MessagingDelegate, UINavigationControllerD
             
             self.strLoginUserName = (person["fullName"] as! String)
             
-            print(self.str_sender_id as Any)
+            /*print(self.str_sender_id as Any)
             print(self.str_get_user_id as Any)
             
             print(self.str_driver_id as Any)
-            print(self.str_booking_id as Any)
+            print(self.str_booking_id as Any)*/
             
-            self.room_id = String(self.str_booking_id)+"+"+String(self.str_driver_id)
+            // self.room_id = String(self.str_booking_id)+"+"+String(self.str_driver_id)
             
+            self.room_id = String(self.str_booking_id)
             
         }
         
