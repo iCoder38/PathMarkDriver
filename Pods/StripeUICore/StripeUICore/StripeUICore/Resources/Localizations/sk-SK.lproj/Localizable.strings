@@ -10,11 +10,15 @@
 
 "Area" = "Okres";
 
+"BLIK code" = "Kód BLIK";
+
 "BSB number" = "BSB číslo";
 
 "Billing address is same as shipping" = "Fakturačná adresa je totožná s dodacou";
 
 "Cancel" = "Zrušiť";
+
+"Card brand" = "Značka karty";
 
 "City" = "Mesto";
 
@@ -37,6 +41,8 @@
 "District" = "Obvod";
 
 "Do Si" = "Do Si";
+
+"Do you want to close this form?" = "Chcete zatvoriť tento formulár?";
 
 "Done" = "Hotovo";
 
@@ -90,7 +96,11 @@
 
 "Remove bank account ending in %@" = "Odstrániť bankový účet končiaci na %@";
 
+"Remove card" = "Odstrániť kartu";
+
 "Search" = "Vyhľadať";
+
+"Select card brand (optional)" = "Vybrať značku karty (voliteľne)";
 
 "State" = "Štát";
 
@@ -104,6 +114,8 @@
 
 "The account number you entered is incomplete." = "Zadané číslo účtu je neúplné.";
 
+"The sort code you entered is invalid." = "Zadaný triediaci kód je neplatný.";
+
 "Town or city" = "Obec alebo mesto";
 
 "UPI ID" = "Identifikačné číslo UPI";
@@ -112,9 +124,15 @@
 
 "Use rotor to access links" = "Použite funkciu rotora na prístup k odkazom";
 
+"Your BLIK code is incomplete." = "Váš kód BLIK je neúplný.";
+
+"Your BLIK code is invalid." = "Váš kód BLIK je neplatný.";
+
 "Your ZIP is incomplete." = "Vaše PSČ je neúplné.";
 
 "Your email is invalid." = "Váš e-mail je neplatný.";
+
+"Your payment information will not be saved." = "Vaše informácie o platbe nebudú uložené.";
 
 "Your postal code is incomplete." = "Vaše poštové smerovacie číslo je neúplné.";
 

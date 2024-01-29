@@ -7,6 +7,7 @@
 //
 
 import Foundation
+@_spi(STP) import StripeCore
 
 extension NSDecimalNumber {
     // The number of decimal places for some currencies varies between Stripe and NumberFormatter,
@@ -14,6 +15,8 @@ extension NSDecimalNumber {
     static let decimalCountSpecialCases = [
         "COP": 2,
         "PKR": 2,
+        "LAK": 2,
+        "RSD": 2,
     ]
 
     @objc @_spi(STP) public class func stp_decimalNumber(
@@ -41,7 +44,7 @@ extension NSDecimalNumber {
 
         let currencyLocaleIdentifier = Locale.availableIdentifiers.first(where: {
             let locale = Locale(identifier: $0)
-            return locale.currencyCode?.lowercased() == currency?.lowercased()
+            return locale.stp_currencyCode?.lowercased() == currency?.lowercased()
         })
 
         let currencyFormatter = NumberFormatter()

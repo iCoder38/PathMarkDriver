@@ -65,18 +65,14 @@ class BooCheckChat: UIViewController, MessagingDelegate, UINavigationControllerD
     var uploadImageForChatURL:String!
     var chatChannelName:String!
     var receiverData:NSDictionary!
-    //    var receiverData : [String :Any] = [:]
     
-    
+    // var receiverData : [String :Any] = [:]
     
     var strSenderDevice:String! = "0"
     var strSenderDeviceToken:String! = "0"
     
     var strReceiverDevice:String! = "0"
     var strReceiverDeviceToken:String! = "0"
-    
-    
-    
     
     var strSaveLastMessage:String!
     

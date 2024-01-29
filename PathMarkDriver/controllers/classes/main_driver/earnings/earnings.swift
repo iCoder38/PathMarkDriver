@@ -29,7 +29,23 @@ class earnings: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Earnings"
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Earnings"
+                } else {
+                    view_navigation_title.text = "উপার্জন"
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             view_navigation_title.textColor = .white
         }
     }
@@ -46,7 +62,23 @@ class earnings: UIViewController {
             btn_today.setTitleColor(.black, for: .normal)
             btn_today.tag = 0
             btn_today.backgroundColor = UIColor.init(red: 250.0/255.0, green: 218.0/255.0, blue: 78.0/255.0, alpha: 1)
-            btn_today.setTitle("Today", for: .normal)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_today.setTitle("Today", for: .normal)
+                } else {
+                    btn_today.setTitle("আজকের", for: .normal)
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
         }
     }
     @IBOutlet weak var btn_week:UIButton! {
@@ -54,7 +86,22 @@ class earnings: UIViewController {
             btn_week.setTitleColor(.black, for: .normal)
             btn_week.tag = 0
             btn_week.backgroundColor = UIColor.init(red: 250.0/255.0, green: 218.0/255.0, blue: 78.0/255.0, alpha: 1)
-            btn_week.setTitle("Weekly", for: .normal)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_week.setTitle("Weekly", for: .normal)
+                } else {
+                    btn_week.setTitle("সাপ্তাহিক", for: .normal)
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
         }
     }
     
@@ -70,12 +117,34 @@ class earnings: UIViewController {
     }
     
     @IBOutlet weak var lbl_my_earnings:UILabel!
+    @IBOutlet weak var lbl_my_earnings_text:UILabel!
     @IBOutlet weak var lbl_spend_time:UILabel!
     @IBOutlet weak var lbl_completed_trips:UILabel!
+    @IBOutlet weak var lbl_completed_trips_text:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                lbl_my_earnings_text.text = "My Earnings"
+                lbl_completed_trips_text.text = "Completed Trips"
+            } else {
+                lbl_my_earnings_text.text = "আমার উপার্জন"
+                lbl_completed_trips_text.text = "ট্রিপ সম্পন্ন হয়েছে"
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
         
         self.sideBarMenu()
         
@@ -311,7 +380,22 @@ extension earnings: UITableViewDataSource , UITableViewDelegate {
         cell.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
         cell.img_profile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo33"))
         
-       
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                cell.lbl_distance_text.text = "Distance"
+            } else {
+                cell.lbl_distance_text.text = "দূরত্ব"
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
         
         return cell
         

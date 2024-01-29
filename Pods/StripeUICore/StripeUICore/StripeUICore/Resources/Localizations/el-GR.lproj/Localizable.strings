@@ -10,11 +10,15 @@
 
 "Area" = "Περιοχή";
 
+"BLIK code" = "Κωδικός BLIK";
+
 "BSB number" = "Αριθμός BSB";
 
 "Billing address is same as shipping" = "Η διεύθυνση τιμολόγησης είναι ίδια με τη διεύθυνση αποστολής";
 
 "Cancel" = "Ακύρωση";
+
+"Card brand" = "Επωνυμία κάρτας";
 
 "City" = "Πόλη";
 
@@ -37,6 +41,8 @@
 "District" = "Περιφέρεια";
 
 "Do Si" = "Do Si";
+
+"Do you want to close this form?" = "Θέλετε να κλείσετε αυτή τη φόρμα;";
 
 "Done" = "Τέλος";
 
@@ -90,7 +96,11 @@
 
 "Remove bank account ending in %@" = "Αφαίρεση του τραπεζικού λογαριασμού που λήγει σε %@";
 
+"Remove card" = "Αφαίρεση κάρτας";
+
 "Search" = "Αναζήτηση";
+
+"Select card brand (optional)" = "Επιλέξτε επωνυμία κάρτας (προαιρετικό)";
 
 "State" = "Πολιτεία";
 
@@ -104,6 +114,8 @@
 
 "The account number you entered is incomplete." = "Ο αριθμός λογαριασμού που εισαγάγατε είναι ελλιπής.";
 
+"The sort code you entered is invalid." = "Ο κωδικός sort που εισαγάγατε δεν είναι έγκυρος.";
+
 "Town or city" = "Κωμόπολη ή πόλη";
 
 "UPI ID" = "Αναγνωριστικό UPI";
@@ -112,9 +124,15 @@
 
 "Use rotor to access links" = "Χρησιμοποιήστε τον ρότορα για να προσπελάσετε τους συνδέσμους";
 
+"Your BLIK code is incomplete." = "Ο κωδικός σας BLIK είναι ελλιπής.";
+
+"Your BLIK code is invalid." = "Ο κωδικός σας BLIK δεν είναι έγκυρος.";
+
 "Your ZIP is incomplete." = "Ο ταχυδρομικός σας κώδικας είναι ελλιπής.";
 
 "Your email is invalid." = "Η διεύθυνση email σας δεν είναι έγκυρη.";
+
+"Your payment information will not be saved." = "Τα στοιχεία πληρωμής δε θα αποθηκευτούν.";
 
 "Your postal code is incomplete." = "Ο ταχυδρομικός κώδικάς σας είναι ελλιπής.";
 

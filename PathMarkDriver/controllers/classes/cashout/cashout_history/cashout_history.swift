@@ -26,7 +26,24 @@ class cashout_history: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Cashout History"
+             
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Cashout History"
+                } else {
+                    view_navigation_title.text = "ক্যাশআউট ইতিহাস"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             view_navigation_title.textColor = .white
         }
     }
@@ -54,7 +71,17 @@ class cashout_history: UIViewController {
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             
             if (str_show_loader == "yes") {
-                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                    } else {
+                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                    }
+                    
+                    
+                }
             }
             
             
@@ -226,14 +253,48 @@ extension cashout_history: UITableViewDataSource , UITableViewDelegate {
         // print(item as Any)
         
         cell.lbl_time.text = (item!["created"] as! String)
-        cell.lbl_amount.text = "Amount : \(str_bangladesh_currency_symbol)\(item!["requestAmount"]!)"
+        
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                cell.lbl_amount.text = "Amount : \(str_bangladesh_currency_symbol)\(item!["requestAmount"]!)"
+            } else {
+                cell.lbl_amount.text = "পরিমাণ : \(str_bangladesh_currency_symbol)\(item!["requestAmount"]!)"
+            }
+            
+            
+        }
         
         if (item!["sendDate"] as! String == "") {
             cell.btn_pending.backgroundColor = .lightGray
-            cell.btn_pending.setTitle("Pending", for: .normal)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    cell.btn_pending.setTitle("Pending", for: .normal)
+                } else {
+                    cell.btn_pending.setTitle("বিচারাধীন", for: .normal)
+                }
+                
+                
+            }
         } else {
             cell.btn_pending.backgroundColor = .systemGreen
-            cell.btn_pending.setTitle("Done", for: .normal)
+            // cell.btn_pending.setTitle("Done", for: .normal)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    cell.btn_pending.setTitle("Done", for: .normal)
+                } else {
+                    cell.btn_pending.setTitle("সম্পন্ন", for: .normal)
+                }
+                
+                
+            }
         }
         
         return cell

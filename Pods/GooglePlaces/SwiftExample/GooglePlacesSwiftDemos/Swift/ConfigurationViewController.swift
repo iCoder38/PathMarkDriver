@@ -196,14 +196,18 @@ class ConfigurationViewController: UIViewController {
       ratingsTotal, priceLevel, types, website, viewPort, addressComponents, photos, minutes,
       status, iconImageURL, iconBackgroundColor,
     ]
-    #if BuildFlag_Places_EnableBooleanPlacesAttributes
-      placeFieldSamples += [
-        takeout, delivery, dineIn, curbsidePickup, reservable, servesBreakfast,
-        servesLunch, servesDinner, servesBeer, servesWine, servesBrunch, servesVegetarianFood,
-        wheelchairAccessibleEntrance,
-      ]
-    #endif  // BuildFlag_Places_EnableBooleanPlacesAttributes
-    sections.append(ConfigSection(name: "Place Fields", samples: placeFieldSamples))
+    placeSamples += [
+      takeout, delivery, dineIn, curbsidePickup, reservable, servesBreakfast,
+      servesLunch, servesDinner, servesBeer, servesWine, servesBrunch, servesVegetarianFood,
+      wheelchairAccessibleEntrance,
+    ]
+    placeSamples += [
+      currentOpeningHours, secondaryOpeningHours,
+    ]
+    placeSamples += [
+      editorialSummary
+    ]
+    sections.append(ConfigSection(name: "Place Fields", samples: placeSamples))
     return sections
   }()
 

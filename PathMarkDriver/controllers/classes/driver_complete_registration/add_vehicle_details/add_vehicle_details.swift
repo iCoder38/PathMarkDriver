@@ -59,7 +59,22 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         
          
         if (self.str_for_update == "yes") {
-            self.view_navigation_title.text = "Update Vehicle Details"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Update Vehicle Details"
+                } else {
+                    view_navigation_title.text = "গাড়ির তথ্যাদি আপডেট করুন"
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             
             self.sideBarMenuClick()
             
@@ -69,7 +84,22 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             
         } else {
             self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
-            self.view_navigation_title.text = "Add Vehicle Details"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Add Vehicle Details"
+                } else {
+                    view_navigation_title.text = "গাড়ির বিস্তারিত যোগ করুন"
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
         }
         
         print(self.str_vehicle_category_id as Any)
@@ -122,19 +152,103 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
         
         if (cell.txt_vehicle_number.text == "") {
-            show_alert(text: "Please add your vehicle number")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please add your vehicle number")
+                } else {
+                    show_alert(text: "আপনার গাড়ির নম্বর যোগ করুন")
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             return
         } else if (cell.txt_brand.text == "") {
-            show_alert(text: "Please enter card brand")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter car brand")
+                } else {
+                    show_alert(text: "গাড়ির ব্র্যান্ড লিখুন")
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             return
         } else if (cell.txt_modal.text == "") {
-            show_alert(text: "Please enter car modal")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter car modal")
+                } else {
+                    show_alert(text: "গাড়ির মডেল লিখুন")
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+             
             return
         } else if (cell.txt_year.text == "") {
-            show_alert(text: "Please enter year")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter year")
+                } else {
+                    show_alert(text: "বছর লিখুন")
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             return
         } else if (cell.txt_color.text == "") {
-            show_alert(text: "Please enter color of your car")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter color of your card")
+                } else {
+                    show_alert(text: "আপনার কার্ডের রঙ লিখুন")
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             return
         } else {
             if (self.str_for_update == "yes") {
@@ -152,7 +266,22 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     self.upload_vehicle_details_WB(str_show_loader: "yes")
                 } else {
                     // self.add_vehicle_WB(str_show_loader: "yes")
-                    show_alert(text: "Please add your Vehicle Image.")
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            show_alert(text: "Please add your vehicle image.")
+                        } else {
+                            show_alert(text: "আপনার কার্ডের রঙ লিখুন")
+                        }
+                        
+                     
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
                     return
                 }
                 
@@ -998,17 +1127,58 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
     @objc func brand_click_method() {
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
-        
-        let arr_brand = ["Toyota",
-                         "Honda",
-                         "Nissan",
-                         "Suzuki",
-                         "Hyundai"]
-        
-        RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
-             cell.txt_brand.text = String(selctedText)
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
             
+            if (language == "en") {
+                
+                
+                let arr_brand = ["Toyota",
+                                 "Honda",
+                                 "Nissan",
+                                 "Suzuki",
+                                 "Hyundai",
+                                 "Audi",
+                                 "BMW",
+                                 "Subaru",
+                ]
+                
+                RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
+                     cell.txt_brand.text = String(selctedText)
+                    
+                }
+                
+                
+                
+            } else {
+                
+                
+                let arr_brand = ["টয়োটা",
+                                 "হোন্ডা",
+                                 "নিসান",
+                                 "সুজুকি",
+                                 "হুন্ডাই",
+                                 "অডি",
+                                 "বিএমডাব্লু",
+                                 "সুবারু",
+                ]
+                
+                RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
+                     cell.txt_brand.text = String(selctedText)
+                    
+                }
+                
+                
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
         }
+        
     }
     
     @objc func year_click_method() {
@@ -1019,21 +1189,62 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
         
-        let arr_color = ["white",
-                        "black",
-                        "Gray",
-                        "Silver",
-                        "Red",
-                        "Blue",
-                        "Yellow",
-                        "Green",
-                        "Beige",
-                        "Gold"]
-        
-        RPicker.selectOption(title: "Select color", cancelText: "Cancel", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
-             cell.txt_color.text = String(selctedText)
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
             
+            if (language == "en") {
+                
+                
+                let arr_color = ["white",
+                                "black",
+                                "Gray",
+                                "Silver",
+                                "Red",
+                                "Blue",
+                                "Yellow",
+                                "Green",
+                                "Beige",
+                                "Gold",
+                "Metallic Gray"]
+                
+                RPicker.selectOption(title: "Select color", cancelText: "Cancel", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
+                     cell.txt_color.text = String(selctedText)
+                    
+                }
+                
+                
+            } else {
+                
+                
+                let arr_color = ["সাদা",
+                                "কালো",
+                                "ধূসর",
+                                "রৌপ্য",
+                                "লাল",
+                                "নীল",
+                                "হলুদ",
+                                "সবুজ",
+                                "বেইজ",
+                                "স্বর্ণ",
+                                 "ধাতব ধূসর"]
+                
+                RPicker.selectOption(title: "রঙ নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
+                     cell.txt_color.text = String(selctedText)
+                    
+                }
+                
+                
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
         }
+        
+        
     }
     
 }
@@ -1066,6 +1277,25 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
         cell.btn_brand.addTarget(self, action: #selector(brand_click_method), for: .touchUpInside)
         // cell.btn_year.addTarget(self, action: #selector(year_click_method), for: .touchUpInside)
         cell.btn_color.addTarget(self, action: #selector(color_click_method), for: .touchUpInside)
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                cell.btn_continue.setTitle("Continue", for: .normal)
+                cell.lbl_note.text = "Note : Vehicle details will show when Passenger will book your car."
+            } else {
+                cell.btn_continue.setTitle("চালিয়ে যান", for: .normal)
+                cell.lbl_note.text = "বিঃদ্রঃ যাত্রী আপনার গাড়ি বুক করার সময় গাড়ির বিবরণ দেখানো হবে."
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
         
         if (self.str_vehicle_type == "BIKE") {
 //            cell.txt_vehicle_number
@@ -1146,10 +1376,10 @@ class add_vehicle_details_table_cell: UITableViewCell {
     
     @IBOutlet weak var lbl_note:UILabel! {
         didSet {
-            lbl_note.textAlignment = .center
-            lbl_note.text = "Note: vehicle details will show when\nPassenger will book your car."
+            // lbl_note.textAlignment = .center
+            // lbl_note.text = "Note: vehicle details will show when\nPassenger will book your car."
             lbl_note.numberOfLines = 0
-            lbl_note.textColor = .darkGray
+            // lbl_note.textColor = .darkGray
         }
     }
     
@@ -1324,6 +1554,8 @@ class add_vehicle_details_table_cell: UITableViewCell {
     }
     
     @IBOutlet weak var btn_modal:UIButton!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

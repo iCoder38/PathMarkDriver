@@ -26,7 +26,16 @@ class about_us: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "About Zarib"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "About Zarib"
+                } else {
+                    view_navigation_title.text = "যারিব সম্পর্কে জানুন"
+                }
+                
+            }
             view_navigation_title.textColor = .white
         }
     }
@@ -59,7 +68,17 @@ class about_us: UIViewController {
     @objc func set_location_hour_WB(str_show_loader:String) {
          
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+               print(language as Any)
+               
+               if (language == "en") {
+                   ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+               } else {
+                   ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+               }
+               
+            
+           }
         }
         
         

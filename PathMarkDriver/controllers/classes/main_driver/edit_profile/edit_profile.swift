@@ -45,8 +45,17 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Edit Profile"
-            view_navigation_title.textColor = .white
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Edit Profile"
+                } else {
+                    view_navigation_title.text = "প্রোফাইল আপডেট করুন"
+                }
+                
+                view_navigation_title.textColor = .white
+            }
         }
     }
     
@@ -95,7 +104,17 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
         
         self.view.endEditing(true)
         
-         ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+               print(language as Any)
+               
+               if (language == "en") {
+                   ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+               } else {
+                   ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+               }
+               
+            
+           }
         
         let params = payload_country_list(action: "countrylist")
         
@@ -131,7 +150,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                             let item = self.arr_country_array[indexx] as? [String:Any]
                             // print(item as Any)
                             
-                            if (person["countryCode"] as! String == (item!["phonecode"] as! String)) {
+                            if ( "\(person["countryCode"]!)" == "\(item!["phonecode"]!)") {
                                 print("yes matched")
                                 print(item!["phonecode"] as! String)
                                 
@@ -179,7 +198,17 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
         self.view.endEditing(true)
         
         // self.show_loading_UI()
-        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+           print(language as Any)
+           
+           if (language == "en") {
+               ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+           } else {
+               ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+           }
+           
+        
+       }
         
         // let params = main_token(body: get_encrpyt_token)
         
@@ -688,7 +717,17 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                 let myString = String(x)
                 
                 // self.show_loading_UI()
-                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                   print(language as Any)
+                   
+                   if (language == "en") {
+                       ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                   } else {
+                       ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                   }
+                   
+                
+               }
                 
                 //Set Your URL
                 let api_url = application_base_url
@@ -974,9 +1013,9 @@ extension edit_profile: UITableViewDataSource  , UITableViewDelegate {
             cell.txt_full_name.text = (person["fullName"] as! String)
             cell.txt_nid_number.text = (person["INDNo"] as! String)
             cell.txt_phone_number.text = (person["contactNumber"] as! String)
-            cell.txt_phone_code.text = (person["countryCode"] as! String)
+            cell.txt_phone_code.text = "\(person["countryCode"]!)"
             cell.txt_address.text = (person["address"] as! String)
-            cell.txt_country.text = String(self.str_country_name)
+            // cell.txt_country.text = String(self.str_country_name)
             
             var ar : NSArray!
             ar = (person["carinfromation"] as! Array<Any>) as NSArray
@@ -1008,7 +1047,23 @@ extension edit_profile: UITableViewDataSource  , UITableViewDelegate {
             
             // cell.txt
 //            self.resizeImage(image: UIImage(named: "https://demo4.evirtualservices.net/pathmark/img/uploads/cars/1696970040upload_vehicle_registration.png")!, targetSize: CGSizeMake(200.0, 200.0))
-            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    
+                    cell.btnSignUp.setTitle("Submit", for: .normal)
+                    
+                } else {
+                    cell.btnSignUp.setTitle("জমা দিন", for: .normal)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
         }
         
         cell.btnSignUp.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1)

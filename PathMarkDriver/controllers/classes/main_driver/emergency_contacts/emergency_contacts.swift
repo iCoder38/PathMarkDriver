@@ -26,7 +26,17 @@ class emergency_contacts: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Emergency Contact"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Emergency Contact"
+                } else {
+                    view_navigation_title.text = "জরুরী যোগাযোগ"
+                }
+                
+                view_navigation_title.textColor = .white
+            }
             view_navigation_title.textColor = .white
         }
     }
@@ -87,7 +97,17 @@ class emergency_contacts: UIViewController {
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             
             if (str_show_loader == "yes") {
-                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                    } else {
+                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                    }
+                    
+                    
+                }
             }
             
             

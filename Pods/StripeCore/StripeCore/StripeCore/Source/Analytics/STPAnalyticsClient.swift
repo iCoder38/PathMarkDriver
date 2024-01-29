@@ -20,6 +20,9 @@ import UIKit
 
 @_spi(STP) public class STPAnalyticsClient: NSObject, STPAnalyticsClientProtocol {
     @objc public static let sharedClient = STPAnalyticsClient()
+    /// When this class logs a payload in an XCTestCase, it's added to `_testLogHistory` instead of being sent over the network.
+    /// This is a hack - ideally, we inject a different analytics client in our tests. This is an escape hatch until we can make that (significant) refactor
+    public var _testLogHistory: [[String: Any]] = []
 
     @objc public var productUsage: Set<String> = Set()
     private var additionalInfoSet: Set<String> = Set()
@@ -70,23 +73,6 @@ import UIKit
         return additionalInfoSet.sorted()
     }
 
-    func logPayload(_ payload: [String: Any]) {
-        #if DEBUG
-            NSLog("LOG ANALYTICS: \(payload)")
-        #endif
-
-        guard type(of: self).shouldCollectAnalytics(),
-            let url = URL(string: "https://q.stripe.com")
-        else {
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.stp_addParameters(toURL: payload)
-        let task: URLSessionDataTask = urlSession.dataTask(with: request as URLRequest)
-        task.resume()
-    }
-
     /// Creates a payload dictionary for the given analytic that includes the event name,
     /// common payload, additional info, and product usage dictionary.
     ///
@@ -118,7 +104,26 @@ import UIKit
     ///   - apiClient: The `STPAPIClient` instance with which this payload should be associated
     ///     (i.e. publishable key). Defaults to `STPAPIClient.shared`.
     public func log(analytic: Analytic, apiClient: STPAPIClient = .shared) {
-        logPayload(payload(from: analytic))
+        let payload = payload(from: analytic, apiClient: apiClient)
+
+        #if DEBUG
+            NSLog("LOG ANALYTICS: \(payload)")
+        #endif
+
+        guard type(of: self).shouldCollectAnalytics(),
+              let url = URL(string: "https://q.stripe.com")
+        else {
+            // Don't send the analytic, but add it to `_testLogHistory` if we're in a test.
+            if NSClassFromString("XCTest") != nil {
+                _testLogHistory.append(payload)
+            }
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.stp_addParameters(toURL: payload)
+        let task: URLSessionDataTask = urlSession.dataTask(with: request as URLRequest)
+        task.resume()
     }
 }
 
@@ -139,6 +144,7 @@ extension STPAnalyticsClient {
         payload["app_name"] = Bundle.stp_applicationName() ?? ""
         payload["app_version"] = Bundle.stp_applicationVersion() ?? ""
         payload["plugin_type"] = PluginDetector.shared.pluginType?.rawValue
+        payload["network_type"] = NetworkDetector.getConnectionType()
         payload["install"] = InstallMethod.current.rawValue
         payload["publishable_key"] = apiClient.sanitizedPublishableKey ?? "unknown"
 

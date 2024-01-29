@@ -15,8 +15,12 @@
 
 #import "GoogleMapsDemos/SampleListViewController.h"
 
-#import <GoogleMaps/GoogleMaps.h>
 #import "GoogleMapsDemos/Samples/Samples.h"
+#if __has_feature(modules)
+@import GoogleMaps;
+#else
+#import <GoogleMaps/GoogleMaps.h>
+#endif
 
 typedef NSMutableArray<NSArray<NSDictionary<NSString *, NSObject *> *> *> DemoSamplesArray;
 
@@ -50,6 +54,8 @@ typedef NSMutableArray<NSArray<NSDictionary<NSString *, NSObject *> *> *> DemoSa
       [[UISearchController alloc] initWithSearchResultsController:nil];
   searchController.searchResultsUpdater = self;
   searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+  searchController.searchBar.accessibilityIdentifier = @"SamplesTableViewSearchBar";
+  searchController.obscuresBackgroundDuringPresentation = NO;
   self.navigationItem.searchController = searchController;
 }
 

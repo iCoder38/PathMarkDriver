@@ -21,6 +21,9 @@
 #import "GoogleMapsDemos/Samples/CameraViewController.h"
 #import "GoogleMapsDemos/Samples/CustomIndoorViewController.h"
 #import "GoogleMapsDemos/Samples/CustomMarkersViewController.h"
+#import "GoogleMapsDemos/Samples/DataDrivenStylingBasicViewController.h"
+#import "GoogleMapsDemos/Samples/DataDrivenStylingEventsViewController.h"
+#import "GoogleMapsDemos/Samples/DataDrivenStylingSearchViewController.h"
 #import "GoogleMapsDemos/Samples/DoubleMapViewController.h"
 #import "GoogleMapsDemos/Samples/FitBoundsViewController.h"
 #import "GoogleMapsDemos/Samples/FixedPanoramaViewController.h"
@@ -53,12 +56,12 @@
 
 @implementation Samples
 
-+ (NSArray *)loadSections {
-  return @[ @"Map", @"Panorama", @"Overlays", @"Camera", @"Services" ];
++ (NSArray<NSString *> *)loadSections {
+  return @[ @"Map", @"Panorama", @"Overlays", @"Camera", @"Data-driven styling", @"Services" ];
 }
 
-+ (NSArray *)loadDemos {
-  NSArray<NSDictionary<NSString *, id> *> *mapDemos = @[
++ (NSArray<NSArray<DemoDefinition *> *> *)loadDemos {
+  NSArray<DemoDefinition *> *mapDemos = @[
     [self newDemo:[BasicMapViewController class] withTitle:@"Basic Map" andDescription:nil],
     [self newDemo:[MapTypesViewController class] withTitle:@"Map Types" andDescription:nil],
     [self newDemo:[StampedPolylinesViewController class]
@@ -91,14 +94,14 @@
     [self newDemo:[StyledMapViewController class] withTitle:@"Styled Map" andDescription:nil],
   ];
 
-  NSArray *panoramaDemos = @[
+  NSArray<DemoDefinition *> *panoramaDemos = @[
     [self newDemo:[PanoramaViewController class] withTitle:@"Street View" andDescription:nil],
     [self newDemo:[FixedPanoramaViewController class]
              withTitle:@"Fixed Street View"
         andDescription:nil]
   ];
 
-  NSArray *overlayDemos = @[
+  NSArray<DemoDefinition *> *overlayDemos = @[
     [self newDemo:[MarkersViewController class] withTitle:@"Markers" andDescription:nil],
     [self newDemo:[CustomMarkersViewController class]
              withTitle:@"Custom Markers"
@@ -125,29 +128,43 @@
         andDescription:nil]
   ];
 
-  NSArray *cameraDemos = @[
+  NSArray<DemoDefinition *> *cameraDemos = @[
     [self newDemo:[FitBoundsViewController class] withTitle:@"Fit Bounds" andDescription:nil],
     [self newDemo:[CameraViewController class] withTitle:@"Camera Animation" andDescription:nil],
     [self newDemo:[MapLayerViewController class] withTitle:@"Map Layer" andDescription:nil]
   ];
 
-  NSArray *servicesDemos = @[
+  NSArray<DemoDefinition *> *dataDrivenStylingDemos = @[
+    [self newDemo:[DataDrivenStylingBasicViewController class]
+             withTitle:@"Basic"
+        andDescription:nil],
+    [self newDemo:[DataDrivenStylingEventsViewController class]
+             withTitle:@"Events"
+        andDescription:nil],
+    [self newDemo:[DataDrivenStylingSearchViewController class]
+             withTitle:@"Places from text search"
+        andDescription:nil]
+  ];
+
+  NSArray<DemoDefinition *> *servicesDemos = @[
     [self newDemo:[GeocoderViewController class] withTitle:@"Geocoder" andDescription:nil],
     [self newDemo:[StructuredGeocoderViewController class]
              withTitle:@"Structured Geocoder"
         andDescription:nil],
   ];
 
-  return @[ mapDemos, panoramaDemos, overlayDemos, cameraDemos, servicesDemos ];
+  return @[
+    mapDemos, panoramaDemos, overlayDemos, cameraDemos, dataDrivenStylingDemos, servicesDemos
+  ];
 }
 
-+ (NSDictionary *)newDemo:(Class)viewControllerClass
-                withTitle:(NSString *)title
-           andDescription:(NSString *)description {
-  return
-      [[NSDictionary alloc] initWithObjectsAndKeys:viewControllerClass, @"controller", title,
-                                                   @"title", NSStringFromClass(viewControllerClass),
-                                                   @"className", description, @"description", nil];
++ (DemoDefinition *)newDemo:(Class)viewControllerClass
+                  withTitle:(NSString *)title
+             andDescription:(NSString *)description {
+  return [[DemoDefinition alloc]
+      initWithObjectsAndKeys:viewControllerClass, @"controller", title, @"title",
+                             NSStringFromClass(viewControllerClass), @"className", description,
+                             @"description", nil];
 }
 
 @end

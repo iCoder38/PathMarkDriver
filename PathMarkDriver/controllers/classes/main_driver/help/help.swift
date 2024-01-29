@@ -29,7 +29,22 @@ class help: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "HELP"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Help"
+                } else {
+                    view_navigation_title.text = "হেল্প"
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             view_navigation_title.textColor = .white
         }
     }
@@ -38,10 +53,33 @@ class help: UIViewController {
     @IBOutlet weak var lbl_email:UILabel!
     @IBOutlet weak var lbl_contact_number:UILabel!
     
+    @IBOutlet weak var lbl_connect:UILabel!
+    
+    @IBOutlet weak var lbl_rights:UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.sideBarMenu()
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                lbl_connect.text = "CONNECT WITH US :"
+                // lbl_rights.text = "©2024 Zarib. All Rights Reserved."
+            } else {
+                lbl_connect.text = "আমাদের সাথে যোগাযোগ করুন"
+                // lbl_rights.text = "©2024 Zarib. All Rights Reserved."
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
         
         self.help_wb(str_show_loader: "yes")
     }
@@ -124,9 +162,28 @@ class help: UIViewController {
                             self.str_phone_number = (dict["eamil"] as! String)
                             self.str_email_address = (dict["phone"] as! String)
                             
-                            self.lbl_whatsapp.text = "Whatsapp : "
-                            self.lbl_contact_number.text = "E-mail : "+(dict["eamil"] as! String)
-                            self.lbl_email.text = "Contact number : "+(dict["phone"] as! String)
+                            
+                            
+                            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                print(language as Any)
+                                
+                                if (language == "en") {
+                                    self.lbl_whatsapp.text = "Whatsapp : "
+                                    self.lbl_contact_number.text = "E-mail : "+(dict["eamil"] as! String)
+                                    self.lbl_email.text = "Contact number : "+(dict["phone"] as! String)
+                                } else {
+                                    self.lbl_whatsapp.text = "হোয়াটসঅ্যাপ : "
+                                    self.lbl_contact_number.text = "ই-মেইল : "+(dict["eamil"] as! String)
+                                    self.lbl_email.text = "যোগাযোগ নম্বর : "+(dict["phone"] as! String)
+                                }
+                                
+                             
+                            } else {
+                                print("=============================")
+                                print("LOGIN : Select language error")
+                                print("=============================")
+                                UserDefaults.standard.set("en", forKey: str_language_convert)
+                            }
                             
                             ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)

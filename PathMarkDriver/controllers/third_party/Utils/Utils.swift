@@ -41,6 +41,13 @@ let NAVIGATION_BACK_COLOR   = UIColor.white
 let CART_COUNT_COLOR        = UIColor.black
 
 
+
+let str_language_convert = "key_selected_language"
+
+
+
+
+
 // URLs
 let URL_HARILOSS_SUPPORT_GROUP  = "https://www.google.co.in"
 

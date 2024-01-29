@@ -93,6 +93,10 @@ import UIKit
         selectCountry(index: index, shouldUpdateDefaultNumber: shouldUpdateDefaultNumber)
     }
 
+    public func clearPhoneNumber() {
+        textFieldElement.setText("")
+    }
+
     // MARK: - Element protocol
     public func beginEditing() -> Bool {
         return textFieldElement.beginEditing()
@@ -158,7 +162,7 @@ extension DropdownFieldElement {
                 rawData: $0
             )
         }
-        let defaultCountry = defaultCountry ?? locale.regionCode ?? ""
+        let defaultCountry = defaultCountry ?? locale.stp_regionCode ?? ""
         let defaultCountryIndex = countryCodes.firstIndex(of: defaultCountry) ?? 0
         return DropdownFieldElement(
             items: countryDisplayStrings,

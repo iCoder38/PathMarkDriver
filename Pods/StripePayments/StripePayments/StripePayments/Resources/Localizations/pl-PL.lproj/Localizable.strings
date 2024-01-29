@@ -1,4 +1,4 @@
-"AU BECS Direct Debit" = "Polecenie zapłaty AU BECS";
+"AU Direct Debit" = "Polecenie zapłaty AU";
 
 "Affirm" = "Affirm";
 
@@ -7,6 +7,8 @@
 "Alipay" = "Alipay";
 
 "BLIK" = "BLIK";
+
+"Bacs Direct Debit" = "Polecenie zapłaty BACS";
 
 "Bancontact" = "Bancontact";
 
@@ -28,6 +30,8 @@
 
 "Klarna" = "Klarna";
 
+"Konbini" = "Konbini";
+
 "Link" = "Link";
 
 "NetBanking" = "NetBanking";
@@ -41,6 +45,8 @@
 "SEPA Debit" = "Polecenie zapłaty SEPA";
 
 "Sofort" = "Sofort";
+
+"Swish" = "Swish";
 
 "Timed out authenticating your payment method -- try again" = "Przekroczono czas uwierzytelnienia metody płatności – spróbuj ponownie";
 

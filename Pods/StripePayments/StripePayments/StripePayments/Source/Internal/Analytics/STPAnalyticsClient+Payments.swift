@@ -21,7 +21,7 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "token_type": tokenType ?? "unknown"
+                    "token_type": tokenType ?? "unknown",
                 ]
             )
         )
@@ -37,7 +37,7 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "source_type": sourceType ?? "unknown"
+                    "source_type": sourceType ?? "unknown",
                 ]
             )
         )
@@ -45,7 +45,8 @@ extension STPAnalyticsClient {
 
     func logPaymentMethodCreationAttempt(
         with configuration: NSObject?,
-        paymentMethodType: String?
+        paymentMethodType: String?,
+        apiClient: STPAPIClient
     ) {
         log(
             analytic: GenericPaymentAnalytic(
@@ -53,8 +54,22 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "source_type": paymentMethodType ?? "unknown"
+                    "source_type": paymentMethodType ?? "unknown",
                 ]
+            ),
+            apiClient: apiClient
+        )
+    }
+
+    func logPaymentMethodUpdateAttempt(
+        with configuration: NSObject?
+    ) {
+        log(
+            analytic: GenericPaymentAnalytic(
+                event: .paymentMethodUpdate,
+                paymentConfiguration: configuration,
+                productUsage: productUsage,
+                additionalParams: [:]
             )
         )
     }
@@ -64,7 +79,8 @@ extension STPAnalyticsClient {
 extension STPAnalyticsClient {
     func logPaymentIntentConfirmationAttempt(
         with configuration: NSObject?,
-        paymentMethodType: String?
+        paymentMethodType: String?,
+        apiClient: STPAPIClient
     ) {
         log(
             analytic: GenericPaymentAnalytic(
@@ -72,15 +88,17 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "source_type": paymentMethodType ?? "unknown"
+                    "source_type": paymentMethodType ?? "unknown",
                 ]
-            )
+            ),
+            apiClient: apiClient
         )
     }
 
     func logSetupIntentConfirmationAttempt(
         with configuration: NSObject?,
-        paymentMethodType: String?
+        paymentMethodType: String?,
+        apiClient: STPAPIClient
     ) {
         log(
             analytic: GenericPaymentAnalytic(
@@ -88,9 +106,10 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "source_type": paymentMethodType ?? "unknown"
+                    "source_type": paymentMethodType ?? "unknown",
                 ]
-            )
+            ),
+            apiClient: apiClient
         )
     }
 }
@@ -108,7 +127,7 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "intent_id": intentID
+                    "intent_id": intentID,
                 ],
                 error: error
             )
@@ -125,7 +144,7 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "intent_id": intentID
+                    "intent_id": intentID,
                 ]
             )
         )
@@ -141,7 +160,7 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "intent_id": intentID
+                    "intent_id": intentID,
                 ]
             )
         )
@@ -157,7 +176,7 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "intent_id": intentID
+                    "intent_id": intentID,
                 ]
             )
         )
@@ -227,7 +246,7 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "intent_id": intentID
+                    "intent_id": intentID,
                 ]
             )
         )
@@ -262,7 +281,7 @@ extension STPAnalyticsClient {
                 paymentConfiguration: configuration,
                 productUsage: productUsage,
                 additionalParams: [
-                    "intent_id": intentID
+                    "intent_id": intentID,
                 ],
                 error: error
             )
@@ -313,7 +332,7 @@ extension STPAnalyticsClient {
             analytic: GenericAnalytic(
                 event: .cardScanSucceeded,
                 params: [
-                    "duration": NSNumber(value: round(duration))
+                    "duration": NSNumber(value: round(duration)),
                 ]
             )
         )
@@ -324,8 +343,22 @@ extension STPAnalyticsClient {
             analytic: GenericAnalytic(
                 event: .cardScanCancelled,
                 params: [
-                    "duration": NSNumber(value: round(duration))
+                    "duration": NSNumber(value: round(duration)),
                 ]
+            )
+        )
+    }
+}
+
+// MARK: - Card Element Config
+extension STPAnalyticsClient {
+    @_spi(STP) public func logCardElementConfigLoadFailed() {
+        log(
+            analytic: GenericPaymentAnalytic(
+                event: .cardElementConfigLoadFailure,
+                paymentConfiguration: nil,
+                productUsage: productUsage,
+                additionalParams: [:]
             )
         )
     }

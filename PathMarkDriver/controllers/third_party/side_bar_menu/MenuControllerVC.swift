@@ -69,6 +69,7 @@ class MenuControllerVC: UIViewController {
     
     // driver
     var arr_driver_title: NSArray!
+    var arr_driver_title_bn:NSArray!
   
     var arr_driver_image: NSArray!
     
@@ -134,6 +135,26 @@ class MenuControllerVC: UIViewController {
                                  String(self.str_menu_title_emergency_contacts),
                                  String(self.str_menu_title_help),
                                  String(self.str_menu_title_logout)
+        ]
+        
+        // bn
+        self.arr_driver_title_bn = ["ড্যাশবোর্ড",
+                                 "প্রোফাইল আপডেট করুন",
+                                 "বুকিংস ",
+                                 "উপার্জন",
+                                 "রিভিউ ও রেটিং",
+                                 "উত্তোলন",
+                                 // String(self.str_menu_title_set_working_details),
+                                 "গাড়ির তথ্যাদি আপডেট করুন",
+                                 "ডকুমেন্ট আপলোড করুন",
+                                 "যারিব সম্পর্কে জানুন",
+                                 // String(self.str_menu_title_change_password),
+                                 "প্রাইভেসি পলিসি",
+                                 "দয়া করে শর্তাদি এবং শর্ত নির্বাচন করুন",
+                                 "আপনাদের করা প্রশ্নের উত্তরসমূহ",
+                                 "জরুরী যোগাযোগ",
+                                 "হেল্প",
+                                 "লগ-আউট করুন",
         ]
         
         self.arr_driver_image = ["home",
@@ -378,8 +399,19 @@ extension MenuControllerVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return self.arr_driver_title.count
-      
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                return self.arr_driver_title.count
+            } else {
+                return self.arr_driver_title_bn.count
+            }
+            
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -392,17 +424,32 @@ extension MenuControllerVC: UITableViewDataSource {
         
        // if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             
-            cell.lblName.text = (self.arr_driver_title[indexPath.row] as! String)
+            
             cell.lblName.textColor = .white
             
             
             cell.imgProfile.image = UIImage(named: self.arr_driver_image[indexPath.row] as! String)
             cell.imgProfile.backgroundColor = .clear
             
-       /* } else {
+      // arr_driver_title
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
             
-            // temp
-        }*/
+            if (language == "en") {
+                
+                cell.lblName.text = (self.arr_driver_title[indexPath.row] as! String)
+                
+            } else {
+                cell.lblName.text = (self.arr_driver_title_bn[indexPath.row] as! String)
+            }
+            
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
         
         return cell
     }

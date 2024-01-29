@@ -160,8 +160,6 @@ public class STPPaymentHandler: NSObject {
     ///   - paymentParams: The params used to confirm the PaymentIntent. Note that this method overrides the value of `paymentParams.useStripeSDK` to `@YES`.
     ///   - authenticationContext: The authentication context used to authenticate the payment.
     ///   - completion: The completion block. If the status returned is `STPPaymentHandlerActionStatusSucceeded`, the PaymentIntent status is not necessarily STPPaymentIntentStatusSucceeded (e.g. some bank payment methods take days before the PaymentIntent succeeds).
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
     @objc(confirmPayment:withAuthenticationContext:completion:)
     public func confirmPayment(
         _ paymentParams: STPPaymentIntentParams,
@@ -264,8 +262,6 @@ public class STPPaymentHandler: NSObject {
         message: "Use confirmPayment(_:with:completion:) instead",
         renamed: "confirmPayment(_:with:completion:)"
     )
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
     public func confirmPayment(
         withParams: STPPaymentIntentParams,
         authenticationContext: STPAuthenticationContext,
@@ -282,9 +278,7 @@ public class STPPaymentHandler: NSObject {
     ///   - returnURL: An optional URL to redirect your customer back to after they authenticate or cancel in a webview. This should match the returnURL you specified during PaymentIntent confirmation.
     ///   - completion: The completion block. If the status returned is `STPPaymentHandlerActionStatusSucceeded`, the PaymentIntent status is not necessarily STPPaymentIntentStatusSucceeded (e.g. some bank payment methods take days before the PaymentIntent succeeds).
     @objc(handleNextActionForPayment:withAuthenticationContext:returnURL:completion:)
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
-    public func handleNextAction(
+            public func handleNextAction(
         forPayment paymentIntentClientSecret: String,
         with authenticationContext: STPAuthenticationContext,
         returnURL: String?,
@@ -317,8 +311,6 @@ public class STPPaymentHandler: NSObject {
     ///   - returnURL: An optional URL to redirect your customer back to after they authenticate or cancel in a webview. This should match the returnURL you specified during PaymentIntent confirmation.
     ///   - completion: The completion block. If the status returned is `STPPaymentHandlerActionStatusSucceeded`, the PaymentIntent status is not necessarily STPPaymentIntentStatusSucceeded (e.g. some bank payment methods take days before the PaymentIntent succeeds).
     /// - Note: The PaymentIntent must have been fetched with an expanded paymentMethod object (see how `handleNextAction(forPayment:)` does this).
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
     @_spi(STP) public func handleNextAction(
         for paymentIntent: STPPaymentIntent,
         with authenticationContext: STPAuthenticationContext,
@@ -401,9 +393,7 @@ public class STPPaymentHandler: NSObject {
     ///   - setupIntentConfirmParams: The params used to confirm the SetupIntent. Note that this method overrides the value of `setupIntentConfirmParams.useStripeSDK` to `@YES`.
     ///   - authenticationContext: The authentication context used to authenticate the SetupIntent.
     ///   - completion: The completion block. If the status returned is `STPPaymentHandlerActionStatusSucceeded`, the SetupIntent status will always be STPSetupIntentStatusSucceeded.
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
-    @objc(confirmSetupIntent:withAuthenticationContext:completion:)
+            @objc(confirmSetupIntent:withAuthenticationContext:completion:)
     public func confirmSetupIntent(
         _ setupIntentConfirmParams: STPSetupIntentConfirmParams,
         with authenticationContext: STPAuthenticationContext,
@@ -492,7 +482,7 @@ public class STPPaymentHandler: NSObject {
             params = setupIntentConfirmParams.copy() as! STPSetupIntentConfirmParams
             params.useStripeSDK = NSNumber(value: true)
         }
-        apiClient.confirmSetupIntent(with: params, completion: confirmCompletionBlock)
+        apiClient.confirmSetupIntent(with: params, expand: ["payment_method"], completion: confirmCompletionBlock)
     }
 
     /// Handles any `nextAction` required to authenticate the SetupIntent.
@@ -503,8 +493,6 @@ public class STPPaymentHandler: NSObject {
     ///   - returnURL: An optional URL to redirect your customer back to after they authenticate or cancel in a webview. This should match the returnURL you specified during SetupIntent confirmation.
     ///   - completion: The completion block. If the status returned is `STPPaymentHandlerActionStatusSucceeded`, the SetupIntent status will always be  STPSetupIntentStatusSucceeded.
     @objc(handleNextActionForSetupIntent:withAuthenticationContext:returnURL:completion:)
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
     public func handleNextAction(
         forSetupIntent setupIntentClientSecret: String,
         with authenticationContext: STPAuthenticationContext,
@@ -536,8 +524,6 @@ public class STPPaymentHandler: NSObject {
     ///   - returnURL: An optional URL to redirect your customer back to after they authenticate or cancel in a webview. This should match the returnURL you specified during SetupIntent confirmation.
     ///   - completion: The completion block. If the status returned is `STPPaymentHandlerActionStatusSucceeded`, the SetupIntent status will always be  STPSetupIntentStatusSucceeded.
     /// - Note: The SetupIntent must have been fetched with an expanded paymentMethod object (see how `handleNextAction(forPayment:)` does this).
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
     @_spi(STP) public func handleNextAction(
         for setupIntent: STPSetupIntent,
         with authenticationContext: STPAuthenticationContext,
@@ -619,7 +605,7 @@ public class STPPaymentHandler: NSObject {
     /// because the funds can take up to 14 days to transfer from the customer's bank.
     class func _isProcessingIntentSuccess(for type: STPPaymentMethodType) -> Bool {
         switch type {
-        // Asynchronous
+        // Asynchronous payment methods whose intent.status is 'processing' after handling the next action
         case .SEPADebit,
             .bacsDebit,  // Bacs Debit takes 2-3 business days
             .AUBECSDebit,
@@ -650,7 +636,16 @@ public class STPPaymentHandler: NSObject {
             .klarna,
             .affirm,
             .linkInstantDebit,
-            .cashApp:
+            .cashApp,
+            .paynow,
+            .zip,
+            .revolutPay,
+            .mobilePay,
+            .amazonPay,
+            .alma,
+            .konbini,
+            .promptPay,
+            .swish:
             return false
 
         case .unknown:
@@ -661,8 +656,6 @@ public class STPPaymentHandler: NSObject {
         }
     }
 
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
     func _handleNextAction(
         forPayment paymentIntent: STPPaymentIntent,
         with authenticationContext: STPAuthenticationContext,
@@ -708,9 +701,7 @@ public class STPPaymentHandler: NSObject {
         }
     }
 
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
-    func _handleNextAction(
+            func _handleNextAction(
         for setupIntent: STPSetupIntent,
         with authenticationContext: STPAuthenticationContext,
         returnURL returnURLString: String?,
@@ -921,9 +912,7 @@ public class STPPaymentHandler: NSObject {
         return false
     }
 
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
-    func _handleAuthenticationForCurrentAction() {
+            func _handleAuthenticationForCurrentAction() {
         guard let currentAction = currentAction,
             let authenticationAction = currentAction.nextAction()
         else {
@@ -1290,13 +1279,20 @@ public class STPPaymentHandler: NSObject {
         case .BLIKAuthorize:
             // The customer must authorize the transaction in their banking app within 1 minute
             // The merchant integration should spin and poll their backend or Stripe to determine success
+            // If we are using PaymentSheet we want to use the PollingViewController, otherwise we should use the logic for API bindings users
             guard
-                let currentAction = self.currentAction
-                    as? STPPaymentHandlerPaymentIntentActionParams
+                let presentingVC = currentAction.authenticationContext
+                    as? PaymentSheetAuthenticationContext
             else {
-                fatalError()
+                guard let currentAction = self.currentAction
+                                    as? STPPaymentHandlerPaymentIntentActionParams
+                else {
+                    fatalError()
+                }
+                currentAction.complete(with: .succeeded, error: nil)
+                return
             }
-            currentAction.complete(with: .succeeded, error: nil)
+            presentingVC.presentPollingVCForAction(action: currentAction, type: .blik, safariViewController: nil)
 
         case .verifyWithMicrodeposits:
             // The customer must authorize after the microdeposits appear in their bank account
@@ -1310,7 +1306,8 @@ public class STPPaymentHandler: NSObject {
             else {
                 return
             }
-            presentingVC.presentPollingVCForAction(currentAction)
+
+            presentingVC.presentPollingVCForAction(action: currentAction, type: .UPI, safariViewController: nil)
         case .cashAppRedirectToApp:
             guard
                 let returnURL = URL(string: currentAction.returnURLString ?? "")
@@ -1319,9 +1316,7 @@ public class STPPaymentHandler: NSObject {
             }
 
             if let mobileAuthURL = authenticationAction.cashAppRedirectToApp?.mobileAuthURL {
-                let resultingRedirectURL = self.followRedirects(to: mobileAuthURL, urlSession: URLSession.shared)
-                _handleRedirect(to: resultingRedirectURL, fallbackURL: mobileAuthURL, return: returnURL)
-
+                _handleRedirect(to: mobileAuthURL, fallbackURL: mobileAuthURL, return: returnURL)
             } else {
                 currentAction.complete(
                     with: STPPaymentHandlerActionStatus.failed,
@@ -1333,6 +1328,59 @@ public class STPPaymentHandler: NSObject {
                     )
                 )
             }
+        case .payNowDisplayQrCode:
+            guard
+                let returnURL = URL(string: currentAction.returnURLString ?? ""),
+                let presentingVC = currentAction.authenticationContext
+                    as? PaymentSheetAuthenticationContext,
+                let hostedInstructionsURL = authenticationAction.payNowDisplayQrCode?.hostedInstructionsURL
+
+            else {
+                fatalError()
+            }
+
+            _handleRedirect(to: hostedInstructionsURL, fallbackURL: hostedInstructionsURL, return: returnURL) { safariViewController in
+                // Present the polling view controller behind the web view so we can start polling right away
+                presentingVC.presentPollingVCForAction(action: currentAction, type: .paynow, safariViewController: safariViewController)
+            }
+        case .konbiniDisplayDetails:
+            if let hostedVoucherURL = authenticationAction.konbiniDisplayDetails?.hostedVoucherURL {
+                self._handleRedirect(to: hostedVoucherURL, withReturn: nil)
+            } else {
+                currentAction.complete(
+                    with: STPPaymentHandlerActionStatus.failed,
+                    error: _error(
+                        for: .unsupportedAuthenticationErrorCode,
+                        userInfo: [
+                            "STPIntentAction": authenticationAction.description,
+                        ]
+                    )
+                )
+            }
+        case .promptpayDisplayQrCode:
+            guard
+                let returnURL = URL(string: currentAction.returnURLString ?? ""),
+                let presentingVC = currentAction.authenticationContext
+                    as? PaymentSheetAuthenticationContext,
+                let hostedInstructionsURL = authenticationAction.promptPayDisplayQrCode?.hostedInstructionsURL
+
+            else {
+                fatalError()
+            }
+
+            _handleRedirect(to: hostedInstructionsURL, fallbackURL: hostedInstructionsURL, return: returnURL) { safariViewController in
+                // Present the polling view controller behind the web view so we can start polling right away
+                presentingVC.presentPollingVCForAction(action: currentAction, type: .promptPay, safariViewController: safariViewController)
+            }
+        case .swishHandleRedirect:
+            guard
+                let returnURL = URL(string: currentAction.returnURLString ?? ""),
+                let mobileAuthURL = authenticationAction.swishHandleRedirect?.mobileAuthURL
+            else {
+                fatalError()
+            }
+
+            _handleRedirect(to: mobileAuthURL, withReturn: returnURL)
         @unknown default:
             fatalError()
         }
@@ -1346,13 +1394,6 @@ public class STPPaymentHandler: NSObject {
         let task = urlSession.dataTask(with: urlRequest) { _, response, error in
             defer {
                 blockingDataTaskSemaphore.signal()
-            }
-
-            // Check if the request failed due to attempting to redirect to a custom Scheme URL for Cash App
-            if let errorUrl = (error as NSError?)?.userInfo[NSURLErrorFailingURLStringErrorKey] as? String {
-                if errorUrl.contains("cashme://cash.app"), let customSchemeAppURL = URL(string: errorUrl) {
-                    resultingUrl = customSchemeAppURL
-                }
             }
 
             guard error == nil,
@@ -1369,11 +1410,9 @@ public class STPPaymentHandler: NSObject {
         return resultingUrl
     }
 
-    func _retryWithExponentialDelay(retryCount: Int, block: @escaping STPVoidBlock) {
+    func _retryAfterDelay(retryCount: Int, block: @escaping STPVoidBlock) {
         // Add some backoff time:
-        let delayTime = TimeInterval(
-            pow(Double(1 + Self.maxChallengeRetries - retryCount), Double(2))
-        )
+        let delayTime = TimeInterval(3)
 
         DispatchQueue.main.asyncAfter(deadline: .now() + delayTime) {
             block()
@@ -1428,7 +1467,7 @@ public class STPPaymentHandler: NSObject {
                                 !STPPaymentHandler._isProcessingIntentSuccess(for: type),
                                 retrievedPaymentIntent?.status == .processing && retryCount > 0
                             {
-                                self._retryWithExponentialDelay(retryCount: retryCount) {
+                                self._retryAfterDelay(retryCount: retryCount) {
                                     self._retrieveAndCheckIntentForCurrentAction(
                                         retryCount: retryCount - 1
                                     )
@@ -1453,18 +1492,21 @@ public class STPPaymentHandler: NSObject {
                                         currentAction.complete(with: .succeeded, error: nil)
                                     } else {
                                         // If this is a web-based 3DS2 transaction that is still in requires_action, we may just need to refresh the PI a few more times.
-                                        // Also retry a few times for Cash App, the redirect flow is fast and sometimes the intent doesn't update quick enough
+                                        // Also retry a few times for app redirects, the redirect flow is fast and sometimes the intent doesn't update quick enough
                                         let shouldRetryForCard = retrievedPaymentIntent?.paymentMethod?.type == .card && retrievedPaymentIntent?.nextAction?.type == .useStripeSDK
-                                        let shouldRetryForCashApp = retrievedPaymentIntent?.paymentMethod?.type == .cashApp
+                                        let shouldRetryForAppRedirect = [.cashApp, .swish].contains(retrievedPaymentIntent?.paymentMethod?.type)
                                         if retryCount > 0
-                                            && (shouldRetryForCard || shouldRetryForCashApp)
+                                            && (shouldRetryForCard || shouldRetryForAppRedirect)
                                         {
-                                            self._retryWithExponentialDelay(retryCount: retryCount) {
+                                            self._retryAfterDelay(retryCount: retryCount) {
                                                 self._retrieveAndCheckIntentForCurrentAction(
                                                     retryCount: retryCount - 1
                                                 )
                                             }
-                                        } else {
+                                        } else if retrievedPaymentIntent?.paymentMethod?.type != .paynow
+                                                    && retrievedPaymentIntent?.paymentMethod?.type != .promptPay {
+                                            // For PayNow, we don't want to mark as canceled when the web view dismisses
+                                            // Instead we rely on the presented PollingViewController to complete the currentAction
                                             self._markChallengeCanceled(withCompletion: { _, _ in
                                                 // We don't forward cancelation errors
                                                 currentAction.complete(
@@ -1500,7 +1542,7 @@ public class STPPaymentHandler: NSObject {
                         !STPPaymentHandler._isProcessingIntentSuccess(for: type),
                         retrievedSetupIntent?.status == .processing && retryCount > 0
                     {
-                        self._retryWithExponentialDelay(retryCount: retryCount) {
+                        self._retryAfterDelay(retryCount: retryCount) {
                             self._retrieveAndCheckIntentForCurrentAction(retryCount: retryCount - 1)
                         }
                     } else {
@@ -1522,7 +1564,7 @@ public class STPPaymentHandler: NSObject {
                                 let shouldRetryForCashApp = retrievedSetupIntent?.paymentMethod?.type == .cashApp
                                 if retryCount > 0
                                     && (shouldRetryForCard || shouldRetryForCashApp) {
-                                    self._retryWithExponentialDelay(retryCount: retryCount) {
+                                    self._retryAfterDelay(retryCount: retryCount) {
                                         self._retrieveAndCheckIntentForCurrentAction(
                                             retryCount: retryCount - 1
                                         )
@@ -1549,9 +1591,7 @@ public class STPPaymentHandler: NSObject {
         }
     }
 
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
-    @objc func _handleWillForegroundNotification() {
+            @objc func _handleWillForegroundNotification() {
         NotificationCenter.default.removeObserver(
             self,
             name: UIApplication.willEnterForegroundNotification,
@@ -1561,18 +1601,11 @@ public class STPPaymentHandler: NSObject {
         _retrieveAndCheckIntentForCurrentAction()
     }
 
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
-    @_spi(STP) public func _handleRedirect(to url: URL, withReturn returnURL: URL?) {
-        if let redirectShim = _redirectShim {
-            redirectShim(url, returnURL, true)
-        }
+            @_spi(STP) public func _handleRedirect(to url: URL, withReturn returnURL: URL?) {
         _handleRedirect(to: url, fallbackURL: url, return: returnURL)
     }
 
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
-    @_spi(STP) public func _handleRedirectToExternalBrowser(to url: URL, withReturn returnURL: URL?) {
+            @_spi(STP) public func _handleRedirectToExternalBrowser(to url: URL, withReturn returnURL: URL?) {
         if let redirectShim = _redirectShim {
             redirectShim(url, returnURL, false)
         }
@@ -1610,13 +1643,26 @@ public class STPPaymentHandler: NSObject {
         )
     }
 
-    /// This method:
-    /// 1. Redirects to an app using url
-    /// 2. Open fallbackURL in a webview if 1) fails
-    @available(iOSApplicationExtension, unavailable)
-    @available(macCatalystApplicationExtension, unavailable)
-    ///
-    func _handleRedirect(to nativeURL: URL?, fallbackURL: URL?, return returnURL: URL?) {
+    /// Handles redirection to URLs using a native URL or a fallback URL and updates the current action.
+    /// Redirects to an app if possible, if that fails opens the url in a web view
+    /// - Parameters:
+    ///     - nativeURL: A URL to be opened natively.
+    ///     - fallbackURL: A secondary URL to be attempted if the native URL is not available.
+    ///     - returnURL: The URL to be registered with the `STPURLCallbackHandler`.
+    ///     - completion: A completion block invoked after the URL redirection is handled. The SFSafariViewController used is provided as an argument, if it was used for the redirect.
+    func _handleRedirect(to nativeURL: URL?, fallbackURL: URL?, return returnURL: URL?, completion: ((SFSafariViewController?) -> Void)? = nil) {
+        if let redirectShim = _redirectShim, let url = nativeURL ?? fallbackURL {
+            redirectShim(url, returnURL, true)
+        }
+
+        // During testing, the completion block is not called since the `UIApplication.open` completion block is never invoked.
+        // As a workaround we invoke the completion in a defer block if the _redirectShim is not nil to simulate presenting a web view
+        defer {
+            if _redirectShim != nil {
+                completion?(nil)
+            }
+        }
+
         var url = nativeURL
         guard let currentAction = currentAction else {
             assert(false, "Calling _handleRedirect without a currentAction")
@@ -1648,18 +1694,24 @@ public class STPPaymentHandler: NSObject {
                     return
                 }
 
-                if let fallbackURL = fallbackURL {
+                if let fallbackURL = fallbackURL,
+                    ["http", "https"].contains(fallbackURL.scheme)
+                {
                     let safariViewController = SFSafariViewController(url: fallbackURL)
                     safariViewController.modalPresentationStyle = .overFullScreen
+#if !canImport(CompositorServices)
                     safariViewController.dismissButtonStyle = .close
+                    safariViewController.delegate = self
+#endif
                     if context.responds(
                         to: #selector(STPAuthenticationContext.configureSafariViewController(_:))
                     ) {
                         context.configureSafariViewController?(safariViewController)
                     }
-                    safariViewController.delegate = self
                     self.safariViewController = safariViewController
-                    presentingViewController.present(safariViewController, animated: true)
+                    presentingViewController.present(safariViewController, animated: true, completion: {
+                      completion?(safariViewController)
+                    })
                 } else {
                     currentAction.complete(
                         with: STPPaymentHandlerActionStatus.failed,
@@ -1706,6 +1758,7 @@ public class STPPaymentHandler: NSObject {
                         // no app installed, launch safari view controller
                         presentSFViewControllerBlock()
                     } else {
+                        completion?(nil)
                         NotificationCenter.default.addObserver(
                             self,
                             selector: #selector(self._handleWillForegroundNotification),
@@ -1778,10 +1831,14 @@ public class STPPaymentHandler: NSObject {
                 .useStripeSDK,
                 .alipayHandleRedirect,
                 .weChatPayRedirectToApp,
-                .cashAppRedirectToApp:
+                .cashAppRedirectToApp,
+                .payNowDisplayQrCode,
+                .promptpayDisplayQrCode,
+                .swishHandleRedirect:
                 return false
             case .OXXODisplayDetails,
                 .boletoDisplayDetails,
+                .konbiniDisplayDetails,
                 .verifyWithMicrodeposits,
                 .BLIKAuthorize,
                 .upiAwaitNotification:
@@ -1809,7 +1866,8 @@ public class STPPaymentHandler: NSObject {
             threeDSSourceID = nextAction.useStripeSDK?.threeDSSourceID
         case .OXXODisplayDetails, .alipayHandleRedirect, .unknown, .BLIKAuthorize,
             .weChatPayRedirectToApp, .boletoDisplayDetails, .verifyWithMicrodeposits,
-            .upiAwaitNotification, .cashAppRedirectToApp:
+            .upiAwaitNotification, .cashAppRedirectToApp, .konbiniDisplayDetails, .payNowDisplayQrCode,
+            .promptpayDisplayQrCode, .swishHandleRedirect:
             break
         @unknown default:
             fatalError()
@@ -1878,7 +1936,7 @@ public class STPPaymentHandler: NSObject {
         }
     }
 
-    static let maxChallengeRetries = 2
+    static let maxChallengeRetries = 5
     func _markChallengeCompleted(
         withCompletion completion: @escaping STPBooleanSuccessBlock,
         retryCount: Int = maxChallengeRetries
@@ -1930,7 +1988,7 @@ public class STPPaymentHandler: NSObject {
                 if retryCount > 0
                     && (error as NSError?)?.code == STPErrorCode.invalidRequestError.rawValue
                 {
-                    self._retryWithExponentialDelay(
+                    self._retryAfterDelay(
                         retryCount: retryCount,
                         block: {
                             self._markChallengeCompleted(
@@ -2035,8 +2093,7 @@ public class STPPaymentHandler: NSObject {
     }
 }
 
-@available(iOSApplicationExtension, unavailable)
-@available(macCatalystApplicationExtension, unavailable)
+#if !canImport(CompositorServices)
 extension STPPaymentHandler: SFSafariViewControllerDelegate {
     // MARK: - SFSafariViewControllerDelegate
     /// :nodoc:
@@ -2053,9 +2110,8 @@ extension STPPaymentHandler: SFSafariViewControllerDelegate {
         _retrieveAndCheckIntentForCurrentAction()
     }
 }
+#endif
 
-@available(iOSApplicationExtension, unavailable)
-@available(macCatalystApplicationExtension, unavailable)
 /// :nodoc:
 @_spi(STP) extension STPPaymentHandler: STPURLCallbackListener {
     /// :nodoc:
@@ -2291,7 +2347,7 @@ extension STPPaymentHandler {
         if let paymentSheet = currentAction.authenticationContext
             .authenticationPresentingViewController() as? PaymentSheetAuthenticationContext
         {
-            paymentSheet.dismiss(challengeViewController)
+            paymentSheet.dismiss(challengeViewController, completion: nil)
         } else {
             challengeViewController.dismiss(animated: true, completion: nil)
         }
@@ -2309,8 +2365,8 @@ extension STPPaymentHandler {
 /// Internal authentication context for PaymentSheet magic
 @_spi(STP) public protocol PaymentSheetAuthenticationContext: STPAuthenticationContext {
     func present(_ authenticationViewController: UIViewController, completion: @escaping () -> Void)
-    func dismiss(_ authenticationViewController: UIViewController)
-    func presentPollingVCForAction(_ action: STPPaymentHandlerActionParams)
+    func dismiss(_ authenticationViewController: UIViewController, completion: (() -> Void)?)
+    func presentPollingVCForAction(action: STPPaymentHandlerActionParams, type: STPPaymentMethodType, safariViewController: SFSafariViewController?)
 }
 
 @_spi(STP) public protocol FormSpecPaymentHandler {

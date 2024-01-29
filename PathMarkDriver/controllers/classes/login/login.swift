@@ -63,6 +63,12 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
         defaults.setValue(nil, forKey: str_save_login_user_data)
         defaults.setValue("", forKey: str_save_login_user_data)*/
         
+        // let indexPath = IndexPath.init(row: 0, section: 0)
+        // let cell = self.tbleView.cellForRow(at: indexPath) as! login_table_cell
+        
+        // set language
+        UserDefaults.standard.set("bn", forKey: str_language_convert)
+        
         self.remember_me()
     }
     
@@ -342,6 +348,33 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
         cell.btnDontHaveAnAccount.addTarget(self, action: #selector(dontHaveAntAccountClickMethod), for: .touchUpInside)
         cell.btn_remember_me.addTarget(self, action: #selector(remember_me_click_method), for: .touchUpInside)
         
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                cell.btnSignIn.setTitle("Sign In", for: .normal)
+                cell.lbl_remember_me.text = "Remember me"
+                // cell.lbl_login_with_social_media.text = "Login with Social media"
+                cell.btnForgotPassword.setTitle("Forgot password ? - Click here", for: .normal)
+                cell.btnDontHaveAnAccount.setTitle("Not a member? Register Now", for: .normal)
+                cell.lbl_login_to_continue.text = "Login to Continue"
+                
+            } else {
+                cell.btnSignIn.setTitle("সাইন ইন করুন", for: .normal)
+                cell.lbl_remember_me.text = "আমাকে মনে কর"
+                // cell.lbl_login_with_social_media.text = "সোশ্যাল মিডিয়া দিয়ে লগইন করুন"
+                cell.btnForgotPassword.setTitle("পাসওয়ার্ড ভুলে গেছেন? - এখানে ক্লিক করুন", for: .normal)
+                cell.btnDontHaveAnAccount.setTitle("সদস্যা নন? এখনই নিবন্ধন করুন", for: .normal)
+                cell.lbl_login_to_continue.text = "চালিয়ে যেতে লগইন করুন"
+            }
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
         return cell
     }
     
@@ -404,7 +437,9 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
 
 class login_table_cell: UITableViewCell {
 
-     
+    @IBOutlet weak var lbl_remember_me:UILabel!
+    @IBOutlet weak var lbl_login_with_social_media:UILabel!
+    @IBOutlet weak var lbl_login_to_continue:UILabel!
     
     @IBOutlet weak var bgColor:UIImageView!
     

@@ -28,8 +28,17 @@ class ride_history: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "RIDE HISTORY"
-            view_navigation_title.textColor = .white
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Ride History"
+                } else {
+                    view_navigation_title.text = "ইতিহাস"
+                }
+                
+                view_navigation_title.textColor = .white
+            }
         }
     }
 
@@ -39,7 +48,17 @@ class ride_history: UIViewController {
             btn_upcoming_ride.setTitleColor(.black, for: .normal)
             btn_upcoming_ride.tag = 0
             btn_upcoming_ride.backgroundColor = UIColor.init(red: 250.0/255.0, green: 218.0/255.0, blue: 78.0/255.0, alpha: 1)
-            btn_upcoming_ride.setTitle("Upcoming Ride", for: .normal)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_upcoming_ride.setTitle("Upcoming", for: .normal)
+                } else {
+                    btn_upcoming_ride.setTitle("আসন্ন", for: .normal)
+                }
+                
+                 
+            }
         }
     }
     
@@ -48,7 +67,17 @@ class ride_history: UIViewController {
             btn_completed_ride.setTitleColor(.black, for: .normal)
             btn_completed_ride.tag = 0
             btn_completed_ride.backgroundColor = UIColor.init(red: 250.0/255.0, green: 218.0/255.0, blue: 78.0/255.0, alpha: 1)
-            btn_completed_ride.setTitle("History", for: .normal)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_completed_ride.setTitle("History", for: .normal)
+                } else {
+                    btn_completed_ride.setTitle("ইতিহাস", for: .normal)
+                }
+                
+                 
+            }
         }
     }
     
@@ -156,7 +185,19 @@ class ride_history: UIViewController {
     @objc func upcoming_ride_WB(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+             
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                    } else {
+                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                    }
+                    
+                    
+                }
+            
         }
         
         
@@ -528,7 +569,22 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
             
             if "\(item!["rideStatus"]!)" == "4" {
                 cell.lbl_status.backgroundColor = .systemGreen
-                cell.lbl_status.text = "Completed"
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        cell.lbl_status.text = "Completed"
+                        
+                    } else {
+                        cell.lbl_status.text = "সম্পূর্ণ হয়েছে "
+                    }
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
                 cell.lbl_status.textColor = .white
             } else {
                 // compare date
@@ -540,22 +596,67 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 let stringDate = String(dateString)
                 if let date = dateFormatter.date(from: stringDate) {
                     if date.isInThePast {
-                        print("Date is past")
+                        print("Date is past") //
                         
                         cell.lbl_status.backgroundColor = .systemRed
-                        cell.lbl_status.text = "Expired"
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                cell.lbl_status.text = "Expired"
+                                
+                            } else {
+                                cell.lbl_status.text = "মেয়াদোত্তীর্ণ"
+                            }
+                            
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
                         
                     } else if date.isInToday {
                         print("Date is today")
                         if "\(item!["rideStatus"]!)" == "1" {
                             cell.lbl_status.backgroundColor = .systemOrange
-                            cell.lbl_status.text = "Pending"
+                            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                print(language as Any)
+                                
+                                if (language == "en") {
+                                    cell.lbl_status.text = "Pending"
+                                    
+                                } else {
+                                    cell.lbl_status.text = "অনিষ্পন্ন"
+                                }
+                                
+                            } else {
+                                print("=============================")
+                                print("LOGIN : Select language error")
+                                print("=============================")
+                                UserDefaults.standard.set("en", forKey: str_language_convert)
+                            }
                         }
                     } else {
                         print("Date is future")
                         if "\(item!["rideStatus"]!)" == "1" {
                             cell.lbl_status.backgroundColor = .systemOrange
-                            cell.lbl_status.text = "Pending"
+                            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                print(language as Any)
+                                
+                                if (language == "en") {
+                                    cell.lbl_status.text = "Pending"
+                                    
+                                } else {
+                                    cell.lbl_status.text = "অনিষ্পন্ন"
+                                }
+                                
+                            } else {
+                                print("=============================")
+                                print("LOGIN : Select language error")
+                                print("=============================")
+                                UserDefaults.standard.set("en", forKey: str_language_convert)
+                            }
                         }
                     }
                 }
@@ -585,39 +686,162 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 
                 if "\(item!["rideStatus"]!)" == "1" {
                      
-                    cell.lbl_status_for_complete.text = "You accepted"
+                     
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            cell.lbl_status_for_complete.text = "You accepted"
+                            
+                        } else {
+                            cell.lbl_status_for_complete.text = "আপনি গ্রহণ করেছেন"
+                        }
+                        
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
+                    
+                    
                     cell.lbl_status_for_complete.textColor = .systemGreen
                 } else if "\(item!["rideStatus"]!)" == "2" {
                      
-                    cell.lbl_status_for_complete.text = "You picked your customer"
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            cell.lbl_status_for_complete.text = "You picked your customer"
+                            
+                        } else {
+                            cell.lbl_status_for_complete.text = "আপনি আপনার গ্রাহক বাছাই"
+                        }
+                        
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
                     cell.lbl_status_for_complete.textColor = .systemYellow
                 } else if "\(item!["rideStatus"]!)" == "3" {
                      
-                    cell.lbl_status_for_complete.text = "On Going"
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            cell.lbl_status_for_complete.text = "On going"
+                            
+                        } else {
+                            cell.lbl_status_for_complete.text = "চলছে"
+                        }
+                        
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
                     cell.lbl_status_for_complete.textColor = .systemOrange
                 } else if "\(item!["rideStatus"]!)" == "4" {
                     
                     if "\(item!["paymentStatus"]!)" == "" {
-                        cell.lbl_status_for_complete.text = "Yet to pay"
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                cell.lbl_status_for_complete.text = "Yet to pay"
+                                
+                            } else {
+                                cell.lbl_status_for_complete.text = "এখনো পরিশোধ করতে"
+                            }
+                            
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
                         cell.lbl_status_for_complete.textColor = .systemBrown
                     } else {
-                        cell.lbl_status_for_complete.text = "Completed"
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                cell.lbl_status_for_complete.text = "Completed"
+                            } else {
+                                cell.lbl_status_for_complete.text = "সম্পূর্ণ হয়েছে"
+                            }
+                            
+                         
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
                         cell.lbl_status_for_complete.textColor = .systemGreen
                     }
                     
                 } else if "\(item!["rideStatus"]!)" == "7" {
                     
-                    cell.lbl_status_for_complete.text = "Cancelled"
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            cell.lbl_status_for_complete.text = "Cancelled"
+                            
+                        } else {
+                            cell.lbl_status_for_complete.text = "বাতিল"
+                        }
+                        
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
                     cell.lbl_status_for_complete.textColor = .systemRed
                     
                 }  else if "\(item!["rideStatus"]!)" == "5" {
                     
                     if "\(item!["paymentStatus"]!)" == "" {
                          
-                        cell.lbl_status_for_complete.text = "Yet to pay"
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                cell.lbl_status_for_complete.text = "Yet to pay"
+                                
+                            } else {
+                                cell.lbl_status_for_complete.text = "এখনো পরিশোধ করতে"
+                            }
+                            
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
                         cell.lbl_status_for_complete.textColor = .systemBrown
                     } else {
-                        cell.lbl_status_for_complete.text = "Completed"
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                cell.lbl_status_for_complete.text = "Completed"
+                            } else {
+                                cell.lbl_status_for_complete.text = "সম্পূর্ণ হয়েছে"
+                            }
+                            
+                         
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
                         cell.lbl_status_for_complete.textColor = .systemGreen
                                                 
                     }
@@ -626,17 +850,62 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 
             } else {
                 if "\(item!["rideStatus"]!)" == "7" {
-                    cell.lbl_status_for_complete.text = "Cancelled"
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            cell.lbl_status_for_complete.text = "Cancelled"
+                            
+                        } else {
+                            cell.lbl_status_for_complete.text = "বাতিল"
+                        }
+                        
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
                     cell.lbl_status_for_complete.textColor = .systemRed
                 } else {
                     // if payment done
                     if "\(item!["rideStatus"]!)" == "5" {
                         
                         if "\(item!["paymentStatus"]!)" == "" {
-                            cell.lbl_status_for_complete.text = "Payment Pending"
+                            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                print(language as Any)
+                                
+                                if (language == "en") {
+                                    cell.lbl_status_for_complete.text = "Payment Pending"
+                                } else {
+                                    cell.lbl_status_for_complete.text = "পেমেন্ট পেন্ডিং"
+                                }
+                                
+                             
+                            } else {
+                                print("=============================")
+                                print("LOGIN : Select language error")
+                                print("=============================")
+                                UserDefaults.standard.set("en", forKey: str_language_convert)
+                            }
                             cell.lbl_status_for_complete.textColor = .systemBrown
                         } else {
-                            cell.lbl_status_for_complete.text = "Completed"
+                            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                print(language as Any)
+                                
+                                if (language == "en") {
+                                    cell.lbl_status_for_complete.text = "Completed"
+                                } else {
+                                    cell.lbl_status_for_complete.text = "সম্পূর্ণ হয়েছে"
+                                }
+                                
+                             
+                            } else {
+                                print("=============================")
+                                print("LOGIN : Select language error")
+                                print("=============================")
+                                UserDefaults.standard.set("en", forKey: str_language_convert)
+                            }
                             cell.lbl_status_for_complete.textColor = .systemGreen
                             
                         }

@@ -29,7 +29,17 @@ class rating_review: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Review & Rating"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+               print(language as Any)
+               
+               if (language == "en") {
+                   view_navigation_title.text = "Review & Rating"
+               } else {
+                   view_navigation_title.text = "রিভিউ ও রেটিং"
+               }
+               
+            
+           }
             view_navigation_title.textColor = .white
         }
     }
@@ -97,7 +107,17 @@ class rating_review: UIViewController {
     @objc func rating_review_history(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+               print(language as Any)
+               
+               if (language == "en") {
+                   ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+               } else {
+                   ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+               }
+               
+            
+           }
         }
         
         self.view.endEditing(true)
@@ -351,7 +371,12 @@ extension rating_review: UITableViewDataSource , UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView .deselectRow(at: indexPath, animated: true)
- 
+        let item = self.arr_earnings[indexPath.row] as? [String:Any]
+        
+        let alert = NewYorkAlertController(title: String("Message").uppercased(), message: "\(item!["message"]!)", style: .alert)
+        let cancel = NewYorkButton(title: "OK", style: .cancel)
+        alert.addButtons([cancel])
+        self.present(alert, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

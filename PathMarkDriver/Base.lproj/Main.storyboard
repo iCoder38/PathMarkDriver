@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sLk-Ob-iTc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="sLk-Ob-iTc">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Map view configurations" minToolsVersion="14.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -251,6 +251,8 @@
                                             <outlet property="btnForgotPassword" destination="GO1-PH-nJn" id="5fS-Eb-QTP"/>
                                             <outlet property="btnSignIn" destination="HZb-1d-5z3" id="3ow-IK-tYb"/>
                                             <outlet property="btn_remember_me" destination="szK-ro-pr2" id="psy-fu-Yu3"/>
+                                            <outlet property="lbl_login_to_continue" destination="ygF-rG-nFi" id="cTu-2O-kc0"/>
+                                            <outlet property="lbl_remember_me" destination="OqS-yw-0tM" id="esK-86-GTB"/>
                                             <outlet property="txtEmailAddress" destination="5Xa-7h-R8y" id="fs3-gn-0bi"/>
                                             <outlet property="txtPassword" destination="ta7-gk-WfF" id="64o-hD-Oko"/>
                                         </connections>
@@ -643,6 +645,7 @@
                                             <outlet property="btn_disclaimer" destination="YzL-c9-Rwk" id="BoQ-gF-04A"/>
                                             <outlet property="btn_eyes_one" destination="eEj-qP-JQ9" id="R79-md-83I"/>
                                             <outlet property="btn_eyes_two" destination="GsJ-uw-fZO" id="N6I-YR-A6g"/>
+                                            <outlet property="btn_terms_and_condition" destination="ngI-0b-fNl" id="SfT-Pb-PZP"/>
                                             <outlet property="header_full_view_navigation_bar" destination="5uF-Gl-XpA" id="f4w-ww-6Hr"/>
                                             <outlet property="header_half_view_navigation_bar" destination="0Hi-eU-K6o" id="nWX-pr-5dL"/>
                                             <outlet property="img_upload" destination="GRe-wJ-CJz" id="wYe-gl-U4N"/>
@@ -6280,6 +6283,7 @@
                     <size key="freeformSize" width="393" height="768"/>
                     <connections>
                         <outlet property="btn_back" destination="ckL-ir-Vs7" id="87e-yy-9NU"/>
+                        <outlet property="lbl_connect" destination="1RE-ah-1zd" id="VBg-i9-u0Y"/>
                         <outlet property="lbl_contact_number" destination="8ym-ZY-62S" id="T8k-Kx-90c"/>
                         <outlet property="lbl_email" destination="kti-bi-wZt" id="kbp-jn-baG"/>
                         <outlet property="lbl_whatsapp" destination="YHz-rS-m1y" id="ugJ-6G-zar"/>
@@ -7651,7 +7655,9 @@
                         <outlet property="btn_today" destination="O9Q-ex-1r0" id="Rss-4s-uT3"/>
                         <outlet property="btn_week" destination="Bgh-rh-xmi" id="jj4-zk-WVD"/>
                         <outlet property="lbl_completed_trips" destination="JDk-IX-GEL" id="GXq-2W-V68"/>
+                        <outlet property="lbl_completed_trips_text" destination="zMd-AT-7XA" id="oBM-uV-EHo"/>
                         <outlet property="lbl_my_earnings" destination="a4T-ia-xe8" id="075-7n-gs2"/>
+                        <outlet property="lbl_my_earnings_text" destination="VJh-Qg-e0j" id="tz3-Vr-lzY"/>
                         <outlet property="lbl_today_line" destination="jTv-Sh-j4O" id="3DO-sM-udP"/>
                         <outlet property="lbl_week_line" destination="Hcr-cp-UXb" id="pyK-gx-LlM"/>
                         <outlet property="tbleView" destination="o1J-Ve-iiR" id="hmk-GQ-HHj"/>
@@ -9162,6 +9168,10 @@
                         <outlet property="btn_back" destination="muE-b4-5m4" id="Ctc-iN-9U9"/>
                         <outlet property="btn_cashout_history" destination="lJS-ht-EYw" id="cT2-Bt-pS5"/>
                         <outlet property="btn_submit_request" destination="nc6-3V-ywS" id="8OJ-PF-6ec"/>
+                        <outlet property="lbl_enter_amount" destination="9Bf-52-bdO" id="yxO-Gg-LQO"/>
+                        <outlet property="lbl_max_limit" destination="K1e-V7-uDQ" id="fBH-FA-yU9"/>
+                        <outlet property="lbl_total_earning_text_one" destination="YQL-EE-9Xn" id="lw1-lu-kBc"/>
+                        <outlet property="lbl_total_earning_text_two" destination="8zg-XN-Kgg" id="b7u-FE-ioa"/>
                         <outlet property="lbl_wallet_balance" destination="HiZ-Hw-1HI" id="Xcz-Zm-YEq"/>
                         <outlet property="txt_enter_price" destination="Mrl-3V-SBC" id="ust-2s-269"/>
                         <outlet property="view_navigation_bar" destination="Cmv-Hy-1Ze" id="51y-Cv-th7"/>

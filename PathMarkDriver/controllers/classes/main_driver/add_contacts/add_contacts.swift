@@ -9,7 +9,7 @@ import UIKit
 import Alamofire
 
 class add_contacts: UIViewController , UITextFieldDelegate {
-
+    
     var dict_emergency:NSDictionary!
     
     @IBOutlet weak var btn_back:UIButton! {
@@ -129,11 +129,33 @@ class add_contacts: UIViewController , UITextFieldDelegate {
         
         if (self.dict_emergency == nil) {
             print("add contact")
-            self.view_navigation_title.text = "NEW CONTACTS"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "NEW CONTACTS"
+                    btn_submit.setTitle("SUBMIT", for: .normal)
+                } else {
+                    view_navigation_title.text = "নতুন পরিচিতি যোগ করুন"
+                    btn_submit.setTitle("জমা দিন", for: .normal)
+                }
+                
+            }
             
         } else {
             print("edit contact")
-            self.view_navigation_title.text = "EDIT CONTACTS"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "EDIT CONTACTS"
+                    btn_submit.setTitle("SUBMIT", for: .normal)
+                } else {
+                    view_navigation_title.text = "নতুন পরিচিতি যোগ করুন"
+                    btn_submit.setTitle("জমা দিন", for: .normal)
+                }
+                
+            }
             
             self.txt_full_name.text = (self.dict_emergency["Name"] as! String)
             self.txt_email.text = (self.dict_emergency["email"] as! String)
@@ -150,7 +172,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
         
         RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_relation, selectedIndex: 0) { (selctedText, atIndex) in
             self.txt_relation.text = String(selctedText)
-             
+            
         }
     }
     
@@ -158,7 +180,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
         self.view.endEditing(true)
         return false
     }
-
+    
     
     @objc func check_validate() {
         if (self.dict_emergency == nil) {
@@ -185,7 +207,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                 print(token_id_is as Any)
                 
                 let headers: HTTPHeaders = [
-                     "token":String(token_id_is),
+                    "token":String(token_id_is),
                 ]
                 parameters = [
                     "action"    : "emergencyadd",
@@ -222,7 +244,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                                 
                                 ERProgressHud.sharedInstance.hide()
                                 self.back_click_method()
-
+                                
                             }
                             else {
                                 print("two")
@@ -247,7 +269,17 @@ class add_contacts: UIViewController , UITextFieldDelegate {
     @objc func add_emergency_phone() {
         
         // self.show_loading_UI()
-        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            } else {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+            }
+            
+            
+        }
         
         var parameters:Dictionary<AnyHashable, Any>!
         
@@ -260,7 +292,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                 print(token_id_is as Any)
                 
                 let headers: HTTPHeaders = [
-                     "token":String(token_id_is),
+                    "token":String(token_id_is),
                 ]
                 parameters = [
                     "action"    : "emergencyadd",
@@ -296,7 +328,7 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                                 
                                 ERProgressHud.sharedInstance.hide()
                                 self.back_click_method()
-
+                                
                             }
                             else {
                                 print("two")

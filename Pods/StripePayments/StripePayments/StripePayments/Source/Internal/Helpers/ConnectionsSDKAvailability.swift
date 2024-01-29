@@ -11,7 +11,6 @@ import Foundation
 import SwiftUI
 import UIKit
 
-@available(iOS 12, *)
 @_spi(STP) public struct FinancialConnectionsSDKAvailability {
     static let FinancialConnectionsSDKClass: FinancialConnectionsSDKInterface.Type? =
         NSClassFromString("StripeFinancialConnections.FinancialConnectionsSDKImplementation")
@@ -52,6 +51,7 @@ final class StubbedConnectionsSDKInterface: FinancialConnectionsSDKInterface {
         apiClient: STPAPIClient,
         clientSecret: String,
         returnURL: String?,
+        onEvent: ((FinancialConnectionsEvent) -> Void)?,
         from presentingViewController: UIViewController,
         completion: @escaping (FinancialConnectionsSDKResult) -> Void
     ) {

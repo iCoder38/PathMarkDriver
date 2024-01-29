@@ -25,7 +25,17 @@ class cashout: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Cashout"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+               print(language as Any)
+               
+               if (language == "en") {
+                   view_navigation_title.text = "Cashout"
+               } else {
+                   view_navigation_title.text = "উত্তোলন"
+               }
+               
+            
+           }
             view_navigation_title.textColor = .white
         }
     }
@@ -71,9 +81,38 @@ class cashout: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBOutlet weak var lbl_total_earning_text_one:UILabel!
+    @IBOutlet weak var lbl_total_earning_text_two:UILabel!
+    @IBOutlet weak var lbl_enter_amount:UILabel!
+    @IBOutlet weak var lbl_max_limit:UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.sideBarMenuClick()
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+           print(language as Any)
+           
+           if (language == "en") {
+               lbl_total_earning_text_one.text = "Total Earning"
+               lbl_total_earning_text_two.text = "Total Earning"
+               lbl_enter_amount.text = "Enter amount to withdraw wallet balance."
+               lbl_max_limit.text = "(Max limit : $5,000 per withdrawal)"
+               btn_submit_request.setTitle("Submit Request", for: .normal)
+               btn_cashout_history.setTitle("Cashout history", for: .normal)
+               
+           } else {
+               lbl_total_earning_text_one.text = "উপার্জন"
+               lbl_total_earning_text_two.text = "উপার্জন"
+               lbl_enter_amount.text = "ওয়ালেট ব্যালেন্স উত্তোলনের জন্য পরিমাণ লিখুন।"
+               lbl_max_limit.text = "(সর্বোচ্চ সীমা: প্রতি তোলার জন্য $5,000)"
+               btn_submit_request.setTitle("অনুরোধ জমা দিন", for: .normal)
+               btn_cashout_history.setTitle("ক্যাশআউট ইতিহাস", for: .normal)
+               
+           }
+           
+        
+       }
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
@@ -105,7 +144,17 @@ class cashout: UIViewController, UITextFieldDelegate {
     }
     
     @objc func get_login_user_full_data() {
-        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            } else {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+            }
+            
+            
+        }
         
         self.view.endEditing(true)
         
@@ -206,7 +255,17 @@ class cashout: UIViewController, UITextFieldDelegate {
     @objc func submit_request_WB(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                }
+                
+                
+            }
         }
         
         self.view.endEditing(true)
