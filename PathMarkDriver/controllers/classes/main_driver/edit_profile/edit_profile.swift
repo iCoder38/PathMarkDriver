@@ -1054,7 +1054,170 @@ extension edit_profile: UITableViewDataSource  , UITableViewDelegate {
                     
                     cell.btnSignUp.setTitle("Submit", for: .normal)
                     
+                    Utils.textFieldUI(textField: cell.txt_country,
+                                      tfName: cell.txt_country.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .emailAddress,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "Country")
+                    Utils.textFieldUI(textField: cell.txtEmailAddress,
+                                      tfName: cell.txtEmailAddress.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .emailAddress,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "Email Address")
+                    Utils.textFieldUI(textField: cell.txt_car_type,
+                                      tfName: cell.txt_car_type.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .default,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "type")
+                    /*Utils.textFieldUI(textField: cell.txtPassword,
+                                      tfName: cell.txtPassword.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .default,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "Password")*/
+                    Utils.textFieldUI(textField: cell.txt_full_name,
+                                      tfName: cell.txt_full_name.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .default,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "Full name")
+                    Utils.textFieldUI(textField: cell.txt_phone_number,
+                                      tfName: cell.txt_phone_number.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .numberPad,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "Phone Number")
+                    Utils.textFieldUI(textField: cell.txt_nid_number,
+                                      tfName: cell.txt_nid_number.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .numberPad,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "NID No.")
+                    Utils.textFieldUI(textField: cell.txt_address,
+                                      tfName: cell.txt_address.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .default,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "Address")
+                    
                 } else {
+                    
+                    Utils.textFieldUI(textField: cell.txt_country,
+                                      tfName: cell.txt_country.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .emailAddress,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "Country")
+                    Utils.textFieldUI(textField: cell.txtEmailAddress,
+                                      tfName: cell.txtEmailAddress.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .emailAddress,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "ইমেইল")
+                    Utils.textFieldUI(textField: cell.txt_car_type,
+                                      tfName: cell.txt_car_type.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .default,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "প্রকার")
+                    /*Utils.textFieldUI(textField: cell.txtPassword,
+                                      tfName: cell.txtPassword.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .default,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "পাসওয়ার্ড")*/
+                    Utils.textFieldUI(textField: cell.txt_full_name,
+                                      tfName: cell.txt_full_name.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .default,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "পুরো নাম")
+                    Utils.textFieldUI(textField: cell.txt_phone_number,
+                                      tfName: cell.txt_phone_number.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .numberPad,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "ফোন নম্বর")
+                    Utils.textFieldUI(textField: cell.txt_nid_number,
+                                      tfName: cell.txt_nid_number.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .numberPad,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "NID No.")
+                    Utils.textFieldUI(textField: cell.txt_address,
+                                      tfName: cell.txt_address.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .default,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "ঠিকানা")
+                    
                     cell.btnSignUp.setTitle("জমা দিন", for: .normal)
                 }
                 
@@ -1174,16 +1337,7 @@ class edit_profile_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_country:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_country,
-                              tfName: txt_country.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .emailAddress,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Country")
+            
             
             txt_country.layer.masksToBounds = false
             txt_country.layer.shadowColor = UIColor.black.cgColor
@@ -1196,16 +1350,7 @@ class edit_profile_table_cell: UITableViewCell {
     
     @IBOutlet weak var txtEmailAddress:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txtEmailAddress,
-                              tfName: txtEmailAddress.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .emailAddress,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Email Address")
+            
             
             txtEmailAddress.layer.masksToBounds = false
             txtEmailAddress.layer.shadowColor = UIColor.black.cgColor
@@ -1224,16 +1369,7 @@ class edit_profile_table_cell: UITableViewCell {
     }
     @IBOutlet weak var txt_car_type:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_car_type,
-                              tfName: txt_car_type.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "type")
+            
             
             txt_car_type.layer.masksToBounds = false
             txt_car_type.layer.shadowColor = UIColor.black.cgColor
@@ -1246,16 +1382,7 @@ class edit_profile_table_cell: UITableViewCell {
     
     @IBOutlet weak var txtPassword:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txtPassword,
-                              tfName: txtPassword.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Password")
+            
             
             txtPassword.layer.masksToBounds = false
             txtPassword.layer.shadowColor = UIColor.black.cgColor
@@ -1269,16 +1396,7 @@ class edit_profile_table_cell: UITableViewCell {
     //
     @IBOutlet weak var txt_full_name:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_full_name,
-                              tfName: txt_full_name.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Full name")
+            
             
             txt_full_name.layer.masksToBounds = false
             txt_full_name.layer.shadowColor = UIColor.black.cgColor
@@ -1313,16 +1431,7 @@ class edit_profile_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_phone_number:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_phone_number,
-                              tfName: txt_phone_number.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .numberPad,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Phone Number")
+            
             
             txt_phone_number.layer.masksToBounds = false
             txt_phone_number.layer.shadowColor = UIColor.black.cgColor
@@ -1335,16 +1444,7 @@ class edit_profile_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_nid_number:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_nid_number,
-                              tfName: txt_nid_number.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .numberPad,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "NID No.")
+            
             
             txt_nid_number.layer.masksToBounds = false
             txt_nid_number.layer.shadowColor = UIColor.black.cgColor
@@ -1362,16 +1462,7 @@ class edit_profile_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_address:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_address,
-                              tfName: txt_address.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Address")
+            
             
             txt_address.layer.masksToBounds = false
             txt_address.layer.shadowColor = UIColor.black.cgColor

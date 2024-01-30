@@ -980,12 +980,34 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 
             }  else if "\(item!["rideStatus"]!)" == "4" { // end
                 
-                let alert = UIAlertController(title: String("Payment Pending"), message: String("Customer yet to pay"), preferredStyle: UIAlertController.Style.alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
                     
-                }))
-                 
-                self.present(alert, animated: true, completion: nil)
+                    if (language == "en") {
+                        let alert = UIAlertController(title: String("Payment Pending"), message: String("Customer yet to pay"), preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            
+                        }))
+                         
+                        self.present(alert, animated: true, completion: nil)
+                        
+                    } else {
+                        let alert = UIAlertController(title: String("পেমেন্ট পেন্ডিং"), message: String("গ্রাহক এখনও পরিশোধ করতে পারেন"), preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "ঠিক আছে", style: .default, handler: { action in
+                            
+                        }))
+                         
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
+                
                 
             }
 

@@ -65,6 +65,7 @@ class MenuControllerVC: UIViewController {
     var str_menu_title_emergency_contacts:String! = "Emergency Contacts"
     var str_menu_title_help:String! = "Help"
     var str_menu_title_faq:String! = "FAQ(s)"
+    var str_menu_title_change_language:String! = "Change Language"
     var str_menu_title_logout:String! = "Logout"
     
     // driver
@@ -134,6 +135,7 @@ class MenuControllerVC: UIViewController {
                                  String(self.str_menu_title_faq),
                                  String(self.str_menu_title_emergency_contacts),
                                  String(self.str_menu_title_help),
+                                 String(self.str_menu_title_change_language),
                                  String(self.str_menu_title_logout)
         ]
         
@@ -154,6 +156,7 @@ class MenuControllerVC: UIViewController {
                                  "আপনাদের করা প্রশ্নের উত্তরসমূহ",
                                  "জরুরী যোগাযোগ",
                                  "হেল্প",
+                                    "ভাষা পরিবর্তন করুন",
                                  "লগ-আউট করুন",
         ]
         
@@ -173,6 +176,7 @@ class MenuControllerVC: UIViewController {
                                  "help",
                                  "emergency_contact",
                                  "help",
+                                 "language_white",
                                  "logout",
        ]
         
@@ -309,7 +313,6 @@ class MenuControllerVC: UIViewController {
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_2_wb()
-                            
                         } else {
                             
                             print("no")
@@ -399,7 +402,6 @@ extension MenuControllerVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
             
@@ -458,104 +460,113 @@ extension MenuControllerVC: UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if (arr_driver_title [indexPath.row] as! String) ==  String(self.str_menu_title_booking_history) {
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
-                self.view.window?.rootViewController = sw
-                let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "ride_history_id")
-                let navigationController = UINavigationController(rootViewController: destinationController!)
-                sw.setFront(navigationController, animated: true)
-                
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
+            self.view.window?.rootViewController = sw
+            let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "ride_history_id")
+            let navigationController = UINavigationController(rootViewController: destinationController!)
+            sw.setFront(navigationController, animated: true)
+            
+        }  else if (arr_driver_title [indexPath.row] as! String) == "Change Language" {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
+            self.view.window?.rootViewController = sw
+            let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "change_language_id")
+            let navigationController = UINavigationController(rootViewController: destinationController!)
+            sw.setFront(navigationController, animated: true)
+            
         } else if (arr_driver_title [indexPath.row] as! String) == String(self.str_menu_title_home) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_earnings) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "earnings_id") as! earnings
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "earnings_id") as! earnings
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_review) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "rating_review_id") as! rating_review
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "rating_review_id") as! rating_review
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_faq) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "faq_id") as! faq
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "faq_id") as! faq
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_emergency_contacts) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "emergency_contacts_id") as! emergency_contacts
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "emergency_contacts_id") as! emergency_contacts
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_set_working_details) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "set_location_hour_id") as! set_location_hour
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "set_location_hour_id") as! set_location_hour
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_update_vehicle_details) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "add_vehicle_details_id") as! add_vehicle_details
-                obj.str_for_update = "yes"
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "add_vehicle_details_id") as! add_vehicle_details
+            obj.str_for_update = "yes"
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_upload_documents) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "upload_documents_id") as! upload_documents
-                 obj.str_for_update = "yes"
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                 
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "upload_documents_id") as! upload_documents
+            obj.str_for_update = "yes"
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_about_us) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "about_us_id") as! about_us
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                 
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "about_us_id") as! about_us
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_cashout) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "cashout_id") as! cashout
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                 
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "cashout_id") as! cashout
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_help) {
-                
-                let obj = self.storyboard?.instantiateViewController(withIdentifier: "help_id") as! help
-                let navController = UINavigationController(rootViewController: obj)
-                navController.setViewControllers([obj], animated:true)
-                self.revealViewController().setFront(navController, animated: true)
-                self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-                 
+            
+            let obj = self.storyboard?.instantiateViewController(withIdentifier: "help_id") as! help
+            let navController = UINavigationController(rootViewController: obj)
+            navController.setViewControllers([obj], animated:true)
+            self.revealViewController().setFront(navController, animated: true)
+            self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
+            
         }  else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_edit_profile) {
             
             let obj = self.storyboard?.instantiateViewController(withIdentifier: "edit_profile_id") as! edit_profile
@@ -563,12 +574,12 @@ extension MenuControllerVC: UITableViewDataSource {
             navController.setViewControllers([obj], animated:true)
             self.revealViewController().setFront(navController, animated: true)
             self.revealViewController().setFrontViewPosition(FrontViewPosition.left, animated: true)
-             
+            
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_logout) {
             
             self.validation_before_logout()
         }
-           
+        
     }
     
     @objc func validation_before_logout() {

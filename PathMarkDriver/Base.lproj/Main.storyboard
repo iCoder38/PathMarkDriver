@@ -1931,6 +1931,7 @@
                                             <outlet property="lbl_driving_license_seaprator" destination="Wxa-gh-ADb" id="4gq-3H-Q1j"/>
                                             <outlet property="lbl_please_upload_your_driving_document" destination="LzU-8f-K9J" id="p4k-8a-KGO"/>
                                             <outlet property="lbl_please_upload_your_vehicle_document" destination="lIP-io-hZ9" id="zww-RZ-sOr"/>
+                                            <outlet property="lbl_step_one" destination="nW4-wT-bMV" id="8SJ-Yn-kYq"/>
                                             <outlet property="view_driver_license" destination="Jc4-X1-dym" id="wiU-9E-7Ae"/>
                                         </connections>
                                     </tableViewCell>
@@ -2040,6 +2041,7 @@
                                             <outlet property="btn_vehicle_insurance" destination="la5-v8-a1K" id="Gs4-ba-HOX"/>
                                             <outlet property="btn_vehicle_insurance_arrow" destination="w1W-Zj-Sgz" id="9eH-nu-OZM"/>
                                             <outlet property="lbl_please_upload_your_vehicle_insurance" destination="YmI-8c-bF1" id="UhU-3a-2DT"/>
+                                            <outlet property="lbl_step_two" destination="wyQ-dI-aYw" id="YYV-pv-Tp7"/>
                                             <outlet property="lbl_vehicle_insurance_seaprator" destination="qfj-eq-Pqk" id="2ld-2a-KvW"/>
                                             <outlet property="view_vehicle_insurance" destination="NnN-Ii-A7D" id="iax-r6-Au5"/>
                                         </connections>
@@ -2150,6 +2152,7 @@
                                             <outlet property="btn_vehicle_registratio_arrow" destination="ekK-th-snh" id="JvW-gw-zgT"/>
                                             <outlet property="btn_vehicle_registration_permit" destination="wPA-56-cJN" id="Vxt-Nx-h6e"/>
                                             <outlet property="lbl_please_upload_your_vehicle_registration_permit" destination="7tL-E4-GYK" id="5FD-Vm-NLc"/>
+                                            <outlet property="lbl_step_three" destination="zUO-Wb-hnq" id="vxJ-be-p9y"/>
                                             <outlet property="lbl_vehicle_reg_permit_seaprator" destination="zK8-wa-TY3" id="Ogy-cI-h66"/>
                                             <outlet property="view_vehicle_registration_permit" destination="Nl2-56-O2w" id="6Xb-pQ-Xci"/>
                                         </connections>
@@ -2260,6 +2263,7 @@
                                             <outlet property="btn_vehicle_registration_four" destination="UyD-qE-VX2" id="x2y-Ct-CUT"/>
                                             <outlet property="btn_vehicle_registration_four_arrow" destination="2HM-Xr-yHb" id="eDj-3d-1pq"/>
                                             <outlet property="lbl_please_upload_your_vehicle_registration_permit" destination="t8P-0K-yf7" id="Ofw-2F-eI0"/>
+                                            <outlet property="lbl_step_four" destination="t8P-0K-yf7" id="2gF-pJ-Q4k"/>
                                             <outlet property="lbl_vehicle_registration_four_permit" destination="Npl-QY-FO7" id="XW9-tN-Hoe"/>
                                             <outlet property="lbl_vehicle_registration_four_seaprator" destination="iu2-me-kWK" id="tn4-A2-hNX"/>
                                             <outlet property="view_vehicle_registration_four" destination="XbB-lv-Xrh" id="NBm-hz-fnw"/>
@@ -2370,6 +2374,7 @@
                                         <connections>
                                             <outlet property="btn_tax_arrow" destination="M7D-zy-ITi" id="9T2-A6-1Oe"/>
                                             <outlet property="btn_tax_permit" destination="X30-EM-D6y" id="Jnz-9j-J50"/>
+                                            <outlet property="lbl_step_five" destination="Cbe-hX-Jbx" id="w9B-fZ-W1n"/>
                                             <outlet property="lbl_tax_permit" destination="RnT-z1-qjm" id="rhG-VP-ZhM"/>
                                             <outlet property="lbl_tax_seaprator" destination="pGo-rX-GEA" id="5G9-wa-AnR"/>
                                             <outlet property="view_tax_permit" destination="WCo-jb-95I" id="fGV-ho-dTO"/>
@@ -7243,14 +7248,20 @@
                                             <outlet property="lbl_car_color" destination="IVh-WM-zCK" id="tZc-rg-mfJ"/>
                                             <outlet property="lbl_car_driver_name" destination="QsA-wo-hd0" id="Ne5-jW-P06"/>
                                             <outlet property="lbl_car_number" destination="xfK-GM-hR6" id="WZu-Pg-4GS"/>
+                                            <outlet property="lbl_distance_text" destination="kiI-C5-Nw1" id="1Gg-0g-4Aq"/>
                                             <outlet property="lbl_fare" destination="9AR-8D-WBa" id="sgw-xI-udu"/>
                                             <outlet property="lbl_from" destination="apW-ls-cXe" id="ONH-Qy-qnE"/>
                                             <outlet property="lbl_promotion" destination="oPU-yU-9D5" id="UTn-MH-6gZ"/>
                                             <outlet property="lbl_rating" destination="2Vm-AR-kNA" id="XV1-0y-9Dr"/>
                                             <outlet property="lbl_star_count" destination="Y48-q7-bT9" id="XfN-Rq-oa3"/>
                                             <outlet property="lbl_tip" destination="Gnx-lZ-Bi8" id="mY2-rv-H7t"/>
+                                            <outlet property="lbl_tip_text" destination="eW2-40-LiM" id="bc2-cw-2Dl"/>
                                             <outlet property="lbl_to" destination="eRY-zZ-5rT" id="kTQ-4K-FVk"/>
                                             <outlet property="lbl_total_amount" destination="ves-PY-4H2" id="5hd-cD-axq"/>
+                                            <outlet property="lbl_total_amount_text" destination="vfG-1c-gr3" id="GXH-Xr-kef"/>
+                                            <outlet property="lbl_total_fare_text" destination="oDF-n7-FAX" id="pc4-vS-Wln"/>
+                                            <outlet property="lbl_total_fare_text_two" destination="lJl-XW-weF" id="JIh-Rt-nVd"/>
+                                            <outlet property="lblpromotion_text" destination="atk-sn-Fop" id="orl-c2-bUX"/>
                                             <outlet property="txt_view" destination="8OI-BV-YGj" id="KpU-gj-p2U"/>
                                             <outlet property="view_driver_info" destination="hE1-Qv-t0X" id="M0m-ap-HUV"/>
                                             <outlet property="view_fare" destination="hi1-Cr-BbZ" id="6gj-Kg-jov"/>
@@ -11055,7 +11066,154 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ofE-YD-lGy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="29473" y="-118"/>
+            <point key="canvasLocation" x="29054" y="-118"/>
+        </scene>
+        <!--Change language-->
+        <scene sceneID="0HS-oG-rkS">
+            <objects>
+                <viewController storyboardIdentifier="change_language_id" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FxJ-Qg-PUv" customClass="change_language" customModule="PathMarkDriver" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e7r-VC-prQ">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="BIB-ly-ZTc">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="600"/>
+                                <color key="backgroundColor" red="0.58450383979999998" green="0.65720130210000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOd-IC-eFZ">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="88"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ssk-bt-ne8">
+                                        <rect key="frame" x="46" y="40" width="302" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="LMZ-C3-eTc"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-DemiBold" family="Avenir Next" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YiY-Md-FJf">
+                                        <rect key="frame" x="8" y="45" width="30" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="9m7-A6-dqG"/>
+                                            <constraint firstAttribute="height" constant="30" id="QzN-tL-GTs"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="list.dash" catalog="system"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ssk-bt-ne8" firstAttribute="leading" secondItem="SOd-IC-eFZ" secondAttribute="leading" constant="46" id="9PS-Gn-wmq"/>
+                                    <constraint firstAttribute="bottom" secondItem="ssk-bt-ne8" secondAttribute="bottom" constant="4" id="IYP-2x-bEn"/>
+                                    <constraint firstAttribute="bottom" secondItem="YiY-Md-FJf" secondAttribute="bottom" constant="13" id="Jnx-LG-UvV"/>
+                                    <constraint firstItem="YiY-Md-FJf" firstAttribute="leading" secondItem="SOd-IC-eFZ" secondAttribute="leading" constant="8" id="SQB-VP-7Dk"/>
+                                    <constraint firstAttribute="trailing" secondItem="ssk-bt-ne8" secondAttribute="trailing" constant="45" id="XQF-t8-w58"/>
+                                    <constraint firstAttribute="height" constant="88" id="iR9-Kv-0LJ"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please select language that you would like us in app." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVT-PK-iPw">
+                                <rect key="frame" x="16" y="96" width="361" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="diM-X1-DM2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="us_en" translatesAutoresizingMaskIntoConstraints="NO" id="2IG-s8-YWO">
+                                <rect key="frame" x="16" y="150" width="34" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="1vU-9w-mYh"/>
+                                    <constraint firstAttribute="width" constant="34" id="lEt-pf-OFB"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bangla_ic" translatesAutoresizingMaskIntoConstraints="NO" id="1qm-z5-OqM">
+                                <rect key="frame" x="16" y="198" width="34" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="8cM-AW-Ods"/>
+                                    <constraint firstAttribute="width" constant="34" id="xeH-Ml-vNk"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="English" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbY-u8-7ji">
+                                <rect key="frame" x="58" y="150" width="57.333333333333343" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="f2t-DE-Guq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bangla" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NY-ZV-8oY">
+                                <rect key="frame" x="58" y="198" width="54" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="EI7-9e-Tb1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LvU-5y-dxa">
+                                <rect key="frame" x="343" y="150" width="34" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="34" id="SJ6-L0-hGo"/>
+                                    <constraint firstAttribute="width" constant="34" id="YSO-pI-TUx"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="un_check"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Em3-8M-zuj">
+                                <rect key="frame" x="343" y="198" width="34" height="34"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="IvF-sT-AQy"/>
+                                    <constraint firstAttribute="height" constant="34" id="rQu-Pn-cyl"/>
+                                </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" image="un_check"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DbQ-pF-EWx"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="1qm-z5-OqM" firstAttribute="top" secondItem="2IG-s8-YWO" secondAttribute="bottom" constant="14" id="0MF-U8-Wo0"/>
+                            <constraint firstItem="mVT-PK-iPw" firstAttribute="top" secondItem="SOd-IC-eFZ" secondAttribute="bottom" constant="8" symbolic="YES" id="1lc-8W-Z1T"/>
+                            <constraint firstItem="ZbY-u8-7ji" firstAttribute="top" secondItem="mVT-PK-iPw" secondAttribute="bottom" constant="8" symbolic="YES" id="4I9-C9-QkO"/>
+                            <constraint firstItem="mVT-PK-iPw" firstAttribute="leading" secondItem="DbQ-pF-EWx" secondAttribute="leading" constant="16" id="6dc-BM-e1R"/>
+                            <constraint firstItem="Em3-8M-zuj" firstAttribute="top" secondItem="LvU-5y-dxa" secondAttribute="bottom" constant="14" id="8G6-7l-nbz"/>
+                            <constraint firstItem="ZbY-u8-7ji" firstAttribute="leading" secondItem="2IG-s8-YWO" secondAttribute="trailing" constant="8" symbolic="YES" id="9C1-Gk-D3Z"/>
+                            <constraint firstItem="DbQ-pF-EWx" firstAttribute="trailing" secondItem="mVT-PK-iPw" secondAttribute="trailing" constant="16" id="By2-mq-QGm"/>
+                            <constraint firstItem="DbQ-pF-EWx" firstAttribute="trailing" secondItem="LvU-5y-dxa" secondAttribute="trailing" constant="16" id="C90-XC-CNa"/>
+                            <constraint firstItem="1qm-z5-OqM" firstAttribute="leading" secondItem="DbQ-pF-EWx" secondAttribute="leading" constant="16" id="MzD-2E-cto"/>
+                            <constraint firstItem="2IG-s8-YWO" firstAttribute="leading" secondItem="DbQ-pF-EWx" secondAttribute="leading" constant="16" id="N4K-7H-kof"/>
+                            <constraint firstItem="5NY-ZV-8oY" firstAttribute="top" secondItem="ZbY-u8-7ji" secondAttribute="bottom" constant="14" id="SkI-UY-J9q"/>
+                            <constraint firstItem="2IG-s8-YWO" firstAttribute="top" secondItem="mVT-PK-iPw" secondAttribute="bottom" constant="8" symbolic="YES" id="WaQ-hc-HpE"/>
+                            <constraint firstAttribute="bottom" secondItem="BIB-ly-ZTc" secondAttribute="bottom" id="Wk8-Be-bGE"/>
+                            <constraint firstItem="SOd-IC-eFZ" firstAttribute="leading" secondItem="DbQ-pF-EWx" secondAttribute="leading" id="YLW-FL-p7Y"/>
+                            <constraint firstItem="SOd-IC-eFZ" firstAttribute="trailing" secondItem="DbQ-pF-EWx" secondAttribute="trailing" id="a1W-BT-aJZ"/>
+                            <constraint firstItem="5NY-ZV-8oY" firstAttribute="leading" secondItem="1qm-z5-OqM" secondAttribute="trailing" constant="8" symbolic="YES" id="em9-Di-mpr"/>
+                            <constraint firstItem="BIB-ly-ZTc" firstAttribute="leading" secondItem="DbQ-pF-EWx" secondAttribute="leading" id="gMy-cd-jvb"/>
+                            <constraint firstItem="LvU-5y-dxa" firstAttribute="top" secondItem="mVT-PK-iPw" secondAttribute="bottom" constant="8" symbolic="YES" id="jRh-WH-l0y"/>
+                            <constraint firstItem="BIB-ly-ZTc" firstAttribute="trailing" secondItem="DbQ-pF-EWx" secondAttribute="trailing" id="jet-sb-edr"/>
+                            <constraint firstItem="SOd-IC-eFZ" firstAttribute="top" secondItem="e7r-VC-prQ" secondAttribute="top" id="kRL-aM-yWT"/>
+                            <constraint firstItem="DbQ-pF-EWx" firstAttribute="trailing" secondItem="Em3-8M-zuj" secondAttribute="trailing" constant="16" id="n7g-Sw-sQd"/>
+                            <constraint firstItem="BIB-ly-ZTc" firstAttribute="top" secondItem="e7r-VC-prQ" secondAttribute="top" id="pgc-b1-lhJ"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="393" height="600"/>
+                    <connections>
+                        <outlet property="btnBack" destination="YiY-Md-FJf" id="ieG-eW-lOT"/>
+                        <outlet property="btn_bangla" destination="Em3-8M-zuj" id="kk2-Dw-R95"/>
+                        <outlet property="btn_english" destination="LvU-5y-dxa" id="Pc8-rI-Joc"/>
+                        <outlet property="lblNavigationTitle" destination="ssk-bt-ne8" id="q6K-Ml-PBJ"/>
+                        <outlet property="navigationBar" destination="SOd-IC-eFZ" id="lwy-lX-JWt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wn7-vC-NPr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="29784" y="-208"/>
         </scene>
     </scenes>
     <resources>
@@ -11063,6 +11221,7 @@
         <image name="Background1" width="414" height="749.33331298828125"/>
         <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="ava" width="128" height="128"/>
+        <image name="bangla_ic" width="32" height="32"/>
         <image name="bike" width="150" height="150"/>
         <image name="bike_1" width="150" height="150"/>
         <image name="calculator" width="24" height="24"/>
@@ -11107,6 +11266,7 @@
         <image name="teltegram" width="120" height="72"/>
         <image name="twitter" width="120" height="72"/>
         <image name="un_check" width="24" height="24"/>
+        <image name="us_en" width="32" height="32"/>
         <image name="vehicle_details" width="204" height="129"/>
         <image name="video.fill" catalog="system" width="128" height="81"/>
         <image name="wallet" width="128" height="128"/>

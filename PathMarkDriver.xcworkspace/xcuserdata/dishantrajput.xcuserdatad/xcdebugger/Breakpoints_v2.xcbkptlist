@@ -460,42 +460,10 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "four_click_method(sender:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9488BEB7-5545-4F83-9FB5-8426A8B01065 - c4f68bb169484eb6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.upload_documents.four_click_method(sender: __C.UITapGestureRecognizer) -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "352"
-                  endingLineNumber = "352"
-                  offsetFromSymbolStart = "2572">
-               </Location>
-               <Location
-                  uuid = "9488BEB7-5545-4F83-9FB5-8426A8B01065 - c4f68bb169484eb6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.upload_documents.four_click_method(sender: __C.UITapGestureRecognizer) -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "352"
-                  endingLineNumber = "352"
-                  offsetFromSymbolStart = "200">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

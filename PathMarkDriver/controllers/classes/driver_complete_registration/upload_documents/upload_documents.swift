@@ -34,7 +34,21 @@ class upload_documents: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Upload Documents"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Upload Documents"
+                } else {
+                    view_navigation_title.text = "নথি আপলোড করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             view_navigation_title.textColor = .white
         }
     }
@@ -63,7 +77,23 @@ class upload_documents: UIViewController {
         var sum = 0
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             // print(person as Any)
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "checking...")
+            
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "checking...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "পরীক্ষা করা...")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             
             // # 1 = driving license
             if (person["drivingLicenceNo"] as! String == "") {
@@ -328,10 +358,29 @@ class upload_documents: UIViewController {
             
             if (arr_mut_order_history.count == 0) {
                 
-                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Vehicle Insurance first."), style: .alert)
-                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-                alert.addButtons([cancel])
-                self.present(alert, animated: true)
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Vehicle Insurance first."), style: .alert)
+                        let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                        alert.addButtons([cancel])
+                        self.present(alert, animated: true)
+                    } else {
+                        let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("অনুগ্রহ করে প্রথমে যানবাহন বীমা আপলোড করুন।"), style: .alert)
+                        let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                        alert.addButtons([cancel])
+                        self.present(alert, animated: true)
+                    }
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
+                
                 
             } else {
                 let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_tax_id") as? upload_tax
@@ -362,10 +411,29 @@ class upload_documents: UIViewController {
             
             if (arr_mut_order_history.count == 0) {
                 
-                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Vehicle Insurance first."), style: .alert)
-                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-                alert.addButtons([cancel])
-                self.present(alert, animated: true)
+                
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Vehicle Insurance first."), style: .alert)
+                        let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                        alert.addButtons([cancel])
+                        self.present(alert, animated: true)
+                    } else {
+                        let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("অনুগ্রহ করে প্রথমে যানবাহন বীমা আপলোড করুন।"), style: .alert)
+                        let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                        alert.addButtons([cancel])
+                        self.present(alert, animated: true)
+                    }
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
                 
             } else {
                 let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "upload_tax_id") as? upload_tax
@@ -1107,6 +1175,101 @@ class upload_documents_table_cell: UITableViewCell {
     @IBOutlet weak var lbl_vehicle_registration_four_seaprator:UILabel!
     @IBOutlet weak var lbl_vehicle_registration_four_permit:UILabel!
     
+    @IBOutlet weak var lbl_step_one:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_step_one.text = "Step 1 : Driver license"
+                } else {
+                    lbl_step_one.text = "ধাপ 1 : ড্রাইভার লাইসেন্স"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_step_two:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_step_two.text = "Step 2 : Vehicle Insurance"
+                } else {
+                    lbl_step_two.text = "ধাপ 2 : যানবাহন বীমা"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_step_three:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_step_three.text = "Step 3 : Vehicle permit & Fitness"
+                } else {
+                    lbl_step_three.text = "ধাপ 3 : যানবাহনের পারমিট এবং ফিটনেস"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_step_four:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_step_four.text = "Step 4 : Vehicle Registration"
+                } else {
+                    lbl_step_four.text = "ধাপ 4 : যানবাহন নিবন্ধন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_step_five:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_step_five.text = "Step 5 : Tax Token"
+                } else {
+                    lbl_step_five.text = "ধাপ 5 : ট্যাক্স টোকেন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

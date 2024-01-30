@@ -48,7 +48,17 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Dashboard"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Dashboard"
+                } else {
+                    view_navigation_title.text = "ড্যাশবোর্ড"
+                }
+                
+                view_navigation_title.textColor = .white
+            }
             view_navigation_title.textColor = .white
         }
     }

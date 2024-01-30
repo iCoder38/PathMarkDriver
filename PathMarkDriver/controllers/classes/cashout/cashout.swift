@@ -229,22 +229,64 @@ class cashout: UIViewController, UITextFieldDelegate {
         print(double_wallet_balance as Any)
         
         if (self.txt_enter_price.text) == "" {
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter some amount"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
             
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter some amount"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                } else {
+                    let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("কিছু পরিমাণ লিখুন"), style: .alert)
+                    let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                }
+                
+                
+            }
         } else if (self.txt_enter_price.text) == "0" {
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Price must be greater than 1"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
             
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Price must be greater than 1"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                } else {
+                    let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("মূল্য 1 এর বেশি হতে হবে"), style: .alert)
+                    let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                }
+                
+                
+            }
         }  else if (double_enter_price > double_wallet_balance) {
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Not enought balance"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Not enought balance"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                } else {
+                    let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("পর্যাপ্ত ভারসাম্য নয়"), style: .alert)
+                    let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                }
+                
+                
+            }
+            
+            
             
         } else {
             print("submit")

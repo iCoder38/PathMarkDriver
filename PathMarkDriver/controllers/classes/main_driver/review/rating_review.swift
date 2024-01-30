@@ -373,10 +373,30 @@ extension rating_review: UITableViewDataSource , UITableViewDelegate {
         tableView .deselectRow(at: indexPath, animated: true)
         let item = self.arr_earnings[indexPath.row] as? [String:Any]
         
-        let alert = NewYorkAlertController(title: String("Message").uppercased(), message: "\(item!["message"]!)", style: .alert)
-        let cancel = NewYorkButton(title: "OK", style: .cancel)
-        alert.addButtons([cancel])
-        self.present(alert, animated: true)
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                let alert = NewYorkAlertController(title: String("Message").uppercased(), message: "\(item!["message"]!)", style: .alert)
+                let cancel = NewYorkButton(title: "OK", style: .cancel)
+                alert.addButtons([cancel])
+                self.present(alert, animated: true)
+                
+            } else {
+                let alert = NewYorkAlertController(title: String("বার্তা").uppercased(), message: "\(item!["message"]!)", style: .alert)
+                let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+                alert.addButtons([cancel])
+                self.present(alert, animated: true)
+            }
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

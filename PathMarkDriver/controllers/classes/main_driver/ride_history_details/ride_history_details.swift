@@ -44,7 +44,17 @@ class ride_history_details: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Details"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Details"
+                } else {
+                    view_navigation_title.text = "বিস্তারিত"
+                }
+                
+                view_navigation_title.textColor = .white
+            }
             view_navigation_title.textColor = .white
         }
     }
@@ -288,7 +298,23 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
                 cell.img_gif.isHidden = false
                 cell.img_gif.image = UIImage.gif(name: "double-check")
                 
-                cell.btn_payment_status.setTitle("Payment Done", for: .normal)
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        cell.btn_payment_status.setTitle("Payment Done", for: .normal)
+                        
+                    } else {
+                        cell.btn_payment_status.setTitle("পেমেন্ট সম্পন্ন", for: .normal)
+                    }
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
                 cell.btn_payment_status.backgroundColor = .systemGreen
                 cell.btn_payment_status.setTitleColor(.white, for: .normal)
                 
@@ -362,6 +388,40 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
             
         }
         
+        /*
+         @IBOutlet weak var lbl_total_fare_text:UILabel!
+         @IBOutlet weak var lbl_distance_text:UILabel!
+         @IBOutlet weak var lbl_total_fare_text_two:UILabel!
+         @IBOutlet weak var lbl_tip_text:UILabel!
+         @IBOutlet weak var lblpromotion_text:UILabel!
+         @IBOutlet weak var lbl_total_amount_text:UILabel!
+         */
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                cell.lbl_total_fare_text.text = "Fare"
+                cell.lbl_distance_text.text = "Distance"
+                cell.lbl_total_fare_text_two.text = "TOTAL FARE"
+                cell.lbl_tip_text.text = "Tip"
+                cell.lblpromotion_text.text = "Promotion"
+                cell.lbl_total_amount_text.text = "Total Amount"
+                
+            } else {
+                cell.lbl_total_fare_text.text = "ভাড়া"
+                cell.lbl_distance_text.text = "দূরত্ব"
+                cell.lbl_total_fare_text_two.text = "মোট ভাড়া"
+                cell.lbl_tip_text.text = "টিপ"
+                cell.lblpromotion_text.text = "পদোন্নতি"
+                cell.lbl_total_amount_text.text = "সর্বমোট পরিমাণ"
+            }
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
         cell.backgroundColor = .clear
         
         return cell
@@ -381,6 +441,13 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
 }
 
 class ride_history_details_table_cell: UITableViewCell {
+    
+    @IBOutlet weak var lbl_total_fare_text:UILabel!
+    @IBOutlet weak var lbl_distance_text:UILabel!
+    @IBOutlet weak var lbl_total_fare_text_two:UILabel!
+    @IBOutlet weak var lbl_tip_text:UILabel!
+    @IBOutlet weak var lblpromotion_text:UILabel!
+    @IBOutlet weak var lbl_total_amount_text:UILabel!
     
     @IBOutlet weak var view_from_to:UIView! {
         didSet {
