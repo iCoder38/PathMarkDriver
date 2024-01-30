@@ -14,8 +14,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_reg_permit/upload_reg_permit.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "upload_reg_permit"
             landmarkType = "3">
          </BreakpointContent>
@@ -30,13 +30,13 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_vehicle_insurance/upload_vehicle_insurance.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "298"
-            endingLineNumber = "298"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "upload_vehicle_insurance_WB(str_show_loader:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "86E134CE-64E8-4108-85A3-7664F8D0DBA0 - 547ee6bc97b04a6b"
+                  uuid = "86E134CE-64E8-4108-85A3-7664F8D0DBA0 - 547ee6bc97b0b47a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -46,12 +46,12 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_vehicle_insurance/upload_vehicle_insurance.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "298"
-                  endingLineNumber = "298"
-                  offsetFromSymbolStart = "3188">
+                  startingLineNumber = "313"
+                  endingLineNumber = "313"
+                  offsetFromSymbolStart = "4396">
                </Location>
                <Location
-                  uuid = "86E134CE-64E8-4108-85A3-7664F8D0DBA0 - 547ee6bc97b04a6b"
+                  uuid = "86E134CE-64E8-4108-85A3-7664F8D0DBA0 - 547ee6bc97b0b47a"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -61,8 +61,8 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_vehicle_insurance/upload_vehicle_insurance.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "298"
-                  endingLineNumber = "298"
+                  startingLineNumber = "313"
+                  endingLineNumber = "313"
                   offsetFromSymbolStart = "3160">
                </Location>
             </Locations>
@@ -78,13 +78,13 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "upload_tax_image(str_show_loader:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - 28d97aef37abdca8"
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - 28d97aef37abdb04"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -94,12 +94,27 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "399"
-                  endingLineNumber = "399"
-                  offsetFromSymbolStart = "720">
+                  startingLineNumber = "419"
+                  endingLineNumber = "419"
+                  offsetFromSymbolStart = "2020">
                </Location>
                <Location
-                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be36586"
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - 85575430282e087d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.upload_tax.login_refresh_token_wb() -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "419"
+                  endingLineNumber = "419"
+                  offsetFromSymbolStart = "436">
+               </Location>
+               <Location
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be3620b"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -109,12 +124,27 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "399"
-                  endingLineNumber = "399"
+                  startingLineNumber = "418"
+                  endingLineNumber = "418"
                   offsetFromSymbolStart = "5212">
                </Location>
                <Location
-                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be365d8"
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - 21f643027ef35b34"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.upload_tax.upload_tax_image(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "415"
+                  endingLineNumber = "415"
+                  offsetFromSymbolStart = "5356">
+               </Location>
+               <Location
+                  uuid = "432D602B-BED3-4EAA-BA43-734DA7DBE8DB - de1141c72be36377"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -124,8 +154,8 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_tax/upload_tax.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "401"
-                  endingLineNumber = "401"
+                  startingLineNumber = "414"
+                  endingLineNumber = "414"
                   offsetFromSymbolStart = "5212">
                </Location>
             </Locations>
@@ -141,13 +171,13 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_driving_license/upload_vehicle_license.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "490"
-            endingLineNumber = "490"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
             landmarkName = "upload_licence_image_document_WB(str_show_loader:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "E7A3779A-F942-4B9A-B54E-ADA816FEA4EF - 40f49ad135f7d4a3"
+                  uuid = "E7A3779A-F942-4B9A-B54E-ADA816FEA4EF - 40f49ad135f7d675"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -157,12 +187,12 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_driving_license/upload_vehicle_license.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "491"
-                  endingLineNumber = "491"
-                  offsetFromSymbolStart = "7860">
+                  startingLineNumber = "505"
+                  endingLineNumber = "505"
+                  offsetFromSymbolStart = "7968">
                </Location>
                <Location
-                  uuid = "E7A3779A-F942-4B9A-B54E-ADA816FEA4EF - 40f49ad135f7d484"
+                  uuid = "E7A3779A-F942-4B9A-B54E-ADA816FEA4EF - 40f49ad135f7d675"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -172,8 +202,8 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs_2022/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_driving_license/upload_vehicle_license.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "490"
-                  endingLineNumber = "490"
+                  startingLineNumber = "505"
+                  endingLineNumber = "505"
                   offsetFromSymbolStart = "7832">
                </Location>
             </Locations>
@@ -189,8 +219,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_vehicle_insurance/upload_vehicle_insurance.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "602"
-            endingLineNumber = "602"
+            startingLineNumber = "617"
+            endingLineNumber = "617"
             landmarkName = "upload_vehicle_insurance_with_image_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>

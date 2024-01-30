@@ -59,6 +59,24 @@ class emergency_contacts: UIViewController {
         self.sideBarMenuClick()
         self.btn_add.addTarget(self, action: #selector(add_contacts_click_method), for: .touchUpInside)
         
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                
+                btn_add.setTitle("+ add", for: .normal)
+            } else {
+                btn_add.setTitle("+ যোগ করুন", for: .normal)
+            }
+            
+            
+        }
+        
+        
+        
+        
+        
+        
         // login_refresh_token_wb()
     }
     

@@ -34,7 +34,24 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Upload Vehicle Permit and Fitness"
+            
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Upload Vehicle Permit and Fitness"
+                } else {
+                    view_navigation_title.text = "যানবাহনের পারমিট এবং ফিটনেস আপলোড করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             view_navigation_title.textColor = .white
         }
     }
@@ -709,11 +726,23 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
         
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_reg_permit_table_cell
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                RPicker.selectDate(title: "Issued Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_permit_issue.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            } else {
+                RPicker.selectDate(title: "ইস্যুর তারিখ", minDate: minDate, maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_permit_issue.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            }
+            
+        }
         
-        RPicker.selectDate(title: "Issued Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
-           
-            cell.txt_permit_issue.text = selectedDate.dateString("yyyy-MM-dd")
-        })
     }
     
     @objc func exp_on_click_method() {
@@ -724,11 +753,23 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
         
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_reg_permit_table_cell
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_permit_exp.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            } else {
+                RPicker.selectDate(title: "ইস্যুর তারিখ", minDate: minDate, maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_permit_exp.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            }
+            
+        }
         
-        RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
-           
-            cell.txt_permit_exp.text = selectedDate.dateString("yyyy-MM-dd")
-        })
         
     }
     
@@ -849,6 +890,84 @@ extension upload_reg_permit: UITableViewDataSource  , UITableViewDelegate {
          cell.btn_open_exp_on_calendar.addTarget(self, action: #selector(exp_on_click_method), for: .touchUpInside)
         // cell.btn_select_car_type.addTarget(self, action: #selector(car_types_click_method), for: .touchUpInside)
         
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                cell.btn_submit.setTitle("Submit", for: .normal)
+                
+                Utils.textFieldUI(textField: cell.txt_vehicle_permit_number,
+                                  tfName: cell.txt_vehicle_permit_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Vehicle Permit Number")
+                Utils.textFieldUI(textField: cell.txt_permit_exp,
+                                  tfName: cell.txt_permit_exp.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Permit Exp. Date")
+                Utils.textFieldUI(textField: cell.txt_permit_issue,
+                                  tfName: cell.txt_permit_issue.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Issue")
+                
+            } else {
+                cell.btn_submit.setTitle("জমা দিন", for: .normal)
+                Utils.textFieldUI(textField: cell.txt_vehicle_permit_number,
+                                  tfName: cell.txt_vehicle_permit_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "যানবাহনের পারমিট নম্বর")
+                Utils.textFieldUI(textField: cell.txt_permit_exp,
+                                  tfName: cell.txt_permit_exp.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "পারমিট এক্সপেরিমেন্ট। তারিখ")
+                Utils.textFieldUI(textField: cell.txt_permit_issue,
+                                  tfName: cell.txt_permit_issue.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Issue")
+            }
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
         return cell
     }
      
@@ -866,21 +985,94 @@ extension upload_reg_permit: UITableViewDataSource  , UITableViewDelegate {
 
 class upload_reg_permit_table_cell: UITableViewCell {
 
+    @IBOutlet weak var lbl_take_a_photo:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_take_a_photo.text = "Take a photo"
+                } else {
+                    lbl_take_a_photo.text = "একটি ছবি তুলুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_vehicle_permit_number:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_vehicle_permit_number.text = "Vehicle Permit Number"
+                } else {
+                    lbl_vehicle_permit_number.text = "যানবাহনের পারমিট নম্বর"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_issue_date:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_issue_date.text = "Issue date"
+                } else {
+                    lbl_issue_date.text = "প্রদানের তারিখ"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_exp_date:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_exp_date.text = "Expiry date"
+                } else {
+                    lbl_exp_date.text = "মেয়াদ শেষ হওয়ার তারিখ"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    
+    
+    
+    
     @IBOutlet weak var btn_open_issued_on_calendar:UIButton!
     @IBOutlet weak var btn_open_exp_on_calendar:UIButton!
     
     @IBOutlet weak var txt_vehicle_permit_number:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_vehicle_permit_number,
-                              tfName: txt_vehicle_permit_number.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Vehicle Permit Number")
+            
             
             txt_vehicle_permit_number.layer.masksToBounds = false
             txt_vehicle_permit_number.layer.shadowColor = UIColor.black.cgColor
@@ -894,16 +1086,7 @@ class upload_reg_permit_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_permit_exp:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_permit_exp,
-                              tfName: txt_permit_exp.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Permit Exp. Date")
+            
             
             txt_permit_exp.layer.masksToBounds = false
             txt_permit_exp.layer.shadowColor = UIColor.black.cgColor
@@ -916,16 +1099,7 @@ class upload_reg_permit_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_permit_issue:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_permit_issue,
-                              tfName: txt_permit_issue.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Issue")
+            
             
             txt_permit_issue.layer.masksToBounds = false
             txt_permit_issue.layer.shadowColor = UIColor.black.cgColor

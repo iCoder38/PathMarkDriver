@@ -2702,6 +2702,11 @@
                                             <outlet property="btn_submit" destination="wwk-Gg-04K" id="ks7-JA-vIX"/>
                                             <outlet property="header_full_view_navigation_bar" destination="fmk-BY-y70" id="J1b-WG-roa"/>
                                             <outlet property="img_upload_photo_or_document" destination="Tvd-Ly-mne" id="s0E-Hz-cpM"/>
+                                            <outlet property="lbl_expiry_date" destination="MOd-zp-Q1k" id="2oA-NQ-tOY"/>
+                                            <outlet property="lbl_issued_on" destination="gyu-tJ-JFT" id="Z6a-3E-w6C"/>
+                                            <outlet property="lbl_license_number" destination="sQ9-rv-YzE" id="vrc-pt-RUp"/>
+                                            <outlet property="lbl_take_a_photo" destination="nGj-sx-8vn" id="CDR-Ws-UH5"/>
+                                            <outlet property="lbl_vehicle_type" destination="S0P-wj-tAq" id="r6W-OR-avI"/>
                                             <outlet property="txt_exp_date" destination="0If-Ty-rYh" id="9B0-Kc-W5j"/>
                                             <outlet property="txt_issued_on" destination="jqt-an-k9W" id="tvM-by-MZt"/>
                                             <outlet property="txt_license_number" destination="StN-dY-QUQ" id="C8M-0X-PBm"/>
@@ -3131,6 +3136,14 @@
                                             <outlet property="btn_issue_date" destination="1yU-Dt-IDL" id="iZA-ry-Uwd"/>
                                             <outlet property="btn_submit" destination="4QR-Bt-mCm" id="jX5-da-cKU"/>
                                             <outlet property="img_upload_photo_or_document" destination="ZtA-IH-QH4" id="fx6-P8-u9y"/>
+                                            <outlet property="lbl_date" destination="pOL-wH-fW9" id="2EC-it-RcD"/>
+                                            <outlet property="lbl_expiry_date" destination="KP0-3A-gU2" id="8yR-50-B1N"/>
+                                            <outlet property="lbl_insurance_company" destination="80N-At-xtS" id="PKI-qW-Iag"/>
+                                            <outlet property="lbl_number_of_pas" destination="wfV-Ez-EOl" id="5Nr-KM-HuC"/>
+                                            <outlet property="lbl_policy_holder" destination="CO8-le-37r" id="nOX-VJ-Q9e"/>
+                                            <outlet property="lbl_policy_number" destination="eVg-AA-sgL" id="Z6a-ef-Cfn"/>
+                                            <outlet property="lbl_registration_number" destination="mzd-Dr-dAR" id="qI6-mf-JhF"/>
+                                            <outlet property="lbl_take_a_photo" destination="1WS-sK-Ud3" id="6fn-rD-KId"/>
                                             <outlet property="txt_commencing_date" destination="YAf-Zj-fBO" id="AeV-Ii-NFm"/>
                                             <outlet property="txt_exp_date" destination="kXA-I6-RNR" id="DkQ-10-54d"/>
                                             <outlet property="txt_insurance_policy" destination="apl-PZ-U3E" id="7fk-rI-kgp"/>
@@ -3407,6 +3420,10 @@
                                             <outlet property="btn_open_exp_on_calendar" destination="4Zx-0p-sH1" id="izU-NF-pPE"/>
                                             <outlet property="btn_submit" destination="e3q-Kd-we8" id="N1v-OP-5g9"/>
                                             <outlet property="img_upload_photo_or_document" destination="vBx-6p-K77" id="r9b-7N-1wf"/>
+                                            <outlet property="lbl_exp_date" destination="HjO-j3-CgC" id="nak-Wf-tvI"/>
+                                            <outlet property="lbl_registration_City" destination="orQ-gU-stu" id="feK-1Z-jET"/>
+                                            <outlet property="lbl_registration_number" destination="cnp-YI-M8g" id="J4O-ae-DyB"/>
+                                            <outlet property="lbl_take_a_photo" destination="Xbt-eD-tei" id="iIK-vs-hCj"/>
                                             <outlet property="txt_expiry_date" destination="6Gg-vd-QPs" id="Hr0-EH-xJ6"/>
                                             <outlet property="txt_vehicle_registration_number" destination="qJ5-Bi-ZN8" id="3mZ-Ut-RLm"/>
                                             <outlet property="txt_vehicle_registration_state" destination="mqx-T2-ayr" id="a3d-am-u31"/>
@@ -8573,6 +8590,10 @@
                                             <outlet property="btn_open_issued_on_calendar" destination="xG0-PO-xvT" id="Gja-HM-MxO"/>
                                             <outlet property="btn_submit" destination="FaJ-O3-mG7" id="Kyv-BG-jPl"/>
                                             <outlet property="img_upload_photo_or_document" destination="Zs8-4U-iac" id="YDl-UQ-2bb"/>
+                                            <outlet property="lbl_exp_date" destination="O9c-cc-1Hs" id="Gvd-ju-OQi"/>
+                                            <outlet property="lbl_issue_date" destination="uOd-EM-nLb" id="sLp-dI-pXJ"/>
+                                            <outlet property="lbl_take_a_photo" destination="BTN-e3-bBt" id="9iL-xV-P8w"/>
+                                            <outlet property="lbl_vehicle_permit_number" destination="z9y-A5-nzm" id="hO6-uk-iE0"/>
                                             <outlet property="txt_permit_exp" destination="jP8-xC-AfC" id="6et-bH-tjH"/>
                                             <outlet property="txt_permit_issue" destination="IYm-B0-ezY" id="Qbw-eu-yGY"/>
                                             <outlet property="txt_vehicle_permit_number" destination="Yaz-Ll-VTT" id="AVp-Io-yPb"/>
@@ -10634,10 +10655,10 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="69J-nH-xnU">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yhw-cy-Gm6">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yhw-cy-Gm6">
                                 <rect key="frame" x="0.0" y="770" width="393" height="82"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1KU-ek-by7" customClass="GrowingTextView" customModule="GrowingTextView">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1KU-ek-by7" customClass="GrowingTextView" customModule="GrowingTextView">
                                         <rect key="frame" x="50" y="8" width="303" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -10751,7 +10772,7 @@
                                     <constraint firstItem="LWC-Ag-jlt" firstAttribute="leading" secondItem="1KK-mz-k5l" secondAttribute="trailing" constant="20" id="vBM-qW-8yk"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4V6-MV-pl7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4V6-MV-pl7">
                                 <rect key="frame" x="0.0" y="88" width="393" height="682"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -11216,6 +11237,11 @@
             <point key="canvasLocation" x="29784" y="-208"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="1KU-ek-by7">
+            <size key="intrinsicContentSize" width="-1" height="30"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Background" width="414" height="749.33331298828125"/>
         <image name="Background1" width="414" height="749.33331298828125"/>
@@ -11248,8 +11274,8 @@
         <image name="logo" width="1024" height="1024"/>
         <image name="logo-white" width="800" height="269"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="message" catalog="system" width="128" height="116"/>
         <image name="message" width="24" height="24"/>
+        <image name="message" catalog="system" width="128" height="116"/>
         <image name="new-password" width="138" height="138"/>
         <image name="paperclip" catalog="system" width="121" height="128"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>

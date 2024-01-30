@@ -1115,13 +1115,36 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
         
-        let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
-        
-        RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_year, selectedIndex: 0) { (selctedText, atIndex) in
-             cell.txt_year.text = String(selctedText)
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                
+                let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
+                
+                RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_year, selectedIndex: 0) { (selctedText, atIndex) in
+                     cell.txt_year.text = String(selctedText)
+                    
+                }
+
+                
+            } else {
+                
+                let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
+                
+                RPicker.selectOption(title: "নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_year, selectedIndex: 0) { (selctedText, atIndex) in
+                     cell.txt_year.text = String(selctedText)
+                    
+                }
+                
+                
+                
+            }
             
         }
         
+        
+                
     }
     
     @objc func brand_click_method() {
@@ -1284,9 +1307,114 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
             if (language == "en") {
                 cell.btn_continue.setTitle("Continue", for: .normal)
                 cell.lbl_note.text = "Note : Vehicle details will show when Passenger will book your car."
+                
+                Utils.textFieldUI(textField: cell.txt_vehicle_number,
+                                  tfName: cell.txt_vehicle_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Vehicle Number")
+                Utils.textFieldUI(textField: cell.txt_brand,
+                                  tfName: cell.txt_brand.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Brand")
+                Utils.textFieldUI(textField: cell.txt_modal,
+                                  tfName: cell.txt_modal.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Modal")
+                Utils.textFieldUI(textField: cell.txt_year,
+                                  tfName: cell.txt_year.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .numberPad,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Year")
+                Utils.textFieldUI(textField: cell.txt_color,
+                                  tfName: cell.txt_color.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Color")
+                
+                
             } else {
                 cell.btn_continue.setTitle("চালিয়ে যান", for: .normal)
                 cell.lbl_note.text = "বিঃদ্রঃ যাত্রী আপনার গাড়ি বুক করার সময় গাড়ির বিবরণ দেখানো হবে."
+                
+                Utils.textFieldUI(textField: cell.txt_vehicle_number,
+                                  tfName: cell.txt_vehicle_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "গাড়ির নম্বর")
+                Utils.textFieldUI(textField: cell.txt_brand,
+                                  tfName: cell.txt_brand.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "ব্র্যান্ড")
+                Utils.textFieldUI(textField: cell.txt_modal,
+                                  tfName: cell.txt_modal.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "মোডাল")
+                Utils.textFieldUI(textField: cell.txt_year,
+                                  tfName: cell.txt_year.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .numberPad,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "বছর")
+                Utils.textFieldUI(textField: cell.txt_color,
+                                  tfName: cell.txt_color.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "রঙ")
+                
             }
             
          
@@ -1435,16 +1563,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
    
     @IBOutlet weak var txt_vehicle_number:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_vehicle_number,
-                              tfName: txt_vehicle_number.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Vehicle Number")
+            
             
             txt_vehicle_number.layer.masksToBounds = false
             txt_vehicle_number.layer.shadowColor = UIColor.black.cgColor
@@ -1458,16 +1577,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
     @IBOutlet weak var btn_brand:UIButton!
     @IBOutlet weak var txt_brand:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_brand,
-                              tfName: txt_brand.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Brand")
+            
             
             txt_brand.layer.masksToBounds = false
             txt_brand.layer.shadowColor = UIColor.black.cgColor
@@ -1481,16 +1591,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_modal:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_modal,
-                              tfName: txt_modal.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Modal")
+            
             
             txt_modal.layer.masksToBounds = false
             txt_modal.layer.shadowColor = UIColor.black.cgColor
@@ -1504,16 +1605,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
     @IBOutlet weak var btn_year:UIButton!
     @IBOutlet weak var txt_year:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_year,
-                              tfName: txt_year.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .numberPad,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Year")
+            
             
             txt_year.layer.masksToBounds = false
             txt_year.layer.shadowColor = UIColor.black.cgColor
@@ -1527,16 +1619,7 @@ class add_vehicle_details_table_cell: UITableViewCell {
     @IBOutlet weak var btn_color:UIButton!
     @IBOutlet weak var txt_color:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_color,
-                              tfName: txt_color.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Color")
+            
             
             txt_color.layer.masksToBounds = false
             txt_color.layer.shadowColor = UIColor.black.cgColor

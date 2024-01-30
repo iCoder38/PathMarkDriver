@@ -1146,7 +1146,7 @@ extension edit_profile: UITableViewDataSource  , UITableViewDelegate {
                                       tfAppearance: .dark,
                                       tfKeyboardType: .emailAddress,
                                       tfBackgroundColor: .white,
-                                      tfPlaceholderText: "Country")
+                                      tfPlaceholderText: "দেশ")
                     Utils.textFieldUI(textField: cell.txtEmailAddress,
                                       tfName: cell.txtEmailAddress.text!,
                                       tfCornerRadius: 12,

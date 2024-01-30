@@ -83,9 +83,24 @@ class faq: UIViewController {
                 let headers: HTTPHeaders = [
                     "token":String(token_id_is),
                 ]
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                }
+                
                 
                 parameters = [
-                    "action"    : "faq"
+                    "action"    : "faq",
+                    "type"      : "Driver",
+                    "language"  : String(lan),
                 ]
                 
                 print(parameters as Any)

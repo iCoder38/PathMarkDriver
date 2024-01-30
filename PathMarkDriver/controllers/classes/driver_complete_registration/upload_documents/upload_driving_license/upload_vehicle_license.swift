@@ -32,7 +32,22 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Upload Driving License"
+             
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Upload Driving License"
+                } else {
+                    view_navigation_title.text = "ড্রাইভিং লাইসেন্স আপলোড করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             view_navigation_title.textColor = .white
         }
     }
@@ -578,10 +593,25 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_license_table_cell
         
-        RPicker.selectDate(title: "Issued Date", minDate: minDate, maxDate: maxDate, didSelectDate: {[] (selectedDate) in
-           
-            cell.txt_issued_on.text = selectedDate.dateString("yyyy-MM-dd")
-        })
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                RPicker.selectDate(title: "Issued Date", minDate: minDate, maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_issued_on.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            } else {
+                RPicker.selectDate(title: "ইস্যুর তারিখ", minDate: minDate, maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_issued_on.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            }
+            
+        }
+        
+        
+        
     }
     
     @objc func exp_on_click_method() {
@@ -592,11 +622,23 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
         
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_license_table_cell
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_exp_date.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            } else {
+                RPicker.selectDate(title: "মেয়াদ শেষ হওয়ার তারিখ",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_exp_date.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            }
+            
+        }
         
-        RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
-           
-            cell.txt_exp_date.text = selectedDate.dateString("yyyy-MM-dd")
-        })
         
     }
     
@@ -690,6 +732,106 @@ extension upload_vehicle_license: UITableViewDataSource  , UITableViewDelegate {
         cell.btn_open_exp_on_calendar.addTarget(self, action: #selector(exp_on_click_method), for: .touchUpInside)
         // cell.btn_select_car_type.addTarget(self, action: #selector(car_types_click_method), for: .touchUpInside)
         
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                cell.btn_submit.setTitle("Submit", for: .normal)
+                
+                Utils.textFieldUI(textField: cell.txt_license_number,
+                                  tfName: cell.txt_license_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "License Number")
+                Utils.textFieldUI(textField: cell.txt_vehicle_type,
+                                  tfName: cell.txt_vehicle_type.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Vehicle Type")
+                Utils.textFieldUI(textField: cell.txt_issued_on,
+                                  tfName: cell.txt_issued_on.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Issued On")
+                Utils.textFieldUI(textField: cell.txt_exp_date,
+                                  tfName: cell.txt_exp_date.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Expiry Date")
+                
+            } else {
+                cell.btn_submit.setTitle("জমা দিন", for: .normal)
+                 
+                
+                Utils.textFieldUI(textField: cell.txt_license_number,
+                                  tfName: cell.txt_license_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "অনুজ্ঞাপত্র নম্বর")
+                Utils.textFieldUI(textField: cell.txt_vehicle_type,
+                                  tfName: cell.txt_vehicle_type.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "গাড়ির ধরন")
+                Utils.textFieldUI(textField: cell.txt_issued_on,
+                                  tfName: cell.txt_issued_on.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "ইস্যুকৃত")
+                Utils.textFieldUI(textField: cell.txt_exp_date,
+                                  tfName: cell.txt_exp_date.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "মেয়াদ শেষ হওয়ার তারিখ")
+            }
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
         return cell
     }
      
@@ -706,6 +848,107 @@ extension upload_vehicle_license: UITableViewDataSource  , UITableViewDelegate {
 
 class upload_vehicle_license_table_cell: UITableViewCell {
 
+    @IBOutlet weak var lbl_take_a_photo:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_take_a_photo.text = "Take a photo"
+                } else {
+                    lbl_take_a_photo.text = "একটি ছবি তুলুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_license_number:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_license_number.text = "License Number"
+                } else {
+                    lbl_license_number.text = "অনুজ্ঞাপত্র নম্বর"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_vehicle_type:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_vehicle_type.text = "Vehicle type"
+                } else {
+                    lbl_vehicle_type.text = "গাড়ির ধরন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_issued_on:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_issued_on.text = "Issued On"
+                } else {
+                    lbl_issued_on.text = "ইস্যুকৃত"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_expiry_date:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_expiry_date.text = "Expiry Date"
+                } else {
+                    lbl_expiry_date.text = "মেয়াদ শেষ হওয়ার তারিখ"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    
+    
+    
+    
     @IBOutlet weak var btn_open_issued_on_calendar:UIButton!
     @IBOutlet weak var btn_open_exp_on_calendar:UIButton!
     @IBOutlet weak var btn_select_car_type:UIButton! {
@@ -737,16 +980,7 @@ class upload_vehicle_license_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_license_number:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_license_number,
-                              tfName: txt_license_number.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "License Number")
+            
             
             txt_license_number.layer.masksToBounds = false
             txt_license_number.layer.shadowColor = UIColor.black.cgColor
@@ -759,16 +993,7 @@ class upload_vehicle_license_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_vehicle_type:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_vehicle_type,
-                              tfName: txt_vehicle_type.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Vehicle Type")
+            
             
             txt_vehicle_type.layer.masksToBounds = false
             txt_vehicle_type.layer.shadowColor = UIColor.black.cgColor
@@ -782,16 +1007,7 @@ class upload_vehicle_license_table_cell: UITableViewCell {
     //
     @IBOutlet weak var txt_issued_on:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_issued_on,
-                              tfName: txt_issued_on.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Issued On")
+            
             
             txt_issued_on.layer.masksToBounds = false
             txt_issued_on.layer.shadowColor = UIColor.black.cgColor
@@ -804,16 +1020,7 @@ class upload_vehicle_license_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_exp_date:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_exp_date,
-                              tfName: txt_exp_date.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Expiry Date")
+            
             
             txt_exp_date.layer.masksToBounds = false
             txt_exp_date.layer.shadowColor = UIColor.black.cgColor

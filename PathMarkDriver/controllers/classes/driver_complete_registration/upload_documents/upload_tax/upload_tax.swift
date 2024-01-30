@@ -35,6 +35,23 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
             view_navigation_title.text = "Tax Token"
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Tax Token"
+                } else {
+                    view_navigation_title.text = "ট্যাক্স টোকেন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             view_navigation_title.textColor = .white
         }
     }
@@ -239,10 +256,6 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
     
     @objc func validation_before_upload_tax() {
         self.upload_tax_image(str_show_loader: "yes")
-        
-       
-        
-        
     }
     
     func resizeImage2(image: UIImage, targetSize: CGSize) -> UIImage {

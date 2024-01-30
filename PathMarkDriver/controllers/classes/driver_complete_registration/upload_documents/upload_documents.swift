@@ -1090,7 +1090,25 @@ class upload_documents_table_cell: UITableViewCell {
     }
     
     @IBOutlet weak var lbl_driving_license_seaprator:UILabel!
-    @IBOutlet weak var lbl_please_upload_your_driving_document:UILabel!
+    @IBOutlet weak var lbl_please_upload_your_driving_document:UILabel!     {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_please_upload_your_driving_document.text = "Please upload your Driving License"
+                } else {
+                    lbl_please_upload_your_driving_document.text = "আপনার ড্রাইভিং লাইসেন্স আপলোড করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
     @IBOutlet weak var lbl_please_upload_your_vehicle_document:UILabel!
     
     // Vehicle Insurance
@@ -1111,7 +1129,25 @@ class upload_documents_table_cell: UITableViewCell {
     }
     
     @IBOutlet weak var lbl_vehicle_insurance_seaprator:UILabel!
-    @IBOutlet weak var lbl_please_upload_your_vehicle_insurance:UILabel!
+    @IBOutlet weak var lbl_please_upload_your_vehicle_insurance:UILabel!     {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_please_upload_your_vehicle_insurance.text = "Please upload your Vehicle Insurance"
+                } else {
+                    lbl_please_upload_your_vehicle_insurance.text = "আপনার যানবাহন বীমা আপলোড করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
     
     // Vehicle Registration / Permit
     @IBOutlet weak var btn_vehicle_registration_permit:UIButton!
@@ -1131,7 +1167,25 @@ class upload_documents_table_cell: UITableViewCell {
     }
     
     @IBOutlet weak var lbl_vehicle_reg_permit_seaprator:UILabel!
-    @IBOutlet weak var lbl_please_upload_your_vehicle_registration_permit:UILabel!
+    @IBOutlet weak var lbl_please_upload_your_vehicle_registration_permit:UILabel!    {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_please_upload_your_vehicle_registration_permit.text = "Please upload your Vehicle Permit & Fitness"
+                } else {
+                    lbl_please_upload_your_vehicle_registration_permit.text = "আপনার যানবাহন পারমিট এবং ফিটনেস আপলোড করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
     
     
     // Tax
@@ -1152,7 +1206,25 @@ class upload_documents_table_cell: UITableViewCell {
     }
     
     @IBOutlet weak var lbl_tax_seaprator:UILabel!
-    @IBOutlet weak var lbl_tax_permit:UILabel!
+    @IBOutlet weak var lbl_tax_permit:UILabel!  {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_tax_permit.text = "Please upload your Tax Token"
+                } else {
+                    lbl_tax_permit.text = "আপনার ট্যাক্স টোকেন আপলোড করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
     
     
     // registration four
@@ -1173,7 +1245,25 @@ class upload_documents_table_cell: UITableViewCell {
     }
     
     @IBOutlet weak var lbl_vehicle_registration_four_seaprator:UILabel!
-    @IBOutlet weak var lbl_vehicle_registration_four_permit:UILabel!
+    @IBOutlet weak var lbl_vehicle_registration_four_permit:UILabel!   {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_vehicle_registration_four_permit.text = "Please upload your Vehicle Registration details"
+                } else {
+                    lbl_vehicle_registration_four_permit.text = "আপনার যানবাহন নিবন্ধন বিশদ আপলোড করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
     
     @IBOutlet weak var lbl_step_one:UILabel! {
         didSet {

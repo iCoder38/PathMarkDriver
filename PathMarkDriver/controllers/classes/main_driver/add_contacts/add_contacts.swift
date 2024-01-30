@@ -135,9 +135,21 @@ class add_contacts: UIViewController , UITextFieldDelegate {
                 if (language == "en") {
                     view_navigation_title.text = "NEW CONTACTS"
                     btn_submit.setTitle("SUBMIT", for: .normal)
+                    
+                    self.txt_full_name.placeholder = "Full name"
+                    self.txt_email.placeholder = "Email address"
+                    self.txt_phone.placeholder = "Phone number"
+                    self.txt_relation.placeholder = "Relation"
+                    
                 } else {
                     view_navigation_title.text = "নতুন পরিচিতি যোগ করুন"
                     btn_submit.setTitle("জমা দিন", for: .normal)
+                    
+                    self.txt_full_name.placeholder = "পুরো নাম"
+                    self.txt_email.placeholder = "ইমেইল ঠিকানা"
+                    self.txt_phone.placeholder = "ফোন নম্বর"
+                    self.txt_relation.placeholder = "সম্পর্ক"
+                    
                 }
                 
             }
@@ -168,12 +180,28 @@ class add_contacts: UIViewController , UITextFieldDelegate {
     }
     
     @objc func open_relation_drop_down() {
-        var arr_relation = ["Friend", "Family", "Other"]
         
-        RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_relation, selectedIndex: 0) { (selctedText, atIndex) in
-            self.txt_relation.text = String(selctedText)
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                var arr_relation = ["Friend", "Family", "Other"]
+                RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_relation, selectedIndex: 0) { (selctedText, atIndex) in
+                    self.txt_relation.text = String(selctedText)
+                    
+                }
+            } else {
+                var arr_relation = ["বন্ধু", "পরিবার", "অন্য"]
+                RPicker.selectOption(title: "নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_relation, selectedIndex: 0) { (selctedText, atIndex) in
+                    self.txt_relation.text = String(selctedText)
+                    
+                }
+            }
             
         }
+        
+        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

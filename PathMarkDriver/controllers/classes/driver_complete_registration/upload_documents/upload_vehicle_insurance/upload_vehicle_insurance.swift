@@ -35,6 +35,21 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
             view_navigation_title.text = "Upload Vehicle Insurance"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Upload Vehicle Insurance"
+                } else {
+                    view_navigation_title.text = "যানবাহন বীমা আপলোড করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             view_navigation_title.textColor = .white
         }
     }
@@ -743,11 +758,23 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
         
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                RPicker.selectDate(title: "Issued Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_commencing_date.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            } else {
+                RPicker.selectDate(title: "ইস্যুর তারিখ", minDate: minDate, maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_commencing_date.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            }
+            
+        }
         
-        RPicker.selectDate(title: "Issued Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
-           
-            cell.txt_commencing_date.text = selectedDate.dateString("yyyy-MM-dd")
-        })
     }
     
     @objc func exp_on_click_method() {
@@ -758,11 +785,23 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
         
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_exp_date.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            } else {
+                RPicker.selectDate(title: "ইস্যুর তারিখ", minDate: minDate, maxDate: maxDate, didSelectDate: {[] (selectedDate) in
+                   
+                    cell.txt_exp_date.text = selectedDate.dateString("yyyy-MM-dd")
+                })
+            }
+            
+        }
         
-        RPicker.selectDate(title: "Expiry Date",minDate: minDate,maxDate: maxDate, didSelectDate: {[] (selectedDate) in
-           
-            cell.txt_exp_date.text = selectedDate.dateString("yyyy-MM-dd")
-        })
         
     }
     
@@ -836,6 +875,165 @@ extension upload_vehicle_insurance: UITableViewDataSource  , UITableViewDelegate
         cell.btn_issue_date.addTarget(self, action: #selector(issued_on_click_method), for: .touchUpInside)
         cell.btn_exp_date.addTarget(self, action: #selector(exp_on_click_method), for: .touchUpInside)
         
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                cell.btn_submit.setTitle("Submit", for: .normal)
+                
+                Utils.textFieldUI(textField: cell.txt_policy_number,
+                                  tfName: cell.txt_policy_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Policy Number")
+                Utils.textFieldUI(textField: cell.txt_insurance_policy,
+                                  tfName: cell.txt_insurance_policy.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Insurance Company")
+                Utils.textFieldUI(textField: cell.txt_commencing_date,
+                                  tfName: cell.txt_commencing_date.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Date")
+                Utils.textFieldUI(textField: cell.txt_policy_holder,
+                                  tfName: cell.txt_policy_holder.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Policy Holder")
+                Utils.textFieldUI(textField: cell.txt_registration_number,
+                                  tfName: cell.txt_registration_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Regsitration number")
+                Utils.textFieldUI(textField: cell.txt_number_of_passengers,
+                                  tfName: cell.txt_number_of_passengers.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Number of Passengers Licenced To Carry")
+                Utils.textFieldUI(textField: cell.txt_exp_date,
+                                  tfName: cell.txt_exp_date.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "Exp. Date")
+                
+            } else {
+                cell.btn_submit.setTitle("জমা দিন", for: .normal)
+                 
+                Utils.textFieldUI(textField: cell.txt_policy_number,
+                                  tfName: cell.txt_policy_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "পলিসি নাম্বার")
+                Utils.textFieldUI(textField: cell.txt_insurance_policy,
+                                  tfName: cell.txt_insurance_policy.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "বীমা কোম্পানী")
+                Utils.textFieldUI(textField: cell.txt_commencing_date,
+                                  tfName: cell.txt_commencing_date.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "তারিখ")
+                Utils.textFieldUI(textField: cell.txt_policy_holder,
+                                  tfName: cell.txt_policy_holder.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "পলিসি হোল্ডার")
+                Utils.textFieldUI(textField: cell.txt_registration_number,
+                                  tfName: cell.txt_registration_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "নিবন্ধন নম্বর")
+                Utils.textFieldUI(textField: cell.txt_number_of_passengers,
+                                  tfName: cell.txt_number_of_passengers.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "বহন করার জন্য লাইসেন্সকৃত যাত্রীর সংখ্যা")
+                Utils.textFieldUI(textField: cell.txt_exp_date,
+                                  tfName: cell.txt_exp_date.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "মেয়াদ। তারিখ")
+            }
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
         return cell
     }
      
@@ -853,6 +1051,174 @@ extension upload_vehicle_insurance: UITableViewDataSource  , UITableViewDelegate
 
 class upload_vehicle_insurance_table_cell: UITableViewCell {
 
+    @IBOutlet weak var lbl_take_a_photo:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_take_a_photo.text = "Take a photo"
+                } else {
+                    lbl_take_a_photo.text = "একটি ছবি তুলুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    
+    @IBOutlet weak var lbl_policy_number:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_policy_number.text = "Policy number"
+                } else {
+                    lbl_policy_number.text = "পলিসি নাম্বার"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_insurance_company:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_insurance_company.text = "Insurance Company"
+                } else {
+                    lbl_insurance_company.text = "বীমা কোম্পানী"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_policy_holder:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_policy_holder.text = "Policy holder"
+                } else {
+                    lbl_policy_holder.text = "পোর্টাল নম্বর"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_registration_number:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_registration_number.text = "Registration number"
+                } else {
+                    lbl_registration_number.text = "নিবন্ধন নম্বর"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_number_of_pas:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_number_of_pas.text = "Number of passenger license to carry"
+                } else {
+                    lbl_number_of_pas.text = "বহনযোগ্য যাত্রীর লাইসেন্সের সংখ্যা"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_date:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_date.text = "Date"
+                } else {
+                    lbl_date.text = "তারিখ"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_expiry_date:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_expiry_date.text = "Expiry Date"
+                } else {
+                    lbl_expiry_date.text = "মেয়াদ শেষ হওয়ার তারিখ"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     @IBOutlet weak var btn_issue_date:UIButton!
     @IBOutlet weak var btn_exp_date:UIButton! {
         didSet {
@@ -862,16 +1228,7 @@ class upload_vehicle_insurance_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_policy_number:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_policy_number,
-                              tfName: txt_policy_number.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Polcy Number")
+            
             
             txt_policy_number.layer.masksToBounds = false
             txt_policy_number.layer.shadowColor = UIColor.black.cgColor
@@ -884,16 +1241,7 @@ class upload_vehicle_insurance_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_insurance_policy:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_insurance_policy,
-                              tfName: txt_insurance_policy.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Insurance Company")
+            
             
             txt_insurance_policy.layer.masksToBounds = false
             txt_insurance_policy.layer.shadowColor = UIColor.black.cgColor
@@ -906,16 +1254,7 @@ class upload_vehicle_insurance_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_commencing_date:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_commencing_date,
-                              tfName: txt_commencing_date.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Date")
+            
             
             txt_commencing_date.layer.masksToBounds = false
             txt_commencing_date.layer.shadowColor = UIColor.black.cgColor
@@ -928,16 +1267,7 @@ class upload_vehicle_insurance_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_policy_holder:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_policy_holder,
-                              tfName: txt_policy_holder.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Policy Holder")
+            
             
             txt_policy_holder.layer.masksToBounds = false
             txt_policy_holder.layer.shadowColor = UIColor.black.cgColor
@@ -950,16 +1280,7 @@ class upload_vehicle_insurance_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_registration_number:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_registration_number,
-                              tfName: txt_registration_number.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Regsitration number")
+            
             
             txt_registration_number.layer.masksToBounds = false
             txt_registration_number.layer.shadowColor = UIColor.black.cgColor
@@ -972,16 +1293,7 @@ class upload_vehicle_insurance_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_number_of_passengers:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_number_of_passengers,
-                              tfName: txt_number_of_passengers.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Number of Passengers Licenced To Carry")
+            
             
             txt_number_of_passengers.layer.masksToBounds = false
             txt_number_of_passengers.layer.shadowColor = UIColor.black.cgColor
@@ -994,16 +1306,7 @@ class upload_vehicle_insurance_table_cell: UITableViewCell {
     
     @IBOutlet weak var txt_exp_date:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txt_exp_date,
-                              tfName: txt_exp_date.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .default,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "Exp. Date")
+            
             
             txt_exp_date.layer.masksToBounds = false
             txt_exp_date.layer.shadowColor = UIColor.black.cgColor
