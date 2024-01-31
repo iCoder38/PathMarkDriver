@@ -37,7 +37,20 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Dashboard"
+            
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Dashboard"
+                } else {
+                    view_navigation_title.text = "ড্যাশবোর্ড"
+                }
+                
+                 
+            }
+            
             view_navigation_title.textColor = .white
         }
     }
@@ -50,7 +63,21 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     
     @IBOutlet weak var btn_accept:UIButton! {
         didSet {
-            btn_accept.setTitle("ACCEPT", for: .normal)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_accept.setTitle("ACCEPT", for: .normal)
+                } else {
+                    btn_accept.setTitle("স্বীকার করুন", for: .normal)
+                }
+                
+                 
+            }
+            
+            
+            
             btn_accept.setTitleColor(.white, for: .normal)
             btn_accept.layer.cornerRadius = 6
             btn_accept.clipsToBounds = true
@@ -59,7 +86,21 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     }
     @IBOutlet weak var btn_decline:UIButton! {
         didSet {
-            btn_decline.setTitle("DECLINE", for: .normal)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_decline.setTitle("DECLINE", for: .normal)
+                } else {
+                    btn_decline.setTitle("অস্বীকার করুন", for: .normal)
+                }
+                
+                 
+            }
+            
+            
+            
             btn_decline.setTitleColor(.systemPink, for: .normal)
             btn_decline.layer.cornerRadius = 6
             btn_decline.clipsToBounds = true
@@ -363,10 +404,26 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
                     "token":String(token_id_is),
                 ]
 
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                         lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                     
+                }
+                
+                
                 parameters = [
                     "action"        : "driverconfirm",
                     "driverId"      : String(myString),
-                    "bookingId"     : "\(self.dict_get_all_data_from_notification["bookingId"]!)"
+                    "bookingId"     : "\(self.dict_get_all_data_from_notification["bookingId"]!)",
+                    "language"      : String(lan)
                 ]
                 
                 print(parameters as Any)

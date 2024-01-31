@@ -1226,6 +1226,9 @@
                         <outlet property="btn_bike" destination="XEm-cw-Zlk" id="FBu-Us-H4N"/>
                         <outlet property="btn_car" destination="Uoc-n6-wGg" id="UAw-fu-HU7"/>
                         <outlet property="btn_select" destination="0J3-tS-NTv" id="SVB-ty-jq7"/>
+                        <outlet property="lbl_bike_text" destination="WKU-VD-Cp0" id="hwI-JK-QbG"/>
+                        <outlet property="lbl_car_text" destination="YLO-Tb-lUg" id="uJX-Hb-m7s"/>
+                        <outlet property="lbl_message" destination="nG8-W4-YFF" id="kCc-UQ-DlZ"/>
                         <outlet property="view_car" destination="yBz-DR-G9H" id="XsV-p3-lU9"/>
                         <outlet property="view_motor_bike" destination="QIM-R1-1TP" id="arL-Wx-d2w"/>
                         <outlet property="view_navigation_bar" destination="8uM-nW-0eq" id="Wxz-Wq-ng8"/>
@@ -1387,6 +1390,7 @@
                     <connections>
                         <outlet property="btn_back" destination="TQl-77-FoR" id="ajG-bs-R4Q"/>
                         <outlet property="btn_submit" destination="9Cg-tu-dDz" id="7Yr-LV-OyX"/>
+                        <outlet property="lbl_message" destination="Ci2-Wd-lyX" id="H4q-6p-Ilo"/>
                         <outlet property="tbleView" destination="1b2-aq-QLJ" id="HwA-Yy-RHb"/>
                         <outlet property="view_navigation_bar" destination="76U-5q-ulv" id="g8S-Jd-Nq0"/>
                         <outlet property="view_navigation_title" destination="Rkm-z9-o6h" id="2Uh-SF-dVk"/>
@@ -5506,7 +5510,9 @@
                         <outlet property="lbl_time" destination="rxb-hl-DnZ" id="gqa-zS-R2R"/>
                         <outlet property="lbl_to" destination="pcE-z9-JQT" id="5Ee-tM-FdM"/>
                         <outlet property="lbl_total_distance" destination="F8r-b2-gOV" id="dA0-uN-tTY"/>
+                        <outlet property="lbl_total_distance_text" destination="izV-Gq-76d" id="xUW-n4-mXb"/>
                         <outlet property="lbl_total_fare" destination="FDd-0I-dTC" id="U95-0F-ujc"/>
+                        <outlet property="lbl_total_fare_text" destination="a67-Ek-11O" id="ZPs-Q1-cQy"/>
                         <outlet property="view_booking" destination="tKY-Xx-KrR" id="dfa-VJ-hbr"/>
                         <outlet property="view_date" destination="5sQ-Wb-8bM" id="cIs-xg-N8d"/>
                         <outlet property="view_from_to" destination="J6u-j0-M0L" id="zjz-c1-BdB"/>
@@ -10655,11 +10661,11 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Background" translatesAutoresizingMaskIntoConstraints="NO" id="69J-nH-xnU">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yhw-cy-Gm6">
-                                <rect key="frame" x="0.0" y="770" width="393" height="82"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yhw-cy-Gm6">
+                                <rect key="frame" x="0.0" y="773" width="393" height="79"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1KU-ek-by7" customClass="GrowingTextView" customModule="GrowingTextView">
-                                        <rect key="frame" x="50" y="8" width="303" height="33"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1KU-ek-by7" customClass="GrowingTextView" customModule="GrowingTextView">
+                                        <rect key="frame" x="50" y="8" width="303" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -10772,8 +10778,8 @@
                                     <constraint firstItem="LWC-Ag-jlt" firstAttribute="leading" secondItem="1KK-mz-k5l" secondAttribute="trailing" constant="20" id="vBM-qW-8yk"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4V6-MV-pl7">
-                                <rect key="frame" x="0.0" y="88" width="393" height="682"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4V6-MV-pl7">
+                                <rect key="frame" x="0.0" y="88" width="393" height="685"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellOne" rowHeight="70" id="Rop-hu-JS0" customClass="BooCheckTableCell" customModule="PathMarkDriver" customModuleProvider="target">
@@ -11237,11 +11243,6 @@
             <point key="canvasLocation" x="29784" y="-208"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="1KU-ek-by7">
-            <size key="intrinsicContentSize" width="-1" height="30"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Background" width="414" height="749.33331298828125"/>
         <image name="Background1" width="414" height="749.33331298828125"/>
@@ -11274,8 +11275,8 @@
         <image name="logo" width="1024" height="1024"/>
         <image name="logo-white" width="800" height="269"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="message" width="24" height="24"/>
         <image name="message" catalog="system" width="128" height="116"/>
+        <image name="message" width="24" height="24"/>
         <image name="new-password" width="138" height="138"/>
         <image name="paperclip" catalog="system" width="121" height="128"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>

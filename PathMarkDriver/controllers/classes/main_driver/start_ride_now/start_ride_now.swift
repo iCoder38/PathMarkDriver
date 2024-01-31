@@ -46,7 +46,20 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "DRIVER HAS ARRIVED"
+            
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "DRIVER HAS ARRIVED"
+                } else {
+                    view_navigation_title.text = "ড্রাইভার এসেছে"
+                }
+                
+                 
+            }
+            
             view_navigation_title.textColor = .white
         }
     }
@@ -59,7 +72,20 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     
     @IBOutlet weak var btn_start_ride_now:UIButton! {
         didSet {
-            btn_start_ride_now.setTitle("START RIDE", for: .normal)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_start_ride_now.setTitle("START RIDE", for: .normal)
+                } else {
+                    btn_start_ride_now.setTitle("যাত্রা শুরু করুন", for: .normal)
+                }
+                
+                 
+            }
+            
+            
             btn_start_ride_now.setTitleColor(.white, for: .normal)
             btn_start_ride_now.layer.cornerRadius = 6
             btn_start_ride_now.clipsToBounds = true
@@ -76,7 +102,20 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     
     @IBOutlet weak var btn_decline:UIButton! {
         didSet {
-            btn_decline.setTitle("CANCEL", for: .normal)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_decline.setTitle("CANCEL", for: .normal)
+                } else {
+                    btn_decline.setTitle("বাতিল করুন", for: .normal)
+                }
+                
+                 
+            }
+            
+            
             btn_decline.setTitleColor(.systemPink, for: .normal)
             btn_decline.layer.cornerRadius = 6
             btn_decline.clipsToBounds = true

@@ -33,9 +33,50 @@ class vehicle_list: UIViewController {
         }
     }
     
+    @IBOutlet weak var lbl_message:UILabel! {
+        didSet {
+            
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_message.text = "PLEASE CHOOSE HOW YOU WOULD LIKE TO PARTNER WITH ZARIB"
+                } else {
+                    lbl_message.text = "আপনি জারিবের সাথে কীভাবে অংশীদার হতে চান তা চয়ন করুন"
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            // view_navigation_title.textColor = .white
+        }
+    }
+    
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Select"
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Select"
+                } else {
+                    view_navigation_title.text = "নির্বাচন করুন"
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
             view_navigation_title.textColor = .white
         }
     }
@@ -50,11 +91,31 @@ class vehicle_list: UIViewController {
     
     @IBOutlet weak var btn_submit:UIButton! {
         didSet {
-            Utils.buttonStyle(button: btn_submit,
-                              bCornerRadius: 12,
-                              bBackgroundColor: UIColor(red: 108.0/255.0, green: 216.0/255.0, blue: 134.0/255.0, alpha: 1),
-                              bTitle: "Submit",
-                              bTitleColor: .white)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    Utils.buttonStyle(button: btn_submit,
+                                      bCornerRadius: 12,
+                                      bBackgroundColor: UIColor(red: 108.0/255.0, green: 216.0/255.0, blue: 134.0/255.0, alpha: 1),
+                                      bTitle: "Submit",
+                                      bTitleColor: .white)
+                } else {
+                    Utils.buttonStyle(button: btn_submit,
+                                      bCornerRadius: 12,
+                                      bBackgroundColor: UIColor(red: 108.0/255.0, green: 216.0/255.0, blue: 134.0/255.0, alpha: 1),
+                                      bTitle: "জমা দিন",
+                                      bTitleColor: .white)
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             
             btn_submit.layer.masksToBounds = false
             btn_submit.layer.shadowColor = UIColor.black.cgColor
@@ -164,10 +225,26 @@ class vehicle_list: UIViewController {
     @objc func list_of_all_category_WB(str_show_loader:String) {
         
         self.view.endEditing(true)
-        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        
+        var lan:String!
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                lan = "en"
+            } else {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                lan = "bn"
+            }
+            
+            
+        }
         
         let params = payload_vehicle_list(action: "category",
-                                          TYPE: String(str_get_vehicle_type))
+                                          TYPE: String(str_get_vehicle_type),
+                                          language:String(lan))
         
         print(params as Any)
         

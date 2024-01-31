@@ -47,6 +47,47 @@ class schedule_ride_details: UIViewController {
     @IBOutlet weak var lbl_time:UILabel!
     @IBOutlet weak var lbl_car:UILabel!
     
+    @IBOutlet weak var lbl_total_fare_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_total_fare_text.text = "TOTAL FARE"
+                    
+                } else {
+                    lbl_total_fare_text.text = "মোট ভাড়া"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_total_distance_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_total_distance_text.text = "TOTAL DISTANCE"
+                    
+                } else {
+                    lbl_total_distance_text.text = "সম্পুর্ণ দুরত্ব"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
     @IBOutlet weak var lbl_total_fare:UILabel! {
         didSet {
             lbl_total_fare.text = "₴12"
@@ -156,8 +197,26 @@ class schedule_ride_details: UIViewController {
         self.lbl_to.text = (self.dict_get_upcoming_ride_details["RequestDropAddress"] as! String)
         self.lbl_from.text = (self.dict_get_upcoming_ride_details["RequestPickupAddress"] as! String)
         
-        self.lbl_date.text = "Date : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
-        self.lbl_time.text = "Time : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                self.lbl_date.text = "Date : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+                self.lbl_time.text = "Time : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+            } else {
+                self.lbl_date.text = "তারিখ : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+                self.lbl_time.text = "সময় : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+            }
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        
+        
         
         self.lbl_time.text = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)
         self.lbl_time.text = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)

@@ -56,7 +56,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         super.viewDidLoad()
         
         print(self.str_for_update as Any)
-        
+        print(self.str_vehicle_type as Any)
          
         if (self.str_for_update == "yes") {
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -178,7 +178,9 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 print(language as Any)
                 
                 if (language == "en") {
-                    show_alert(text: "Please enter car brand")
+                    
+                    show_alert(text: "Please enter brand")
+                    
                 } else {
                     show_alert(text: "গাড়ির ব্র্যান্ড লিখুন")
                 }
@@ -199,7 +201,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 print(language as Any)
                 
                 if (language == "en") {
-                    show_alert(text: "Please enter car modal")
+                    show_alert(text: "Please enter modal")
                 } else {
                     show_alert(text: "গাড়ির মডেল লিখুন")
                 }
@@ -237,7 +239,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 print(language as Any)
                 
                 if (language == "en") {
-                    show_alert(text: "Please enter color of your card")
+                    show_alert(text: "Please enter color of your vehicle")
                 } else {
                     show_alert(text: "আপনার কার্ডের রঙ লিখুন")
                 }
@@ -1155,39 +1157,85 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             
             if (language == "en") {
                 
-                
-                let arr_brand = ["Toyota",
-                                 "Honda",
-                                 "Nissan",
-                                 "Suzuki",
-                                 "Hyundai",
-                                 "Audi",
-                                 "BMW",
-                                 "Subaru",
-                ]
-                
-                RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
-                     cell.txt_brand.text = String(selctedText)
+                if (self.str_vehicle_type == "BIKE") {
+                    let arr_brand = ["Aprilia",
+                                     "Bajaj",
+                                     "Benelli",
+                                     "Beetle Bolt",
+                                     "Hero",
+                                     "Honda",
+                                     "Runner",
+                                     "Keeway",
+                                     "Yamaha",
+                                     "Lifan",
+                                     "TVS",
+                                     "Suzuki",
+                                     "Victor R",
+                                     "Walton",
+                    ]
                     
+                    RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
+                         cell.txt_brand.text = String(selctedText)
+                        
+                    }
+                } else {
+                    let arr_brand = ["Toyota",
+                                     "Honda",
+                                     "Nissan",
+                                     "Suzuki",
+                                     "Hyundai",
+                                     "Audi",
+                                     "BMW",
+                                     "Subaru",
+                    ]
+                    
+                    RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
+                         cell.txt_brand.text = String(selctedText)
+                        
+                    }
                 }
+               
                 
                 
                 
             } else {
                 
-                
-                let arr_brand = ["টয়োটা",
-                                 "হোন্ডা",
-                                 "নিসান",
-                                 "সুজুকি",
-                                 "হুন্ডাই",
-                                 "অডি",
-                                 "বিএমডাব্লু",
-                                 "সুবারু",
-                ]
-                
-                RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
-                     cell.txt_brand.text = String(selctedText)
+                if (self.str_vehicle_type == "BIKE") {
+                    let arr_brand = ["এপ্রিলিয়া",
+                                     "বাজাজ",
+                                     "বেনেলি",
+                                     "বিটল বোল্ট",
+                                     "হিরো",
+                                     "হোন্ডা",
+                                     "রানার",
+                                     "কেওয়ে",
+                                     "ইয়ামাহা",
+                                     "লাইফান",
+                                     "টিভি",
+                                     "সুজুকি",
+                                     "ভিক্টর আর",
+                                     "ওয়ালটন",
+                    ]
+                    
+                    RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
+                         cell.txt_brand.text = String(selctedText)
+                        
+                    }
+                } else {
+                    let arr_brand = ["টয়োটা",
+                                     "হোন্ডা",
+                                     "নিসান",
+                                     "সুজুকি",
+                                     "হুন্ডাই",
+                                     "অডি",
+                                     "বিএমডাব্লু",
+                                     "সুবারু",
+                    ]
+                    
+                    RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
+                        cell.txt_brand.text = String(selctedText)
+                        
+                    }
                     
                 }
                 

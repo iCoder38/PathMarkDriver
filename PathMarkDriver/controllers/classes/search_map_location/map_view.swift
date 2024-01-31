@@ -426,10 +426,25 @@ class map_view: UIViewController , UITextFieldDelegate, CLLocationManagerDelegat
         
         
         // ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        var lan:String!
         
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                lan = "en"
+            } else {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                lan = "bn"
+            }
+            
+            
+        }
         // let params = main_token(body: get_encrpyt_token)
         let params = payload_vehicle_list(action: "category",
-                                          TYPE: String(self.str_user_select_vehicle))
+                                          TYPE: String(self.str_user_select_vehicle),
+        language:String(lan))
         
         print(params as Any)
         

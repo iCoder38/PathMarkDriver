@@ -40,13 +40,37 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
             view_navigation_title.text = "ENJOY YOUR RIDE"
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_ride_complete.setTitle("ENJOY YOUR RIDE", for: .normal)
+                } else {
+                    btn_ride_complete.setTitle("আপনার রাইড উপভোগ করুন", for: .normal)
+                }
+                
+                 
+            }
+            
             view_navigation_title.textColor = .white
         }
     }
     
     @IBOutlet weak var btn_ride_complete:UIButton! {
         didSet {
-            btn_ride_complete.setTitle("END RIDE", for: .normal)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_ride_complete.setTitle("END RIDE", for: .normal)
+                } else {
+                    btn_ride_complete.setTitle("শেষ রাইড", for: .normal)
+                }
+                
+                 
+            }
+            
             btn_ride_complete.setTitleColor(.white, for: .normal)
             btn_ride_complete.layer.cornerRadius = 6
             btn_ride_complete.clipsToBounds = true
@@ -342,16 +366,42 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
     
     @objc func validation_before_accept_booking() {
         
-        let alert = UIAlertController(title: String("Alert"), message: String("Are you sure you want to end your ride ?"), preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "End ride", style: .default, handler: { action in
+        
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
             
-            self.locationManager.stopUpdatingLocation()
-            self.accept_booking_WB(str_show_loader: "yes")
+            if (language == "en") {
+                let alert = UIAlertController(title: String("Alert"), message: String("Are you sure you want to end your ride ?"), preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "End ride", style: .default, handler: { action in
+                    
+                    self.locationManager.stopUpdatingLocation()
+                    self.accept_booking_WB(str_show_loader: "yes")
+                    
+                }))
+                alert.addAction(UIAlertAction(title: "Dismiss", style: .destructive, handler: { action in
+                }))
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                let alert = UIAlertController(title: String("সতর্কতা"), message: String("আপনি কি নিশ্চিত যে আপনি আপনার যাত্রা শেষ করতে চান?"), preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "যাত্রা শেষ করুন", style: .default, handler: { action in
+                    
+                    self.locationManager.stopUpdatingLocation()
+                    self.accept_booking_WB(str_show_loader: "yes")
+                    
+                }))
+                alert.addAction(UIAlertAction(title: "খারিজ", style: .destructive, handler: { action in
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }
             
-        }))
-        alert.addAction(UIAlertAction(title: "Dismiss", style: .destructive, handler: { action in
-        }))
-        self.present(alert, animated: true, completion: nil)
+             
+        }
+        
+        
+        
+        
+        
         
         
     }
