@@ -22,12 +22,48 @@ class success: UIViewController {
         didSet {
             btn_amount.backgroundColor = navigation_color
             btn_amount.setTitleColor(.white, for: .normal)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_amount.setTitle("AMOUNT", for: .normal)
+                    
+                } else {
+                    btn_amount.setTitle("পরিমাণ", for: .normal)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
         }
     }
     @IBOutlet weak var btn_mode:UIButton! {
         didSet {
             btn_mode.backgroundColor = navigation_color
             btn_mode.setTitleColor(.white, for: .normal)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_mode.setTitle("MODE", for: .normal)
+                    
+                } else {
+                    btn_mode.setTitle("মোড", for: .normal)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
         }
     }
     @IBOutlet weak var lbl_cash_text:UILabel! {
@@ -41,9 +77,46 @@ class success: UIViewController {
         }
     }
     
+    @IBOutlet weak var lbl_payment_details:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_payment_details.text = "Payment details"
+                    
+                } else {
+                    lbl_payment_details.text = "পেমেন্ট বিবরণ"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
     @IBOutlet weak var btn_received_payment:UIButton! {
         didSet {
-            btn_received_payment.setTitle("RECEIVED PAYMENT", for: .normal)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_received_payment.setTitle("RECEIVED PAYMENT", for: .normal)
+                    
+                } else {
+                    btn_received_payment.setTitle("পেমেন্ট প্রাপ্ত", for: .normal)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             btn_received_payment.setTitleColor(.white, for: .normal)
             btn_received_payment.layer.cornerRadius = 6
             btn_received_payment.clipsToBounds = true

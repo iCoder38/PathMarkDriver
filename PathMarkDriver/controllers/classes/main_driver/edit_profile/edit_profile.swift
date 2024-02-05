@@ -37,6 +37,12 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
     var img_data_banner : Data!
     var img_Str_banner : String!
     
+    @IBOutlet weak var btn_back:UIButton! {
+        didSet {
+            btn_back.tintColor = .white
+        }
+    }
+    
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
             view_navigation_bar.backgroundColor = navigation_color
@@ -66,11 +72,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
         }
     }
     
-    @IBOutlet weak var btn_back:UIButton! {
-        didSet {
-            btn_back.tintColor = .white
-        }
-    }
+  
     
     var str_token_id:String!
     

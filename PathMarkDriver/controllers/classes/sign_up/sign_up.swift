@@ -155,12 +155,30 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         if (self.str_user_select_image == "0") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Profile Picture"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
             
-            return
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please upload Profile Picture"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    
+                    return
+                } else {
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("প্রোফাইল ছবি আপলোড করুন"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    
+                    return
+                }
+                
+                 
+            }
+            
+            
         }
         
         
@@ -169,51 +187,138 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         if (cell.txt_full_name.text! == "") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter full name"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter full name"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                } else {
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("সম্পূর্ণ নাম লিখুন"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                }
+                
+                 
+            }
+            
+            
             
             return
             
         } else if (cell.txtEmailAddress.text! == "") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter email address"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter email address"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                } else {
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("ইমেল ঠিকানা লিখুন"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                }
+            }
+            
             
             return
             
         } else if (cell.txt_phone_number.text! == "") {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter phone number"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                } else {
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("ফোন নম্বর লিখুন"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                }
+            }
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter phone number"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
             
             return
             
         }  else if (cell.txt_nid_number.text! == "") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter nid number"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter nid number"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                } else {
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("অনুগ্রহ করে এনআইডি নম্বর লিখুন"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                }
+            }
+            
+            
             
             return
             
         }  else if (cell.txt_address.text! == "") {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter address"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                } else {
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("ঠিকানা লিখুন"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    return
+                }
+            }
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter address"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
             
             return
             
@@ -269,17 +374,40 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
         } else {
             
-            for indexx in 0..<self.arr_country_array.count {
+            if (cell.txt_phone_number.text!.count == 11) {
                 
-                let item = self.arr_country_array[indexx] as? [String:Any]
-                print(item as Any)
                 
-                if (cell.txt_country.text! == (item!["name"] as! String)) {
-                    print("yes matched")
-                    phone_number_code = (item!["phonecode"] as! String)
+                if (self.arr_country_array == nil) {
+                    phone_number_code = "+880"
+                    // self.str_country_id = "18"
+                } else {
+                    
+                    for indexx in 0..<self.arr_country_array.count {
+                        
+                        let item = self.arr_country_array[indexx] as? [String:Any]
+                        print(item as Any)
+                        
+                        if (cell.txt_country.text! == (item!["name"] as! String)) {
+                            print("yes matched")
+                            phone_number_code = (item!["phonecode"] as! String)
+                        }
+                        
+                    }
+                    
                 }
+               
+            }  else {
+                
+                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid phone number"), style: .alert)
+                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                alert.addButtons([cancel])
+                self.present(alert, animated: true)
+                ERProgressHud.sharedInstance.hide()
+
+                return
                 
             }
+            
             
         }
         
@@ -391,10 +519,25 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                         
                         UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
                         
-                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
-                        let cancel = NewYorkButton(title: "Ok", style: .cancel)
-                        alert.addButtons([cancel])
-                        self.present(alert, animated: true)
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            } else {
+                                let alert = NewYorkAlertController(title: String("সফলতা").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            }
+                            
+                             
+                        }
+                        
+                        
                         
                         // self.hide_loading_UI()
                         ERProgressHud.sharedInstance.hide()
@@ -545,6 +688,17 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
            let substringToReplace = textFieldText[rangeOfTextToReplace]
            let count = textFieldText.count - substringToReplace.count + string.count
            return count <= 13
+           
+       } else if (textField == cell.txt_phone_number) {
+           
+           let currentText = textField.text ?? ""
+           guard let stringRange = Range(range, in: currentText) else { return false }
+           let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
+
+           // make sure the result is under 16 characters
+           return updatedText.count <= 11
+           
+       
        }
         
         return true
@@ -647,6 +801,10 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         self.str_user_select_image = "1"
     }
     
+    @objc func terms_condition_click_method() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "terms_and_conditions_id") as? terms_and_conditions
+        self.navigationController?.pushViewController(push!, animated: true)
+    }
 }
 
 extension sign_up: UITableViewDataSource  , UITableViewDelegate {
@@ -675,6 +833,8 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         cell.txt_address.delegate = self
         cell.txt_nid_number.delegate = self
         
+        cell.txt_phone_number.delegate = self
+        
         cell.txt_phone_code.text = "+880"
         cell.txt_country.text = "Bangladesh"
         
@@ -690,6 +850,9 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         cell.img_upload.isUserInteractionEnabled = true
         cell.img_upload.addGestureRecognizer(tapGestureRecognizer)
+        
+        cell.btn_terms_and_condition.addTarget(self, action: #selector(terms_condition_click_method), for: .touchUpInside)
+        cell.btn_disclaimer.isHidden = true
         
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
@@ -775,7 +938,7 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
                                   tfAppearance: .dark,
                                   tfKeyboardType: .numberPad,
                                   tfBackgroundColor: .white,
-                                  tfPlaceholderText: "ফোন নম্বর")
+                                  tfPlaceholderText: "Phone number")
                 
                 Utils.textFieldUI(textField: cell.txt_address,
                                   tfName: cell.txt_address.text!,
@@ -788,6 +951,16 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
                                   tfBackgroundColor: .white,
                                   tfPlaceholderText: "Address")
                 
+                Utils.textFieldUI(textField: cell.txt_nid_number,
+                                  tfName: cell.txt_nid_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "NID No.")
                 
             } else {
                 cell.btn_terms_and_condition.setTitle("শর্তাদি ও নীতিমালাসমূহ", for: .normal)
@@ -881,6 +1054,18 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
                                   tfKeyboardType: .default,
                                   tfBackgroundColor: .white,
                                   tfPlaceholderText: "ঠিকানা")
+                
+                Utils.textFieldUI(textField: cell.txt_nid_number,
+                                  tfName: cell.txt_nid_number.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .default,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "এন.আই.ডি নম্বর")
+                
                 
             }
             

@@ -23,7 +23,26 @@ class success_ride_done: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.lbl_price.text = "waiting for customer to pay $\(self.str_final_price!)"
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                self.lbl_price.text = "Waiting for customer to pay $\(self.str_final_price!)"
+                self.btn_home.setTitle("Home", for: .normal)
+            } else {
+                self.lbl_price.text = "গ্রাহক অর্থ প্রদানের জন্য অপেক্ষা করছেন $\(self.str_final_price!)"
+                self.btn_home.setTitle("বাড়ি", for: .normal)
+            }
+            
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        
         self.btn_home.addTarget(self, action: #selector(home_button_click), for: .touchUpInside)
     }
     

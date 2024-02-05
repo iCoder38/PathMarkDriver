@@ -91,7 +91,24 @@ class MenuControllerVC: UIViewController {
     
     @IBOutlet weak var btn_panic:UIButton! {
         didSet {
-            btn_panic.setTitle("PANIC SOS", for: .normal)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_panic.setTitle("PANIC SOS", for: .normal)
+                } else {
+                    btn_panic.setTitle("প্যানিক এসওএস", for: .normal)
+                }
+                
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             btn_panic.setTitleColor(.white, for: .normal)
             btn_panic.layer.cornerRadius = 6
             btn_panic.clipsToBounds = true
@@ -261,12 +278,31 @@ class MenuControllerVC: UIViewController {
                 let headers: HTTPHeaders = [
                     "token":String(token_id_is),
                 ]
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
                 
                 parameters = [
                     "action"            : "panic",
                     "userId"            : String(myString),
                     "panicAddress"      : String(str_address),
                     "panicLatLong"      : String(str_lat)+","+String(str_long),
+                    "language"          : String(lan)
                 ]
                 
                 print(parameters as Any)
@@ -299,17 +335,28 @@ class MenuControllerVC: UIViewController {
                             ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)
                             
-                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(message), style: .alert)
-                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-                            alert.addButtons([cancel])
-                            self.present(alert, animated: true)
-                            
-                            /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                            let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
-                            self.view.window?.rootViewController = sw
-                            let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "login_id")
-                            let navigationController = UINavigationController(rootViewController: destinationController!)
-                            sw.setFront(navigationController, animated: true)*/
+                            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                print(language as Any)
+                                
+                                if (language == "en") {
+                                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(message), style: .alert)
+                                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                                    alert.addButtons([cancel])
+                                    self.present(alert, animated: true)
+                                } else {
+                                    let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String(message), style: .alert)
+                                    let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                                    alert.addButtons([cancel])
+                                    self.present(alert, animated: true)
+                                }
+                                
+                                
+                            } else {
+                                print("=============================")
+                                print("LOGIN : Select language error")
+                                print("=============================")
+                                UserDefaults.standard.set("en", forKey: str_language_convert)
+                            }
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_2_wb()

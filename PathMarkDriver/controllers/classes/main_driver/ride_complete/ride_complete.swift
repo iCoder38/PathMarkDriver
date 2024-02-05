@@ -39,15 +39,17 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "ENJOY YOUR RIDE"
+             
             
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
                 
                 if (language == "en") {
-                    btn_ride_complete.setTitle("ENJOY YOUR RIDE", for: .normal)
+                    view_navigation_title.text = "ENJOY YOUR RIDE"
+                    
                 } else {
-                    btn_ride_complete.setTitle("আপনার রাইড উপভোগ করুন", for: .normal)
+                    view_navigation_title.text = "আপনার রাইড উপভোগ করুন"
+                     
                 }
                 
                  

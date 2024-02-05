@@ -125,6 +125,19 @@ let send_tracking_path_to_real_time = "mode/driver/tracking/India/private_track"
     
 var str_bangladesh_currency_symbol = "৳ "
 
+
+
+
+var lan_popup_alert_en = "Alert"
+var lan_popup_alert_bn = "সতর্কতা"
+
+
+var lan_popup_dismiss_en = "Dismiss"
+var lan_popup_dismiss_bn = "খারিজ"
+
+
+
+
 class Utils: NSObject {
     
     // text field

@@ -86,10 +86,191 @@ class decline_request: UIViewController {
         }
     }
     
-    @IBOutlet weak var btn_dismiss:UIButton!
-    @IBOutlet weak var btn_cancel_ride:UIButton!
+    @IBOutlet weak var btn_terms:UIButton!  {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_terms.setTitle("Terms & Condition", for: .normal)
+                    
+                } else {
+                    btn_terms.setTitle("বিধি - নিষেধ এবং শর্তাবলী", for: .normal)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var btn_dismiss:UIButton!  {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_dismiss.setTitle("DON'T CANCEL", for: .normal)
+                    
+                } else {
+                    btn_dismiss.setTitle("বাতিল করবেন না", for: .normal)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var btn_cancel_ride:UIButton! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_cancel_ride.setTitle("CANCEL", for: .normal)
+                    
+                } else {
+                    btn_cancel_ride.setTitle("বাতিল করুন", for: .normal)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
     
     var str_reason_select = "0"
+    
+    @IBOutlet weak var lbl_cancel_fee_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_cancel_fee_text.text = "Cancel ride"
+                    
+                } else {
+                    lbl_cancel_fee_text.text = "রাইড বাতিল করুন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_pass_denied_to_go_to_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_pass_denied_to_go_to_text.text = "Passenger denied to go to destination"
+                    
+                } else {
+                    lbl_pass_denied_to_go_to_text.text = "যাত্রীরা গন্তব্যে যেতে অস্বীকার করেছে"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_pass_denied_pick_up_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_pass_denied_pick_up_text.text = "Passenger denied to come to pickup"
+                    
+                } else {
+                    lbl_pass_denied_pick_up_text.text = "যাত্রী পিকআপে আসতে অস্বীকার করেন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_exprected_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_exprected_text.text = "Expected a shorter a wait time"
+                    
+                } else {
+                    lbl_exprected_text.text = "অপেক্ষার সময় অপেক্ষাকৃত কম"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_unable_to_contact_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_unable_to_contact_text.text = "Unable to contact a passenger"
+                    
+                } else {
+                    lbl_unable_to_contact_text.text = "একজন যাত্রীর সাথে যোগাযোগ করা যাচ্ছে না"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    @IBOutlet weak var lbl_my_reason_not_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_my_reason_not_text.text = "My reason is not listed"
+                    
+                } else {
+                    lbl_my_reason_not_text.text = "আমার কারণ তালিকাভুক্ত করা হয় না"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

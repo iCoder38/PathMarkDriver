@@ -37,7 +37,6 @@ class emergency_contacts: UIViewController {
                 
                 view_navigation_title.textColor = .white
             }
-            view_navigation_title.textColor = .white
         }
     }
     
@@ -56,9 +55,6 @@ class emergency_contacts: UIViewController {
         self.tbleView.separatorColor = .lightGray
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        self.sideBarMenuClick()
-        self.btn_add.addTarget(self, action: #selector(add_contacts_click_method), for: .touchUpInside)
-        
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
             
@@ -72,10 +68,8 @@ class emergency_contacts: UIViewController {
             
         }
         
-        
-        
-        
-        
+        self.sideBarMenuClick()
+        self.btn_add.addTarget(self, action: #selector(add_contacts_click_method), for: .touchUpInside)
         
         // login_refresh_token_wb()
     }
@@ -199,11 +193,18 @@ class emergency_contacts: UIViewController {
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : "Member"
+                ]
+            }
             //        }
             
             print("parameters-------\(String(describing: parameters))")
@@ -346,9 +347,39 @@ extension emergency_contacts: UITableViewDataSource , UITableViewDelegate {
         let item = self.arr_emergency_number[indexPath.row] as? [String:Any]
         // print(item as Any)
         
+         
         cell.lbl_name.text = (item!["Name"] as! String)
         cell.lbl_phone.text = (item!["phone"] as! String)
-        cell.lbl_relation.text = "Relation : "+(item!["relation"] as! String)
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                
+                if ("\(item!["relation"]!)" == "0") {
+                    cell.lbl_relation.text = "Relation : Friends"
+                } else if ("\(item!["relation"]!)" == "1") {
+                    cell.lbl_relation.text = "Relation : Family"
+                } else {
+                    cell.lbl_relation.text = "Relation : Other"
+                }
+   
+            } else {
+                
+                if ("\(item!["relation"]!)" == "0") {
+                    cell.lbl_relation.text = "সম্পর্ক : Friends"
+                } else if ("\(item!["relation"]!)" == "1") {
+                    cell.lbl_relation.text = "সম্পর্ক : Family"
+                } else {
+                    cell.lbl_relation.text = "সম্পর্ক : Other"
+                }
+            }
+            
+             
+        }
+        
+        
+        
         
         cell.btn_setting.tag = indexPath.row
         cell.btn_setting.addTarget(self, action: #selector(setting_click_method), for: .touchUpInside)
@@ -358,56 +389,121 @@ extension emergency_contacts: UITableViewDataSource , UITableViewDelegate {
     
     @objc func setting_click_method(_ sender:UIButton) {
 
-        let item = self.arr_emergency_number[sender.tag] as? [String:Any]
-        
-        let alertController = UIAlertController(title: "Settings", message: "", preferredStyle: .actionSheet)
-        
-        let delete_contact = UIAlertAction(title: "Delete contact", style: .destructive) {
-            UIAlertAction in
-            NSLog("OK Pressed")
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
             
-            
-            self.delete_contact(emergency_id: "\(item!["emergencyId"]!)" )
-        }
-        
-        let Edit_contact = UIAlertAction(title: "Edit contact", style: .default) {
-            UIAlertAction in
-            NSLog("OK Pressed")
-
-            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "add_contacts_id") as? add_contacts
-            
-            push!.dict_emergency = (item! as NSDictionary)
-            
-            self.navigationController?.pushViewController(push!, animated: true)
-            
-        }
-        
-        let call_contact = UIAlertAction(title: "Call", style: .default) {
-            UIAlertAction in
-            NSLog("OK Pressed")
-            
-            if let url = URL(string: "tel://\(item!["phone"]!)"), UIApplication.shared.canOpenURL(url) {
-                if #available(iOS 10, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    UIApplication.shared.openURL(url)
+            if (language == "en") {
+                
+                let item = self.arr_emergency_number[sender.tag] as? [String:Any]
+                
+                let alertController = UIAlertController(title: "Settings", message: "", preferredStyle: .actionSheet)
+                
+                let delete_contact = UIAlertAction(title: "Delete contact", style: .destructive) {
+                    UIAlertAction in
+                    NSLog("OK Pressed")
+                    
+                    
+                    self.delete_contact(emergency_id: "\(item!["emergencyId"]!)" )
                 }
+                
+                let Edit_contact = UIAlertAction(title: "Edit contact", style: .default) {
+                    UIAlertAction in
+                    NSLog("OK Pressed")
+
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "add_contacts_id") as? add_contacts
+                    
+                    push!.dict_emergency = (item! as NSDictionary)
+                    
+                    self.navigationController?.pushViewController(push!, animated: true)
+                    
+                }
+                
+                let call_contact = UIAlertAction(title: "Call", style: .default) {
+                    UIAlertAction in
+                    NSLog("OK Pressed")
+                    
+                    if let url = URL(string: "tel://\(item!["phone"]!)"), UIApplication.shared.canOpenURL(url) {
+                        if #available(iOS 10, *) {
+                            UIApplication.shared.open(url)
+                        } else {
+                            UIApplication.shared.openURL(url)
+                        }
+                    }
+                    
+                }
+                
+                let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) {
+                    UIAlertAction in
+                    NSLog("OK Pressed")
+                }
+
+                alertController.addAction(call_contact)
+                alertController.addAction(Edit_contact)
+                alertController.addAction(delete_contact)
+                alertController.addAction(dismiss)
+                
+                self.present(alertController, animated: true, completion: nil)
+
+   
+            } else {
+                
+                let item = self.arr_emergency_number[sender.tag] as? [String:Any]
+                
+                let alertController = UIAlertController(title: "সেটিংস", message: "", preferredStyle: .actionSheet)
+                
+                let delete_contact = UIAlertAction(title: "পরিচিতি মুছুন", style: .destructive) {
+                    UIAlertAction in
+                    NSLog("OK Pressed")
+                    
+                    
+                    self.delete_contact(emergency_id: "\(item!["emergencyId"]!)" )
+                }
+                
+                let Edit_contact = UIAlertAction(title: "সম্পাদনা করুন", style: .default) {
+                    UIAlertAction in
+                    NSLog("OK Pressed")
+
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "add_contacts_id") as? add_contacts
+                    
+                    push!.dict_emergency = (item! as NSDictionary)
+                    
+                    self.navigationController?.pushViewController(push!, animated: true)
+                    
+                }
+                
+                let call_contact = UIAlertAction(title: "কল", style: .default) {
+                    UIAlertAction in
+                    NSLog("OK Pressed")
+                    
+                    if let url = URL(string: "tel://\(item!["phone"]!)"), UIApplication.shared.canOpenURL(url) {
+                        if #available(iOS 10, *) {
+                            UIApplication.shared.open(url)
+                        } else {
+                            UIApplication.shared.openURL(url)
+                        }
+                    }
+                    
+                }
+                
+                let dismiss = UIAlertAction(title: "খারিজ", style: .cancel) {
+                    UIAlertAction in
+                    NSLog("OK Pressed")
+                }
+
+                alertController.addAction(call_contact)
+                alertController.addAction(Edit_contact)
+                alertController.addAction(delete_contact)
+                alertController.addAction(dismiss)
+                
+                self.present(alertController, animated: true, completion: nil)
+
             }
             
+             
         }
         
-        let dismiss = UIAlertAction(title: "Dismiss", style: .cancel) {
-            UIAlertAction in
-            NSLog("OK Pressed")
-        }
-
-        alertController.addAction(call_contact)
-        alertController.addAction(Edit_contact)
-        alertController.addAction(delete_contact)
-        alertController.addAction(dismiss)
         
-        self.present(alertController, animated: true, completion: nil)
-
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -441,3 +537,5 @@ class emergency_contacts_table_cell: UITableViewCell {
     @IBOutlet weak var btn_setting:UIButton!
     
 }
+
+

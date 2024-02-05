@@ -114,12 +114,14 @@ class ride_history: UIViewController {
         self.btn_upcoming_ride.addTarget(self, action: #selector(upcoming_ride_click_method), for: .touchUpInside)
         self.btn_completed_ride.addTarget(self, action: #selector(completed_ride_click_method), for: .touchUpInside)
         
-        self.arr_mut_dashboard_data.removeAllObjects()
-        self.upcoming_ride_WB(str_show_loader: "yes")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        self.arr_mut_dashboard_data.removeAllObjects()
+        self.upcoming_ride_WB(str_show_loader: "yes")
         
         // self.arr_mut_dashboard_data.removeAllObjects()
         // self.booking_history(str_show_loader: "yes")
@@ -573,10 +575,26 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                     print(language as Any)
                     
                     if (language == "en") {
-                        cell.lbl_status.text = "Completed"
+                        
+                        // 2
+                        if "\(item!["status"]!)" == "2" {
+                            cell.lbl_status.text = "Yet to pay"
+                            cell.lbl_status.backgroundColor = .systemOrange
+                        } else {
+                            cell.lbl_status.text = "Completed"
+                            cell.lbl_status.backgroundColor = .systemGreen
+                        }
                         
                     } else {
-                        cell.lbl_status.text = "সম্পূর্ণ হয়েছে "
+                        
+                        if "\(item!["status"]!)" == "2" {
+                            cell.lbl_status.text = "তবুও দিতে হবে"
+                            cell.lbl_status.backgroundColor = .systemOrange
+                        } else {
+                            cell.lbl_status.text = "সম্পূর্ণ হয়েছে "
+                            cell.lbl_status.backgroundColor = .systemGreen
+                        }
+                        
                     }
                     
                 } else {
@@ -937,9 +955,21 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
         if self.str_which_panel_select == "0" {
             let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]
             
-            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
-             push!.dict_get_upcoming_ride_details = (item! as NSDictionary)
-            self.navigationController?.pushViewController(push!, animated: true)
+            if "\(item!["rideStatus"]!)" == "4" {
+                
+              
+                if "\(item!["status"]!)" == "2" {
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "invoice_id") as? invoice
+                     push!.dict_all_details = (item! as NSDictionary)
+                    self.navigationController?.pushViewController(push!, animated: true)
+                } else {
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
+                     push!.dict_get_upcoming_ride_details = (item! as NSDictionary)
+                    self.navigationController?.pushViewController(push!, animated: true)
+                }
+                
+            }
+            
             
         } else {
             let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]

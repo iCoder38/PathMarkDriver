@@ -10,6 +10,7 @@
 		38A4B1BD3466EB2D6879D958 /* Pods_PathMarkDriver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41F88FFC4D1FA11A124CE788 /* Pods_PathMarkDriver.framework */; };
 		3C109D205C5EE622E881B470 /* Pods_PathMarkDriverTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6634C3BADF19EAC2762DCEF3 /* Pods_PathMarkDriverTests.framework */; };
 		B9050FC12A974844000305BC /* api_refresh_token.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9050FC02A974844000305BC /* api_refresh_token.swift */; };
+		B90A4D432B6A8E6600329695 /* invoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = B90A4D422B6A8E6600329695 /* invoice.swift */; };
 		B91A02BF2B68C5340029DFEB /* change_language.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91A02BE2B68C5340029DFEB /* change_language.swift */; };
 		B9325D012AA9B9E400DEA0A5 /* upload_tax.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9325D002AA9B9E400DEA0A5 /* upload_tax.swift */; };
 		B93500DB2B107E8A004D8C95 /* shared_booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93500DA2B107E8A004D8C95 /* shared_booking.swift */; };
@@ -91,6 +92,7 @@
 		B9C29A922ADD20AE00574A94 /* map_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C29A912ADD20AE00574A94 /* map_view.swift */; };
 		B9D834592AF53547003884D9 /* about_us.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D834582AF53547003884D9 /* about_us.swift */; };
 		B9DAF6F32AD446DD00739122 /* upload_vehicle_reg_document.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */; };
+		B9DEC74A2B7122A400B07F92 /* terms_and_conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DEC7492B7122A400B07F92 /* terms_and_conditions.swift */; };
 		B9E1B4322A84FD500060DCAF /* instant_booking_accept_decline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4312A84FD500060DCAF /* instant_booking_accept_decline.swift */; };
 		B9E1B4352A85052D0060DCAF /* after_accept_request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4342A85052D0060DCAF /* after_accept_request.swift */; };
 		B9E1B4382A85087A0060DCAF /* start_ride_now.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4372A85087A0060DCAF /* start_ride_now.swift */; };
@@ -129,6 +131,7 @@
 		732A5F9584159544D50CDE2D /* Pods-PathMarkDriver.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PathMarkDriver.release.xcconfig"; path = "Target Support Files/Pods-PathMarkDriver/Pods-PathMarkDriver.release.xcconfig"; sourceTree = "<group>"; };
 		94E944AEAFBB534B102897EC /* Pods-PathMarkDriverTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PathMarkDriverTests.release.xcconfig"; path = "Target Support Files/Pods-PathMarkDriverTests/Pods-PathMarkDriverTests.release.xcconfig"; sourceTree = "<group>"; };
 		B9050FC02A974844000305BC /* api_refresh_token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = api_refresh_token.swift; sourceTree = "<group>"; };
+		B90A4D422B6A8E6600329695 /* invoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = invoice.swift; sourceTree = "<group>"; };
 		B91A02BE2B68C5340029DFEB /* change_language.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = change_language.swift; sourceTree = "<group>"; };
 		B9325D002AA9B9E400DEA0A5 /* upload_tax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_tax.swift; sourceTree = "<group>"; };
 		B93500DA2B107E8A004D8C95 /* shared_booking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = shared_booking.swift; sourceTree = "<group>"; };
@@ -220,6 +223,7 @@
 		B9C29A912ADD20AE00574A94 /* map_view.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = map_view.swift; sourceTree = "<group>"; };
 		B9D834582AF53547003884D9 /* about_us.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = about_us.swift; sourceTree = "<group>"; };
 		B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_reg_document.swift; sourceTree = "<group>"; };
+		B9DEC7492B7122A400B07F92 /* terms_and_conditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = terms_and_conditions.swift; sourceTree = "<group>"; };
 		B9E1B4312A84FD500060DCAF /* instant_booking_accept_decline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = instant_booking_accept_decline.swift; sourceTree = "<group>"; };
 		B9E1B4342A85052D0060DCAF /* after_accept_request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = after_accept_request.swift; sourceTree = "<group>"; };
 		B9E1B4372A85087A0060DCAF /* start_ride_now.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = start_ride_now.swift; sourceTree = "<group>"; };
@@ -261,6 +265,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B90A4D412B6A8E5800329695 /* invoice */ = {
+			isa = PBXGroup;
+			children = (
+				B90A4D422B6A8E6600329695 /* invoice.swift */,
+			);
+			path = invoice;
+			sourceTree = "<group>";
+		};
 		B91A02BD2B68C4C00029DFEB /* select_language */ = {
 			isa = PBXGroup;
 			children = (
@@ -742,9 +754,19 @@
 			path = upload_veh_reg_document;
 			sourceTree = "<group>";
 		};
+		B9DEC7482B71229A00B07F92 /* terms */ = {
+			isa = PBXGroup;
+			children = (
+				B9DEC7492B7122A400B07F92 /* terms_and_conditions.swift */,
+			);
+			path = terms;
+			sourceTree = "<group>";
+		};
 		B9E1B42F2A84FD1C0060DCAF /* main_driver */ = {
 			isa = PBXGroup;
 			children = (
+				B9DEC7482B71229A00B07F92 /* terms */,
+				B90A4D412B6A8E5800329695 /* invoice */,
 				B967A84B2AFA5EE1001D5715 /* edit_profile */,
 				B9514E1E2AA8A008005EDF39 /* success */,
 				B9A5918D2A6FE069003DEC9F /* driver_dashboard */,
@@ -1176,6 +1198,7 @@
 				B9852DAB2A651B0D008244F3 /* SWRevealViewController.m in Sources */,
 				B9852D9C2A651AED008244F3 /* RPicker.swift in Sources */,
 				B967A84D2AFA5EFD001D5715 /* edit_profile.swift in Sources */,
+				B90A4D432B6A8E6600329695 /* invoice.swift in Sources */,
 				B98988F52A85FD52003B1BD3 /* ride_history.swift in Sources */,
 				B93500DD2B107E92004D8C95 /* share_track.swift in Sources */,
 				B98989042A861F0D003B1BD3 /* help.swift in Sources */,
@@ -1212,6 +1235,7 @@
 				B9E1B4352A85052D0060DCAF /* after_accept_request.swift in Sources */,
 				B9852D852A651AA6008244F3 /* Utils.swift in Sources */,
 				B9ACC43E2A680AFF000A4530 /* upload_reg_permit.swift in Sources */,
+				B9DEC74A2B7122A400B07F92 /* terms_and_conditions.swift in Sources */,
 				B9852D952A651AE7008244F3 /* ActionSheetView.swift in Sources */,
 				B98988FE2A8619F6003B1BD3 /* emergency_contacts.swift in Sources */,
 				B9852D9E2A651AF3008244F3 /* parameter.swift in Sources */,
