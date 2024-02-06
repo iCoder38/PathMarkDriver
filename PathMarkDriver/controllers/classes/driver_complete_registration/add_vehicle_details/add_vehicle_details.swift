@@ -1126,11 +1126,29 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             print(person)
             
+            var lan:String!
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lan = "en"
+                } else {
+                    lan = "bn"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             let x : Int = person["userId"] as! Int
             let myString = String(x)
-            
-            let params = payload_profile(action: "profile",
-                                         userId: String(myString))
+            let params = payload_profile_one(action: "profile",
+                                         userId: String(myString),
+                                         language: String(lan))
             
             print(params as Any)
             
@@ -1157,6 +1175,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                         let defaults = UserDefaults.standard
                         defaults.setValue(JSON["data"], forKey: str_save_login_user_data)
                         
+                        
                         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                             print(language as Any)
                             
@@ -1171,7 +1190,6 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                                 alert.addButtons([cancel])
                                 self.present(alert, animated: true)
                             }
-                            
                          
                         } else {
                             print("=============================")

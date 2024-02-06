@@ -592,8 +592,6 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                 
                 self.present(actionSheet, animated: true)
                 
-                
-                
             }
             
         }

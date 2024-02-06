@@ -27,6 +27,13 @@ struct payload_profile: Encodable {
     let userId :String
 }
 
+struct payload_profile_one: Encodable {
+    let action :String
+    let userId :String
+    let language :String
+}
+
+
 struct payload_login: Encodable {
     let action :String
       let email :String

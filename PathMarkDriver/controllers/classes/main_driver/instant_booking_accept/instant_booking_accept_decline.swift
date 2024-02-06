@@ -91,7 +91,7 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
                  
             }
             
-            view_navigation_title.textColor = .white
+            // view_navigation_title.textColor = .white
         }
     }
 

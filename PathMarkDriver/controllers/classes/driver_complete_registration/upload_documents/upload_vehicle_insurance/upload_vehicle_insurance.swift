@@ -192,25 +192,126 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_insurance_table_cell
         
         if (cell.txt_policy_number.text == "") {
-            show_alert(text: "Please enter your Policy Number.")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter your Policy Number.")
+                } else {
+                    show_alert(text: "অনুগ্রহ করে আপনার পলিসি নম্বর লিখুন।")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             return
         } else if (cell.txt_insurance_policy.text == "") {
-            show_alert(text: "Please enter your Insurance Company Name.")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter your Insurance Company Name.")
+                } else {
+                    show_alert(text: "আপনার বীমা কোম্পানির নাম লিখুন.")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             return
         } else if (cell.txt_policy_holder.text == "") {
-            show_alert(text: "Please enter Policy holder.")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter Policy holder.")
+                } else {
+                    show_alert(text: "অনুগ্রহ করে পলিসি হোল্ডার লিখুন।")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             return
         } else if (cell.txt_registration_number.text == "") {
-            show_alert(text: "Please enter your registration number.")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter your registration number.")
+                } else {
+                    show_alert(text: "আপনার নিবন্ধন নম্বর লিখুন.")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             return
         }/* else if (cell.txt_number_of_passengers.text == "") {
             show_alert(text: "Please enter How many passenger you carry in your vehicle.")
             return
         }*/ else if (cell.txt_commencing_date.text == "") {
-            show_alert(text: "Please enter Date.")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter Date.")
+                } else {
+                    show_alert(text: "তারিখ লিখুন.")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             return
         } else if (cell.txt_exp_date.text == "") {
-            show_alert(text: "Please enter Expiry Date.")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter Expiry Date.")
+                } else {
+                    show_alert(text: "মেয়াদ শেষ হওয়ার তারিখ লিখুন.")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             return
         } else {
             
@@ -227,7 +328,24 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
                     self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
                 } else {
                     // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
-                    show_alert(text: "Please upload your Vehicle Insurance.")
+                    
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            show_alert(text: "Please upload your Vehicle Insurance.")
+                        } else {
+                            show_alert(text: "আপনার যানবাহন বীমা আপলোড করুন.")
+                        }
+                        
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
+                    
+                    
                     return
                 }
             }
@@ -271,6 +389,25 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
                     "token":String(token_id_is),
                 ]
                 
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                 
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
                 parameters = [
                     "action"            : "editcarinformation",
                     "userId"            : String(myString),
@@ -281,7 +418,8 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
                     "policeholder"      : String(cell.txt_policy_holder.text!),
                     "CarRegistrationNo" : String(cell.txt_registration_number.text!),
                     // "noOfPassagenger"   : String(cell.txt_number_of_passengers.text!),
-                    "expDate"           : String(cell.txt_exp_date.text!)
+                    "expDate"           : String(cell.txt_exp_date.text!),
+                    "language"          : String(lan),
                     
                 ]
                 
@@ -398,10 +536,29 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             print(person)
             
+            var lan:String!
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lan = "en"
+                } else {
+                    lan = "bn"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             let x : Int = person["userId"] as! Int
             let myString = String(x)
-            let params = payload_profile(action: "profile",
-                                         userId: String(myString))
+            let params = payload_profile_one(action: "profile",
+                                         userId: String(myString),
+                                         language: String(lan))
             
             print(params as Any)
             
@@ -427,10 +584,29 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
                         let defaults = UserDefaults.standard
                         defaults.setValue(JSON["data"], forKey: str_save_login_user_data)
                         
-                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (JSON["msg"] as! String), style: .alert)
-                        let cancel = NewYorkButton(title: "Ok", style: .cancel)
-                        alert.addButtons([cancel])
-                        self.present(alert, animated: true)
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (JSON["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            } else {
+                                let alert = NewYorkAlertController(title: String("সফলতা").uppercased(), message: (JSON["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            }
+                            
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
+                        
+                        
                         
                         self.dismiss(animated: true)
                         ERProgressHud.sharedInstance.hide()
@@ -635,6 +811,26 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
                  "noOfPassagenger"   : String(cell.txt_number_of_passengers.text!),
                  "expDate"           : String(cell.txt_exp_date.text!)
                  */
+                
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                 
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
                 //Set Your Parameter
                 let parameterDict = NSMutableDictionary()
                 parameterDict.setValue("editcarinformation", forKey: "action")
@@ -647,7 +843,7 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
                 parameterDict.setValue(String(cell.txt_registration_number.text!), forKey: "CarRegistrationNo")
                 // parameterDict.setValue(String(cell.txt_number_of_passengers.text!), forKey: "noOfPassagenger")
                 parameterDict.setValue(String(cell.txt_exp_date.text!), forKey: "expDate")
-                
+                parameterDict.setValue(String(lan), forKey: "language")
                 
                 print(parameterDict as Any)
                 

@@ -445,6 +445,25 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
                  "issueDate"         : String(cell.txt_issued_on.text!),
                  */
                 
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                 
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
                 //Set Your Parameter
                 let parameterDict = NSMutableDictionary()
                 parameterDict.setValue("editprofile", forKey: "action")
@@ -453,6 +472,7 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
                 parameterDict.setValue(String(cell.txt_exp_date.text!), forKey: "LicenceExpiryDate")
                 parameterDict.setValue(String(cell.txt_vehicle_type.text!), forKey: "vechicleType")
                 parameterDict.setValue(String(cell.txt_issued_on.text!), forKey: "issueDate")
+                parameterDict.setValue(String(lan), forKey: "language")
                 
                 print(parameterDict as Any)
                 

@@ -254,6 +254,25 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
                  "noOfPassagenger"   : String(cell.txt_number_of_passengers.text!),
                  "expDate"           : String(cell.txt_exp_date.text!)
                  */
+                
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
                 //Set Your Parameter
                 let parameterDict = NSMutableDictionary()
                 parameterDict.setValue("editcarinformation", forKey: "action")
@@ -264,12 +283,7 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
                 parameterDict.setValue(String(cell.txt_vehicle_registration_number.text!), forKey: "CarRegistrationNo")
                 parameterDict.setValue(String(cell.txt_expiry_date.text!), forKey: "expDate")
                 
-               /*
-                "registration_state"    : String(cell.txt_vehicle_registration_state.text!),
-                "CarRegistrationNo"   : String(cell.txt_vehicle_registration_number.text!),
-                "expDate"    : String(cell.txt_expiry_date.text!),
-                */
-                
+                parameterDict.setValue(String(lan), forKey: "language")
                 
                 print(parameterDict as Any)
                 
@@ -412,13 +426,62 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_reg_document_table_cell
         
         if (cell.txt_vehicle_registration_number.text == "") {
-            show_alert(text: "Please enter your Vehicle Registration Number.")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter your Vehicle Registration Number.")
+                } else {
+                    show_alert(text: "আপনার যানবাহন নিবন্ধন নম্বর লিখুন.")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             return
         } else if (cell.txt_vehicle_registration_state.text == "") {
-            show_alert(text: "Please enter your Vehicle Registration City.")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter your Vehicle Registration City.")
+                } else {
+                    show_alert(text: "আপনার যানবাহন রেজিস্ট্রেশন সিটি লিখুন.")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             return
         } else if (cell.txt_expiry_date.text == "") {
-            show_alert(text: "Please enter your Expiry Date.")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    show_alert(text: "Please enter your Expiry Date.")
+                } else {
+                    show_alert(text: "অনুগ্রহ করে আপনার মেয়াদ শেষ হওয়ার তারিখ লিখুন।")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             return
         } else {
             
@@ -434,7 +497,24 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
                     self.upload_vehicle_insurance_with_image_WB(str_show_loader: "yes")
                 } else {
                     // self.upload_vehicle_insurance_WB(str_show_loader: "yes")
-                    show_alert(text: "Please upload your Vehicle Registration.")
+                    
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            show_alert(text: "Please upload your Vehicle Registration.")
+                        } else {
+                            show_alert(text: "আপনার যানবাহন নিবন্ধন আপলোড করুন.")
+                        }
+                        
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
+                    
+                    
                     return
                 }
             }
@@ -479,6 +559,25 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
                     "token":String(token_id_is),
                 ]
                 
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                 
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
                 parameters = [
                     "action"                : "editcarinformation",
                     "userId"                : String(myString),
@@ -486,6 +585,7 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
                     "registration_state"    : String(cell.txt_vehicle_registration_state.text!),
                     "CarRegistrationNo"     : String(cell.txt_vehicle_registration_number.text!),
                     "expDate"               : String(cell.txt_expiry_date.text!),
+                    "language"              : String(lan)
                     
                 ]
                 
@@ -602,10 +702,29 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             print(person)
             
+            var lan:String!
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lan = "en"
+                } else {
+                    lan = "bn"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             let x : Int = person["userId"] as! Int
             let myString = String(x)
-            let params = payload_profile(action: "profile",
-                                         userId: String(myString))
+            let params = payload_profile_one(action: "profile",
+                                         userId: String(myString),
+                                         language: String(lan))
             
             print(params as Any)
             
@@ -631,10 +750,28 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
                         let defaults = UserDefaults.standard
                         defaults.setValue(JSON["data"], forKey: str_save_login_user_data)
                         
-                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (JSON["msg"] as! String), style: .alert)
-                        let cancel = NewYorkButton(title: "Ok", style: .cancel)
-                        alert.addButtons([cancel])
-                        self.present(alert, animated: true)
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (JSON["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            } else {
+                                let alert = NewYorkAlertController(title: String("সফলতা").uppercased(), message: (JSON["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            }
+                            
+                         
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
                         
                         self.dismiss(animated: true)
                         ERProgressHud.sharedInstance.hide()
