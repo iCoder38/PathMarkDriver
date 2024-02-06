@@ -55,6 +55,51 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         }
     }
     
+    @IBOutlet weak var lbl_distance_text:UILabel! {
+        didSet {
+            
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_distance_text.text = "Distance"
+                } else {
+                    lbl_distance_text.text = "দূরত্ব"
+                }
+                
+                 
+            }
+            
+            
+        }
+    }
+
+    @IBOutlet weak var lbl_est_earn_text:UILabel! {
+        didSet {
+            
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_est_earn_text.text = "Est. earn"
+                } else {
+                    lbl_est_earn_text.text = "অনুমান উপার্জন"
+                }
+                
+                 
+            }
+            
+            view_navigation_title.textColor = .white
+        }
+    }
+
+    
+    
+    
+    
+    
     @IBOutlet weak var view_big:UIView! {
         didSet {
             view_big.backgroundColor = .white

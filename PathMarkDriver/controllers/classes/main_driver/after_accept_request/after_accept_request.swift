@@ -536,7 +536,7 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
                                     alert.addButtons([cancel])
                                     self.present(alert, animated: true)
                                 } else {
-                                    let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("অনুগ্রহ করে ওটিপি লিখুন"), style: .alert)
+                                    let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("ওটিপি দিন"), style: .alert)
                                     let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
                                     alert.addButtons([cancel])
                                     self.present(alert, animated: true)
@@ -557,16 +557,16 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
                     self.present(alert, animated: true, completion: nil)
                 } else {
                     //1. Create the alert controller.
-                    let alert = UIAlertController(title: "জারিব চালক", message: "OTP লিখুন", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "জারিব চালক", message: "ওটিপি দিন", preferredStyle: .alert)
 
                     //2. Add the text field. You can configure it however you need.
                     alert.addTextField { (textField) in
-                        textField.placeholder = "otp..."
+                        textField.placeholder = "ওটিপি..."
                         textField.keyboardType = .numberPad
                     }
 
                     // 3. Grab the value from the text field, and print it when the user clicks OK.
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                    alert.addAction(UIAlertAction(title: "ঠিক আছে", style: .default, handler: { [weak alert] (_) in
                         let textField = alert?.textFields![0]
                         print("Text field: \(textField!.text!)")
                         
@@ -580,7 +580,7 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
                                     alert.addButtons([cancel])
                                     self.present(alert, animated: true)
                                 } else {
-                                    let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("অনুগ্রহ করে ওটিপি লিখুন"), style: .alert)
+                                    let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("ওটিপি দিন"), style: .alert)
                                     let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
                                     alert.addButtons([cancel])
                                     self.present(alert, animated: true)

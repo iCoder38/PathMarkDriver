@@ -126,6 +126,37 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
     
     @IBOutlet weak var mapView:MKMapView!
     
+    @IBOutlet weak var lbl_avg_time_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_avg_time_text.text = "Avg. Time"
+                } else {
+                    lbl_avg_time_text.text = "গড় সময়"
+                }
+                
+                 
+            }
+        }
+    }
+    @IBOutlet weak var lbl_distance_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_distance_text.text = "Distance"
+                } else {
+                    lbl_distance_text.text = "দূরত্ব"
+                }
+                
+                 
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)

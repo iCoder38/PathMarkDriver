@@ -67,9 +67,9 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
         // let cell = self.tbleView.cellForRow(at: indexPath) as! login_table_cell
         
         // set language
-        UserDefaults.standard.set("bn", forKey: str_language_convert)
+        // UserDefaults.standard.set("bn", forKey: str_language_convert)
         
-        self.remember_me()
+        // self.remember_me()
     }
     
     @objc func remember_me() {

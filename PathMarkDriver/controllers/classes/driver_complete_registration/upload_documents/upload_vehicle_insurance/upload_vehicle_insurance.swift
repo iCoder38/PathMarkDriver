@@ -99,7 +99,7 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
             cell.txt_commencing_date.text = (item!["insurenceissueDate"] as! String)
             cell.txt_insurance_policy.text = (item!["isurenceCompony"] as! String)
             cell.txt_registration_number.text = (item!["CarRegistrationNo"] as! String)
-            cell.txt_number_of_passengers.text = "\(item!["noOfPassagenger"]!)"
+            // cell.txt_number_of_passengers.text = "\(item!["noOfPassagenger"]!)"
             
         }
         
@@ -203,10 +203,10 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
         } else if (cell.txt_registration_number.text == "") {
             show_alert(text: "Please enter your registration number.")
             return
-        } else if (cell.txt_number_of_passengers.text == "") {
+        }/* else if (cell.txt_number_of_passengers.text == "") {
             show_alert(text: "Please enter How many passenger you carry in your vehicle.")
             return
-        } else if (cell.txt_commencing_date.text == "") {
+        }*/ else if (cell.txt_commencing_date.text == "") {
             show_alert(text: "Please enter Date.")
             return
         } else if (cell.txt_exp_date.text == "") {
@@ -280,7 +280,7 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
                     "insurenceissueDate"    : String(cell.txt_commencing_date.text!),
                     "policeholder"      : String(cell.txt_policy_holder.text!),
                     "CarRegistrationNo" : String(cell.txt_registration_number.text!),
-                    "noOfPassagenger"   : String(cell.txt_number_of_passengers.text!),
+                    // "noOfPassagenger"   : String(cell.txt_number_of_passengers.text!),
                     "expDate"           : String(cell.txt_exp_date.text!)
                     
                 ]
@@ -610,7 +610,7 @@ class upload_vehicle_insurance: UIViewController , UITextFieldDelegate, UINaviga
                 parameterDict.setValue(String(cell.txt_commencing_date.text!), forKey: "insurenceissueDate")
                 parameterDict.setValue(String(cell.txt_policy_holder.text!), forKey: "policeholder")
                 parameterDict.setValue(String(cell.txt_registration_number.text!), forKey: "CarRegistrationNo")
-                parameterDict.setValue(String(cell.txt_number_of_passengers.text!), forKey: "noOfPassagenger")
+                // parameterDict.setValue(String(cell.txt_number_of_passengers.text!), forKey: "noOfPassagenger")
                 parameterDict.setValue(String(cell.txt_exp_date.text!), forKey: "expDate")
                 
                 
@@ -835,7 +835,7 @@ extension upload_vehicle_insurance: UITableViewDataSource  , UITableViewDelegate
         cell.txt_commencing_date.delegate = self
         cell.txt_policy_holder.delegate = self
         cell.txt_registration_number.delegate = self
-        cell.txt_number_of_passengers.delegate = self
+        // cell.txt_number_of_passengers.delegate = self
         cell.txt_exp_date.delegate = self
         
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
@@ -859,7 +859,7 @@ extension upload_vehicle_insurance: UITableViewDataSource  , UITableViewDelegate
                 cell.txt_commencing_date.text = (item!["insurenceissueDate"] as! String)
                 cell.txt_policy_holder.text = (item!["policeholder"] as! String)
                 cell.txt_registration_number.text = (item!["CarRegistrationNo"] as! String)
-                cell.txt_number_of_passengers.text = "\(item!["noOfPassagenger"]!)"
+                // cell.txt_number_of_passengers.text = "\(item!["noOfPassagenger"]!)"
                 cell.txt_exp_date.text = (item!["expDate"] as! String)
                 
             }
@@ -931,7 +931,7 @@ extension upload_vehicle_insurance: UITableViewDataSource  , UITableViewDelegate
                                   tfKeyboardType: .default,
                                   tfBackgroundColor: .white,
                                   tfPlaceholderText: "Regsitration number")
-                Utils.textFieldUI(textField: cell.txt_number_of_passengers,
+                /*Utils.textFieldUI(textField: cell.txt_number_of_passengers,
                                   tfName: cell.txt_number_of_passengers.text!,
                                   tfCornerRadius: 12,
                                   tfpadding: 20,
@@ -940,7 +940,7 @@ extension upload_vehicle_insurance: UITableViewDataSource  , UITableViewDelegate
                                   tfAppearance: .dark,
                                   tfKeyboardType: .default,
                                   tfBackgroundColor: .white,
-                                  tfPlaceholderText: "Number of Passengers Licenced To Carry")
+                                  tfPlaceholderText: "Number of Passengers Licenced To Carry")*/
                 Utils.textFieldUI(textField: cell.txt_exp_date,
                                   tfName: cell.txt_exp_date.text!,
                                   tfCornerRadius: 12,
@@ -1005,7 +1005,7 @@ extension upload_vehicle_insurance: UITableViewDataSource  , UITableViewDelegate
                                   tfKeyboardType: .default,
                                   tfBackgroundColor: .white,
                                   tfPlaceholderText: "নিবন্ধন নম্বর")
-                Utils.textFieldUI(textField: cell.txt_number_of_passengers,
+                /*Utils.textFieldUI(textField: cell.txt_number_of_passengers,
                                   tfName: cell.txt_number_of_passengers.text!,
                                   tfCornerRadius: 12,
                                   tfpadding: 20,
@@ -1014,7 +1014,7 @@ extension upload_vehicle_insurance: UITableViewDataSource  , UITableViewDelegate
                                   tfAppearance: .dark,
                                   tfKeyboardType: .default,
                                   tfBackgroundColor: .white,
-                                  tfPlaceholderText: "বহন করার জন্য লাইসেন্সকৃত যাত্রীর সংখ্যা")
+                                  tfPlaceholderText: "বহন করার জন্য লাইসেন্সকৃত যাত্রীর সংখ্যা")*/
                 Utils.textFieldUI(textField: cell.txt_exp_date,
                                   tfName: cell.txt_exp_date.text!,
                                   tfCornerRadius: 12,
@@ -1291,7 +1291,7 @@ class upload_vehicle_insurance_table_cell: UITableViewCell {
         }
     }
     
-    @IBOutlet weak var txt_number_of_passengers:UITextField! {
+    /*@IBOutlet weak var txt_number_of_passengers:UITextField! {
         didSet {
             
             
@@ -1302,7 +1302,7 @@ class upload_vehicle_insurance_table_cell: UITableViewCell {
             txt_number_of_passengers.layer.shadowRadius = 2
             
         }
-    }
+    }*/
     
     @IBOutlet weak var txt_exp_date:UITextField! {
         didSet {

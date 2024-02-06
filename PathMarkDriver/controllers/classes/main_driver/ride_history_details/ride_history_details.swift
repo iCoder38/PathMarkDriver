@@ -66,6 +66,8 @@ class ride_history_details: UIViewController {
         }
     }
     
+    var str_starrating:String!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tbleView.separatorColor = .clear
@@ -99,8 +101,8 @@ class ride_history_details: UIViewController {
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
             print(person)
             
-            // let x : Int = person["userId"] as! Int
-            // let myString = String(x)
+             let x : Int = person["userId"] as! Int
+             let myString = String(x)
             
             if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
                 print(token_id_is as Any)
@@ -109,9 +111,25 @@ class ride_history_details: UIViewController {
                     "token":String(token_id_is),
                 ]
                 
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                     
+                }
+                
                 parameters = [
                     "action"        : "bookingdetail",
                     "bookingId"     : "\(self.dict_get_booking_details["bookingId"]!)",
+                    "userId"        : String(myString),
+                    "language"      : String(lan),
                 ]
                 
                 print(parameters as Any)
@@ -142,6 +160,11 @@ class ride_history_details: UIViewController {
                             
                             ERProgressHud.sharedInstance.hide()
                             
+                            var dict: Dictionary<AnyHashable, Any>
+                            dict = JSON["data"] as! Dictionary<AnyHashable, Any>
+                            
+                            // self.dict_get_booking_details = JSON
+                            self.str_starrating = "\(dict["bookingrating"]!)"
                             self.tbleView.delegate = self
                             self.tbleView.dataSource = self
                             self.tbleView.reloadData()
@@ -257,6 +280,11 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         cell.lbl_fare.text = "\(self.dict_get_booking_details["FinalFare"]!)"
         cell.lbl_tip.text = "\(self.dict_get_booking_details["TIP"]!)"
         cell.lbl_promotion.text = "\(self.dict_get_booking_details["discountAmount"]!)"
+        
+        //
+        print(self.str_starrating as Any)
+        // btn_payment_status
+       
         
         // tip
         let i_am_tip:String!
@@ -424,8 +452,54 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         }
         cell.backgroundColor = .clear
         
+        if String(self.str_starrating) == "0" {
+            cell.btn_payment_status.backgroundColor = .systemOrange
+            
+            cell.btn_payment_status.isUserInteractionEnabled = true
+
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    cell.btn_payment_status.setTitle("Send review", for: .normal)
+                } else {
+                    cell.btn_payment_status.setTitle("পর্যালোচনা পাঠান", for: .normal)
+                }
+                
+                
+            }
+            
+            cell.btn_payment_status.addTarget(self, action: #selector(review_send), for: .touchUpInside)
+            // success_payment
+            
+        } else {
+            cell.btn_payment_status.backgroundColor = .systemGreen
+            
+            cell.btn_payment_status.isUserInteractionEnabled = false
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    cell.btn_payment_status.setTitle("Payment done", for: .normal)
+                } else {
+                    cell.btn_payment_status.setTitle("পেমেন্ট সম্পন্ন", for: .normal)
+                }
+                
+                
+            }
+        }
+        
         return cell
         
+    }
+    
+    @objc func review_send() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_payment_id") as! success_payment
+        push.str_show_total_price = "\(self.dict_get_booking_details["totalAmount"]!)"
+        push.get_booking_details = self.dict_get_booking_details
+        push.str_from = "yes"
+        self.navigationController?.pushViewController(push, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

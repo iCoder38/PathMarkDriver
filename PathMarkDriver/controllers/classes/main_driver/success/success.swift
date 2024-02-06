@@ -142,8 +142,17 @@ class success: UIViewController {
     }
     
     @objc func push_to_dashboard_click_method() {
-        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
+        // send to review
+        // get_done_payment_details_from_notificaion
+        
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_payment_id") as! success_payment
+        push.str_show_total_price = "\(self.get_done_payment_details_from_notificaion["totalAmount"]!)"
+        push.get_booking_details = self.get_done_payment_details_from_notificaion
+        push.str_from = "no"
         self.navigationController?.pushViewController(push, animated: true)
+        
+        // let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
+        // self.navigationController?.pushViewController(push, animated: true)
     }
     
 }

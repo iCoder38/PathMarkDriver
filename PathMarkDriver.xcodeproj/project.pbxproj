@@ -93,6 +93,8 @@
 		B9D834592AF53547003884D9 /* about_us.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D834582AF53547003884D9 /* about_us.swift */; };
 		B9DAF6F32AD446DD00739122 /* upload_vehicle_reg_document.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */; };
 		B9DEC74A2B7122A400B07F92 /* terms_and_conditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DEC7492B7122A400B07F92 /* terms_and_conditions.swift */; };
+		B9E184AD2B71FC24004AFB50 /* language_splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E184AC2B71FC24004AFB50 /* language_splash.swift */; };
+		B9E184AF2B7201A4004AFB50 /* success_payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E184AE2B7201A4004AFB50 /* success_payment.swift */; };
 		B9E1B4322A84FD500060DCAF /* instant_booking_accept_decline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4312A84FD500060DCAF /* instant_booking_accept_decline.swift */; };
 		B9E1B4352A85052D0060DCAF /* after_accept_request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4342A85052D0060DCAF /* after_accept_request.swift */; };
 		B9E1B4382A85087A0060DCAF /* start_ride_now.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4372A85087A0060DCAF /* start_ride_now.swift */; };
@@ -224,6 +226,8 @@
 		B9D834582AF53547003884D9 /* about_us.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = about_us.swift; sourceTree = "<group>"; };
 		B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_reg_document.swift; sourceTree = "<group>"; };
 		B9DEC7492B7122A400B07F92 /* terms_and_conditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = terms_and_conditions.swift; sourceTree = "<group>"; };
+		B9E184AC2B71FC24004AFB50 /* language_splash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = language_splash.swift; sourceTree = "<group>"; };
+		B9E184AE2B7201A4004AFB50 /* success_payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = success_payment.swift; sourceTree = "<group>"; };
 		B9E1B4312A84FD500060DCAF /* instant_booking_accept_decline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = instant_booking_accept_decline.swift; sourceTree = "<group>"; };
 		B9E1B4342A85052D0060DCAF /* after_accept_request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = after_accept_request.swift; sourceTree = "<group>"; };
 		B9E1B4372A85087A0060DCAF /* start_ride_now.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = start_ride_now.swift; sourceTree = "<group>"; };
@@ -350,6 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				B9514E1F2AA8A018005EDF39 /* success.swift */,
+				B9E184AE2B7201A4004AFB50 /* success_payment.swift */,
 			);
 			path = success;
 			sourceTree = "<group>";
@@ -607,6 +612,7 @@
 		B9852DD92A651EEA008244F3 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				B9E184AB2B71FC12004AFB50 /* language_splash */,
 				B91A02BD2B68C4C00029DFEB /* select_language */,
 				B985079F2B22F888001343BE /* single_chat */,
 				B9E713B32AF8F5E3007CC10E /* cashout */,
@@ -760,6 +766,14 @@
 				B9DEC7492B7122A400B07F92 /* terms_and_conditions.swift */,
 			);
 			path = terms;
+			sourceTree = "<group>";
+		};
+		B9E184AB2B71FC12004AFB50 /* language_splash */ = {
+			isa = PBXGroup;
+			children = (
+				B9E184AC2B71FC24004AFB50 /* language_splash.swift */,
+			);
+			path = language_splash;
 			sourceTree = "<group>";
 		};
 		B9E1B42F2A84FD1C0060DCAF /* main_driver */ = {
@@ -1198,6 +1212,7 @@
 				B9852DAB2A651B0D008244F3 /* SWRevealViewController.m in Sources */,
 				B9852D9C2A651AED008244F3 /* RPicker.swift in Sources */,
 				B967A84D2AFA5EFD001D5715 /* edit_profile.swift in Sources */,
+				B9E184AF2B7201A4004AFB50 /* success_payment.swift in Sources */,
 				B90A4D432B6A8E6600329695 /* invoice.swift in Sources */,
 				B98988F52A85FD52003B1BD3 /* ride_history.swift in Sources */,
 				B93500DD2B107E92004D8C95 /* share_track.swift in Sources */,
@@ -1213,6 +1228,7 @@
 				B9852D9A2A651AE7008244F3 /* AlertView.swift in Sources */,
 				B9852DDC2A651F0D008244F3 /* verify_phone_number.swift in Sources */,
 				B93500DB2B107E8A004D8C95 /* shared_booking.swift in Sources */,
+				B9E184AD2B71FC24004AFB50 /* language_splash.swift in Sources */,
 				B9852DA02A651AF9008244F3 /* ERProgressHud.swift in Sources */,
 				B91A02BF2B68C5340029DFEB /* change_language.swift in Sources */,
 				B9852D522A651884008244F3 /* AppDelegate.swift in Sources */,
