@@ -114,27 +114,62 @@ class upload_vehicle_reg_document: UIViewController , UITextFieldDelegate, UINav
     // MARK: - OPEN CAMERA OR GALLERY -
     @objc func open_camera_gallery() {
         
-        let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
-        
-        // actionSheet.addImage(UIImage(named: "camera"))
-        
-        let cameraa = NewYorkButton(title: "Camera", style: .default) { _ in
-            // print("camera clicked done")
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
             
-            self.open_camera_or_gallery(str_type: "c")
-        }
-        
-        let gallery = NewYorkButton(title: "Gallery", style: .default) { _ in
-            // print("camera clicked done")
+            if (language == "en") {
+                
+                let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
+                
+                // actionSheet.addImage(UIImage(named: "camera"))
+                
+                let cameraa = NewYorkButton(title: "Camera", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "c")
+                }
+                
+                let gallery = NewYorkButton(title: "Gallery", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "g")
+                }
+                
+                let cancel = NewYorkButton(title: "Cancel", style: .cancel)
+                
+                actionSheet.addButtons([cameraa, gallery, cancel])
+                
+                self.present(actionSheet, animated: true)
+                
+            } else {
+                
+                let actionSheet = NewYorkAlertController(title: "ছবি আপলোড করুন", message: nil, style: .actionSheet)
+                
+                // actionSheet.addImage(UIImage(named: "camera"))
+                
+                let cameraa = NewYorkButton(title: "ক্যামেরা", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "c")
+                }
+                
+                let gallery = NewYorkButton(title: "গ্যালারি", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "g")
+                }
+                
+                let cancel = NewYorkButton(title: "বাতিল করুন", style: .cancel)
+                
+                actionSheet.addButtons([cameraa, gallery, cancel])
+                
+                self.present(actionSheet, animated: true)
+                
+                
+                
+            }
             
-            self.open_camera_or_gallery(str_type: "g")
         }
-        
-        let cancel = NewYorkButton(title: "Cancel", style: .cancel)
-        
-        actionSheet.addButtons([cameraa, gallery, cancel])
-        
-        self.present(actionSheet, animated: true)
         
     }
     

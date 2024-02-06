@@ -15,6 +15,8 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
 
     var str_for_update:String!
     
+    var strCarBrand:String!
+    var strCarColor:String!
     
     var str_vehicle_type:String!
     
@@ -301,27 +303,66 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
     // MARK: - OPEN CAMERA OR GALLERY -
     @objc func open_camera_gallery() {
         
-        let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
         
-        // actionSheet.addImage(UIImage(named: "camera"))
-        
-        let cameraa = NewYorkButton(title: "Camera", style: .default) { _ in
-            // print("camera clicked done")
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
             
-            self.open_camera_or_gallery(str_type: "c")
+            if (language == "en") {
+                
+                let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
+                
+                // actionSheet.addImage(UIImage(named: "camera"))
+                
+                let cameraa = NewYorkButton(title: "Camera", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "c")
+                }
+                
+                let gallery = NewYorkButton(title: "Gallery", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "g")
+                }
+                
+                let cancel = NewYorkButton(title: "Cancel", style: .cancel)
+                
+                actionSheet.addButtons([cameraa, gallery, cancel])
+                
+                self.present(actionSheet, animated: true)
+                
+            } else {
+                
+                let actionSheet = NewYorkAlertController(title: "ছবি আপলোড করুন", message: nil, style: .actionSheet)
+                
+                // actionSheet.addImage(UIImage(named: "camera"))
+                
+                let cameraa = NewYorkButton(title: "ক্যামেরা", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "c")
+                }
+                
+                let gallery = NewYorkButton(title: "গ্যালারি", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "g")
+                }
+                
+                let cancel = NewYorkButton(title: "বাতিল করুন", style: .cancel)
+                
+                actionSheet.addButtons([cameraa, gallery, cancel])
+                
+                self.present(actionSheet, animated: true)
+                
+                
+                
+            }
+            
         }
         
-        let gallery = NewYorkButton(title: "Gallery", style: .default) { _ in
-            // print("camera clicked done")
-            
-            self.open_camera_or_gallery(str_type: "g")
-        }
         
-        let cancel = NewYorkButton(title: "Cancel", style: .cancel)
         
-        actionSheet.addButtons([cameraa, gallery, cancel])
-        
-        self.present(actionSheet, animated: true)
         
     }
     
@@ -551,6 +592,26 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 urlRequest.addValue("application/json",
                                     forHTTPHeaderField: "Accept")
                 
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                 
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+
+                
                 //Set Your Parameter
                 let parameterDict = NSMutableDictionary()
                 parameterDict.setValue("editcarinformation", forKey: "action")
@@ -563,8 +624,9 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 parameterDict.setValue(String(cell.txt_vehicle_number.text!), forKey: "carNumber")
                 parameterDict.setValue(String(cell.txt_modal.text!), forKey: "carModel")
                 parameterDict.setValue(String(cell.txt_year.text!), forKey: "carYear")
-                parameterDict.setValue(String(cell.txt_color.text!), forKey: "carColor")
-                parameterDict.setValue(String(cell.txt_brand.text!), forKey: "carBrand")
+                parameterDict.setValue(String(self.strCarColor), forKey: "carColor")
+                parameterDict.setValue(String(self.strCarBrand), forKey: "carBrand")
+                parameterDict.setValue(String(lan), forKey: "language")
                 
                 print(parameterDict as Any)
                 
@@ -884,6 +946,25 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 urlRequest.addValue("application/json",
                                     forHTTPHeaderField: "Accept")
                 
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                 
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
                 //Set Your Parameter
                 let parameterDict = NSMutableDictionary()
                 parameterDict.setValue("addcarinformation", forKey: "action")
@@ -892,8 +973,10 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 parameterDict.setValue(String(cell.txt_vehicle_number.text!), forKey: "carNumber")
                 parameterDict.setValue(String(cell.txt_modal.text!), forKey: "carModel")
                 parameterDict.setValue(String(cell.txt_year.text!), forKey: "carYear")
-                parameterDict.setValue(String(cell.txt_color.text!), forKey: "carColor")
-                parameterDict.setValue(String(cell.txt_brand.text!), forKey: "carBrand")
+                parameterDict.setValue(String(self.strCarColor), forKey: "carColor")
+                parameterDict.setValue(String(self.strCarBrand), forKey: "carBrand")
+                parameterDict.setValue(String(lan), forKey: "language")
+                
                 
                 print(parameterDict as Any)
                 
@@ -1074,10 +1157,30 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                         let defaults = UserDefaults.standard
                         defaults.setValue(JSON["data"], forKey: str_save_login_user_data)
                         
-                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (JSON["msg"] as! String), style: .alert)
-                        let cancel = NewYorkButton(title: "Ok", style: .cancel)
-                        alert.addButtons([cancel])
-                        self.present(alert, animated: true)
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (JSON["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            } else {
+                                let alert = NewYorkAlertController(title: String("সফলতা").uppercased(), message: (JSON["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            }
+                            
+                         
+                        } else {
+                            print("=============================")
+                            print("LOGIN : Select language error")
+                            print("=============================")
+                            UserDefaults.standard.set("en", forKey: str_language_convert)
+                        }
+                        
+                        
                         
                         // self.dismiss(animated: true)
                         
@@ -1176,7 +1279,43 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     
                     RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
                          cell.txt_brand.text = String(selctedText)
+                        self.strCarColor = String(selctedText)
                         
+                        if (cell.txt_color.text == "Aprilia") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Bajaj") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Benelli") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Beetle Bolt") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Hero") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Honda") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Runner") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Keeway") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Yamaha") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Lifan") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "TVS") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Suzuki") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Victor R") {
+                            self.strCarColor = "white"
+                        } else if (cell.txt_color.text == "Walton") {
+                            self.strCarColor = "white"
+                        } else {
+                            self.strCarColor = "white"
+                        }
+                        
+                        
+                        
+                        print(self.strCarColor as Any)
                     }
                 } else {
                     let arr_brand = ["Toyota",
@@ -1191,7 +1330,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     
                     RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
                          cell.txt_brand.text = String(selctedText)
-                        
+                        self.strCarBrand = String(selctedText)
                     }
                 }
                
@@ -1217,8 +1356,61 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                                      "ওয়ালটন",
                     ]
                     
-                    RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
+                    RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
                          cell.txt_brand.text = String(selctedText)
+                        
+                        /*
+                         ["Aprilia",
+                                          "Bajaj",
+                                          "Benelli",
+                                          "Beetle Bolt",
+                                          "Hero",
+                                          "Honda",
+                                          "Runner",
+                                          "Keeway",
+                                          "Yamaha",
+                                          "Lifan",
+                                          "TVS",
+                                          "Suzuki",
+                                          "Victor R",
+                                          "Walton",
+                         ]
+                         */
+                        if (cell.txt_brand.text == "এপ্রিলিয়া") {
+                            self.strCarBrand = "Aprilia"
+                        } else if (cell.txt_brand.text == "বাজাজ") {
+                            self.strCarBrand = "Bajaj"
+                        } else if (cell.txt_brand.text == "বেনেলি") {
+                            self.strCarBrand = "Benelli"
+                        } else if (cell.txt_brand.text == "বিটল বোল্ট") {
+                            self.strCarBrand = "Beetle Bolt"
+                        } else if (cell.txt_brand.text == "হিরো") {
+                            self.strCarBrand = "Hero"
+                        } else if (cell.txt_brand.text == "হোন্ডা") {
+                            self.strCarBrand = "Honda"
+                        } else if (cell.txt_brand.text == "রানার") {
+                            self.strCarBrand = "Runner"
+                        } else if (cell.txt_brand.text == "কেওয়ে") {
+                            self.strCarBrand = "Keeway"
+                        } else if (cell.txt_brand.text == "ইয়ামাহা") {
+                            self.strCarBrand = "Yamaha"
+                        } else if (cell.txt_brand.text == "লাইফান") {
+                            self.strCarBrand = "Lifan"
+                        } else if (cell.txt_brand.text == "টিভি") {
+                            self.strCarBrand = "TVS"
+                        } else if (cell.txt_brand.text == "সুজুকি") {
+                            self.strCarBrand = "Suzuki"
+                        } else if (cell.txt_brand.text == "ভিক্টর আর") {
+                            self.strCarBrand = "Victor R"
+                        } else if (cell.txt_brand.text == "ওয়ালটন") {
+                            self.strCarBrand = "Walton"
+                        } else {
+                            self.strCarBrand = "Walton"
+                        }
+                        
+                        
+                        
+                        print(self.strCarBrand as Any)
                         
                     }
                 } else {
@@ -1234,6 +1426,37 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     
                     RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
                         cell.txt_brand.text = String(selctedText)
+                        
+                        /*
+                         ["Toyota",
+                                          "Honda",
+                                          "Nissan",
+                                          "Suzuki",
+                                          "Hyundai",
+                                          "Audi",
+                                          "BMW",
+                                          "Subaru",
+                         ]
+                         */
+                        if (cell.txt_brand.text == "টয়োটা") {
+                            self.strCarBrand = "Toyota"
+                        } else if (cell.txt_brand.text == "হোন্ডা") {
+                            self.strCarBrand = "Honda"
+                        } else if (cell.txt_brand.text == "নিসান") {
+                            self.strCarBrand = "Nissan"
+                        } else if (cell.txt_brand.text == "সুজুকি") {
+                            self.strCarBrand = "Suzuki"
+                        } else if (cell.txt_brand.text == "হুন্ডাই") {
+                            self.strCarBrand = "Hyundai"
+                        } else if (cell.txt_brand.text == "অডি") {
+                            self.strCarBrand = "Audi"
+                        } else if (cell.txt_brand.text == "বিএমডাব্লু") {
+                            self.strCarBrand = "BMW"
+                        } else if (cell.txt_brand.text == "সুবারু") {
+                            self.strCarBrand = "Subaru"
+                        }
+                        
+                        print(self.strCarBrand as Any)
                         
                     }
                     
@@ -1280,7 +1503,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 
                 RPicker.selectOption(title: "Select color", cancelText: "Cancel", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
                      cell.txt_color.text = String(selctedText)
-                    
+                    self.strCarColor = String(selctedText)
                 }
                 
                 
@@ -1301,8 +1524,54 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 
                 RPicker.selectOption(title: "রঙ নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
                      cell.txt_color.text = String(selctedText)
+                    // strCarColor
+                    if (cell.txt_color.text == "সাদা") {
+                        self.strCarColor = "white"
+                    } else if (cell.txt_color.text == "কালো") {
+                        self.strCarColor = "black"
+                    } else if (cell.txt_color.text == "ধূসর") {
+                        self.strCarColor = "Gray"
+                    } else if (cell.txt_color.text == "রৌপ্য") {
+                        self.strCarColor = "Silver"
+                    } else if (cell.txt_color.text == "লাল") {
+                        self.strCarColor = "Red"
+                    } else if (cell.txt_color.text == "নীল") {
+                        self.strCarColor = "Blue"
+                    } else if (cell.txt_color.text == "হলুদ") {
+                        self.strCarColor = "Yellow"
+                    } else if (cell.txt_color.text == "সবুজ") {
+                        self.strCarColor = "Green"
+                    } else if (cell.txt_color.text == "বেইজ") {
+                        self.strCarColor = "Beige"
+                    } else if (cell.txt_color.text == "স্বর্ণ") {
+                        self.strCarColor = "Gold"
+                    } else if (cell.txt_color.text == "ধাতব ধূসর") {
+                        self.strCarColor = "Metallic Gray"
+                    } else {
+                        self.strCarColor = "Metallic Gray"
+                    }
+                    
+                    print(self.strCarColor as Any)
+                    
                     
                 }
+                
+                /*
+                 ["white",
+                                 "black",
+                                 "Gray",
+                                 "Silver",
+                                 "Red",
+                                 "Blue",
+                                 "Yellow",
+                                 "Green",
+                                 "Beige",
+                                 "Gold",
+                 "Metallic Gray"]
+                 */
+                
+                
+                
                 
                 
             }
@@ -1621,6 +1890,8 @@ class add_vehicle_details_table_cell: UITableViewCell {
             
         }
     }
+    
+    
     
     @IBOutlet weak var btn_brand:UIButton!
     @IBOutlet weak var txt_brand:UITextField! {

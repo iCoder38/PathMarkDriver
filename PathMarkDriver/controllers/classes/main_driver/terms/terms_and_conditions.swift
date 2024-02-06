@@ -19,7 +19,18 @@ class terms_and_conditions: UIViewController {
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-            view_navigation_title.text = "Terms and Condition"
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    view_navigation_title.text = "Terms and Condition"
+                } else {
+                    view_navigation_title.text = "শর্তাবলী"
+                }
+                
+                
+            }
+            
             view_navigation_title.textColor = .white
         }
     }
@@ -27,7 +38,6 @@ class terms_and_conditions: UIViewController {
     @IBOutlet weak var btn_accept:UIButton! {
         didSet {
             btn_accept.setTitleColor(.white, for: .normal)
-            btn_accept.setTitle("Agree and Continue", for: .normal)
             btn_accept.backgroundColor = .systemYellow
         }
     }
@@ -52,6 +62,17 @@ class terms_and_conditions: UIViewController {
         // let request = URLRequest(url: URL(string: "https://zaribbd.com/terms-condition/")!)
         // self.webView?.load(request)
         
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                self.btn_accept.setTitle("Agree and Continue", for: .normal)
+            } else {
+                self.btn_accept.setTitle("একমত এবং অবিরত", for: .normal)
+            }
+            
+        }
+        
         self.btn_accept.setImage(UIImage(named: ""), for: .normal)
         
         self.terms_WB()
@@ -62,29 +83,41 @@ class terms_and_conditions: UIViewController {
         let string = "yes_terms"
         UserDefaults.standard.set(string, forKey: "key_accept_term")
         
-        
-        self.btn_accept.setTitle("Agree and Continue", for: .normal)
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                self.btn_accept.setTitle("Agree and Continue", for: .normal)
+            } else {
+                self.btn_accept.setTitle("একমত এবং অবিরত", for: .normal)
+            }
+            
+        }
         
         self.navigationController?.popViewController(animated: true)
     }
     
     @objc func terms_WB() {
-         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-                } else {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
-                }
-                
-             
+        var lan:String!
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                lan = "en"
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            } else {
+                lan = "bn"
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
             }
+            
+        }
+        
         var parameters:Dictionary<AnyHashable, Any>!
         
         parameters = [
-            "action" : "termAndConditions_user",
-            
+            "action"    : "termAndConditions_user",
+            "language"  : String(lan)
         ]
         
         

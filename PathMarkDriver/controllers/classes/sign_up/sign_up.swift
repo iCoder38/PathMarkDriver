@@ -323,52 +323,144 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             return
             
         }  else if (cell.txtPassword.text! == "") {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter password"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                } else {
+                    
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("পাসওয়ার্ড লিখুন"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                }
+                
+            }
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter password"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
             
             return
             
         }  else if (cell.txt_confirm_password.text! == "") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter confirm password"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter confirm password"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                } else {
+                    
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("নিশ্চিত পাসওয়ার্ড লিখুন দয়া করে"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                }
+                
+            }
+            
+            
             
             return
             
         }  else if (cell.txt_confirm_password.text! != cell.txtPassword.text!) {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Password not matched"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Password not matched"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                } else {
+                    
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("পাসওয়ার্ড মেলেনি"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                }
+                
+            }
+            
+            
             
             return
             
         } else if (cell.txt_country.text! == "") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter country name"), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter country name"), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                } else {
+                    
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_en).uppercased(), message: String("দেশের নাম লিখুন"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_en, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                }
+                
+            }
+            
+            
             
             return
             
         } else if (cell.txt_nid_number.text!.count < 13) {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid NID No."), style: .alert)
-            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-            alert.addButtons([cancel])
-            self.present(alert, animated: true)
-            ERProgressHud.sharedInstance.hide()
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid NID No."), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                } else {
+                    
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_en).uppercased(), message: String("অনুগ্রহ করে বৈধ NID নম্বর লিখুন।"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_en, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                }
+                
+            }
             
             return
             
@@ -411,18 +503,22 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
         }
         
+        var lan:String!
+        
         // self.show_loading_UI()
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-              print(language as Any)
-              
-              if (language == "en") {
-                  ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-              } else {
-                  ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
-              }
-              
-           
-          }
+            print(language as Any)
+            
+            if (language == "en") {
+                lan = "en"
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            } else {
+                lan = "bn"
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+            }
+            
+            
+        }
         
         //Set Your URL
         let api_url = application_base_url
@@ -460,6 +556,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         parameterDict.setValue("", forKey: "longitude")
         parameterDict.setValue("iOS", forKey: "device")
         parameterDict.setValue(String(str_device_token), forKey: "deviceToken")
+        parameterDict.setValue(String(lan), forKey: "language")
         
         print(parameterDict as Any)
         
@@ -559,10 +656,23 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                         
                         UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
                         
-                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
-                        let cancel = NewYorkButton(title: "Ok", style: .cancel)
-                        alert.addButtons([cancel])
-                        self.present(alert, animated: true)
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
+                            
+                            if (language == "en") {
+                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            } else {
+                                let alert = NewYorkAlertController(title: String("সফলতা").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                                let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                            }
+                            
+                             
+                        }
                         
                         // self.hide_loading_UI()
                         ERProgressHud.sharedInstance.hide()
@@ -744,27 +854,64 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     // MARK: - OPEN CAMERA OR GALLERY -
     @objc func open_camera_gallery() {
         
-        let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
-        
-        // actionSheet.addImage(UIImage(named: "camera"))
-        
-        let cameraa = NewYorkButton(title: "Camera", style: .default) { _ in
-            // print("camera clicked done")
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
             
-            self.open_camera_or_gallery(str_type: "c")
+            if (language == "en") {
+                
+                let actionSheet = NewYorkAlertController(title: "Upload pics", message: nil, style: .actionSheet)
+                
+                // actionSheet.addImage(UIImage(named: "camera"))
+                
+                let cameraa = NewYorkButton(title: "Camera", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "c")
+                }
+                
+                let gallery = NewYorkButton(title: "Gallery", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "g")
+                }
+                
+                let cancel = NewYorkButton(title: "Cancel", style: .cancel)
+                
+                actionSheet.addButtons([cameraa, gallery, cancel])
+                
+                self.present(actionSheet, animated: true)
+                
+            } else {
+                
+                let actionSheet = NewYorkAlertController(title: "ছবি আপলোড করুন", message: nil, style: .actionSheet)
+                
+                // actionSheet.addImage(UIImage(named: "camera"))
+                
+                let cameraa = NewYorkButton(title: "ক্যামেরা", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "c")
+                }
+                
+                let gallery = NewYorkButton(title: "গ্যালারি", style: .default) { _ in
+                    // print("camera clicked done")
+                    
+                    self.open_camera_or_gallery(str_type: "g")
+                }
+                
+                let cancel = NewYorkButton(title: "বাতিল করুন", style: .cancel)
+                
+                actionSheet.addButtons([cameraa, gallery, cancel])
+                
+                self.present(actionSheet, animated: true)
+                
+                
+                
+            }
+            
         }
         
-        let gallery = NewYorkButton(title: "Gallery", style: .default) { _ in
-            // print("camera clicked done")
-            
-            self.open_camera_or_gallery(str_type: "g")
-        }
         
-        let cancel = NewYorkButton(title: "Cancel", style: .cancel)
-        
-        actionSheet.addButtons([cameraa, gallery, cancel])
-        
-        self.present(actionSheet, animated: true)
         
     }
     
