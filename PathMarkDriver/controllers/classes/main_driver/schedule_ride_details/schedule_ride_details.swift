@@ -10,6 +10,8 @@ import Alamofire
 
 class schedule_ride_details: UIViewController {
     
+    var str_from_noti:String!
+    
     let serverDateFormatter:DateFormatter = {
         let result = DateFormatter()
         result.dateFormat = "HH:MM"
@@ -18,6 +20,7 @@ class schedule_ride_details: UIViewController {
         return result
     }()
     
+    @IBOutlet weak var btn_back:UIButton!
     var dict_get_upcoming_ride_details:NSDictionary!
     
     @IBOutlet weak var view_navigation:UIView! {
@@ -230,7 +233,41 @@ class schedule_ride_details: UIViewController {
         print(self.dict_get_upcoming_ride_details as Any)
         print("==============================================")
         
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        if (self.str_from_noti == "yes") {
+            self.btn_back.isHidden = false
+            self.btn_back.setImage(UIImage(systemName: "home"), for: .normal)
+            self.btn_back.addTarget(self, action: #selector(home_page), for: .touchUpInside)
+            self.btn_back.tintColor = .white
+            
+        } else {
+            self.btn_back.isHidden = false
+            self.btn_back.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+            self.btn_back.addTarget(self, action: #selector(back_page), for: .touchUpInside)
+            
+        }
         self.parse_data()
+        
+        self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+    }
+    
+    @objc func cancancel_ride_click_method() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
+        myAlert!.dict_booking_details = self.dict_get_upcoming_ride_details
+        myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(myAlert!, animated: true, completion: nil)
+    }
+    
+    @objc func home_page() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
+         self.navigationController?.pushViewController(push, animated: true)
+    }
+    @objc func back_page() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @objc func parse_data() {
@@ -296,9 +333,121 @@ class schedule_ride_details: UIViewController {
                 if (language == "en") {
                     self.lbl_date.text = "Date : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
                     self.lbl_time.text = "Time : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                    
+                    let fullName    = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                    let fullNameArr = fullName.components(separatedBy: ":")
+
+                    let hour    = fullNameArr[0]
+                    let minute = fullNameArr[1]
+                    
+                    var str_am:String! = "am"
+                    var str_pm:String! = "pm"
+                    
+                    var booking_date_and_time_text = ""
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            booking_date_and_time_text = "Time"
+                        } else {
+                            booking_date_and_time_text = "সময়"
+                        }
+                        
+                         
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
+                    
+                    if (hour == "13") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 1:"+minute+str_pm
+                    } else if (hour == "14") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 2:"+minute+str_pm
+                    } else if (hour == "15") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 3:"+minute+str_pm
+                    } else if (hour == "16") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 4:"+minute+str_pm
+                    } else if (hour == "17") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 5:"+minute+str_pm
+                    } else if (hour == "18") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 6:"+minute+str_pm
+                    } else if (hour == "19") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 7:"+minute+str_pm
+                    } else if (hour == "20") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 8:"+minute+str_pm
+                    } else if (hour == "21") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 9:"+minute+str_pm
+                    } else if (hour == "22") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 10:"+minute+str_pm
+                    } else if (hour == "23") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 11:"+minute+str_pm
+                    } else if (hour == "24") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 12:"+minute+str_pm
+                    } else {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)+str_am
+                    }
+                    
                 } else {
                     self.lbl_date.text = "তারিখ : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
                     self.lbl_time.text = "সময় : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                    
+                    let fullName    = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                    let fullNameArr = fullName.components(separatedBy: ":")
+
+                    let hour    = fullNameArr[0]
+                    let minute = fullNameArr[1]
+                    
+                    var str_am:String! = "am"
+                    var str_pm:String! = "pm"
+                    
+                    var booking_date_and_time_text = ""
+                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                        print(language as Any)
+                        
+                        if (language == "en") {
+                            booking_date_and_time_text = "Time"
+                        } else {
+                            booking_date_and_time_text = "সময়"
+                        }
+                        
+                         
+                    } else {
+                        print("=============================")
+                        print("LOGIN : Select language error")
+                        print("=============================")
+                        UserDefaults.standard.set("en", forKey: str_language_convert)
+                    }
+                    
+                    if (hour == "13") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 1:"+minute+str_pm
+                    } else if (hour == "14") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 2:"+minute+str_pm
+                    } else if (hour == "15") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 3:"+minute+str_pm
+                    } else if (hour == "16") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 4:"+minute+str_pm
+                    } else if (hour == "17") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 5:"+minute+str_pm
+                    } else if (hour == "18") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 6:"+minute+str_pm
+                    } else if (hour == "19") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 7:"+minute+str_pm
+                    } else if (hour == "20") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 8:"+minute+str_pm
+                    } else if (hour == "21") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 9:"+minute+str_pm
+                    } else if (hour == "22") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 10:"+minute+str_pm
+                    } else if (hour == "23") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 11:"+minute+str_pm
+                    } else if (hour == "24") {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" 12:"+minute+str_pm
+                    } else {
+                        self.lbl_time.text = "\(booking_date_and_time_text) : "+" "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)+str_am
+                    }
+                    
                 }
                 
             } else {

@@ -70,7 +70,7 @@ class language_splash: UIViewController {
         self.btnSignIn.addTarget(self, action: #selector(sign_in_click_method), for: .touchUpInside)
         
         
-        /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_registration_id") as! success_registration
+        /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_notification_id") as! schedule_notification
         self.navigationController?.pushViewController(push, animated: true)*/
         
         self.remember_me()

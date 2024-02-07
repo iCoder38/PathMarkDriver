@@ -127,26 +127,51 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print("NOTIFICATION FROM SOMEWHERE ELSE")
         } else if (dict["type"] as! String) == "request" {
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  
-            let destinationController = storyboard.instantiateViewController(withIdentifier:"instant_booking_accept_decline_id") as? instant_booking_accept_decline
+            if (dict["bookingTime"] == nil) {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      
+                let destinationController = storyboard.instantiateViewController(withIdentifier:"instant_booking_accept_decline_id") as? instant_booking_accept_decline
+                    
+                destinationController?.dict_get_all_data_from_notification = dict as NSDictionary
                 
-            destinationController?.dict_get_all_data_from_notification = dict as NSDictionary
+                let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+
+                let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+
+                let mainRevealController = SWRevealViewController()
+
+                mainRevealController.rearViewController = rearViewController
+                mainRevealController.frontViewController = frontNavigationController
                 
-            let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+                DispatchQueue.main.async {
+                    UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+                }
+                
+                window?.makeKeyAndVisible()
+            } else {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      
+                let destinationController = storyboard.instantiateViewController(withIdentifier:"schedule_notification_id") as? schedule_notification
+                    
+                destinationController?.dict_get_all_data_from_notification = dict as NSDictionary
+                 
+                let frontNavigationController = UINavigationController(rootViewController: destinationController!)
 
-            let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+                let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
 
-            let mainRevealController = SWRevealViewController()
+                let mainRevealController = SWRevealViewController()
 
-            mainRevealController.rearViewController = rearViewController
-            mainRevealController.frontViewController = frontNavigationController
-            
-            DispatchQueue.main.async {
-                UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+                mainRevealController.rearViewController = rearViewController
+                mainRevealController.frontViewController = frontNavigationController
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+                }
+                
+                window?.makeKeyAndVisible()
             }
+                
             
-            window?.makeKeyAndVisible()
             
         } else if (dict["type"] as! String) == "Payment" {
             

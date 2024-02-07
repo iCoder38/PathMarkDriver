@@ -1,8 +1,8 @@
 //
-//  instant_booking_accept_decline.swift
+//  schedule_notification.swift
 //  PathMarkDriver
 //
-//  Created by Dishant Rajput on 10/08/23.
+//  Created by Dishant Rajput on 07/02/24.
 //
 
 import UIKit
@@ -13,8 +13,8 @@ import Firebase
 import CoreLocation
 import MapKit
 
-class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
-
+class schedule_notification: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
+    
     var dict_get_all_data_from_notification:NSDictionary!
     
     let locationManager = CLLocationManager()
@@ -155,6 +155,24 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         }
     }
     
+    @IBOutlet weak var btn_date:UIButton! {
+        didSet {
+            btn_date.setTitleColor(.white, for: .normal)
+            btn_date.layer.cornerRadius = 14
+            btn_date.clipsToBounds = true
+            btn_date.backgroundColor = UIColor.init(red: 227.0/255.0, green: 230.0/255.0, blue: 244.0/255.0, alpha: 1)
+        }
+    }
+    @IBOutlet weak var btn_time:UIButton! {
+        didSet {
+            btn_time.setTitleColor(.white, for: .normal)
+            btn_time.layer.cornerRadius = 14
+            btn_time.clipsToBounds = true
+            btn_time.backgroundColor = UIColor.init(red: 227.0/255.0, green: 230.0/255.0, blue: 244.0/255.0, alpha: 1)
+        }
+    }
+    
+    
     @IBOutlet weak var btn_distance:UIButton! {
         didSet {
             btn_distance.setTitleColor(.white, for: .normal)
@@ -180,6 +198,40 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     @IBOutlet weak var lbl_est_earn:UILabel!
     @IBOutlet weak var lbl_distance:UILabel!
     
+    @IBOutlet weak var lbl_date:UILabel!
+    @IBOutlet weak var lbl_time:UILabel!
+    
+    @IBOutlet weak var lbl_date_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_date_text.text = "date"//setTitle("date", for: .normal)
+                } else {
+                    lbl_date_text.text = "তারিখ"//.setTitle("তারিখ", for: .normal)
+                }
+                
+                 
+            }
+        }
+    }
+    @IBOutlet weak var lbl_time_text:UILabel!  {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_time_text.text = "time"//.setTitle("time", for: .normal)
+                } else {
+                    lbl_time_text.text = "সময়"//.setTitle("সময়", for: .normal)
+                }
+                
+                
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -188,13 +240,24 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         print(self.dict_get_all_data_from_notification as Any)
         print("==============================================")
         
-        // booking time 
+        // booking time
         
-        self.parse_all_data_and_show_UI()
-        
+        if (self.dict_get_all_data_from_notification != nil) {
+            self.parse_all_data_and_show_UI()
+        }
+         
         self.btn_accept.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
         self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
     }
+    
+    /*@objc func cancancel_ride_click_method() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let myAlert = storyboard.instantiateViewController(withIdentifier: "decline_request_id") as? decline_request
+        myAlert!.dict_booking_details = self.dict_get_all_data_from_notification
+        myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
+        present(myAlert!, animated: true, completion: nil)
+    }*/
     
     @objc func cancancel_ride_click_method() {
         /*let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -222,6 +285,78 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     }
     
     @objc func parse_all_data_and_show_UI() {
+        
+        self.lbl_date.text = (self.dict_get_all_data_from_notification["bookingDate"] as! String)
+        self.lbl_time.text = "\(self.dict_get_all_data_from_notification["bookingTime"]!)"
+        
+        
+        let fullName    = (self.dict_get_all_data_from_notification["bookingTime"] as! String)
+        let fullNameArr = fullName.components(separatedBy: ":")
+
+        let hour    = fullNameArr[0]
+        let minute = fullNameArr[1]
+        
+        var str_am:String! = "am"
+        var str_pm:String! = "pm"
+        
+        var booking_date_and_time_text = ""
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                booking_date_and_time_text = "Time"
+            } else {
+                booking_date_and_time_text = "সময়"
+            }
+            
+             
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        if (hour == "13") {
+            self.lbl_time.text = "1:"+minute+str_pm
+        } else if (hour == "14") {
+            self.lbl_time.text = "2:"+minute+str_pm
+        } else if (hour == "15") {
+            self.lbl_time.text = "3:"+minute+str_pm
+        } else if (hour == "16") {
+            self.lbl_time.text = "4:"+minute+str_pm
+        } else if (hour == "17") {
+            self.lbl_time.text = "5:"+minute+str_pm
+        } else if (hour == "18") {
+            self.lbl_time.text = "6:"+minute+str_pm
+        } else if (hour == "19") {
+            self.lbl_time.text = "7:"+minute+str_pm
+        } else if (hour == "20") {
+            self.lbl_time.text = "8:"+minute+str_pm
+        } else if (hour == "21") {
+            self.lbl_time.text = "9:"+minute+str_pm
+        } else if (hour == "22") {
+            self.lbl_time.text = "10:"+minute+str_pm
+        } else if (hour == "23") {
+            self.lbl_time.text = "11:"+minute+str_pm
+        } else if (hour == "24") {
+            self.lbl_time.text = "12:"+minute+str_pm
+        } else {
+            self.lbl_time.text = ""+(self.dict_get_all_data_from_notification["bookingTime"] as! String)+str_am
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         self.lbl_from.text = (self.dict_get_all_data_from_notification["RequestPickupAddress"] as! String)
         self.lbl_to.text = (self.dict_get_all_data_from_notification["RequestDropAddress"] as! String)
@@ -457,14 +592,11 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
                     print(language as Any)
                     
                     if (language == "en") {
-                         lan = "en"
+                        lan = "en"
                     } else {
                         lan = "bn"
                     }
-                    
-                     
                 }
-                
                 
                 parameters = [
                     "action"        : "driverconfirm",
@@ -540,11 +672,8 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
                                         print("OPEN SCHEDULE DETAILS SCREEN")
                                         
                                         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
-                                        
-                                        push!.dict_get_upcoming_ride_details = self.dict_get_all_data_from_notification
+                                         push!.dict_get_upcoming_ride_details = self.dict_get_all_data_from_notification
                                         push!.str_from_noti = "yes"
-                                        
-                                        
                                         self.navigationController?.pushViewController(push!, animated: true)
                                         
                                     } else {
