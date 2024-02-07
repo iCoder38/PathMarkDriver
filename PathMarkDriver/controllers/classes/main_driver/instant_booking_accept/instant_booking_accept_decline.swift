@@ -184,9 +184,11 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        print("=============================================")
+        print("==============================================")
         print(self.dict_get_all_data_from_notification as Any)
         print("==============================================")
+        
+        // booking time 
         
         self.parse_all_data_and_show_UI()
         
@@ -421,8 +423,8 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     }
     
     @objc func validation_before_accept_booking() {
-
-         self.accept_booking_WB(str_show_loader: "yes")
+        self.accept_booking_WB(str_show_loader: "yes")
+ 
     }
     
     @objc func accept_booking_WB(str_show_loader:String) {
@@ -533,13 +535,26 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
                                     // print("\()")
                                     print("successfully registered in firebase")
                                     
-                                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
-                                    push.str_from_direct_notification = "yes"
-                                    push.get_booking_data_for_pickup = self.dict_get_all_data_from_notification
-                                    self.navigationController?.pushViewController(push, animated: true)
                                     
-                                    ERProgressHud.sharedInstance.hide()
-                                    self.dismiss(animated: true)
+                                    if self.dict_get_all_data_from_notification["bookingTime"] != nil {
+                                        print("OPEN SCHEDULE DETAILS SCREEN")
+                                        
+                                        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
+                                         push!.dict_get_upcoming_ride_details = self.dict_get_all_data_from_notification
+                                        self.navigationController?.pushViewController(push!, animated: true)
+                                        
+                                    } else {
+                                        print("NORMAL BOOKING OPEN")
+                                        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
+                                        push.str_from_direct_notification = "yes"
+                                        push.get_booking_data_for_pickup = self.dict_get_all_data_from_notification
+                                        self.navigationController?.pushViewController(push, animated: true)
+                                        
+                                        ERProgressHud.sharedInstance.hide()
+                                        self.dismiss(animated: true)
+                                    }
+                                    
+                                    
                                 }
                             }
                             

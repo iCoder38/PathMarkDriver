@@ -9,7 +9,15 @@ import UIKit
 import Alamofire
 
 class schedule_ride_details: UIViewController {
-
+    
+    let serverDateFormatter:DateFormatter = {
+        let result = DateFormatter()
+        result.dateFormat = "HH:MM"
+        result.locale = Locale(identifier: "en_US_POSIX")
+        result.timeZone = TimeZone(secondsFromGMT: 0)
+        return result
+    }()
+    
     var dict_get_upcoming_ride_details:NSDictionary!
     
     @IBOutlet weak var view_navigation:UIView! {
@@ -163,16 +171,50 @@ class schedule_ride_details: UIViewController {
     
     @IBOutlet weak var btn_pickup:UIButton! {
         didSet {
-            btn_pickup.setTitle("PICKUP", for: .normal)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_pickup.setTitle("PICKUP", for: .normal)
+                    
+                } else {
+                    btn_pickup.setTitle("পিকআপ", for: .normal)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             btn_pickup.setTitleColor(.white, for: .normal)
             btn_pickup.layer.cornerRadius = 6
             btn_pickup.clipsToBounds = true
             btn_pickup.backgroundColor = UIColor.init(red: 104.0/255.0, green: 218.0/255.0, blue: 134.0/255.0, alpha: 1)
+            btn_pickup.backgroundColor = .systemGray
+            btn_pickup.isUserInteractionEnabled = false
         }
     }
     @IBOutlet weak var btn_decline:UIButton! {
         didSet {
-            btn_decline.setTitle("DECLINE", for: .normal)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_decline.setTitle("DECLINE", for: .normal)
+                    
+                } else {
+                    btn_decline.setTitle("অস্বীকার করুন", for: .normal)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
             btn_decline.setTitleColor(.systemPink, for: .normal)
             btn_decline.layer.cornerRadius = 6
             btn_decline.clipsToBounds = true
@@ -192,48 +234,101 @@ class schedule_ride_details: UIViewController {
     }
     
     @objc func parse_data() {
-        self.lbl_name.text = (self.dict_get_upcoming_ride_details["fullName"] as! String)
+        /*
+         CustomerImage = "https://demo4.evirtualservices.net/pathmark/img/uploads/users/1703176416PLUDIN_1703144035652.png";
+         CustomerName = "biz@1";
+         CustomerPhone = 9865325241;
+         RequestDropAddress = "Sector 10 Dwarka, Dwarka, Delhi, 110075, India";
+         RequestDropLatLong = "28.5849492,77.05828439999999";
+         RequestPickupAddress = "9/1, Block C, Yojna Vihar, Anand Vihar, Ghaziabad, Uttar Pradesh 110092, India ";
+         RequestPickupLatLong = "28.6634225,77.324078";
+         RideCode = 608688;
+         aps =     {
+             alert = "New booking request for Confir or Cancel.";
+         };
+         bookingDate = "02-07-2024";
+         bookingId = 86;
+         bookingTime = "23:00";
+         device = iOS;
+         deviceToken = "c5gz-g9rUEqUs2qZ6PW93c:APA91bF9mr0vAtxGCzJr-_3bSVlPQUWFbfWxmOoUG0sp0VVC-oG4zPgZIT5Wdsy3UeaEwohqAAZbYgLy3R9nF640iEDIfDF4Htpe4CuZqPzdul-qPHCFl-zGeVBtmktw6aHswSrQNgOs";
+         distance = "23.6";
+         duration = "1 hour 6 mins";
+         estimateAmount = "328.2";
+         "gcm.message_id" = 1707296077361223;
+         "google.c.a.e" = 1;
+         "google.c.fid" = "c5gz-g9rUEqUs2qZ6PW93c";
+         "google.c.sender.id" = 750959835757;
+         message = "New booking request for Confir or Cancel.";
+         type = request;
+         */
+        
+        if self.dict_get_upcoming_ride_details["fullName"] == nil {
+            self.lbl_name.text = (self.dict_get_upcoming_ride_details["CustomerName"] as! String)
+        } else {
+            self.lbl_name.text = (self.dict_get_upcoming_ride_details["fullName"] as! String)
+        }
         
         self.lbl_to.text = (self.dict_get_upcoming_ride_details["RequestDropAddress"] as! String)
         self.lbl_from.text = (self.dict_get_upcoming_ride_details["RequestPickupAddress"] as! String)
         
-        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-            print(language as Any)
-            
-            if (language == "en") {
-                self.lbl_date.text = "Date : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
-                self.lbl_time.text = "Time : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+        if self.dict_get_upcoming_ride_details["bookingTime"] == nil {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    self.lbl_date.text = "Date : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+                    // self.lbl_time.text = "Time : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                } else {
+                    self.lbl_date.text = "তারিখ : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+                    // self.lbl_time.text = "সময় : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                }
+                
             } else {
-                self.lbl_date.text = "তারিখ : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
-                self.lbl_time.text = "সময় : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
             }
-            
         } else {
-            print("=============================")
-            print("LOGIN : Select language error")
-            print("=============================")
-            UserDefaults.standard.set("en", forKey: str_language_convert)
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    self.lbl_date.text = "Date : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+                    self.lbl_time.text = "Time : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                } else {
+                    self.lbl_date.text = "তারিখ : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+                    self.lbl_time.text = "সময় : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
         }
         
+        // self.lbl_time.text = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+        // self.lbl_time.text = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)
         
-        
-        
-        self.lbl_time.text = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)
-        self.lbl_time.text = (self.dict_get_upcoming_ride_details["bookingTime"] as! String)
         self.lbl_car.text = "0000\(self.dict_get_upcoming_ride_details["bookingId"]!)"
         
-        if "\(self.dict_get_upcoming_ride_details["rideStatus"]!)" == "4" {
-            self.btn_pickup.isHidden = true
-            self.btn_decline.isHidden = true
+        if (self.dict_get_upcoming_ride_details["rideStatus"] == nil) {
+            
         } else {
-            self.btn_pickup.isHidden = false
-            self.btn_decline.isHidden = false
+            
+            if "\(self.dict_get_upcoming_ride_details["rideStatus"]!)" == "4" {
+                self.btn_pickup.isHidden = true
+                self.btn_decline.isHidden = true
+            } else {
+                self.btn_pickup.isHidden = false
+                self.btn_decline.isHidden = false
+            }
+            
         }
-        // self.btn_pickup.addTarget(self, action: #selector(compare_date_is_today), for: .touchUpInside)
-        // self.lbl_.text = (self.dict_get_upcoming_ride_details["RequestPickupAddress"] as! String)
-        // compare date
+       
         self.compare_date_is_today()
-        
         self.get_fare_and_distance(str_show_loader: "yes")
     }
     
@@ -242,7 +337,7 @@ class schedule_ride_details: UIViewController {
         
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "MM-dd-yyyy"
         let stringDate = String(dateString)
         if let date = dateFormatter.date(from: stringDate) {
             if date.isInThePast {
@@ -252,25 +347,74 @@ class schedule_ride_details: UIViewController {
                 self.btn_pickup.isUserInteractionEnabled = false
             } else if date.isInToday {
                 print("Date is today")
-                self.btn_pickup.addTarget(self, action: #selector(pick_up), for: .touchUpInside)
+                self.check_time_validation()
             } else {
                 print("Date is future")
                 self.btn_pickup.backgroundColor = .systemGray
                 self.btn_pickup.isUserInteractionEnabled = false
             }
+        } else {
+            print("DATE FORMAT IS NOT CORRECT. PLEASE CHECK AGAIN")
         }
+        
+        //
+        
+        //
     }
     
+    // time 10 min
+    
+    @objc func check_time_validation() {
+        print("date is today and pickup")
+       
+        let string = "\(self.dict_get_upcoming_ride_details["bookingTime"]!)"
+        // let string = "14:22"
+
+        // set time format from server time
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let date = dateFormatter.date(from: string)
+        
+        // minus 10 minutes from it
+        let addminutes = date!.addingTimeInterval(-9*60)
+        dateFormatter.dateFormat = "HH:mm"
+        let after_add_time = dateFormatter.string(from: addminutes)
+        
+        if Date.getCurrentDate() > after_add_time {
+            print("YES, GOOD TO GO")
+            self.btn_pickup.backgroundColor = UIColor.init(red: 104.0/255.0, green: 218.0/255.0, blue: 134.0/255.0, alpha: 1)
+            self.btn_pickup.isUserInteractionEnabled = true
+            
+            self.btn_pickup.addTarget(self, action: #selector(pick_up), for: .touchUpInside)
+            
+        } else {
+            print("NO PICKUP")
+            self.btn_pickup.backgroundColor = .systemGray
+            self.btn_pickup.isUserInteractionEnabled = false
+        }
+      
+    }
     @objc func pick_up() {
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
-        push.str_from_direct_notification = "no"
-        push.get_booking_data_for_pickup = self.dict_get_upcoming_ride_details
-        self.navigationController?.pushViewController(push, animated: true)
+         push.str_from_direct_notification = "no"
+         push.get_booking_data_for_pickup = self.dict_get_upcoming_ride_details
+         self.navigationController?.pushViewController(push, animated: true)
     }
+     
     @objc func get_fare_and_distance(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                }
+                
+                
+            }
         }
         
         
@@ -297,12 +441,31 @@ class schedule_ride_details: UIViewController {
                     "token":String(token_id_is),
                 ]
                 
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
                 parameters = [
                     "action"        : "getprice",
                     "userId"        : String(myString),
                     "pickuplatLong" : (self.dict_get_upcoming_ride_details["RequestPickupLatLong"] as! String),
                     "droplatLong"   : (self.dict_get_upcoming_ride_details["RequestDropLatLong"] as! String),
-                    "categoryId"    : "1"
+                    "categoryId"    : "1",
+                    "language"      : String(lan)
                      
                 ]
                 
@@ -337,6 +500,8 @@ class schedule_ride_details: UIViewController {
                             
                             self.lbl_total_fare.text = "\(str_bangladesh_currency_symbol) \(dict["total"]!)"
                             self.lbl_total_distance.text = "\(dict["distance"]!) KM"
+                            
+                            
                             
                             ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)
@@ -430,9 +595,24 @@ class schedule_ride_details: UIViewController {
      */
 }
 extension Date {
+    func getFormattedDate(format: String) -> String {
+         let dateformat = DateFormatter()
+         dateformat.dateFormat = format
+         return dateformat.string(from: self)
+     }
+    
+    static func getCurrentDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: Date())
+    }
+    
+    
     static var noon: Date { Date().noon }
     var noon: Date { Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)! }
     var isInToday: Bool { Calendar.current.isDateInToday(self) }
     var isInThePast: Bool { noon < .noon }
     var isInTheFuture: Bool { noon > .noon }
 }
+
+ 

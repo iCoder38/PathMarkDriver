@@ -968,6 +968,10 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                     self.navigationController?.pushViewController(push!, animated: true)
                 }
                 
+            } else if "\(item!["rideStatus"]!)" == "1" {
+                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
+                 push!.dict_get_upcoming_ride_details = (item! as NSDictionary)
+                self.navigationController?.pushViewController(push!, animated: true)
             }
             
             

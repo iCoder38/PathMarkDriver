@@ -90,12 +90,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
         
         let defaults = UserDefaults.standard
+        
         // deviceToken
-//                defaults.set("\(token)", forKey: "deviceToken")
+        // defaults.set("\(token)", forKey: "deviceToken")
+        
         defaults.set("\(fcmToken!)", forKey: "key_my_device_token")
         
-         print("\(fcmToken!)")
-        
+        print("\(fcmToken!)")
         
     }
 
