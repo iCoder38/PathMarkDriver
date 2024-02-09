@@ -78,6 +78,11 @@ struct payload_country_list: Encodable {
     let action :String
 }
 
+struct payload_country_list_two: Encodable {
+    let action :String
+    let language :String
+}
+
 struct payload_verify_OTP: Encodable {
     let action :String
     let userId :String

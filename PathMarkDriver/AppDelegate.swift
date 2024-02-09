@@ -180,7 +180,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let destinationController = storyboard.instantiateViewController(withIdentifier:"success_id") as? success
                 
              destinationController?.get_done_payment_details_from_notificaion = dict as NSDictionary
-                
+            // destinationController?.str_from_noti = "yes"
             let frontNavigationController = UINavigationController(rootViewController: destinationController!)
 
             let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC

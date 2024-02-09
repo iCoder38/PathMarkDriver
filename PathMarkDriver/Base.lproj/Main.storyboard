@@ -5497,6 +5497,7 @@
                         <outlet property="lbl_car" destination="eyA-DE-NR5" id="Wuk-ga-AJQ"/>
                         <outlet property="lbl_date" destination="W3L-y7-IS7" id="ox5-vO-8eq"/>
                         <outlet property="lbl_from" destination="ZQN-Fq-WHl" id="jEZ-B2-EFD"/>
+                        <outlet property="lbl_message" destination="dfc-Ue-mca" id="5ut-G2-oX1"/>
                         <outlet property="lbl_name" destination="RjX-dY-rHD" id="60L-xf-MuC"/>
                         <outlet property="lbl_phone" destination="JDK-R7-ULR" id="e6X-hA-knm"/>
                         <outlet property="lbl_time" destination="rxb-hl-DnZ" id="gqa-zS-R2R"/>
@@ -10458,10 +10459,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yhw-cy-Gm6">
-                                <rect key="frame" x="0.0" y="773" width="393" height="79"/>
+                                <rect key="frame" x="0.0" y="770" width="393" height="82"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="1KU-ek-by7" customClass="GrowingTextView" customModule="GrowingTextView">
-                                        <rect key="frame" x="50" y="8" width="303" height="30"/>
+                                        <rect key="frame" x="50" y="8" width="303" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -10575,7 +10576,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4V6-MV-pl7">
-                                <rect key="frame" x="0.0" y="88" width="393" height="685"/>
+                                <rect key="frame" x="0.0" y="88" width="393" height="682"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellOne" rowHeight="70" id="Rop-hu-JS0" customClass="BooCheckTableCell" customModule="PathMarkDriver" customModuleProvider="target">

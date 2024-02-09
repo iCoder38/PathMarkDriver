@@ -51,6 +51,27 @@ class schedule_ride_details: UIViewController {
         }
     }
     
+    @IBOutlet weak var lbl_message:UILabel!  {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_message.text = "You have confirmed a schedule ride with passenger. Pickup button will be activated before 10 minute of the schedule ride time."
+                    
+                } else {
+                    lbl_message.text = "আপনি যাত্রীর সাথে একটি শিডিউল রাইড নিশ্চিত করেছেন। পিকআপ বোতামটি শিডিউল রাইডের সময় 10 মিনিটের আগে সক্রিয় করা হবে।"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
     @IBOutlet weak var lbl_name:UILabel!
     @IBOutlet weak var lbl_phone:UILabel!
     

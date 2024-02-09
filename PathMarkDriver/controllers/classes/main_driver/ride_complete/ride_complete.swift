@@ -170,6 +170,41 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
         
         print(self.get_booking_data_for_end_ride as Any)
         
+        /*
+         
+         */
+        /*
+         Optional({
+             CustomerImage = "https://demo4.evirtualservices.net/pathmark/img/uploads/users/1703176416PLUDIN_1703144035652.png";
+             CustomerName = "biz@1";
+             CustomerPhone = 9865325241;
+             RequestDropAddress = "Dwarka Sector 10 Metro Station Dwarka Sector 10 Metro Station";
+             RequestDropLatLong = "28.5811442,77.0574403";
+             RequestPickupAddress = "Sector 10 Dwarka, South West Delhi New Delhi, India - 110075";
+             RequestPickupLatLong = "28.58723476883466,77.06057780713161";
+             RideCode = 632009;
+             aps =     {
+                 alert = "New booking request for Confir or Cancel.";
+             };
+             bookingDate = "12-31-1969";
+             bookingId = 140;
+             device = iOS;
+             deviceToken = "c5gz-g9rUEqUs2qZ6PW93c:APA91bF9mr0vAtxGCzJr-_3bSVlPQUWFbfWxmOoUG0sp0VVC-oG4zPgZIT5Wdsy3UeaEwohqAAZbYgLy3R9nF640iEDIfDF4Htpe4CuZqPzdul-qPHCFl-zGeVBtmktw6aHswSrQNgOs";
+             distance = "0.8";
+             duration = "4 mins";
+             estimateAmount = "54.6";
+             "gcm.message_id" = 1707466258089135;
+             "google.c.a.e" = 1;
+             "google.c.fid" = "c5gz-g9rUEqUs2qZ6PW93c";
+             "google.c.sender.id" = 750959835757;
+             message = "New booking request for Confir or Cancel.";
+             type = request;
+         })
+         */
+        //
+        UserDefaults.standard.set((self.get_booking_data_for_end_ride["RequestDropAddress"]!), forKey: "key_save_RequestDropAddress")
+        UserDefaults.standard.set((self.get_booking_data_for_end_ride["RequestPickupAddress"]!), forKey: "key_save_RequestPickupAddress")
+        
         if (self.get_booking_data_for_end_ride["distance"] == nil) {
             self.btn_distance.setTitle("\(self.get_booking_data_for_end_ride["totalDistance"]!)", for: .normal)
             self.lbl_distance.text = "\(self.get_booking_data_for_end_ride["totalDistance"]!)"

@@ -32,6 +32,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
     var arr_country_array:NSArray!
     
     var str_country_name:String!
+    var str_country_id:String!
     
     var str_user_select_image:String! = "0"
     var img_data_banner : Data!
@@ -81,6 +82,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         sideBarMenu()
         //
+        // profileWB()
         self.get_country_list_WB()
         
     }
@@ -99,6 +101,125 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
+    }
+    
+    @objc func profileWB() {
+        
+        self.view.endEditing(true)
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            } else {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+            }
+            
+            
+        }
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            var lan:String!
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lan = "en"
+                } else {
+                    lan = "bn"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            let params = payload_profile_one(action: "profile",
+                                             userId: String(myString),
+                                             language: String(lan))
+            
+            
+            
+            print(params as Any)
+            
+            AF.request(application_base_url,
+                       method: .post,
+                       parameters: params,
+                       encoder: JSONParameterEncoder.default).responseJSON { response in
+                // debugPrint(response.result)
+                
+                switch response.result {
+                case let .success(value):
+                    
+                    let JSON = value as! NSDictionary
+                    print(JSON as Any)
+                    
+                    var strSuccess : String!
+                    strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                    
+                    print(strSuccess as Any)
+                    if strSuccess == String("success") {
+                        print("yes")
+                        
+                        self.arr_country_array = (JSON["data"] as! NSArray)
+                        
+                        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                            print(person)
+                            
+                            // cell.txt_phone_code.text = (person["countryCode"] as! String)
+                            for indexx in 0..<self.arr_country_array.count {
+                                
+                                let item = self.arr_country_array[indexx] as? [String:Any]
+                                print(item as Any)
+                                
+                                if ( "\(person["countryCode"]!)" == "\(item!["phonecode"]!)") {
+                                    print("yes matched")
+                                    print(item!["phonecode"] as! String)
+                                    
+                                    // cell.txt_phone_code.text = (item!["phonecode"] as! String)
+                                    self.str_country_name = (item!["name"] as! String)
+                                }
+                                
+                            }
+                        }
+                        
+                        ERProgressHud.sharedInstance.hide()
+                        self.tbleView.delegate = self
+                        self.tbleView.dataSource = self
+                        self.tbleView.reloadData()
+                        
+                    } else {
+                        
+                        print("no")
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        var strSuccess2 : String!
+                        strSuccess2 = JSON["msg"]as Any as? String
+                        
+                        let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                        let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                        alert.addButtons([cancel])
+                        self.present(alert, animated: true)
+                        
+                    }
+                    
+                case let .failure(error):
+                    print(error)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                    self.please_check_your_internet_connection()
+                    
+                }
+            }
+        }
     }
     
     // get country list
@@ -145,12 +266,12 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                     
                     if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
                         print(person)
-                        
+                        self.str_country_id = "\(person["countryId"]!)"
                         // cell.txt_phone_code.text = (person["countryCode"] as! String)
                         for indexx in 0..<self.arr_country_array.count {
                             
                             let item = self.arr_country_array[indexx] as? [String:Any]
-                            // print(item as Any)
+                             print(item as Any)
                             
                             if ( "\(person["countryCode"]!)" == "\(item!["phonecode"]!)") {
                                 print("yes matched")
@@ -503,6 +624,8 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                     
                     if (cell.txt_country.text! == (item!["name"] as! String)) {
                         print("yes matched")
+                        
+                        self.str_country_id = "\(item!["id"]!)"
                         cell.txt_phone_code.text = (item!["phonecode"] as! String)
                     }
                     
@@ -799,6 +922,9 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                 parameterDict.setValue("Driver", forKey: "role")
                 parameterDict.setValue(String(cell.txt_nid_number.text!), forKey: "INDNo")
                 parameterDict.setValue(String(cell.txt_address.text!), forKey: "address")
+                
+                parameterDict.setValue(String(self.str_country_id), forKey: "countryId")
+                
                 // parameterDict.setValue("", forKey: "latitude")
                 // parameterDict.setValue("", forKey: "longitude")
                 // parameterDict.setValue("iOS", forKey: "device")
@@ -1050,7 +1176,9 @@ extension edit_profile: UITableViewDataSource  , UITableViewDelegate {
             cell.txt_phone_number.text = (person["contactNumber"] as! String)
             cell.txt_phone_code.text = "\(person["countryCode"]!)"
             cell.txt_address.text = (person["address"] as! String)
-            // cell.txt_country.text = String(self.str_country_name)
+            cell.txt_country.text = (person["countryName"] as! String)
+            
+            
             
             var ar : NSArray!
             ar = (person["carinfromation"] as! Array<Any>) as NSArray
@@ -1065,16 +1193,34 @@ extension edit_profile: UITableViewDataSource  , UITableViewDelegate {
             cell.txt_car_type.isUserInteractionEnabled = false
             cell.txt_car_type.text = (item!["categoryName"] as! String)
             
-            if (item!["categoryName"] as! String) == "Sedan" {
+            /*if (item!["categoryName"] as! String) == "Sedan" {
+                cell.img_car_type.image = UIImage(named: "car_1")
+            } else if (item!["categoryName"] as! String) == "SEDAN" {
                 cell.img_car_type.image = UIImage(named: "car_1")
             } else if (item!["categoryName"] as! String) == "Luxury" {
                 cell.img_car_type.image = UIImage(named: "car_1")
+            } else if (item!["categoryName"] as! String) == "LUXURY" {
+                cell.img_car_type.image = UIImage(named: "car_1")
             } else if (item!["categoryName"] as! String) == "Economy" {
+                cell.img_car_type.image = UIImage(named: "car_1")
+            } else if (item!["categoryName"] as! String) == "ECONOMY" {
+                cell.img_car_type.image = UIImage(named: "car_1")
+            } else if (item!["categoryName"] as! String) == "ECONOMY" {
+                cell.img_car_type.image = UIImage(named: "car_1")
+            } else if (item!["categoryName"] as! String) == "ECONOMY" {
                 cell.img_car_type.image = UIImage(named: "car_1")
             } else if (item!["categoryName"] as! String) == "SUV" {
                 cell.img_car_type.image = UIImage(named: "car_1")
             } else {
                 cell.img_car_type.image = UIImage(named: "bike_1")
+            }*/
+            
+            if (item!["categoryName"] as! String) == "BIKE" {
+                cell.img_car_type.image = UIImage(named: "bike_1")
+            } else if (item!["categoryName"] as! String) == "Bike" {
+                cell.img_car_type.image = UIImage(named: "bike_1")
+            }else {
+                cell.img_car_type.image = UIImage(named: "car_1")
             }
             
             cell.img_upload.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge

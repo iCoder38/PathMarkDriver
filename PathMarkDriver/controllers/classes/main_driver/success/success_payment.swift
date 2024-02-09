@@ -10,6 +10,8 @@ import Alamofire
 
 class success_payment: UIViewController {
 
+    
+    
     var str_show_total_price:String!
     
     var get_booking_details:NSDictionary!
@@ -200,6 +202,8 @@ class success_payment: UIViewController {
                 
                 var reviewTo:String!
                 
+                print(self.get_booking_details as Any)
+                
                 if (self.get_booking_details["driverId"] == nil) {
                     reviewTo = "\(self.get_booking_details["userId"]!)"
                 } else {
@@ -365,9 +369,30 @@ extension success_payment: UITableViewDataSource , UITableViewDelegate {
 
         cell.backgroundColor = .clear
         
-        cell.lbl_from.text = (self.get_booking_details["RequestPickupAddress"] as! String)
-        cell.lbl_to.text = (self.get_booking_details["RequestDropAddress"] as! String)
+        if let language = UserDefaults.standard.string(forKey: "key_save_RequestDropAddress") {
+            print(language as Any)
+            
+            if let language2 = UserDefaults.standard.string(forKey: "key_save_RequestPickupAddress") {
+                print(language2 as Any)
+                cell.lbl_from.text = String(language2)
+                cell.lbl_to.text = String(language)
+            }
+            
+        } else {
+            cell.lbl_from.text = (self.get_booking_details["RequestPickupAddress"] as! String)
+            cell.lbl_to.text = (self.get_booking_details["RequestDropAddress"] as! String)
+        }
         
+        UserDefaults.standard.set(nil, forKey: "key_save_RequestDropAddress")
+        UserDefaults.standard.set(nil, forKey: "key_save_RequestPickupAddress")
+        
+        /*if (self.str_from_noti == "yes") {
+            cell.lbl_from.text = (self.get_booking_details["Actual_Drop_Address"] as! String)
+            cell.lbl_to.text = (self.get_booking_details["Actual_PickupAddress"] as! String)
+        } else {
+            cell.lbl_from.text = (self.get_booking_details["RequestPickupAddress"] as! String)
+            cell.lbl_to.text = (self.get_booking_details["RequestDropAddress"] as! String)
+        }*/
         cell.btn_star_one.addTarget(self, action: #selector(one_click_method), for: .touchUpInside)
         cell.btn_star_two.addTarget(self, action: #selector(two_click_method), for: .touchUpInside)
         cell.btn_star_three.addTarget(self, action: #selector(three_click_method), for: .touchUpInside)

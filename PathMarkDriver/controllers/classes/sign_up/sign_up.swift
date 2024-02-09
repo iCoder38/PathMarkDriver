@@ -34,6 +34,8 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     var img_data_banner : Data!
     var img_Str_banner : String!
     
+    var str_country_id:String! = "18"
+    
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
             view_navigation_bar.backgroundColor = navigation_color
@@ -95,7 +97,21 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
            
           }
         
-        let params = payload_country_list(action: "countrylist")
+        var lan:String!
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                lan = "en"
+            } else {
+                lan = "bn"
+            }
+            
+            
+        }
+        
+        let params = payload_country_list_two(action: "countrylist",language: String(lan))
         
         print(params as Any)
         
@@ -118,8 +134,11 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                 if strSuccess == String("success") {
                     print("yes")
                     ERProgressHud.sharedInstance.hide()
+                    
+                    
                     self.arr_country_array = (JSON["data"] as! NSArray)
                     
+                    // self.country_click_method()
                     // self.country_click_method()
                     
                 } else {
@@ -471,7 +490,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                 
                 if (self.arr_country_array == nil) {
                     phone_number_code = "+880"
-                    // self.str_country_id = "18"
+                    self.str_country_id = "18"
                 } else {
                     
                     for indexx in 0..<self.arr_country_array.count {
@@ -557,6 +576,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         parameterDict.setValue("iOS", forKey: "device")
         parameterDict.setValue(String(str_device_token), forKey: "deviceToken")
         parameterDict.setValue(String(lan), forKey: "language")
+        parameterDict.setValue(String(self.str_country_id), forKey: "countryId")
         
         print(parameterDict as Any)
         
@@ -719,7 +739,8 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     }
     
     @objc func before_open_popup() {
-        self.get_country_list_WB()
+        // self.get_country_list_WB()
+        self.country_click_method()
     }
     @objc func country_click_method() {
         let indexPath = IndexPath.init(row: 0, section: 0)
@@ -749,10 +770,12 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                 for indexx in 0..<self.arr_country_array.count {
                     
                     let item = self.arr_country_array[indexx] as? [String:Any]
-                    // print(item as Any)
+                     print(item as Any)
                     
                     if (cell.txt_country.text! == (item!["name"] as! String)) {
                         print("yes matched")
+                        print(item as Any)
+                        self.str_country_id = "\(item!["id"]!)"
                         cell.txt_phone_code.text = (item!["phonecode"] as! String)
                     }
                     
