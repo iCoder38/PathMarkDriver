@@ -1,0 +1,6 @@
+framework module RealTimePicker {
+  umbrella header "RealTimePicker-umbrella.h"
+
+  export *
+  module * { export * }
+}
