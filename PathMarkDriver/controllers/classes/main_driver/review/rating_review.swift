@@ -290,7 +290,8 @@ extension rating_review: UITableViewDataSource , UITableViewDelegate {
         let item = self.arr_earnings[indexPath.row] as? [String:Any]
         cell.lbl_user_name.text = "\(item!["userName"]!)"
         // cell.lbl_distance.text = "\(item!["totalDistance"]!)"
-         cell.lbl_time.text = "\(item!["message"]!)"
+         cell.lbl_time.text = "\(item!["created"]!)"
+        cell.lbl_message.text = "\(item!["message"]!)"
         
         cell.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
         cell.img_profile.sd_setImage(with: URL(string: (item!["profile_picture"] as! String)), placeholderImage: UIImage(named: "logo33"))
@@ -377,16 +378,22 @@ extension rating_review: UITableViewDataSource , UITableViewDelegate {
             print(language as Any)
             
             if (language == "en") {
-                let alert = NewYorkAlertController(title: String("Message").uppercased(), message: "\(item!["message"]!)", style: .alert)
-                let cancel = NewYorkButton(title: "OK", style: .cancel)
-                alert.addButtons([cancel])
-                self.present(alert, animated: true)
+                
+                if "\(item!["message"]!)" != "" {
+                    let alert = NewYorkAlertController(title: String("Message").uppercased(), message: "\(item!["message"]!)", style: .alert)
+                    let cancel = NewYorkButton(title: "OK", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                }
+                
                 
             } else {
-                let alert = NewYorkAlertController(title: String("বার্তা").uppercased(), message: "\(item!["message"]!)", style: .alert)
-                let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
-                alert.addButtons([cancel])
-                self.present(alert, animated: true)
+                if "\(item!["message"]!)" != "" {
+                    let alert = NewYorkAlertController(title: String("বার্তা").uppercased(), message: "\(item!["message"]!)", style: .alert)
+                    let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                }
             }
             
         } else {
@@ -433,6 +440,7 @@ class rating_review_table_cell: UITableViewCell {
     @IBOutlet weak var lbl_distance:UILabel!
     @IBOutlet weak var lbl_distance_text:UILabel!
     @IBOutlet weak var lbl_time:UILabel!
+    @IBOutlet weak var lbl_message:UILabel!
     
     @IBOutlet weak var img_star_one:UIImageView! {
         didSet {

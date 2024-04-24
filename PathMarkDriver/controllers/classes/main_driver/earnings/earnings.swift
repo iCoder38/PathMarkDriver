@@ -15,6 +15,9 @@ class earnings: UIViewController {
     
     var arr_earnings:NSMutableArray! = []
     
+    var page : Int! = 1
+    var loadMore : Int! = 1;
+    
     @IBOutlet weak var btn_back:UIButton! {
         didSet {
             btn_back.tintColor = .white
@@ -81,6 +84,16 @@ class earnings: UIViewController {
             }
         }
     }
+    @IBOutlet weak var btn_cashout:UIButton! {
+        didSet {
+            btn_cashout.layer.cornerRadius = 12
+            btn_cashout.clipsToBounds = true
+            btn_cashout.backgroundColor = navigation_color
+            btn_cashout.setTitle("Cashout", for: .normal)
+            btn_cashout.setTitleColor(.white, for: .normal)
+        }
+    }
+    
     @IBOutlet weak var btn_week:UIButton! {
         didSet {
             btn_week.setTitleColor(.black, for: .normal)
@@ -122,6 +135,42 @@ class earnings: UIViewController {
     @IBOutlet weak var lbl_completed_trips:UILabel!
     @IBOutlet weak var lbl_completed_trips_text:UILabel!
     
+    @IBOutlet weak var lbl_total_earning:UILabel!
+    @IBOutlet weak var lbl_day:UILabel!
+    
+    @IBOutlet weak var btn_drop:UIButton!
+    
+    @IBOutlet weak var view_one:UIView! {
+        didSet {
+            view_one.layer.cornerRadius = 2
+            view_one.clipsToBounds = true
+            view_one.dropShadow()
+        }
+    }
+    @IBOutlet weak var view_two:UIView! {
+        didSet {
+            view_two.layer.cornerRadius = 2
+            view_two.clipsToBounds = true
+            view_two.dropShadow()
+        }
+    }
+    @IBOutlet weak var view_3:UIView! {
+        didSet {
+            view_3.layer.cornerRadius = 2
+            view_3.clipsToBounds = true
+            view_3.dropShadow()
+        }
+    }
+    @IBOutlet weak var view_4:UIView! {
+        didSet {
+            view_4.layer.cornerRadius = 2
+            view_4.clipsToBounds = true
+            view_4.dropShadow()
+        }
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -148,14 +197,22 @@ class earnings: UIViewController {
         
         self.sideBarMenu()
         
-        self.lbl_today_line.isHidden = false
-        self.lbl_week_line.isHidden = true
+        // self.lbl_today_line.isHidden = false
+        // self.lbl_week_line.isHidden = true
         
-        self.btn_today.addTarget(self, action: #selector(today_earning_click_method), for: .touchUpInside)
-        self.btn_week.addTarget(self, action: #selector(weekly_earning_click_method), for: .touchUpInside)
+        // self.btn_today.addTarget(self, action: #selector(today_earning_click_method), for: .touchUpInside)
+        // self.btn_week.addTarget(self, action: #selector(weekly_earning_click_method), for: .touchUpInside)
         
-        self.str_user_select = "TODAY"
-        self.earning_history(str_show_loader: "yes")
+        self.btn_drop.addTarget(self, action: #selector(days_drop), for: .touchUpInside)
+        self.btn_cashout.addTarget(self, action: #selector(cashout_click_method), for: .touchUpInside)
+        
+        self.lbl_day.text = "TODAY"
+        self.earning_history(str_show_loader: "yes", pageNumber: 1)
+    }
+    
+    @objc func cashout_click_method() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "cashout_id") as! cashout
+        self.navigationController?.pushViewController(push, animated: true)
     }
     
     @objc func sideBarMenu() {
@@ -176,7 +233,7 @@ class earnings: UIViewController {
         
         self.arr_earnings.removeAllObjects()
         self.str_user_select = "TODAY"
-        self.earning_history(str_show_loader: "yes")
+        // self.earning_history(str_show_loader: "yes")
     }
     
     @objc func weekly_earning_click_method() {
@@ -185,10 +242,28 @@ class earnings: UIViewController {
         
         self.arr_earnings.removeAllObjects()
         self.str_user_select = "WEEK"
-        self.earning_history(str_show_loader: "yes")
+        // self.earning_history(str_show_loader: "yes", pageNumber: 1)
     }
     
-    @objc func earning_history(str_show_loader:String) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+                
+        if scrollView == self.tbleView {
+            let isReachingEnd = scrollView.contentOffset.y >= 0
+                && scrollView.contentOffset.y >= (scrollView.contentSize.height - scrollView.frame.size.height)
+            if(isReachingEnd) {
+                if(loadMore == 1) {
+                    loadMore = 0
+                    page += 1
+                    print(page as Any)
+                    
+                    self.earning_history(str_show_loader: "no", pageNumber: page)
+                    
+                }
+            }
+        }
+    }
+    
+    @objc func earning_history(str_show_loader:String,pageNumber: Int) {
         
         if (str_show_loader == "yes") {
             ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
@@ -215,7 +290,8 @@ class earnings: UIViewController {
                     "action"    : "earninghistory",
                     "userId"    : String(myString),
                     "usertype"  : String("Driver"),
-                    "reportType"  : String(self.str_user_select),
+                    "reportType"  : String(self.lbl_day.text!),
+                    "pageNo"    : pageNumber
                 ]
                 
                 print(parameters as Any)
@@ -252,9 +328,11 @@ class earnings: UIViewController {
                              totalDriverAmount = "644.02";
                              totalRide = 15;
                              */
-                            self.lbl_my_earnings.text = "\(JSON["totalDriverAmount"]!)"
+                            self.lbl_my_earnings.text = "\(JSON["totalRide"]!)"
                             // self.lbl_spend_time.text = "n.a."// "\(JSON["msg"]!)"
-                            self.lbl_completed_trips.text = "\(JSON["totalRide"]!)"
+                            self.lbl_completed_trips.text = "\(JSON["totalRide_conditon"]!)"
+                            self.lbl_total_earning.text = "\(str_bangladesh_currency_symbol) \(JSON["totalDriverAmount"]!)"
+                            self.lbl_total_earning.textColor = .systemGreen
                             
                             var ar : NSArray!
                             ar = (JSON["data"] as! Array<Any>) as NSArray
@@ -265,6 +343,7 @@ class earnings: UIViewController {
                             self.tbleView.delegate = self
                             self.tbleView.dataSource = self
                             self.tbleView.reloadData()
+                            self.loadMore = 1
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_wb()
@@ -310,7 +389,7 @@ class earnings: UIViewController {
             
             print("parameters-------\(String(describing: parameters))")
             
-            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
+            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON { [self]
                 response in
                 
                 switch(response.result) {
@@ -329,7 +408,7 @@ class earnings: UIViewController {
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             
-                            self.earning_history(str_show_loader: "no")
+                            self.earning_history(str_show_loader: "no", pageNumber: page)
                             
                         } else {
                             ERProgressHud.sharedInstance.hide()
@@ -348,6 +427,29 @@ class earnings: UIViewController {
         }
         
     }
+    
+    @objc func days_drop() {
+        
+        
+        let arr_year = ["ALL","TODAY","WEEKLY"]
+        
+        var int_index:Int! = 1
+        
+        if (self.lbl_day.text == "ALL") {
+            int_index = 0
+        } else if (self.lbl_day.text == "TODAY") {
+            int_index = 1
+        } else {
+            int_index = 2
+        }
+        
+        RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_year, selectedIndex: int_index) { [self] (selctedText, atIndex) in
+            self.lbl_day.text = String(selctedText)
+            self.arr_earnings.removeAllObjects()
+            self.earning_history(str_show_loader: "yes", pageNumber: page)
+        }
+    }
+    
 }
 
 
@@ -373,21 +475,84 @@ extension earnings: UITableViewDataSource , UITableViewDelegate {
         cell.backgroundColor = .clear
         
         let item = self.arr_earnings[indexPath.row] as? [String:Any]
+        print(item as Any)
+        
         cell.lbl_user_name.text = "\(item!["fullName"]!)"
-        cell.lbl_distance.text = "\(item!["totalDistance"]!)"
+        // cell.lbl_distance.text = "\(item!["totalDistance"]!)"
         cell.lbl_time.text = "\(item!["created"]!)"
         
         cell.img_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
-        cell.img_profile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "logo33"))
+        cell.img_profile.sd_setImage(with: URL(string: (item!["image"] as! String)), placeholderImage: UIImage(named: "zarib_blue"))
+        
+        /*if "\(item!["status"]!)" == "7" {
+            
+            cell.view_up.backgroundColor = .systemOrange
+            cell.lbl_payment_type.text = "Cancel"
+            if "\(item!["driverAmount"]!)" == "" {
+                cell.lbl_amount.text = String(str_bangladesh_currency_symbol)+" 0"
+            } else {
+                cell.lbl_amount.text = "\(str_bangladesh_currency_symbol) \(item!["driverAmount"]!)"
+            }
+        }*/
+        
+        
+        
+        
+        
+        /*if "\(item!["status"]!)" == "1" {
+            cell.view_up.backgroundColor = .systemOrange
+            cell.lbl_payment_type.text = "Cancel"
+            if "\(item!["driverAmount"]!)" == "" {
+                cell.lbl_amount.text = String(str_bangladesh_currency_symbol)+" 0"
+            } else {
+                cell.lbl_amount.text = "\(str_bangladesh_currency_symbol) \(item!["driverAmount"]!)"
+            }
+            
+        } else if "\(item!["status"]!)" == "2" {
+            cell.view_up.backgroundColor = .systemRed
+            cell.lbl_payment_type.text = "Cash"
+            if "\(item!["driverAmount"]!)" == "" {
+                cell.lbl_amount.text = String(str_bangladesh_currency_symbol)+" 0"
+            } else {
+                cell.lbl_amount.text = "\(str_bangladesh_currency_symbol) \(item!["driverAmount"]!)"
+            }
+        } else {
+            
+        }*/
+        
+        if "\(item!["rideStatus"]!)" == "7" {
+            cell.lbl_payment_type.text = "Cancel"
+            cell.view_up.backgroundColor = .systemRed
+            cell.lbl_payment_type.textColor = .white
+        } else {
+            cell.lbl_payment_type.text = "\(item!["paymentMethod"]!)"
+            
+            if "\(item!["paymentMethod"]!)" == "Card" {
+                cell.view_up.backgroundColor = .systemGreen
+            } else {
+                cell.view_up.backgroundColor = .systemOrange
+            }
+        }
+        
+        
+        
+        if "\(item!["driverAmount"]!)" == "" {
+            cell.lbl_amount.text = String(str_bangladesh_currency_symbol)+" 0"
+        } else {
+            cell.lbl_amount.text = "\(str_bangladesh_currency_symbol) \(item!["driverAmount"]!)"
+        }
+        
+        
+        
         
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
             
-            if (language == "en") {
+            /*if (language == "en") {
                 cell.lbl_distance_text.text = "Distance"
             } else {
                 cell.lbl_distance_text.text = "দূরত্ব"
-            }
+            }*/
             
          
         } else {
@@ -441,5 +606,21 @@ class earnings_table_cell: UITableViewCell {
     @IBOutlet weak var lbl_distance_text:UILabel!
     @IBOutlet weak var lbl_time:UILabel!
     
+    @IBOutlet weak var lbl_payment_type:UILabel!
+    @IBOutlet weak var lbl_amount:UILabel!
     
+    @IBOutlet weak var view_up:UIView! {
+        didSet {
+            view_up.layer.cornerRadius = 4
+            view_up.clipsToBounds = true
+            view_up.backgroundColor = .white
+        }
+    }
+    @IBOutlet weak var view_down:UIView!  {
+        didSet {
+            view_down.layer.cornerRadius = 4
+            view_down.clipsToBounds = true
+            view_down.backgroundColor = .white
+        }
+    }
 }

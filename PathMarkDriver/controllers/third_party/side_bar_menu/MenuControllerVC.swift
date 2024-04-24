@@ -51,7 +51,7 @@ class MenuControllerVC: UIViewController {
   
     var str_menu_title_home:String! = "Home"
     var str_menu_title_edit_profile:String! = "Edit Profile"
-    var str_menu_title_booking_history:String! = "Booking History"
+    var str_menu_title_booking_history:String! = "Booking"
     var str_menu_title_earnings:String! = "Earnings"
     var str_menu_title_review:String! = "Review and Rating"
     var str_menu_title_cashout:String! = "Cashout"

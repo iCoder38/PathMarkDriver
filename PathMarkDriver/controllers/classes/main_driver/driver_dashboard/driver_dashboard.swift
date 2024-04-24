@@ -32,6 +32,9 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
     
     // var db = Firestore.firestore()
     
+    @IBOutlet weak var lbl_offline_status:UILabel!
+    @IBOutlet weak var view_offline:UIView!
+    
     @IBOutlet weak var lbl_total_price:UILabel!
     
     @IBOutlet weak var btn_back:UIButton! {
@@ -105,10 +108,14 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
                 // false
                 self.str_switch_value = "0"
                 switch_value.isOn = false
+                self.lbl_offline_status.text = "You are offline"
+                self.view_offline.backgroundColor = .systemOrange
             } else {
                 // true
                 self.str_switch_value = "1"
                 switch_value.isOn = true
+                self.lbl_offline_status.text = "You are online"
+                self.view_offline.backgroundColor = .systemGreen
             }
         }
         
@@ -294,7 +301,23 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
                             ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)
                             
-                            
+                            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                                print(person)
+                                
+                                if ("\(person["DriverOn"]!)" == "0") {
+                                    // false
+                                    self.str_switch_value = "0"
+                                    self.switch_value.isOn = false
+                                    self.lbl_offline_status.text = "You are offline"
+                                    self.view_offline.backgroundColor = .systemOrange
+                                } else {
+                                    // true
+                                    self.str_switch_value = "1"
+                                    self.switch_value.isOn = true
+                                    self.lbl_offline_status.text = "You are online"
+                                    self.view_offline.backgroundColor = .systemGreen
+                                }
+                            }
                             // self.get_todays_earning_WB(str_show_loader: "no")
                             
                         } else if message == String(not_authorize_api) {
@@ -601,6 +624,24 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
                             defaults.setValue(JSON["data"], forKey: str_save_login_user_data)
                             
                             ERProgressHud.sharedInstance.hide()
+                            
+                            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                                print(person)
+                                
+                                if ("\(person["DriverOn"]!)" == "0") {
+                                    // false
+                                    self.str_switch_value = "0"
+                                    self.switch_value.isOn = false
+                                    self.lbl_offline_status.text = "You are offline"
+                                    self.view_offline.backgroundColor = .systemOrange
+                                } else {
+                                    // true
+                                    self.str_switch_value = "1"
+                                    self.switch_value.isOn = true
+                                    self.lbl_offline_status.text = "You are online"
+                                    self.view_offline.backgroundColor = .systemGreen
+                                }
+                            }
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_for_update_switch_wb()

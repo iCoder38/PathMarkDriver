@@ -288,7 +288,7 @@ extension cashout_history: UITableViewDataSource , UITableViewDelegate {
                 print(language as Any)
                 
                 if (language == "en") {
-                    cell.btn_pending.setTitle("Done", for: .normal)
+                    cell.btn_pending.setTitle("Paid", for: .normal)
                 } else {
                     cell.btn_pending.setTitle("সম্পন্ন", for: .normal)
                 }

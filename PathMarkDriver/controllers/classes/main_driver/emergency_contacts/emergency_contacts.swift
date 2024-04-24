@@ -60,7 +60,7 @@ class emergency_contacts: UIViewController {
             
             if (language == "en") {
                 
-                btn_add.setTitle("+ add", for: .normal)
+                btn_add.setTitle("+ add new", for: .normal)
             } else {
                 btn_add.setTitle("+ যোগ করুন", for: .normal)
             }
