@@ -625,7 +625,14 @@ extension MenuControllerVC: UITableViewDataSource {
         } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_logout) {
             
             self.validation_before_logout()
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_privacy_policy) {
+            guard let url = URL(string: "https://zaribbd.com/privacy-policy/") else { return }
+            UIApplication.shared.open(url)
+        } else if arr_driver_title [indexPath.row] as! String == String(self.str_menu_title_terms) {
+            guard let url = URL(string: "https://zaribbd.com/terms-condition/") else { return }
+            UIApplication.shared.open(url)
         }
+        
         
     }
     

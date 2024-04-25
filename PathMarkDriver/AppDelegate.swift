@@ -195,6 +195,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
             
             window?.makeKeyAndVisible()
+        }  else if (dict["type"] as! String) == "cancel" {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+  
+            let destinationController = storyboard.instantiateViewController(withIdentifier:"driver_dashboard_id") as? driver_dashboard
+                
+             // destinationController?.get_done_payment_details_from_notificaion = dict as NSDictionary
+            // destinationController?.str_from_noti = "yes"
+            let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+
+            let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+
+            let mainRevealController = SWRevealViewController()
+
+            mainRevealController.rearViewController = rearViewController
+            mainRevealController.frontViewController = frontNavigationController
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+            }
+            
+            window?.makeKeyAndVisible()
         }
         
     }

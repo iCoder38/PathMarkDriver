@@ -36,6 +36,8 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     
     var str_country_id:String! = "18"
     
+    var phone_number_code : String!
+    
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
             view_navigation_bar.backgroundColor = navigation_color
@@ -202,7 +204,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         
         
-        var phone_number_code : String!
+        
         
         if (cell.txt_full_name.text! == "") {
             
@@ -456,7 +458,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
             return
             
-        } else if (cell.txt_nid_number.text!.count < 13) {
+        }/* else if (cell.txt_nid_number.text!.count < 13) {
             
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
@@ -483,7 +485,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
             return
             
-        } else {
+        }*/ else {
             
             if (cell.txt_phone_number.text!.count == 11) {
                 
@@ -521,6 +523,54 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
             
         }
+        
+        
+        if (cell.txt_nid_number.text!.count == 10 ) {
+            
+           /**/
+            self.send_data_to_server()
+            return
+        } else if (cell.txt_nid_number.text!.count == 13) {
+            
+            self.send_data_to_server()
+            return
+        } else if (cell.txt_nid_number.text!.count == 17) {
+            
+            self.send_data_to_server()
+            return
+        } else {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid NID No."), style: .alert)
+                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                } else {
+                    
+                    let alert = NewYorkAlertController(title: String(lan_popup_alert_en).uppercased(), message: String("অনুগ্রহ করে বৈধ NID নম্বর লিখুন।"), style: .alert)
+                    let cancel = NewYorkButton(title: lan_popup_dismiss_en, style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    ERProgressHud.sharedInstance.hide()
+                    
+                }
+                
+            }
+        }
+        
+        return
+       
+        
+    }
+    
+    @objc func send_data_to_server() {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
         
         var lan:String!
         
@@ -726,9 +776,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
             
         })
-        
     }
-    
     @objc func alert_warning () {
         
         let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: "Field should not be empty.", style: .alert)
@@ -820,7 +868,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
            }
            let substringToReplace = textFieldText[rangeOfTextToReplace]
            let count = textFieldText.count - substringToReplace.count + string.count
-           return count <= 13
+           return count <= 17
            
        } else if (textField == cell.txt_phone_number) {
            

@@ -347,6 +347,24 @@ class schedule_ride_details: UIViewController {
                 print("=============================")
                 UserDefaults.standard.set("en", forKey: str_language_convert)
             }
+        } else if (self.dict_get_upcoming_ride_details["bookingTime"] as! String) == "" {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    self.lbl_date.text = "Date : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+                    // self.lbl_time.text = "Time : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                } else {
+                    self.lbl_date.text = "তারিখ : "+(self.dict_get_upcoming_ride_details["bookingDate"] as! String)
+                    // self.lbl_time.text = "সময় : "+(self.dict_get_upcoming_ride_details["bookingTime"] as! String)
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
         } else {
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)

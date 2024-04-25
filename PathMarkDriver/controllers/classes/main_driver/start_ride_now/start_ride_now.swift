@@ -24,6 +24,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     var str_driver_lat:String!
     var str_driver_long:String!
     
+    var str_otp_status = "0"
     var get_booking_data_for_start_ride:NSDictionary!
     
     let locationManager = CLLocationManager()
@@ -444,153 +445,202 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     @objc func check_and_verify_otp(str_show_loader:String) {
         print(self.get_booking_data_for_start_ride as Any)
         
+        
         if ("\(self.get_booking_data_for_start_ride["RideCode"]!)" == "0") {
             self.accept_booking_WB(str_show_loader: "yes")
         } else if ("\(self.get_booking_data_for_start_ride["RideCode"]!)" == "") {
             self.accept_booking_WB(str_show_loader: "yes")
         } else {
-            if (str_show_loader == "yes") {
-                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-            }
             
-            self.view.endEditing(true)
-            
-            var parameters:Dictionary<AnyHashable, Any>!
-            
-            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-                print(person)
+            if (self.str_otp_status == "0") {
+                let alert = UIAlertController(title: "Zarib Driver", message: "Please enter OTP", preferredStyle: .alert)
                 
-                let x : Int = person["userId"] as! Int
-                let myString = String(x)
+                //2. Add the text field. You can configure it however you need.
+                alert.addTextField { (textField) in
+                    textField.placeholder = "otp..."
+                    textField.keyboardType = .numberPad
+                }
                 
-                if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
-                    print(token_id_is as Any)
+                // 3. Grab the value from the text field, and print it when the user clicks OK.
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                    let textField = alert?.textFields![0]
+                    print("Text field: \(textField!.text!)")
                     
-                    let headers: HTTPHeaders = [
-                        "token":String(token_id_is),
-                    ]
-                    
-                    /*
-                     [action] => bookingverify
-                         [driverId] => 204
-                         [bookingId] => 619
-                         [RideCode] => 848549
-                         [language] => en
-                     */
-                    
-                    var lan:String!
-                    
-                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                        print(language as Any)
-                        
-                        if (language == "en") {
-                            lan = "en"
-                        } else {
-                            lan = "bn"
-                        }
-                    }
-                    
-                    parameters = [
-                        "action"    : "bookingverify",
-                        "driverId"  : String(myString),
-                        "bookingId" : "\(self.get_booking_data_for_start_ride["bookingId"]!)",
-                        "RideCode"  : "\(self.get_booking_data_for_start_ride["RideCode"]!)",
-                        "language"  : String(lan)
-                    ]
-                    
-                    print(parameters as Any)
-                    
-                    AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON { [self]
-                        response in
-                        // debugPrint(response.result)
-                        
-                        switch response.result {
-                        case let .success(value):
+                    if ("\(textField!.text!)" == "") {
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                            print(language as Any)
                             
-                            let JSON = value as! NSDictionary
-                            print(JSON as Any)
-                             
-                            var strSuccess : String!
-                            strSuccess = (JSON["status"]as Any as? String)?.lowercased()
-                            
-                            var message : String!
-                            message = (JSON["msg"] as? String)
-                            
-                            print(strSuccess as Any)
-                            if strSuccess == String("success") {
-                                print("yes")
-                                
-                                if (JSON["AuthToken"] == nil) {
-                                    print("TOKEN NOT RETURN IN THIS ACTION = driverconfirm")
-                                } else {
-                                    let str_token = (JSON["AuthToken"] as! String)
-                                    UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                                    UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-                                }
-                                
-                                ERProgressHud.sharedInstance.hide()
-                                self.dismiss(animated: true)
-                                
-                                
-                                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                                    print(language as Any)
-                                    
-                                    if (language == "en") {
-                                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: String(message), style: .alert)
-                                        let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-                                        alert.addButtons([cancel])
-                                        self.present(alert, animated: true)
-                                    } else {
-                                        let alert = NewYorkAlertController(title: String("সফলতা").uppercased(), message: String(message), style: .alert)
-                                        let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
-                                        alert.addButtons([cancel])
-                                        self.present(alert, animated: true)
-                                    }
-                                    
-                                     
-                                }
-                                
-                                
-                                
-                                // self.str_ride_code_status = "1"
-                                
-                            } else if message == String(not_authorize_api) {
-                                self.login_refresh_token_wb()
-                                
-                            } else {
-                                
-                                // self.str_ride_code_status = "0"
-                                
-                                print("no")
-                                ERProgressHud.sharedInstance.hide()
-                                
-                                var strSuccess2 : String!
-                                strSuccess2 = JSON["msg"]as Any as? String
-                                
-                                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            if (language == "en") {
+                                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter OTP"), style: .alert)
                                 let cancel = NewYorkButton(title: "dismiss", style: .cancel)
                                 alert.addButtons([cancel])
                                 self.present(alert, animated: true)
-                                
+                            } else {
+                                let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("ওটিপি দিন"), style: .alert)
+                                let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
                             }
                             
-                        case let .failure(error):
-                            print(error)
-                            ERProgressHud.sharedInstance.hide()
-                            
-                            self.please_check_your_internet_connection()
                             
                         }
+                    } else {
+                        self.str_check_otp = "\(textField!.text!)"
+                        self.verify_this(str_show_loader: "yes")
+                    }
+                    
+                    
+                    
+                }))
+                
+                // 4. Present the alert.
+                self.present(alert, animated: true, completion: nil)
+            } else {
+                self.accept_booking_WB(str_show_loader: "yes")
+            }
+        }
+    }
+    
+    @objc func verify_this(str_show_loader:String) {
+        if (str_show_loader == "yes") {
+            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        }
+        
+        self.view.endEditing(true)
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+                
+                /*
+                 [action] => bookingverify
+                     [driverId] => 204
+                     [bookingId] => 619
+                     [RideCode] => 848549
+                     [language] => en
+                 */
+                
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                }
+                
+                parameters = [
+                    "action"    : "bookingverify",
+                    "driverId"  : String(myString),
+                    "bookingId" : "\(self.get_booking_data_for_start_ride["bookingId"]!)",
+                    "RideCode"  : String(self.str_check_otp),
+                    "language"  : String(lan)
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON { [self]
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                         
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        var message : String!
+                        message = (JSON["msg"] as? String)
+                        
+                        print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                            
+                            
+                            
+                            if (JSON["AuthToken"] == nil) {
+                                print("TOKEN NOT RETURN IN THIS ACTION = driverconfirm")
+                            } else {
+                                let str_token = (JSON["AuthToken"] as! String)
+                                UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                                UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            }
+                            
+                            ERProgressHud.sharedInstance.hide()
+                            self.dismiss(animated: true)
+                            
+                            self.str_otp_status = "1"
+                            
+                            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                print(language as Any)
+                                
+                                if (language == "en") {
+                                    let alert = NewYorkAlertController(title: String("Success").uppercased(), message: String(message), style: .alert)
+                                    let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                                    alert.addButtons([cancel])
+                                    self.present(alert, animated: true)
+                                } else {
+                                    let alert = NewYorkAlertController(title: String("সফলতা").uppercased(), message: String(message), style: .alert)
+                                    let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                                    alert.addButtons([cancel])
+                                    self.present(alert, animated: true)
+                                }
+                                
+                                 
+                            }
+                            
+                            
+                            
+                            // self.str_ride_code_status = "1"
+                            
+                        } else if message == String(not_authorize_api) {
+                            self.login_refresh_token_wb()
+                            
+                        } else {
+                            
+                            // self.str_ride_code_status = "0"
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
                     }
                 }
             }
         }
-        
-        
-        
     }
-    
-    
     
     
     @objc func accept_booking_WB(str_show_loader:String) {
@@ -599,7 +649,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
         }
         
-        
+         
         self.view.endEditing(true)
         
         var parameters:Dictionary<AnyHashable, Any>!
