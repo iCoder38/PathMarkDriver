@@ -18,6 +18,7 @@
 		B93500DF2B107E9C004D8C95 /* decline_request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93500DE2B107E9C004D8C95 /* decline_request.swift */; };
 		B93500E12B107EA1004D8C95 /* cancel_your_ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93500E02B107EA1004D8C95 /* cancel_your_ride.swift */; };
 		B93E4FF82AA9A9E400C5F918 /* rating_review.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93E4FF72AA9A9E400C5F918 /* rating_review.swift */; };
+		B9446EEB2BFE356000D4BC44 /* select_profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9446EEA2BFE356000D4BC44 /* select_profile.swift */; };
 		B9457D1F2A977AE800C39F66 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9457D1E2A977AE800C39F66 /* GoogleService-Info.plist */; };
 		B94CC3562AFA135000453626 /* cashout_history.swift in Sources */ = {isa = PBXBuildFile; fileRef = B94CC3552AFA135000453626 /* cashout_history.swift */; };
 		B9514E1B2AA88F65005EDF39 /* ride_history_details.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9514E1A2AA88F65005EDF39 /* ride_history_details.swift */; };
@@ -142,6 +143,7 @@
 		B93500DE2B107E9C004D8C95 /* decline_request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = decline_request.swift; sourceTree = "<group>"; };
 		B93500E02B107EA1004D8C95 /* cancel_your_ride.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cancel_your_ride.swift; sourceTree = "<group>"; };
 		B93E4FF72AA9A9E400C5F918 /* rating_review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = rating_review.swift; sourceTree = "<group>"; };
+		B9446EEA2BFE356000D4BC44 /* select_profile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = select_profile.swift; sourceTree = "<group>"; };
 		B9457D1D2A97796B00C39F66 /* PathMarkDriver.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PathMarkDriver.entitlements; sourceTree = "<group>"; };
 		B9457D1E2A977AE800C39F66 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B94CC3552AFA135000453626 /* cashout_history.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cashout_history.swift; sourceTree = "<group>"; };
@@ -334,6 +336,14 @@
 				B93E4FF72AA9A9E400C5F918 /* rating_review.swift */,
 			);
 			path = review;
+			sourceTree = "<group>";
+		};
+		B9446EE92BFE355800D4BC44 /* select_profile */ = {
+			isa = PBXGroup;
+			children = (
+				B9446EEA2BFE356000D4BC44 /* select_profile.swift */,
+			);
+			path = select_profile;
 			sourceTree = "<group>";
 		};
 		B94CC3542AFA133E00453626 /* cashout_history */ = {
@@ -622,6 +632,7 @@
 		B9852DD92A651EEA008244F3 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				B9446EE92BFE355800D4BC44 /* select_profile */,
 				B97AAA172B7397FA005FD6DD /* schedule_notification */,
 				B9E184AB2B71FC12004AFB50 /* language_splash */,
 				B91A02BD2B68C4C00029DFEB /* select_language */,
@@ -1237,6 +1248,7 @@
 				B9852D562A651884008244F3 /* ViewController.swift in Sources */,
 				B9C29A922ADD20AE00574A94 /* map_view.swift in Sources */,
 				B96B0F172A98E1B400835208 /* success_ride_done.swift in Sources */,
+				B9446EEB2BFE356000D4BC44 /* select_profile.swift in Sources */,
 				B9852D9A2A651AE7008244F3 /* AlertView.swift in Sources */,
 				B9852DDC2A651F0D008244F3 /* verify_phone_number.swift in Sources */,
 				B93500DB2B107E8A004D8C95 /* shared_booking.swift in Sources */,

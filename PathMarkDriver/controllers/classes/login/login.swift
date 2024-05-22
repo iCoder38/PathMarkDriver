@@ -16,7 +16,7 @@ import CoreLocation
 
 
 class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate {
-
+    @IBOutlet weak var btn_back:UIButton!
     let locationManager = CLLocationManager()
     
     // MARK:- SAVE LOCATION STRING -
@@ -56,7 +56,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
         super.viewDidLoad()
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-         
+        self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         self.iAmHereForLocationPermission()
         
         /*let defaults = UserDefaults.standard

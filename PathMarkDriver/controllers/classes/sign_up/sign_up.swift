@@ -76,7 +76,13 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
         self.get_country_list_WB()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        // let indexPath = IndexPath.init(row: 0, section: 0)
+        // let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
+        self.tbleView.reloadData()
+        
+    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
@@ -1294,6 +1300,34 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
             UserDefaults.standard.set("en", forKey: str_language_convert)
         }
         
+        if let loadedString = UserDefaults.standard.string(forKey: "key_accept_term") {
+            print(loadedString)
+            if (loadedString == "") {
+                // cell.btn_accept_terms.setImage(UIImage(named: "rem1"), for: .normal)
+                cell.btn_accept_terms.backgroundColor = .systemGray4
+                // cell.btn_accept_terms.tag = 0
+                cell.btnSignUp.backgroundColor = .lightGray
+                cell.btnSignUp.isUserInteractionEnabled = false
+            } else {
+                // let string = "yes_terms"
+                UserDefaults.standard.set("", forKey: "key_accept_term")
+                UserDefaults.standard.set(nil, forKey: "key_accept_term")
+                
+                // cell.btn_accept_terms.tag = 1
+                cell.btn_accept_terms.setImage(UIImage(named: "rem"), for: .normal)
+                cell.btn_accept_terms.backgroundColor = .clear
+                cell.btnSignUp.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1)
+                cell.btnSignUp.isUserInteractionEnabled = true
+            }
+            
+        } else {
+            // cell.btn_accept_terms.setImage(UIImage(named: "rem1"), for: .normal)
+            cell.btn_accept_terms.backgroundColor = .systemGray4
+            // cell.btn_accept_terms.tag = 0
+            cell.btnSignUp.backgroundColor = .lightGray
+            cell.btnSignUp.isUserInteractionEnabled = false
+        }
+        
         return cell
     }
     
@@ -1312,7 +1346,7 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         
         if cell.btn_accept_terms.tag == 1 {
             
-            cell.btn_accept_terms.setImage(UIImage(named: "un_check"), for: .normal)
+            cell.btn_accept_terms.setImage(UIImage(named: "rem1"), for: .normal)
             cell.btn_accept_terms.tag = 0
             cell.btnSignUp.backgroundColor = .lightGray
             cell.btnSignUp.isUserInteractionEnabled = false
@@ -1320,7 +1354,7 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         } else {
             
             cell.btn_accept_terms.tag = 1
-            cell.btn_accept_terms.setImage(UIImage(named: "check"), for: .normal)
+            cell.btn_accept_terms.setImage(UIImage(named: "rem"), for: .normal)
             cell.btnSignUp.backgroundColor = UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1)
             cell.btnSignUp.isUserInteractionEnabled = true
             
@@ -1601,7 +1635,10 @@ class sign_up_table_cell: UITableViewCell {
         didSet {
             btn_accept_terms.backgroundColor = .clear
             btn_accept_terms.tag = 0
-            btn_accept_terms.setImage(UIImage(named: "un_check"), for: .normal)
+            //btn_accept_terms.setImage(UIImage(named: "un_check"), for: .normal)btn_accept_terms.b
+            btn_accept_terms.backgroundColor = .systemGray4
+            btn_accept_terms.layer.cornerRadius = 12
+            btn_accept_terms.clipsToBounds = true
         }
     }
     

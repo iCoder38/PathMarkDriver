@@ -216,9 +216,15 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
     @objc func get_and_parse_UI() {
         
         if (self.str_from_direct_notification != "yes") {
-            self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["fullName"] as! String)
-            self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["contactNumber"] as! String)
-            self.str_phone_number = (self.get_booking_data_for_pickup["contactNumber"] as! String)
+            if (self.get_booking_data_for_pickup["CustomerName"] == nil) {
+                self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["fullName"] as! String)
+                self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["contactNumber"] as! String)
+                self.str_phone_number =  (self.get_booking_data_for_pickup["contactNumber"] as! String)
+            } else {
+                self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["CustomerName"] as! String)
+                self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
+                self.str_phone_number =  (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
+            }
         } else {
             if (self.get_booking_data_for_pickup["CustomerName"] == nil) {
                 self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["fullName"] as! String)

@@ -9,6 +9,8 @@ import UIKit
 
 class change_language: UIViewController {
 
+    var str_start_screens:String!
+    
     @IBOutlet weak var navigationBar:UIView! {
         didSet {
             navigationBar.backgroundColor = navigation_color
@@ -60,7 +62,11 @@ class change_language: UIViewController {
             UserDefaults.standard.set("en", forKey: str_language_convert)
         }
         
-        self.sideBarMenuClick()
+        if (self.str_start_screens != nil) {
+            self.btnBack.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
+        } else {
+            self.sideBarMenuClick()
+        }
         
     }
     

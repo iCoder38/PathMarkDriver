@@ -655,7 +655,7 @@ class schedule_notification: UIViewController, CLLocationManagerDelegate , MKMap
                                 "driverId"      : String(myString),
                                 "driverLats"    : String(self.strSaveLatitude),
                                 "driverLngs"    : String(self.strSaveLongitude),
-                                "time_stamp"    : "",
+                                "time_stamp"    : 987654321,//NSDate().timeIntervalSince1970,
                                 "trackingId"    : "\(self.dict_get_all_data_from_notification["bookingId"]!)+\(String(myString))",
                                 
                             ]) {
