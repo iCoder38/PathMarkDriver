@@ -13,9 +13,11 @@ import Firebase
 import CoreLocation
 import MapKit
 
-class driver_dashboard: UIViewController, CLLocationManagerDelegate {
-    
+import GoogleMaps
 
+class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
+    
+    var mapViewGoogle: GMSMapView! // google map
     let locationManager = CLLocationManager()
     
     // MARK:- SAVE LOCATION STRING -
@@ -79,7 +81,7 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
             view_sub_big.clipsToBounds = true
         }
     }
-    @IBOutlet weak var mapView:MKMapView!
+     @IBOutlet weak var mapView:MKMapView!
     
     var str_switch_value:String!
     
@@ -92,7 +94,7 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         self.sideBarMenu()
         
         // self.update_token_WB(str_show_loader: "yes")
-        self.iAmHereForLocationPermission()
+        //self.iAmHereForLocationPermission()
         
         
         if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
@@ -121,11 +123,162 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         
         self.switch_value.addTarget(self, action: #selector(switch_click_method), for: .valueChanged)
         
+        self.mapView.isHidden = true
+        
+        // Initialize the location manager
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        // self.custom_google_map()
         
         //
         // self.ride_end(str_show_loader: "yes")
-         
+        
     }
+    // CLLocationManagerDelegate method to receive location updates
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            // Stop updating location to save battery life
+            locationManager.stopUpdatingLocation()
+            
+            // Parse latitude and longitude
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
+            
+            self.strSaveLatitude = "\(latitude)"
+            self.strSaveLongitude = "\(longitude)"
+            
+            // Initialize the map view with the current location
+            let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 15.0)
+            
+            let mapViewFrame = CGRect(x: 0, y: 128, width: self.view.frame.width, height: self.view.frame.height)
+            mapViewGoogle = GMSMapView(frame: mapViewFrame)
+            
+            mapViewGoogle.camera = camera
+            mapViewGoogle.isMyLocationEnabled = true
+            self.view.addSubview(mapViewGoogle)
+            
+            /*// Show 20 km radius
+            let radiusInMeters: Double = 200000
+            let circle = GMSCircle(position: mapViewGoogle.camera.target, radius: radiusInMeters)
+            circle.fillColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.1) // Adjust circle fill color
+            circle.strokeColor = UIColor.blue // Adjust circle border color
+            circle.strokeWidth = 2 // Adjust circle border width
+            circle.map = mapViewGoogle
+            
+            // Adjust camera to fit the circle
+            let bounds = GMSCoordinateBounds(coordinate: circle.position, coordinate: circle.position)
+            let update = GMSCameraUpdate.fit(bounds, withPadding: 50.0)
+            mapViewGoogle.animate(with: update)*/
+            
+            // Create a marker at the user's location
+            let marker = GMSMarker()
+            marker.position = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            marker.title = "You are here"
+            // Set custom image as marker icon
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                print(person)
+                
+                var ar : NSArray!
+                ar = (person["carinfromation"] as! Array<Any>) as NSArray
+                
+                let arr_mut_order_history:NSMutableArray! = []
+                arr_mut_order_history.addObjects(from: ar as! [Any])
+                print(arr_mut_order_history as Any)
+                
+                let item = arr_mut_order_history[0] as? [String:Any]
+                print(item as Any)
+                
+                
+                if ("\(item!["vehicleType"]!)" == "1") {
+                    if (self.str_switch_value == "1") {
+                        marker.icon = UIImage(named: "map_car")
+                    }
+                    
+                } else {
+                    if (self.str_switch_value == "1") {
+                        marker.icon = UIImage(named: "map_bike")
+                    }
+                    
+                }
+                
+                
+            }
+            
+            marker.map = mapViewGoogle
+            
+            self.update_token_WB(str_show_loader: "yes")
+            
+            //                "latitude"      : String(self.strSaveLatitude),
+            //                "longitude"     : String(self.strSaveLongitude),
+            //
+            //                self.update_token_WB(str_show_loader: "yes")
+        }
+    }
+
+        // CLLocationManagerDelegate method to handle authorization changes
+        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            switch status {
+            case .authorizedWhenInUse, .authorizedAlways:
+                locationManager.startUpdatingLocation()
+            case .denied, .restricted:
+                // Handle the case where the user denied location permissions
+                print("Location access denied")
+            case .notDetermined:
+                // Handle the case where location permission is not determined
+                locationManager.requestWhenInUseAuthorization()
+            @unknown default:
+                fatalError()
+            }
+        }
+    /*@objc func custom_google_map() {
+        // Create a GMSCameraPosition that tells the map to display the coordinate at zoom level 10.
+        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 10.0)
+        let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
+        self.view.addSubview(mapView)
+        
+        // Creates a marker in the center of the map.
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: -33.86, longitude: 151.20)
+        marker.title = "Sydney"
+        marker.snippet = "Australia"
+        marker.map = mapView
+    }
+    
+    // CLLocationManagerDelegate method to receive location updates
+        func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            if let location = locations.first {
+                let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude, longitude: location.coordinate.longitude, zoom: 15.0)
+                mapViewGoogle.animate(to: camera)
+
+                // Create a marker at the user's location
+                let marker = GMSMarker()
+                marker.position = location.coordinate
+                marker.title = "You are here"
+                marker.map = mapViewGoogle
+
+                // Stop updating location to save battery life
+                locationManager.stopUpdatingLocation()
+            }
+        }
+
+        // CLLocationManagerDelegate method to handle authorization changes
+        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            switch status {
+            case .authorizedWhenInUse, .authorizedAlways:
+                locationManager.startUpdatingLocation()
+            case .denied, .restricted:
+                // Handle the case where the user denied location permissions
+                print("Location access denied")
+            case .notDetermined:
+                // Handle the case where location permission is not determined
+                locationManager.requestWhenInUseAuthorization()
+            @unknown default:
+                fatalError()
+            }
+        }*/
+    
     
     @objc func switch_click_method() {
         print(self.switch_value.isOn)
@@ -161,7 +314,7 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
     }
     
     // MARK:- GET CUSTOMER LOCATION -
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    /*func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         // let indexPath = IndexPath.init(row: 0, section: 0)
@@ -216,7 +369,7 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
             
             self.update_token_WB(str_show_loader: "yes")
         }
-    }
+    }*/
     
     @objc func sideBarMenu() {
         
@@ -356,11 +509,18 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
             
             print("parameters-------\(String(describing: parameters))")
             
@@ -511,11 +671,18 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
             
             print("parameters-------\(String(describing: parameters))")
             
@@ -682,11 +849,18 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate {
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
            
             print("parameters-------\(String(describing: parameters))")
             

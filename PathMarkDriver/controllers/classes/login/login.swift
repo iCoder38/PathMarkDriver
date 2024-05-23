@@ -261,7 +261,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
        
         let params = payload_login(action: "login",
                                    email: String(cell.txtEmailAddress.text!),
-                                   password: String(cell.txtPassword.text!))
+                                   password: "")
 
         print(params as Any)
         
@@ -300,7 +300,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
                     // save email and pass
                     // email
                     let custom_email_pass = ["email":cell.txtEmailAddress.text!,
-                                             "password":cell.txtPassword.text!]
+                                             "password":""]
                     
                     UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
                     //
@@ -359,7 +359,7 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
         cell.selectedBackgroundView = backgroundView
         
         cell.txtEmailAddress.delegate = self
-        cell.txtPassword.delegate = self
+        // cell.txtPassword.delegate = self
         
         cell.btnSignIn.addTarget(self, action: #selector(home_click_method), for: .touchUpInside)
         cell.btnDontHaveAnAccount.addTarget(self, action: #selector(dontHaveAntAccountClickMethod), for: .touchUpInside)
@@ -407,13 +407,13 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
             
             cell.btn_remember_me.setImage(UIImage(named: "un_check"), for: .normal)
             cell.btn_remember_me.tag = 0
-            
+            UserDefaults.standard.set("no", forKey: "key_remember_me")
             
         } else {
             
             cell.btn_remember_me.tag = 1
             cell.btn_remember_me.setImage(UIImage(named: "check"), for: .normal)
-            
+            UserDefaults.standard.set("yes", forKey: "key_remember_me")
             
         }
         

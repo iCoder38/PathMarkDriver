@@ -504,11 +504,18 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
            
             print("parameters-------\(String(describing: parameters))")
             
@@ -721,11 +728,18 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
            
             print("parameters-------\(String(describing: parameters))")
             
@@ -864,11 +878,18 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
            
             print("parameters-------\(String(describing: parameters))")
             
@@ -965,6 +986,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     UserDefaults.standard.set("en", forKey: str_language_convert)
                 }
                 
+                print(self.strCarBrand as Any)
                 //Set Your Parameter
                 let parameterDict = NSMutableDictionary()
                 parameterDict.setValue("addcarinformation", forKey: "action")
@@ -1071,11 +1093,18 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
            
             print("parameters-------\(String(describing: parameters))")
             
@@ -1299,41 +1328,41 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                          cell.txt_brand.text = String(selctedText)
                         self.strCarColor = String(selctedText)
                         
-                        if (cell.txt_color.text == "Aprilia") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Bajaj") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Benelli") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Beetle Bolt") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Hero") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Honda") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Runner") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Keeway") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Yamaha") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Lifan") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "TVS") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Suzuki") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Victor R") {
-                            self.strCarColor = "white"
-                        } else if (cell.txt_color.text == "Walton") {
-                            self.strCarColor = "white"
+                        if (cell.txt_brand.text == "Aprilia") {
+                            self.strCarBrand = "Aprilia"
+                        } else if (cell.txt_brand.text == "Bajaj") {
+                            self.strCarBrand = "Bajaj"
+                        } else if (cell.txt_brand.text == "Benelli") {
+                            self.strCarBrand = "Benelli"
+                        } else if (cell.txt_brand.text == "Beetle Bolt") {
+                            self.strCarBrand = "Beetle Bolt"
+                        } else if (cell.txt_brand.text == "Hero") {
+                            self.strCarBrand = "Hero"
+                        } else if (cell.txt_brand.text == "Honda") {
+                            self.strCarBrand = "Honda"
+                        } else if (cell.txt_brand.text == "Runner") {
+                            self.strCarBrand = "Runner"
+                        } else if (cell.txt_brand.text == "Keeway") {
+                            self.strCarBrand = "Keeway"
+                        } else if (cell.txt_brand.text == "Yamaha") {
+                            self.strCarBrand = "Yamaha"
+                        } else if (cell.txt_brand.text == "Lifan") {
+                            self.strCarBrand = "Lifan"
+                        } else if (cell.txt_brand.text == "TVS") {
+                            self.strCarBrand = "TVS"
+                        } else if (cell.txt_brand.text == "Suzuki") {
+                            self.strCarBrand = "Suzuki"
+                        } else if (cell.txt_brand.text == "Victor R") {
+                            self.strCarBrand = "Victor R"
+                        } else if (cell.txt_brand.text == "Walton") {
+                            self.strCarBrand = "Walton"
                         } else {
-                            self.strCarColor = "white"
+                            self.strCarBrand = "Walton"
                         }
                         
                         
                         
-                        print(self.strCarColor as Any)
+                        print(self.strCarBrand as Any)
                     }
                 } else {
                     let arr_brand = ["Toyota",

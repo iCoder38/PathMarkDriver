@@ -730,11 +730,18 @@ class schedule_notification: UIViewController, CLLocationManagerDelegate , MKMap
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
             
             print("parameters-------\(String(describing: parameters))")
             
@@ -913,11 +920,18 @@ class schedule_notification: UIViewController, CLLocationManagerDelegate , MKMap
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
             
             print("parameters-------\(String(describing: parameters))")
             

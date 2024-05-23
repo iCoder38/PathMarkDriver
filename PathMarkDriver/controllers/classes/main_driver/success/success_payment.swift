@@ -299,7 +299,7 @@ class success_payment: UIViewController {
                     "action"    : "gettoken",
                     "userId"    : String(myString),
                     "email"     : (get_login_details["email"] as! String),
-                    "role"      : "Member"
+                    "role"      : (person["role"] as! String)
                 ]
             }
             

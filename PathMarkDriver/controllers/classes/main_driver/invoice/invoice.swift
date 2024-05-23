@@ -464,7 +464,7 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
                     "action"    : "gettoken",
                     "userId"    : String(myString),
                     "email"     : (get_login_details["email"] as! String),
-                    "role"      : "Driver"
+                    "role"      : (person["role"] as! String)
                 ]
             }
             

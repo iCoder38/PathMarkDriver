@@ -209,7 +209,11 @@ class cashout: UIViewController, UITextFieldDelegate {
                         
                         let get_data = (JSON["data"] as! NSDictionary)
                         
-                        self.lbl_wallet_balance.text = String(str_bangladesh_currency_symbol)+"\(get_data["wallet"]!)"
+                         
+                        let doublt = Double("\(get_data["wallet"]!)")
+                        let roundedNumber = round(100 *  doublt!) / 100 // Rounds to 2 decimal places
+                        let formattedString = String(format: "%.2f", roundedNumber)
+                        self.lbl_wallet_balance.text = String(str_bangladesh_currency_symbol)+"\(formattedString)"
                         self.str_save_wallet_balance = "\(get_data["wallet"]!)"
                         
                     } else {
@@ -428,11 +432,18 @@ class cashout: UIViewController, UITextFieldDelegate {
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
             
             print("parameters-------\(String(describing: parameters))")
             

@@ -205,11 +205,18 @@ class ride_history_details: UIViewController {
         if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
             print(get_login_details as Any)
             
-            parameters = [
-                "action"    : "login",
-                "email"     : (get_login_details["email"] as! String),
-                "password"  : (get_login_details["password"] as! String),
-            ]
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
             
             print("parameters-------\(String(describing: parameters))")
             
@@ -277,9 +284,9 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         cell.lbl_from.text = (self.dict_get_booking_details["RequestPickupAddress"] as! String)
         cell.lbl_to.text = (self.dict_get_booking_details["RequestDropAddress"] as! String)
         
-        cell.lbl_fare.text = "\(self.dict_get_booking_details["FinalFare"]!)"
-        cell.lbl_tip.text = "\(self.dict_get_booking_details["TIP"]!)"
-        cell.lbl_promotion.text = "\(self.dict_get_booking_details["discountAmount"]!)"
+        cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["FinalFare"]!)"
+        cell.lbl_tip.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["TIP"]!)"
+        cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["discountAmount"]!)"
         
         //
         print(self.str_starrating as Any)
@@ -307,7 +314,7 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         let double_promotion = Double(i_am_promotion)
         
         let add_all = double_fare!+double_tip!+double_promotion!
-        cell.lbl_total_amount.text = "\(add_all)"
+        cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(add_all)"
         
         cell.lbl_car_number.text = "\(self.dict_get_booking_details["CarName"]!)"+" "+"\(self.dict_get_booking_details["vehicleNumber"]!)"
         cell.lbl_car_color.text = "\(self.dict_get_booking_details["VehicleColor"]!)"

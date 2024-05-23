@@ -16,6 +16,8 @@ import CoreLocation
 
 class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
+    @IBOutlet weak var btn_back:UIButton!
+    
     let locationManager = CLLocationManager()
     
     // MARK:- SAVE LOCATION STRING -
@@ -73,6 +75,8 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         
         self.get_country_list_WB()
     }
@@ -493,7 +497,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
         }*/ else {
             
-            if (cell.txt_phone_number.text!.count == 11) {
+            if (cell.txt_phone_number.text!.count == 10) {
                 
                 
                 if (self.arr_country_array == nil) {
@@ -883,7 +887,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
 
            // make sure the result is under 16 characters
-           return updatedText.count <= 11
+           return updatedText.count <= 10
            
        
        }
