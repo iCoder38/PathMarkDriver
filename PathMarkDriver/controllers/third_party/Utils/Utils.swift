@@ -337,6 +337,12 @@ extension String {
 
 extension UIViewController {
     
+    func roundToTwoDecimalPlaces(_ number: Double) -> String {
+        let roundedNumber = round(100 * number) / 100
+        return String(format: "%.2f", roundedNumber)
+    }
+
+    
     @IBAction func showAlertButtonTapped(_ sender: UIButton) {
 
         // create the alert

@@ -78,7 +78,10 @@ class ride_history_details: UIViewController {
         print("===================================")
         print("===================================")
         
-        self.lbl_price.text = "\(self.dict_get_booking_details["FinalFare"]!)"
+         
+        let formattedString = roundToTwoDecimalPlaces(Double("\(self.dict_get_booking_details["FinalFare"]!)")!)
+        
+        self.lbl_price.text = formattedString
         self.lbl_distance.text = "\(self.dict_get_booking_details["totalDistance"]!)"
         
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
@@ -284,7 +287,8 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         cell.lbl_from.text = (self.dict_get_booking_details["RequestPickupAddress"] as! String)
         cell.lbl_to.text = (self.dict_get_booking_details["RequestDropAddress"] as! String)
         
-        cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["FinalFare"]!)"
+        let formattedStringfare = roundToTwoDecimalPlaces(Double("\(self.dict_get_booking_details["FinalFare"]!)")!)
+        cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(formattedStringfare)"
         cell.lbl_tip.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["TIP"]!)"
         cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["discountAmount"]!)"
         
@@ -314,7 +318,9 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         let double_promotion = Double(i_am_promotion)
         
         let add_all = double_fare!+double_tip!+double_promotion!
-        cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(add_all)"
+        
+        let formattedStringFF = roundToTwoDecimalPlaces(add_all)
+        cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(formattedStringFF)"
         
         cell.lbl_car_number.text = "\(self.dict_get_booking_details["CarName"]!)"+" "+"\(self.dict_get_booking_details["vehicleNumber"]!)"
         cell.lbl_car_color.text = "\(self.dict_get_booking_details["VehicleColor"]!)"
