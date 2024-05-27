@@ -297,7 +297,7 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         
         let formattedStringfare = roundToTwoDecimalPlaces(Double("\(self.dict_get_booking_details["FinalFare"]!)")!)
         cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(formattedStringfare)"
-        cell.lbl_tip.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["TIP"]!)"
+        // cell.lbl_tip.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["TIP"]!)"
         cell.lbl_promotion.text = "\(str_bangladesh_currency_symbol) \(self.dict_get_booking_details["discountAmount"]!)"
         
         //
@@ -305,13 +305,13 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         // btn_payment_status
        
         
-        // tip
+        /*// tip
         let i_am_tip:String!
         if "\(self.dict_get_booking_details["TIP"]!)" == "" {
             i_am_tip = "0.0"
         } else {
             i_am_tip = "\(self.dict_get_booking_details["TIP"]!)"
-        }
+        }*/
         
         // promotion
         let i_am_promotion:String!
@@ -322,10 +322,11 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         }
         
         let double_fare = Double("\(self.dict_get_booking_details["FinalFare"]!)")
-        let double_tip = Double(i_am_tip)
+        // let double_tip = Double(i_am_tip)
         let double_promotion = Double(i_am_promotion)
         
-        let add_all = double_fare!+double_tip!-double_promotion!
+        //let add_all = double_fare!+double_tip!-double_promotion!
+        let add_all = double_fare!-double_promotion!
         
         let formattedStringFF = roundToTwoDecimalPlaces(add_all)
         cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(formattedStringFF)"
@@ -445,6 +446,7 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
          @IBOutlet weak var lblpromotion_text:UILabel!
          @IBOutlet weak var lbl_total_amount_text:UILabel!
          */
+        
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
             
@@ -452,7 +454,7 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
                 cell.lbl_total_fare_text.text = "Fare"
                 cell.lbl_distance_text.text = "Distance"
                 cell.lbl_total_fare_text_two.text = "TOTAL FARE"
-                cell.lbl_tip_text.text = "Tip"
+                // cell.lbl_tip_text.text = "Tip"
                 cell.lblpromotion_text.text = "Promotion"
                 cell.lbl_total_amount_text.text = "Total Amount"
                 
@@ -460,7 +462,7 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
                 cell.lbl_total_fare_text.text = "ভাড়া"
                 cell.lbl_distance_text.text = "দূরত্ব"
                 cell.lbl_total_fare_text_two.text = "মোট ভাড়া"
-                cell.lbl_tip_text.text = "টিপ"
+                // cell.lbl_tip_text.text = "টিপ"
                 cell.lblpromotion_text.text = "পদোন্নতি"
                 cell.lbl_total_amount_text.text = "সর্বমোট পরিমাণ"
             }
@@ -471,6 +473,7 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
             print("=============================")
             UserDefaults.standard.set("en", forKey: str_language_convert)
         }
+        
         cell.backgroundColor = .clear
         
         if String(self.str_starrating) == "0" {

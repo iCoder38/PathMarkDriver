@@ -208,50 +208,6 @@
             endingLineNumber = "458"
             landmarkName = "four_click_method(sender:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "9488BEB7-5545-4F83-9FB5-8426A8B01065 - 37b1e6c5c033bc0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.upload_documents.four_click_method(sender: __C.UITapGestureRecognizer) -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "459"
-                  endingLineNumber = "459">
-               </Location>
-               <Location
-                  uuid = "9488BEB7-5545-4F83-9FB5-8426A8B01065 - 37b1e6c5c033bc0"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.upload_documents.four_click_method(sender: __C.UITapGestureRecognizer) -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "459"
-                  endingLineNumber = "459">
-               </Location>
-               <Location
-                  uuid = "9488BEB7-5545-4F83-9FB5-8426A8B01065 - 37b1e6c5c033ba1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.upload_documents.four_click_method(sender: __C.UITapGestureRecognizer) -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "458"
-                  endingLineNumber = "458">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
