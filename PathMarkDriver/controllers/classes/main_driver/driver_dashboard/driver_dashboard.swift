@@ -386,7 +386,15 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
     @objc func update_token_WB(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         }
         
         
@@ -570,7 +578,15 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
     @objc func get_todays_earning_WB(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         }
         
         
@@ -728,7 +744,15 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
     @objc func update_switch(str_show_loader:String) {
        
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         }
         
         if (self.switch_value.isOn == true) {

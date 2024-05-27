@@ -110,7 +110,15 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
     }
     
     /*@objc func convert_upload_vehicle_reg_permit_params_into_encode() {
-        // ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        // if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         
         self.show_gif_loader()
         
@@ -291,7 +299,15 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_reg_permit_table_cell
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         }
         
         var parameters:Dictionary<AnyHashable, Any>!
@@ -687,7 +703,15 @@ class upload_reg_permit: UIViewController , UITextFieldDelegate, UINavigationCon
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_reg_permit_table_cell
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         }
         
         

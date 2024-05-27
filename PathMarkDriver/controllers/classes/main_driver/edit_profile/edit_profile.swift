@@ -111,7 +111,15 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
             print(language as Any)
             
             if (language == "en") {
-                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
             } else {
                 ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
             }
@@ -231,7 +239,15 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                print(language as Any)
                
                if (language == "en") {
-                   ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                   if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
                } else {
                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
                }
@@ -325,7 +341,15 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
            print(language as Any)
            
            if (language == "en") {
-               ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+               if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
            } else {
                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
            }
@@ -351,7 +375,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
             
         } else if (cell.txtEmailAddress.text! == "") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter email address"), style: .alert)
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid E-mail"), style: .alert)
             let cancel = NewYorkButton(title: "dismiss", style: .cancel)
             alert.addButtons([cancel])
             self.present(alert, animated: true)
@@ -361,7 +385,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
             
         }else if (cell.txt_phone_number.text! == "") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter phone number"), style: .alert)
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter mobile number"), style: .alert)
             let cancel = NewYorkButton(title: "dismiss", style: .cancel)
             alert.addButtons([cancel])
             self.present(alert, animated: true)
@@ -802,7 +826,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
             
         } else if (cell.txtEmailAddress.text! == "") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter email address"), style: .alert)
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid E-mail"), style: .alert)
             let cancel = NewYorkButton(title: "dismiss", style: .cancel)
             alert.addButtons([cancel])
             self.present(alert, animated: true)
@@ -812,7 +836,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
             
         }else if (cell.txt_phone_number.text! == "") {
             
-            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter phone number"), style: .alert)
+            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter mobile number"), style: .alert)
             let cancel = NewYorkButton(title: "dismiss", style: .cancel)
             alert.addButtons([cancel])
             self.present(alert, animated: true)
@@ -886,7 +910,15 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                    print(language as Any)
                    
                    if (language == "en") {
-                       ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                       if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
                    } else {
                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
                    }

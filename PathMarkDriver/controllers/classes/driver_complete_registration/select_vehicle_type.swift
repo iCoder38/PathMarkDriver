@@ -11,6 +11,9 @@ class select_vehicle_type: UIViewController {
 
     var str_select_vehicle:String!
     
+    @IBOutlet weak var btn_back:UIButton!
+    @IBOutlet weak var btn_language:UIButton!
+    
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
             view_navigation_bar.backgroundColor = navigation_color
@@ -21,22 +24,7 @@ class select_vehicle_type: UIViewController {
         didSet {
             
             
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    lbl_message.text = "PLEASE CHOOSE YOUR VEHICLE TYPE TO CONTINUE"
-                } else {
-                    lbl_message.text = "চালিয়ে যেতে আপনার গাড়ির ধরন বেছে নিন"
-                }
-                
-             
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
+            
             
             // view_navigation_title.textColor = .white
         }
@@ -46,22 +34,7 @@ class select_vehicle_type: UIViewController {
         didSet {
             
             
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    view_navigation_title.text = "Select Vehicle Type"
-                } else {
-                    view_navigation_title.text = "যানবাহনের ধরন নির্বাচন করুন"
-                }
-                
-             
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
+            
             
             view_navigation_title.textColor = .white
         }
@@ -97,22 +70,7 @@ class select_vehicle_type: UIViewController {
     @IBOutlet weak var lbl_bike_text:UILabel! {
         didSet {
              
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    lbl_bike_text.text = "Bike"
-                } else {
-                    lbl_bike_text.text = "বাইক"
-                }
-                
-             
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
+            
             
             
             
@@ -123,22 +81,7 @@ class select_vehicle_type: UIViewController {
     @IBOutlet weak var lbl_car_text:UILabel! {
         didSet {
              
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    lbl_car_text.text = "Car"
-                } else {
-                    lbl_car_text.text = "গাড়ি"
-                }
-                
-             
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
+            
             
             
             
@@ -149,30 +92,7 @@ class select_vehicle_type: UIViewController {
     @IBOutlet weak var btn_select:UIButton! {
         didSet {
              
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    Utils.buttonStyle(button: btn_select,
-                                      bCornerRadius: 12,
-                                      bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
-                                      bTitle: "Select",
-                                      bTitleColor: .black)
-                } else {
-                    Utils.buttonStyle(button: btn_select,
-                                      bCornerRadius: 12,
-                                      bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
-                                      bTitle: "নির্বাচন করুন",
-                                      bTitleColor: .black)
-                }
-                
-             
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
+            
             
             
             
@@ -189,10 +109,116 @@ class select_vehicle_type: UIViewController {
         super.viewDidLoad()
         
         self.str_select_vehicle = "0"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                lbl_bike_text.text = "Bike"
+            } else {
+                lbl_bike_text.text = "বাইক"
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                Utils.buttonStyle(button: btn_select,
+                                  bCornerRadius: 12,
+                                  bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
+                                  bTitle: "Select",
+                                  bTitleColor: .black)
+            } else {
+                Utils.buttonStyle(button: btn_select,
+                                  bCornerRadius: 12,
+                                  bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
+                                  bTitle: "নির্বাচন করুন",
+                                  bTitleColor: .black)
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                view_navigation_title.text = "Select Vehicle Type"
+            } else {
+                view_navigation_title.text = "যানবাহনের ধরন নির্বাচন করুন"
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                lbl_car_text.text = "Car"
+            } else {
+                lbl_car_text.text = "গাড়ি"
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                lbl_message.text = "Please choose your vehicle type to continue"
+            } else {
+                lbl_message.text = "চালিয়ে যেতে আপনার গাড়ির ধরন বেছে নিন"
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
+        self.btn_language.addTarget(self, action: #selector(language_click_method), for: .touchUpInside)
         
         self.btn_bike.addTarget(self, action: #selector(bike_click_method), for: .touchUpInside)
         self.btn_car.addTarget(self, action: #selector(car_click_method), for: .touchUpInside)
         self.btn_select.addTarget(self, action: #selector(select_click_method), for: .touchUpInside)
+    }
+    @objc func language_click_method() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "change_language_id") as? change_language
+        push!.str_start_screens = "yes"
+        self.navigationController?.pushViewController(push!, animated: true)
     }
     
     @objc func bike_click_method() {

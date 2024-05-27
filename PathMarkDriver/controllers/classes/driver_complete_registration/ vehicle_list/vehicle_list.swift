@@ -21,6 +21,8 @@ class vehicle_list: UIViewController {
     
     var str_category_id:String!
     
+    @IBOutlet weak var btn_language:UIButton!
+    
     @IBOutlet weak var btn_back:UIButton! {
         didSet {
             btn_back.tintColor = .white
@@ -37,22 +39,7 @@ class vehicle_list: UIViewController {
         didSet {
             
             
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    lbl_message.text = "PLEASE CHOOSE HOW YOU WOULD LIKE TO PARTNER WITH ZARIB"
-                } else {
-                    lbl_message.text = "আপনি জারিবের সাথে কীভাবে অংশীদার হতে চান তা চয়ন করুন"
-                }
-                
-             
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
+            
             
             // view_navigation_title.textColor = .white
         }
@@ -61,22 +48,8 @@ class vehicle_list: UIViewController {
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
             
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    view_navigation_title.text = "Select"
-                } else {
-                    view_navigation_title.text = "নির্বাচন করুন"
-                }
-                
-             
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
+            
+            
             view_navigation_title.textColor = .white
         }
     }
@@ -91,32 +64,7 @@ class vehicle_list: UIViewController {
     
     @IBOutlet weak var btn_submit:UIButton! {
         didSet {
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    Utils.buttonStyle(button: btn_submit,
-                                      bCornerRadius: 12,
-                                      bBackgroundColor: UIColor(red: 108.0/255.0, green: 216.0/255.0, blue: 134.0/255.0, alpha: 1),
-                                      bTitle: "Submit",
-                                      bTitleColor: .white)
-                } else {
-                    Utils.buttonStyle(button: btn_submit,
-                                      bCornerRadius: 12,
-                                      bBackgroundColor: UIColor(red: 108.0/255.0, green: 216.0/255.0, blue: 134.0/255.0, alpha: 1),
-                                      bTitle: "জমা দিন",
-                                      bTitleColor: .white)
-                }
-                
-             
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
-            
-            
+           
             btn_submit.layer.masksToBounds = false
             btn_submit.layer.shadowColor = UIColor.black.cgColor
             btn_submit.layer.shadowOffset =  CGSize.zero
@@ -127,11 +75,85 @@ class vehicle_list: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+       
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         self.list_of_all_category_WB(str_show_loader: "yes")
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                Utils.buttonStyle(button: btn_submit,
+                                  bCornerRadius: 12,
+                                  bBackgroundColor: UIColor(red: 108.0/255.0, green: 216.0/255.0, blue: 134.0/255.0, alpha: 1),
+                                  bTitle: "Submit",
+                                  bTitleColor: .white)
+            } else {
+                Utils.buttonStyle(button: btn_submit,
+                                  bCornerRadius: 12,
+                                  bBackgroundColor: UIColor(red: 108.0/255.0, green: 216.0/255.0, blue: 134.0/255.0, alpha: 1),
+                                  bTitle: "জমা দিন",
+                                  bTitleColor: .white)
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                view_navigation_title.text = "Select"
+            } else {
+                view_navigation_title.text = "নির্বাচন করুন"
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                lbl_message.text = "Please choose how you would like to partner with Zarib App"
+            } else {
+                lbl_message.text = "আপনি কীভাবে যারিব অ্যাপের সাথে যুক্ত হতে চান তা নির্বাচন করুন"
+            }
+            
+         
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
+        self.btn_language.addTarget(self, action: #selector(language_click_method), for: .touchUpInside)
         
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         
         self.btn_submit.addTarget(self, action: #selector(add_vehicle_details_click_method), for: .touchUpInside)
+    }
+    
+    @objc func language_click_method() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "change_language_id") as? change_language
+        push!.str_start_screens = "yes"
+        self.navigationController?.pushViewController(push!, animated: true)
     }
     
 //    @objc override func back_click_method() {
@@ -173,7 +195,15 @@ class vehicle_list: UIViewController {
     }
     
     /*@objc func convert_country_list_params_into_encode() {
-        // ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+        // if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         
         self.show_gif_loader()
         
@@ -232,7 +262,15 @@ class vehicle_list: UIViewController {
             print(language as Any)
             
             if (language == "en") {
-                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
                 lan = "en"
             } else {
                 ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")

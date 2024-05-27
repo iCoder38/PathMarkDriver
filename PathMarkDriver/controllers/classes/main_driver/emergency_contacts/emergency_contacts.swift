@@ -113,7 +113,15 @@ class emergency_contacts: UIViewController {
                     print(language as Any)
                     
                     if (language == "en") {
-                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
                     } else {
                         ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
                     }
@@ -253,71 +261,104 @@ class emergency_contacts: UIViewController {
 
     // delete contact
     @objc func delete_contact(emergency_id:String) {
-
-        var parameters:Dictionary<AnyHashable, Any>!
         
-        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
-            self.arr_emergency_number.removeAllObjects()
+         
+        var lan_message = ""
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
             
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "deleting...")
+            if (language == "en") {
+                
+                lan_message = "Do you want to delete this contact!!"
+   
+            } else {
+                
+                lan_message = "যোগাযোগ নম্বরটি মুছতে চাচ্ছেন?"
+                
+            }
             
-            let x : Int = person["userId"] as! Int
-            let myString = String(x)
+             
+        }
+        
+        let refreshAlert = UIAlertController(title: nil, message: lan_message, preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+              print("Handle Ok logic here")
             
-            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
-                print(token_id_is as Any)
+            var parameters:Dictionary<AnyHashable, Any>!
+            
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                self.arr_emergency_number.removeAllObjects()
                 
-                let headers: HTTPHeaders = [
-                     "token":String(token_id_is),
-                ]
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "deleting...")
                 
-                parameters = [
-                    "action"        : "emergencydelete",
-                    "userId"        : String(myString),
-                    "emergencyId"   : String(emergency_id),
-                ]
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
                 
-                print(headers)
-                print("parameters-------\(String(describing: parameters))")
-                
-                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON {
-                    response in
+                if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                    print(token_id_is as Any)
                     
-                    switch(response.result) {
-                    case .success(_):
-                        if let data = response.value {
-                            
-                            let JSON = data as! NSDictionary
-                            print(JSON)
-                            
-                            var strSuccess : String!
-                            strSuccess = JSON["status"] as? String
-                            ERProgressHud.sharedInstance.hide()
-                            
-                            if strSuccess.lowercased() == "success" {
+                    let headers: HTTPHeaders = [
+                         "token":String(token_id_is),
+                    ]
+                    
+                    parameters = [
+                        "action"        : "emergencydelete",
+                        "userId"        : String(myString),
+                        "emergencyId"   : String(emergency_id),
+                    ]
+                    
+                    print(headers)
+                    print("parameters-------\(String(describing: parameters))")
+                    
+                    AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON {
+                        response in
+                        
+                        switch(response.result) {
+                        case .success(_):
+                            if let data = response.value {
                                 
-                                let str_token = (JSON["AuthToken"] as! String)
-                                UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                                UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                                let JSON = data as! NSDictionary
+                                print(JSON)
                                 
-                                self.emergency_wb(str_show_loader: "no")
-                            }
-                            else {
+                                var strSuccess : String!
+                                strSuccess = JSON["status"] as? String
                                 ERProgressHud.sharedInstance.hide()
+                                
+                                if strSuccess.lowercased() == "success" {
+                                    
+                                    let str_token = (JSON["AuthToken"] as! String)
+                                    UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                                    UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                                    
+                                    self.emergency_wb(str_show_loader: "no")
+                                }
+                                else {
+                                    ERProgressHud.sharedInstance.hide()
+                                }
+                                
                             }
                             
+                        case .failure(_):
+                            print("Error message:\(String(describing: response.error))")
+                            ERProgressHud.sharedInstance.hide()
+                            self.please_check_your_internet_connection()
+                            
+                            break
                         }
-                        
-                    case .failure(_):
-                        print("Error message:\(String(describing: response.error))")
-                        ERProgressHud.sharedInstance.hide()
-                        self.please_check_your_internet_connection()
-                        
-                        break
                     }
                 }
             }
-        }
+        }))
+        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Ok logic here")
+            
+             
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
+        
+        
     }
     
     
@@ -398,7 +439,7 @@ extension emergency_contacts: UITableViewDataSource , UITableViewDelegate {
                 
                 let alertController = UIAlertController(title: "Settings", message: "", preferredStyle: .actionSheet)
                 
-                let delete_contact = UIAlertAction(title: "Do you want to delete this contact!!", style: .destructive) {
+                let delete_contact = UIAlertAction(title: "Delete", style: .destructive) {
                     UIAlertAction in
                     NSLog("OK Pressed")
                     

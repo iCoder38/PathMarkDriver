@@ -101,7 +101,15 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
               print(language as Any)
               
               if (language == "en") {
-                  ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                  if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
               } else {
                   ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
               }
@@ -121,6 +129,8 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             }
             
             
+        } else {
+            lan = "en"
         }
         
         let params = payload_country_list_two(action: "countrylist",language: String(lan))
@@ -252,7 +262,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                 print(language as Any)
                 
                 if (language == "en") {
-                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter email address"), style: .alert)
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid E-mail"), style: .alert)
                     let cancel = NewYorkButton(title: "dismiss", style: .cancel)
                     alert.addButtons([cancel])
                     self.present(alert, animated: true)
@@ -594,7 +604,15 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
             if (language == "en") {
                 lan = "en"
-                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
             } else {
                 lan = "bn"
                 ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")

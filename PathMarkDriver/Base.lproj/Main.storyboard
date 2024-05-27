@@ -1095,11 +1095,39 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nrJ-HE-aV9">
+                                        <rect key="frame" x="345" y="40" width="40" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="aMD-6g-U45"/>
+                                            <constraint firstAttribute="width" constant="40" id="jDw-Qn-dqd"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="language_white"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkm-ZZ-3pA">
+                                        <rect key="frame" x="8" y="40" width="40" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="9Up-uA-07h"/>
+                                            <constraint firstAttribute="height" constant="40" id="m40-CQ-HIn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="arrow.left" catalog="system"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="nrJ-HE-aV9" secondAttribute="trailing" constant="8" id="5kz-V4-Z2V"/>
                                     <constraint firstAttribute="trailing" secondItem="xRj-gk-K1l" secondAttribute="trailing" constant="8" id="6b9-IV-RmI"/>
+                                    <constraint firstItem="tkm-ZZ-3pA" firstAttribute="leading" secondItem="8uM-nW-0eq" secondAttribute="leading" constant="8" id="8QN-HU-LBR"/>
                                     <constraint firstAttribute="height" constant="88" id="a6T-6A-Gp7"/>
+                                    <constraint firstAttribute="bottom" secondItem="tkm-ZZ-3pA" secondAttribute="bottom" constant="8" id="eS7-pA-jmO"/>
+                                    <constraint firstAttribute="bottom" secondItem="nrJ-HE-aV9" secondAttribute="bottom" constant="8" id="kQq-mT-Hgk"/>
                                     <constraint firstItem="xRj-gk-K1l" firstAttribute="leading" secondItem="8uM-nW-0eq" secondAttribute="leading" constant="8" id="tBQ-mQ-4oT"/>
                                     <constraint firstAttribute="bottom" secondItem="xRj-gk-K1l" secondAttribute="bottom" constant="4" id="taq-Fo-bEh"/>
                                 </constraints>
@@ -1229,8 +1257,10 @@
                     </view>
                     <size key="freeformSize" width="393" height="1200"/>
                     <connections>
+                        <outlet property="btn_back" destination="tkm-ZZ-3pA" id="TED-Td-m30"/>
                         <outlet property="btn_bike" destination="XEm-cw-Zlk" id="FBu-Us-H4N"/>
                         <outlet property="btn_car" destination="Uoc-n6-wGg" id="UAw-fu-HU7"/>
+                        <outlet property="btn_language" destination="nrJ-HE-aV9" id="nDl-UH-1oa"/>
                         <outlet property="btn_select" destination="0J3-tS-NTv" id="SVB-ty-jq7"/>
                         <outlet property="lbl_bike_text" destination="WKU-VD-Cp0" id="hwI-JK-QbG"/>
                         <outlet property="lbl_car_text" destination="YLO-Tb-lUg" id="uJX-Hb-m7s"/>
@@ -1277,18 +1307,32 @@
                                             <constraint firstAttribute="width" constant="40" id="b38-q3-Lqr"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="arrow.left" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mNC-Vl-WpG">
+                                        <rect key="frame" x="345" y="40" width="40" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="5qW-9y-7Qc"/>
+                                            <constraint firstAttribute="width" constant="40" id="J87-Sf-BjW"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="language_white"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="mNC-Vl-WpG" secondAttribute="bottom" constant="8" id="1HL-l6-Gh7"/>
                                     <constraint firstItem="Rkm-z9-o6h" firstAttribute="leading" secondItem="76U-5q-ulv" secondAttribute="leading" constant="8" id="39d-9i-muq"/>
                                     <constraint firstItem="TQl-77-FoR" firstAttribute="leading" secondItem="76U-5q-ulv" secondAttribute="leading" constant="8" id="E4K-zO-l0f"/>
                                     <constraint firstAttribute="height" constant="88" id="TCB-gK-ih6"/>
                                     <constraint firstAttribute="bottom" secondItem="TQl-77-FoR" secondAttribute="bottom" constant="8" id="hhM-8L-mSu"/>
                                     <constraint firstAttribute="bottom" secondItem="Rkm-z9-o6h" secondAttribute="bottom" constant="4" id="ihP-JH-XRl"/>
+                                    <constraint firstAttribute="trailing" secondItem="mNC-Vl-WpG" secondAttribute="trailing" constant="8" id="oiS-kB-VjR"/>
                                     <constraint firstAttribute="trailing" secondItem="Rkm-z9-o6h" secondAttribute="trailing" constant="8" id="sg9-Vo-OVv"/>
                                 </constraints>
                             </view>
@@ -1395,6 +1439,7 @@
                     <size key="freeformSize" width="393" height="1200"/>
                     <connections>
                         <outlet property="btn_back" destination="TQl-77-FoR" id="ajG-bs-R4Q"/>
+                        <outlet property="btn_language" destination="mNC-Vl-WpG" id="ji4-kb-GGU"/>
                         <outlet property="btn_submit" destination="9Cg-tu-dDz" id="7Yr-LV-OyX"/>
                         <outlet property="lbl_message" destination="Ci2-Wd-lyX" id="H4q-6p-Ilo"/>
                         <outlet property="tbleView" destination="1b2-aq-QLJ" id="HwA-Yy-RHb"/>
@@ -1764,6 +1809,18 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="arrow.left" catalog="system"/>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XWB-rY-xAH">
+                                        <rect key="frame" x="345" y="44" width="40" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="tgf-SB-F7R"/>
+                                            <constraint firstAttribute="width" constant="40" id="xNE-nH-dD2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="language_white"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1771,8 +1828,10 @@
                                     <constraint firstItem="HWJ-E3-ILj" firstAttribute="leading" secondItem="UjX-RJ-93w" secondAttribute="leading" constant="8" id="7v3-e6-xwd"/>
                                     <constraint firstAttribute="bottom" secondItem="HWJ-E3-ILj" secondAttribute="bottom" constant="8" id="Khz-4S-7Wu"/>
                                     <constraint firstItem="gmF-Ke-g1r" firstAttribute="leading" secondItem="UjX-RJ-93w" secondAttribute="leading" constant="8" id="V56-y3-KKQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="XWB-rY-xAH" secondAttribute="bottom" constant="4" id="lNC-px-NKR"/>
                                     <constraint firstAttribute="height" constant="88" id="p2P-Ky-Zrj"/>
                                     <constraint firstAttribute="bottom" secondItem="gmF-Ke-g1r" secondAttribute="bottom" constant="4" id="pb7-tF-Gox"/>
+                                    <constraint firstAttribute="trailing" secondItem="XWB-rY-xAH" secondAttribute="trailing" constant="8" id="u0G-Qi-3S8"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MEm-be-Xdv">
@@ -2412,6 +2471,7 @@
                     <size key="freeformSize" width="393" height="1200"/>
                     <connections>
                         <outlet property="btn_back" destination="HWJ-E3-ILj" id="whu-kx-7f0"/>
+                        <outlet property="btn_language" destination="XWB-rY-xAH" id="yEW-wc-cmM"/>
                         <outlet property="tbleView" destination="MEm-be-Xdv" id="toc-Xy-IqZ"/>
                         <outlet property="view_navigation_bar" destination="UjX-RJ-93w" id="a4L-dA-DKr"/>
                         <outlet property="view_navigation_title" destination="gmF-Ke-g1r" id="P9a-lp-a2b"/>
@@ -12805,8 +12865,8 @@
         <image name="logo" width="1024" height="1024"/>
         <image name="logo-white" width="800" height="269"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="message" catalog="system" width="128" height="116"/>
         <image name="message" width="24" height="24"/>
+        <image name="message" catalog="system" width="128" height="116"/>
         <image name="new-password" width="138" height="138"/>
         <image name="paperclip" catalog="system" width="121" height="128"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>

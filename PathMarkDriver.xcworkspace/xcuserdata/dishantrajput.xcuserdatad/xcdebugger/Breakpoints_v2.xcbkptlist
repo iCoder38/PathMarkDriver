@@ -162,6 +162,36 @@
             endingLineNumber = "559"
             landmarkName = "login_refresh_token_wb()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B84BA536-83B8-4B69-A5F0-47C669705370 - 4e212998204811ee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.edit_profile.login_refresh_token_wb() -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "560"
+                  endingLineNumber = "560">
+               </Location>
+               <Location
+                  uuid = "B84BA536-83B8-4B69-A5F0-47C669705370 - 4e212998204811ee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.edit_profile.login_refresh_token_wb() -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "560"
+                  endingLineNumber = "560">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -174,10 +204,54 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
+            startingLineNumber = "458"
+            endingLineNumber = "458"
             landmarkName = "four_click_method(sender:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9488BEB7-5545-4F83-9FB5-8426A8B01065 - 37b1e6c5c033bc0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.upload_documents.four_click_method(sender: __C.UITapGestureRecognizer) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "459"
+                  endingLineNumber = "459">
+               </Location>
+               <Location
+                  uuid = "9488BEB7-5545-4F83-9FB5-8426A8B01065 - 37b1e6c5c033bc0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.upload_documents.four_click_method(sender: __C.UITapGestureRecognizer) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "459"
+                  endingLineNumber = "459">
+               </Location>
+               <Location
+                  uuid = "9488BEB7-5545-4F83-9FB5-8426A8B01065 - 37b1e6c5c033ba1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PathMarkDriver.upload_documents.four_click_method(sender: __C.UITapGestureRecognizer) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "458"
+                  endingLineNumber = "458">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -193,22 +267,6 @@
             startingLineNumber = "978"
             endingLineNumber = "978"
             landmarkName = "update_profile_with_image()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1CD3BBAD-D51C-4946-9933-D55FBAAC034B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PathMarkDriver/controllers/classes/search_map_location/map_view.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "449"
-            endingLineNumber = "449"
-            landmarkName = "list_of_all_category_WB()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -258,6 +316,36 @@
             endingLineNumber = "540"
             landmarkName = "accept_booking_WB(str_show_loader:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "46178BA2-6B31-4F4A-AA32-C7515F47BA3A - 81f0e9c17d84ada2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.instant_booking_accept_decline.accept_booking_WB(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/instant_booking_accept/instant_booking_accept_decline.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "540"
+                  endingLineNumber = "540">
+               </Location>
+               <Location
+                  uuid = "46178BA2-6B31-4F4A-AA32-C7515F47BA3A - 81f0e9c17d84ada2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.instant_booking_accept_decline.accept_booking_WB(str_show_loader: Swift.String) -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/instant_booking_accept/instant_booking_accept_decline.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "540"
+                  endingLineNumber = "540">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -354,6 +442,36 @@
             endingLineNumber = "184"
             landmarkName = "profileWB()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4574D8CE-3BD1-454A-895B-AEB3486F4287 - d49de374472d55d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.edit_profile.profileWB() -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "186"
+                  endingLineNumber = "186">
+               </Location>
+               <Location
+                  uuid = "4574D8CE-3BD1-454A-895B-AEB3486F4287 - d49de374472d55d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.edit_profile.profileWB() -&gt; ()"
+                  moduleName = "PathMarkDriver"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "186"
+                  endingLineNumber = "186">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -369,68 +487,6 @@
             startingLineNumber = "824"
             endingLineNumber = "824"
             landmarkName = "accept_booking_WB(str_show_loader:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5F4CB881-CA25-4508-9848-396D558CE3CB"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "589"
-            endingLineNumber = "589"
-            landmarkName = "send_data_to_server()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5F4CB881-CA25-4508-9848-396D558CE3CB - a2721fc0952c3f2c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.sign_up.send_data_to_server() -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "592"
-                  endingLineNumber = "592">
-               </Location>
-               <Location
-                  uuid = "5F4CB881-CA25-4508-9848-396D558CE3CB - a2721fc0952c3f2c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.sign_up.send_data_to_server() -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "592"
-                  endingLineNumber = "592">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2CECCC0E-821D-4304-B94E-67E19C678CCF"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "629"
-            endingLineNumber = "629"
-            landmarkName = "send_data_to_server()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -479,6 +535,22 @@
             startingLineNumber = "1365"
             endingLineNumber = "1365"
             landmarkName = "brand_click_method()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D88BA4D4-E9AE-4547-B7D7-9F2EAB71EC8D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1688"
+            endingLineNumber = "1688"
+            landmarkName = "textFieldDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

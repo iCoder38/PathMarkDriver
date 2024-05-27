@@ -135,7 +135,15 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_license_table_cell
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         }
         
         self.view.endEditing(true)
@@ -412,7 +420,15 @@ class upload_vehicle_license: UIViewController , UITextFieldDelegate, UINavigati
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_vehicle_license_table_cell
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         }
         
         

@@ -12,7 +12,7 @@ import Alamofire
 import SDWebImage
 
 class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+    
     var str_for_update:String!
     
     var strCarBrand:String!
@@ -59,7 +59,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         
         print(self.str_for_update as Any)
         print(self.str_vehicle_type as Any)
-         
+        
         if (self.str_for_update == "yes") {
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
@@ -70,7 +70,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     view_navigation_title.text = "গাড়ির তথ্যাদি আপডেট করুন"
                 }
                 
-             
+                
             } else {
                 print("=============================")
                 print("LOGIN : Select language error")
@@ -95,7 +95,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     view_navigation_title.text = "গাড়ির বিস্তারিত যোগ করুন"
                 }
                 
-             
+                
             } else {
                 print("=============================")
                 print("LOGIN : Select language error")
@@ -114,12 +114,12 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         
         if revealViewController() != nil {
             self.btn_back.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-        
+            
             revealViewController().rearViewRevealWidth = 300
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-          }
+        }
     }
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
         return true
@@ -164,7 +164,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     show_alert(text: "আপনার গাড়ির নম্বর যোগ করুন")
                 }
                 
-             
+                
             } else {
                 print("=============================")
                 print("LOGIN : Select language error")
@@ -187,7 +187,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     show_alert(text: "গাড়ির ব্র্যান্ড লিখুন")
                 }
                 
-             
+                
             } else {
                 print("=============================")
                 print("LOGIN : Select language error")
@@ -208,7 +208,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     show_alert(text: "গাড়ির মডেল লিখুন")
                 }
                 
-             
+                
             } else {
                 print("=============================")
                 print("LOGIN : Select language error")
@@ -216,7 +216,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 UserDefaults.standard.set("en", forKey: str_language_convert)
             }
             
-             
+            
             return
         } else if (cell.txt_year.text == "") {
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -228,7 +228,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     show_alert(text: "বছর লিখুন")
                 }
                 
-             
+                
             } else {
                 print("=============================")
                 print("LOGIN : Select language error")
@@ -246,7 +246,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     show_alert(text: "আপনার কার্ডের রঙ লিখুন")
                 }
                 
-             
+                
             } else {
                 print("=============================")
                 print("LOGIN : Select language error")
@@ -258,7 +258,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             if (self.str_for_update == "yes") {
                 
                 if (self.str_user_select_image == "1") {
-                     self.edit_vehicle_image_details_WB(str_show_loader: "yes")
+                    self.edit_vehicle_image_details_WB(str_show_loader: "yes")
                 } else {
                     // print("Please upload image")
                     self.edit_vehicle_WB(str_show_loader: "yes")
@@ -279,7 +279,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                             show_alert(text: "আপনার কার্ডের রঙ লিখুন")
                         }
                         
-                     
+                        
                     } else {
                         print("=============================")
                         print("LOGIN : Select language error")
@@ -292,8 +292,8 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             }
         }
         
-       
-       
+        
+        
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -388,14 +388,14 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
         
         let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-
+        
         cell.img_upload.image = image_data
         let imageData:Data = image_data!.pngData()!
         self.img_Str_banner = imageData.base64EncodedString()
         self.dismiss(animated: true, completion: nil)
         self.img_data_banner = image_data!.jpegData(compressionQuality: 0.2)!
         self.dismiss(animated: true, completion: nil)
-   
+        
         self.str_user_select_image = "1"
     }
     
@@ -516,7 +516,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     "role"      : (person["role"] as! String)
                 ]
             }
-           
+            
             print("parameters-------\(String(describing: parameters))")
             
             AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
@@ -537,7 +537,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                             let str_token = (JSON["AuthToken"] as! String)
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-
+                            
                             self.edit_vehicle_WB(str_show_loader: "no")
                             
                         } else {
@@ -610,14 +610,14 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                         lan = "bn"
                     }
                     
-                 
+                    
                 } else {
                     print("=============================")
                     print("LOGIN : Select language error")
                     print("=============================")
                     UserDefaults.standard.set("en", forKey: str_language_convert)
                 }
-
+                
                 
                 //Set Your Parameter
                 let parameterDict = NSMutableDictionary()
@@ -718,7 +718,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 self.login_refresh_token_for_upload_image_wb()
             }
         } else {
-          print("session")
+            print("session")
         }
     }
     
@@ -740,7 +740,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     "role"      : (person["role"] as! String)
                 ]
             }
-           
+            
             print("parameters-------\(String(describing: parameters))")
             
             AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
@@ -761,7 +761,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                             let str_token = (JSON["AuthToken"] as! String)
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-
+                            
                             self.edit_vehicle_image_details_WB(str_show_loader: "no")
                             
                         } else {
@@ -800,7 +800,15 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         self.view.endEditing(true)
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         }
         
         if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
@@ -890,7 +898,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     "role"      : (person["role"] as! String)
                 ]
             }
-           
+            
             print("parameters-------\(String(describing: parameters))")
             
             AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
@@ -911,7 +919,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                             let str_token = (JSON["AuthToken"] as! String)
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-
+                            
                             self.add_vehicle_WB(str_show_loader: "no")
                             
                         } else {
@@ -937,7 +945,15 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
         
         if (str_show_loader == "yes") {
-            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
         }
         
         //Set Your URL
@@ -954,12 +970,12 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 let myString = String(x)
                 
                 /*var ar : NSArray!
-                ar = (person["carinfromation"] as! Array<Any>) as NSArray
-                
-                let arr_mut_order_history:NSMutableArray! = []
-                arr_mut_order_history.addObjects(from: ar as! [Any])
-                
-                let item = arr_mut_order_history[0] as? [String:Any]*/
+                 ar = (person["carinfromation"] as! Array<Any>) as NSArray
+                 
+                 let arr_mut_order_history:NSMutableArray! = []
+                 arr_mut_order_history.addObjects(from: ar as! [Any])
+                 
+                 let item = arr_mut_order_history[0] as? [String:Any]*/
                 
                 var urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0 * 1000)
                 urlRequest.httpMethod = "POST"
@@ -978,7 +994,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                         lan = "bn"
                     }
                     
-                 
+                    
                 } else {
                     print("=============================")
                     print("LOGIN : Select language error")
@@ -1083,7 +1099,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 self.login_refresh_token_for_upload_image_wb()
             }
         } else {
-          print("session")
+            print("session")
         }
     }
     
@@ -1105,7 +1121,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     "role"      : (person["role"] as! String)
                 ]
             }
-           
+            
             print("parameters-------\(String(describing: parameters))")
             
             AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON {
@@ -1126,7 +1142,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                             let str_token = (JSON["AuthToken"] as! String)
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
-
+                            
                             self.upload_vehicle_details_WB(str_show_loader: "no")
                             
                         } else {
@@ -1176,8 +1192,8 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             let x : Int = person["userId"] as! Int
             let myString = String(x)
             let params = payload_profile_one(action: "profile",
-                                         userId: String(myString),
-                                         language: String(lan))
+                                             userId: String(myString),
+                                             language: String(lan))
             
             print(params as Any)
             
@@ -1219,7 +1235,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                                 alert.addButtons([cancel])
                                 self.present(alert, animated: true)
                             }
-                         
+                            
                         } else {
                             print("=============================")
                             print("LOGIN : Select language error")
@@ -1275,17 +1291,17 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
                 
                 RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_year, selectedIndex: 0) { (selctedText, atIndex) in
-                     cell.txt_year.text = String(selctedText)
+                    cell.txt_year.text = String(selctedText)
                     
                 }
-
+                
                 
             } else {
                 
                 let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
                 
                 RPicker.selectOption(title: "নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_year, selectedIndex: 0) { (selctedText, atIndex) in
-                     cell.txt_year.text = String(selctedText)
+                    cell.txt_year.text = String(selctedText)
                     
                 }
                 
@@ -1296,7 +1312,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         }
         
         
-                
+        
     }
     
     @objc func brand_click_method() {
@@ -1325,7 +1341,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     ]
                     
                     RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
-                         cell.txt_brand.text = String(selctedText)
+                        cell.txt_brand.text = String(selctedText)
                         self.strCarColor = String(selctedText)
                         
                         if (cell.txt_brand.text == "Aprilia") {
@@ -1376,11 +1392,11 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     ]
                     
                     RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
-                         cell.txt_brand.text = String(selctedText)
+                        cell.txt_brand.text = String(selctedText)
                         self.strCarBrand = String(selctedText)
                     }
                 }
-               
+                
                 
                 
                 
@@ -1404,23 +1420,23 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     ]
                     
                     RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
-                         cell.txt_brand.text = String(selctedText)
+                        cell.txt_brand.text = String(selctedText)
                         
                         /*
                          ["Aprilia",
-                                          "Bajaj",
-                                          "Benelli",
-                                          "Beetle Bolt",
-                                          "Hero",
-                                          "Honda",
-                                          "Runner",
-                                          "Keeway",
-                                          "Yamaha",
-                                          "Lifan",
-                                          "TVS",
-                                          "Suzuki",
-                                          "Victor R",
-                                          "Walton",
+                         "Bajaj",
+                         "Benelli",
+                         "Beetle Bolt",
+                         "Hero",
+                         "Honda",
+                         "Runner",
+                         "Keeway",
+                         "Yamaha",
+                         "Lifan",
+                         "TVS",
+                         "Suzuki",
+                         "Victor R",
+                         "Walton",
                          ]
                          */
                         if (cell.txt_brand.text == "এপ্রিলিয়া") {
@@ -1476,13 +1492,13 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                         
                         /*
                          ["Toyota",
-                                          "Honda",
-                                          "Nissan",
-                                          "Suzuki",
-                                          "Hyundai",
-                                          "Audi",
-                                          "BMW",
-                                          "Subaru",
+                         "Honda",
+                         "Nissan",
+                         "Suzuki",
+                         "Hyundai",
+                         "Audi",
+                         "BMW",
+                         "Subaru",
                          ]
                          */
                         if (cell.txt_brand.text == "টয়োটা") {
@@ -1512,7 +1528,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 
             }
             
-         
+            
         } else {
             print("=============================")
             print("LOGIN : Select language error")
@@ -1537,19 +1553,19 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 
                 
                 let arr_color = ["white",
-                                "black",
-                                "Gray",
-                                "Silver",
-                                "Red",
-                                "Blue",
-                                "Yellow",
-                                "Green",
-                                "Beige",
-                                "Gold",
-                "Metallic Gray"]
+                                 "black",
+                                 "Gray",
+                                 "Silver",
+                                 "Red",
+                                 "Blue",
+                                 "Yellow",
+                                 "Green",
+                                 "Beige",
+                                 "Gold",
+                                 "Metallic Gray"]
                 
                 RPicker.selectOption(title: "Select color", cancelText: "Cancel", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
-                     cell.txt_color.text = String(selctedText)
+                    cell.txt_color.text = String(selctedText)
                     self.strCarColor = String(selctedText)
                 }
                 
@@ -1558,19 +1574,19 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 
                 
                 let arr_color = ["সাদা",
-                                "কালো",
-                                "ধূসর",
-                                "রৌপ্য",
-                                "লাল",
-                                "নীল",
-                                "হলুদ",
-                                "সবুজ",
-                                "বেইজ",
-                                "স্বর্ণ",
+                                 "কালো",
+                                 "ধূসর",
+                                 "রৌপ্য",
+                                 "লাল",
+                                 "নীল",
+                                 "হলুদ",
+                                 "সবুজ",
+                                 "বেইজ",
+                                 "স্বর্ণ",
                                  "ধাতব ধূসর"]
                 
                 RPicker.selectOption(title: "রঙ নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
-                     cell.txt_color.text = String(selctedText)
+                    cell.txt_color.text = String(selctedText)
                     // strCarColor
                     if (cell.txt_color.text == "সাদা") {
                         self.strCarColor = "white"
@@ -1605,15 +1621,15 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 
                 /*
                  ["white",
-                                 "black",
-                                 "Gray",
-                                 "Silver",
-                                 "Red",
-                                 "Blue",
-                                 "Yellow",
-                                 "Green",
-                                 "Beige",
-                                 "Gold",
+                 "black",
+                 "Gray",
+                 "Silver",
+                 "Red",
+                 "Blue",
+                 "Yellow",
+                 "Green",
+                 "Beige",
+                 "Gold",
                  "Metallic Gray"]
                  */
                 
@@ -1623,7 +1639,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 
             }
             
-         
+            
         } else {
             print("=============================")
             print("LOGIN : Select language error")
@@ -1634,6 +1650,76 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
         
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
+        
+        if (textField == cell.txt_vehicle_number) {
+            guard let currentText = textField.text as NSString? else { return true }
+            
+            // Determine the new text by replacing the specified range with the replacement string
+            let newText = currentText.replacingCharacters(in: range, with: string)
+            
+            // Remove existing dashes for counting characters
+            let cleanedNewText = newText.replacingOccurrences(of: "-", with: "")
+            
+            // Ensure the new text does not exceed 12 characters
+            if cleanedNewText.count > 12 {
+                return false
+            }
+            
+            // Format the new text
+            let formattedText = formatVehicleNumber(cleanedNewText)
+            
+            // Update the text field with the formatted text
+            textField.text = formattedText
+            
+            return false
+        } else {
+            return true
+        }
+        
+        
+        
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
+        
+        if (textField == cell.txt_vehicle_number) {
+            guard let text = textField.text else { return }
+            cell.txt_vehicle_number.text = formatVehicleNumber(text)
+        }
+        
+    }
+    
+    func formatVehicleNumber(_ number: String) -> String {
+        let indexPath = IndexPath.init(row: 0, section: 0)
+        let cell = self.tbleView.cellForRow(at: indexPath) as! add_vehicle_details_table_cell
+        
+        // Remove existing dashes
+        let cleanedNumber = number.replacingOccurrences(of: "-", with: "")
+        
+        // Check if there are enough characters
+        guard cleanedNumber.count <= 12 else {
+            return String(cleanedNumber.prefix(12)) // Return only the first 12 characters if more than 12
+        }
+        
+        // Extract the parts of the vehicle number
+        let areaCode = cleanedNumber.prefix(5)                     // "DHAKA"
+        let districtCode = cleanedNumber.dropFirst(5).prefix(1)    // "D"
+        let series = cleanedNumber.dropFirst(6).prefix(2)          // "11"
+        let identifier = cleanedNumber.dropFirst(8)                // "9999"
+        
+        // Combine the parts with dashes
+        var formattedNumber = "\(areaCode)"
+        if !districtCode.isEmpty { formattedNumber += "-\(districtCode)" }
+        if !series.isEmpty { formattedNumber += "-\(series)" }
+        if !identifier.isEmpty { formattedNumber += "-\(identifier)" }
+        
+        return formattedNumber
+    }
 }
 
 extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
