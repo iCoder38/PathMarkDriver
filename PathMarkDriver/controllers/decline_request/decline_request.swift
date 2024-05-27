@@ -113,7 +113,7 @@ class decline_request: UIViewController {
                 print(language as Any)
                 
                 if (language == "en") {
-                    btn_dismiss.setTitle("DON'T CANCEL", for: .normal)
+                    btn_dismiss.setTitle("Don't Cancel", for: .normal)
                     
                 } else {
                     btn_dismiss.setTitle("বাতিল করবেন না", for: .normal)

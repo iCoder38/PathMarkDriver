@@ -382,13 +382,13 @@
             filePath = "PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "585"
-            endingLineNumber = "585"
+            startingLineNumber = "589"
+            endingLineNumber = "589"
             landmarkName = "send_data_to_server()"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "5F4CB881-CA25-4508-9848-396D558CE3CB - a2721fc0952c3fb0"
+                  uuid = "5F4CB881-CA25-4508-9848-396D558CE3CB - a2721fc0952c3f2c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -398,11 +398,11 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "588"
-                  endingLineNumber = "588">
+                  startingLineNumber = "592"
+                  endingLineNumber = "592">
                </Location>
                <Location
-                  uuid = "5F4CB881-CA25-4508-9848-396D558CE3CB - a2721fc0952c3fb0"
+                  uuid = "5F4CB881-CA25-4508-9848-396D558CE3CB - a2721fc0952c3f2c"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -412,8 +412,8 @@
                   urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "588"
-                  endingLineNumber = "588">
+                  startingLineNumber = "592"
+                  endingLineNumber = "592">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -428,41 +428,9 @@
             filePath = "PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "625"
-            endingLineNumber = "625"
+            startingLineNumber = "629"
+            endingLineNumber = "629"
             landmarkName = "send_data_to_server()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2FACAD59-9F1B-418D-BACC-6D03ED3B656F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1353"
-            endingLineNumber = "1353"
-            landmarkName = "accept_terms_click_method()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C877BEE1-4025-49AF-BBB2-8ADC26C05EA0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PathMarkDriver/controllers/classes/sign_up/sign_up.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1360"
-            endingLineNumber = "1360"
-            landmarkName = "accept_terms_click_method()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -66,6 +66,7 @@ record keeping.)
   27287199
   27287880
   27287883
+  263291445
 
   OpenSSL License
   ---------------
@@ -4547,7 +4548,7 @@ FirestoreEncoder
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2023 Google</string>
+			<string>Copyright 2024 Google LLC</string>
 			<key>License</key>
 			<string>Copyright</string>
 			<key>Title</key>
@@ -4557,7 +4558,7 @@ FirestoreEncoder
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright 2023 Google</string>
+			<string>Copyright 2024 Google LLC</string>
 			<key>License</key>
 			<string>Copyright</string>
 			<key>Title</key>

@@ -369,10 +369,10 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
             print(language as Any)
             
             if (language == "en") {
-                cell.btnSignIn.setTitle("Sign In", for: .normal)
+                cell.btnSignIn.setTitle("Login", for: .normal)
                 cell.lbl_remember_me.text = "Remember me"
                 // cell.lbl_login_with_social_media.text = "Login with Social media"
-                cell.btnForgotPassword.setTitle("Forgot password ? - Click here", for: .normal)
+                cell.btnForgotPassword.setTitle("Forgot password ?", for: .normal)
                 cell.btnDontHaveAnAccount.setTitle("Not a member? Register Now", for: .normal)
                 cell.lbl_login_to_continue.text = "Login to Continue"
                 
@@ -380,7 +380,7 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
                 cell.btnSignIn.setTitle("সাইন ইন করুন", for: .normal)
                 cell.lbl_remember_me.text = "আমাকে মনে কর"
                 // cell.lbl_login_with_social_media.text = "সোশ্যাল মিডিয়া দিয়ে লগইন করুন"
-                cell.btnForgotPassword.setTitle("পাসওয়ার্ড ভুলে গেছেন? - এখানে ক্লিক করুন", for: .normal)
+                cell.btnForgotPassword.setTitle("পাসওয়ার্ড ভুলে গেছেন?", for: .normal)
                 cell.btnDontHaveAnAccount.setTitle("সদস্যা নন? এখনই নিবন্ধন করুন", for: .normal)
                 cell.lbl_login_to_continue.text = "চালিয়ে যেতে লগইন করুন"
             }
@@ -477,7 +477,7 @@ class login_table_cell: UITableViewCell {
                               tfAppearance: .dark,
                               tfKeyboardType: .emailAddress,
                               tfBackgroundColor: .white,
-                              tfPlaceholderText: "Email Address")
+                              tfPlaceholderText: "E-mail/Mobile No.")
             
             txtEmailAddress.layer.masksToBounds = false
             txtEmailAddress.layer.shadowColor = UIColor.black.cgColor

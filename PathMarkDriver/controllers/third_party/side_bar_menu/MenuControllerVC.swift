@@ -644,7 +644,20 @@ extension MenuControllerVC: UITableViewDataSource {
     }
     
     @objc func validation_before_logout() {
-        self.logoutWB(str_show_loader: "yes")
+        let refreshAlert = UIAlertController(title: "Logout", message: "Do you want to log out?", preferredStyle: UIAlertController.Style.alert)
+
+        refreshAlert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { (action: UIAlertAction!) in
+              print("Handle Ok logic here")
+            
+            self.logoutWB(str_show_loader: "yes")
+        }))
+        refreshAlert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: { (action: UIAlertAction!) in
+              print("Handle Ok logic here")
+            
+             
+        }))
+        self.present(refreshAlert, animated: true, completion: nil)
+        
     }
     
     @objc func logoutWB(str_show_loader:String) {

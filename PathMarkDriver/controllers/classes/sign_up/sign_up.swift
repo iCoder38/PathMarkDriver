@@ -278,14 +278,17 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                 print(language as Any)
                 
                 if (language == "en") {
-                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter phone number"), style: .alert)
+                    
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter mobile number"), style: .alert)
                     let cancel = NewYorkButton(title: "dismiss", style: .cancel)
                     alert.addButtons([cancel])
                     self.present(alert, animated: true)
                     ERProgressHud.sharedInstance.hide()
                     
                     return
+                    
                 } else {
+                    
                     let alert = NewYorkAlertController(title: String(lan_popup_alert_bn).uppercased(), message: String("ফোন নম্বর লিখুন"), style: .alert)
                     let cancel = NewYorkButton(title: lan_popup_dismiss_bn, style: .cancel)
                     alert.addButtons([cancel])
@@ -293,9 +296,10 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                     ERProgressHud.sharedInstance.hide()
                     
                     return
+                    
                 }
             }
-            
+
             
             return
             
@@ -417,7 +421,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                 
                 if (language == "en") {
                     
-                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Password not matched"), style: .alert)
+                    let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Both password should be the same!!"), style: .alert)
                     let cancel = NewYorkButton(title: "dismiss", style: .cancel)
                     alert.addButtons([cancel])
                     self.present(alert, animated: true)
@@ -1166,7 +1170,7 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
                                   tfAppearance: .dark,
                                   tfKeyboardType: .numberPad,
                                   tfBackgroundColor: .white,
-                                  tfPlaceholderText: "Phone number")
+                                  tfPlaceholderText: "Mobile No.")
                 
                 Utils.textFieldUI(textField: cell.txt_address,
                                   tfName: cell.txt_address.text!,
@@ -1574,7 +1578,7 @@ class sign_up_table_cell: UITableViewCell {
                               tfAppearance: .dark,
                               tfKeyboardType: .numberPad,
                               tfBackgroundColor: .white,
-                              tfPlaceholderText: "Phone Number")
+                              tfPlaceholderText: "Mobile no.")
             
             txt_phone_number.layer.masksToBounds = false
             txt_phone_number.layer.shadowColor = UIColor.black.cgColor

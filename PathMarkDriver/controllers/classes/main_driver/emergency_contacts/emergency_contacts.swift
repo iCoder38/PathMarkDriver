@@ -398,7 +398,7 @@ extension emergency_contacts: UITableViewDataSource , UITableViewDelegate {
                 
                 let alertController = UIAlertController(title: "Settings", message: "", preferredStyle: .actionSheet)
                 
-                let delete_contact = UIAlertAction(title: "Delete contact", style: .destructive) {
+                let delete_contact = UIAlertAction(title: "Do you want to delete this contact!!", style: .destructive) {
                     UIAlertAction in
                     NSLog("OK Pressed")
                     

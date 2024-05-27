@@ -86,6 +86,10 @@ import Foundation
     case promptPay
     /// A Swish payment method
     case swish
+    /// A TWINT payment method
+    case twint
+    /// A Multibanco payment method
+    case multibanco
     /// An unknown type.
     case unknown
 
@@ -170,6 +174,10 @@ import Foundation
             return "PromptPay"
         case .swish:
             return STPLocalizedString("Swish", "Payment Method type brand name")
+        case .twint:
+            return "TWINT"
+        case .multibanco:
+            return "Multibanco"
         case .cardPresent,
             .unknown:
             return STPLocalizedString("Unknown", "Default missing source type label")
@@ -257,8 +265,25 @@ import Foundation
             return "promptpay"
         case .swish:
             return "swish"
+        case .twint:
+            return "twint"
+        case .multibanco:
+            return "multibanco"
         }
     }
 }
 
 extension STPPaymentMethodType: CaseIterable { }
+
+extension STPPaymentMethodType {
+    var requiresPolling: Bool {
+        switch self {
+        // Payment methods such as AmazonPay and CashApp implement app-to-app redirects that bypass the "redirect trampoline" too give a more seamless user experience for app-to-app.
+        // However, when returning to the merchant app in this scenario, the intent often isn't updated instantaneously, requiring polling for intent status updates.
+        case .amazonPay, .cashApp:
+            return true
+        default:
+            return false
+        }
+    }
+}

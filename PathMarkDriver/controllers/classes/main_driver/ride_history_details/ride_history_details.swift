@@ -317,7 +317,7 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
         let double_tip = Double(i_am_tip)
         let double_promotion = Double(i_am_promotion)
         
-        let add_all = double_fare!+double_tip!+double_promotion!
+        let add_all = double_fare!+double_tip!-double_promotion!
         
         let formattedStringFF = roundToTwoDecimalPlaces(add_all)
         cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(formattedStringFF)"

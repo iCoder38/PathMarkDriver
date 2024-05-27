@@ -1670,7 +1670,7 @@ extension add_vehicle_details: UITableViewDataSource  , UITableViewDelegate {
             
             if (language == "en") {
                 cell.btn_continue.setTitle("Continue", for: .normal)
-                cell.lbl_note.text = "Note : Vehicle details will show when Passenger will book your car."
+                cell.lbl_note.text = "Note : Vehicle details will be shown when passenger will book your car."
                 
                 Utils.textFieldUI(textField: cell.txt_vehicle_number,
                                   tfName: cell.txt_vehicle_number.text!,

@@ -49,6 +49,7 @@ record keeping.)
   27287199
   27287880
   27287883
+  263291445
 
   OpenSSL License
   ---------------
@@ -4416,11 +4417,11 @@ Copyright 2022 Google
 
 ## GoogleMaps
 
-Copyright 2023 Google
+Copyright 2024 Google LLC
 
 ## GooglePlaces
 
-Copyright 2023 Google
+Copyright 2024 Google LLC
 
 ## GoogleUtilities
 
