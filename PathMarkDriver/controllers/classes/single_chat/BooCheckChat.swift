@@ -827,22 +827,29 @@ class BooCheckChat: UIViewController, MessagingDelegate, UINavigationControllerD
                  @Field("type") type: String?,
                  */
                 var token_to_parse:String!
+                var device:String!
+                
+                print(self.get_all_data as Any)
                 if (self.str_back_home == "home") {
                     
                     if "\(self.self.get_all_data["deviceToken"]!)" == (person["deviceToken"] as! String) {
-                         token_to_parse = "\(self.self.get_all_data["toDeviceToken"]!)"
+                        token_to_parse = "\(self.self.get_all_data["toDeviceToken"]!)"
+                        device = "\(self.self.get_all_data["toDevice"]!)"
                     } else {
                         token_to_parse = "\(self.self.get_all_data["deviceToken"]!)"
+                        device = "\(self.self.get_all_data["device"]!)"
                     }
                     
                 } else {
-                    token_to_parse = "\(self.self.get_all_data["deviceToken"]!)"
+                    token_to_parse = "\(self.get_all_data["deviceToken"]!)"
+                    device = "\(self.self.get_all_data["device"]!)"
                 }
+                
                 parameters = [
                     "action"        : "notificationall",
                     "userId"        : String(myString),
                     "deviceToken"   : String(token_to_parse),
-                    "device"        : "\(self.self.get_all_data["device"]!)",
+                    "device"        : String(device),//"\(self.self.get_all_data["device"]!)",
                     "toDevice"      : (person["device"] as! String),
                     "toDeviceToken" : (person["deviceToken"] as! String),
                     "message"       : String(message),

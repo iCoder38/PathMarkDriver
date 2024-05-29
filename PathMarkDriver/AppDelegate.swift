@@ -199,6 +199,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
             
             window?.makeKeyAndVisible()
+            
         }  else if (dict["type"] as! String) == "cancel" {
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
