@@ -234,10 +234,130 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let dict = response.notification.request.content.userInfo
         print(dict as Any)
         
-        
+        if (dict["type"] == nil) {
+            print("NOTIFICATION FROM SOMEWHERE ELSE")
+        }   else if (dict["type"] as! String) == "Chat" {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+            let destinationController = storyboard.instantiateViewController(withIdentifier:"BooCheckChatId") as? BooCheckChat
+            
+            destinationController?.str_back_home = "home"
+            destinationController?.str_booking_id = "\(dict["bookingId"]!)"
+            destinationController?.get_all_data = dict as NSDictionary
+            let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+
+            let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+
+            let mainRevealController = SWRevealViewController()
+
+            mainRevealController.rearViewController = rearViewController
+            mainRevealController.frontViewController = frontNavigationController
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+            }
+            
+            window?.makeKeyAndVisible()
+            
+        } else if (dict["type"] as! String) == "request" {
+            
+            if (dict["bookingTime"] == nil) {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      
+                let destinationController = storyboard.instantiateViewController(withIdentifier:"instant_booking_accept_decline_id") as? instant_booking_accept_decline
+                    
+                destinationController?.dict_get_all_data_from_notification = dict as NSDictionary
+                
+                let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+
+                let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+
+                let mainRevealController = SWRevealViewController()
+
+                mainRevealController.rearViewController = rearViewController
+                mainRevealController.frontViewController = frontNavigationController
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+                }
+                
+                window?.makeKeyAndVisible()
+            } else {
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      
+                let destinationController = storyboard.instantiateViewController(withIdentifier:"schedule_notification_id") as? schedule_notification
+                    
+                destinationController?.dict_get_all_data_from_notification = dict as NSDictionary
+                 
+                let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+
+                let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+
+                let mainRevealController = SWRevealViewController()
+
+                mainRevealController.rearViewController = rearViewController
+                mainRevealController.frontViewController = frontNavigationController
+                
+                DispatchQueue.main.async {
+                    UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+                }
+                
+                window?.makeKeyAndVisible()
+            }
+                
+            
+            
+        } else if (dict["type"] as! String) == "Payment" {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+  
+            let destinationController = storyboard.instantiateViewController(withIdentifier:"success_id") as? success
+                
+             destinationController?.get_done_payment_details_from_notificaion = dict as NSDictionary
+            // destinationController?.str_from_noti = "yes"
+            let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+
+            let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+
+            let mainRevealController = SWRevealViewController()
+
+            mainRevealController.rearViewController = rearViewController
+            mainRevealController.frontViewController = frontNavigationController
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+            }
+            
+            window?.makeKeyAndVisible()
+        }  else if (dict["type"] as! String) == "cancel" {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+  
+            let destinationController = storyboard.instantiateViewController(withIdentifier:"driver_dashboard_id") as? driver_dashboard
+                
+             // destinationController?.get_done_payment_details_from_notificaion = dict as NSDictionary
+            // destinationController?.str_from_noti = "yes"
+            let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+
+            let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+
+            let mainRevealController = SWRevealViewController()
+
+            mainRevealController.rearViewController = rearViewController
+            mainRevealController.frontViewController = frontNavigationController
+            
+            DispatchQueue.main.async {
+                UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+            }
+            
+            window?.makeKeyAndVisible()
+        }
+          
         
         
     }
+    
     
     
     

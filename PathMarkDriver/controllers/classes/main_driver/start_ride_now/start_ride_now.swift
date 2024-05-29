@@ -222,6 +222,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
                   //        push!.str_get_user_id = "\(self.get_booking_data_for_start_ride["userId"]!)"
         
         // push!.str_driver_id = "\(self.get_booking_data_for_start_ride["userId"]!)"
+        push!.get_all_data = self.get_booking_data_for_start_ride
         push!.str_booking_id = "\(self.get_booking_data_for_start_ride["bookingId"]!)"
         
         self.navigationController?.pushViewController(push!, animated: true)

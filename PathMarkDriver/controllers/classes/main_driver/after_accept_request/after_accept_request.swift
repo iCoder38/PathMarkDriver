@@ -208,6 +208,9 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
         // push!.str_get_user_id = "\(self.get_booking_data_for_pickup["userId"]!)"
         
         // push!.str_driver_id = "\(self.get_booking_data_for_pickup["userId"]!)"
+        
+        
+        push!.get_all_data = self.get_booking_data_for_pickup
         push!.str_booking_id = "\(self.get_booking_data_for_pickup["bookingId"]!)"
         
         self.navigationController?.pushViewController(push!, animated: true)
