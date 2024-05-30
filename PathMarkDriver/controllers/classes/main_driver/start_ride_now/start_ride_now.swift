@@ -454,48 +454,126 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         } else {
             
             if (self.str_otp_status == "0") {
-                let alert = UIAlertController(title: "Zarib Driver", message: "Please enter OTP", preferredStyle: .alert)
                 
-                //2. Add the text field. You can configure it however you need.
-                alert.addTextField { (textField) in
-                    textField.placeholder = "otp..."
-                    textField.keyboardType = .numberPad
-                }
                 
-                // 3. Grab the value from the text field, and print it when the user clicks OK.
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-                    let textField = alert?.textFields![0]
-                    print("Text field: \(textField!.text!)")
+                
+                
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
                     
-                    if ("\(textField!.text!)" == "") {
-                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                            print(language as Any)
+                    if (language == "en") {
+                        let alert = UIAlertController(title: "Zarib Driver", message: "Please enter OTP", preferredStyle: .alert)
+                        
+                        //2. Add the text field. You can configure it however you need.
+                        alert.addTextField { (textField) in
+                            textField.placeholder = "otp..."
+                            textField.keyboardType = .numberPad
+                        }
+                        
+                        // 3. Grab the value from the text field, and print it when the user clicks OK.
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                            let textField = alert?.textFields![0]
+                            print("Text field: \(textField!.text!)")
                             
-                            if (language == "en") {
-                                let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter OTP"), style: .alert)
-                                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
-                                alert.addButtons([cancel])
-                                self.present(alert, animated: true)
+                            if ("\(textField!.text!)" == "") {
+                                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                    print(language as Any)
+                                    
+                                    if (language == "en") {
+                                        let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter OTP"), style: .alert)
+                                        let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                                        alert.addButtons([cancel])
+                                        self.present(alert, animated: true)
+                                    } else {
+                                        let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("ওটিপি দিন"), style: .alert)
+                                        let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                                        alert.addButtons([cancel])
+                                        self.present(alert, animated: true)
+                                    }
+                                    
+                                    
+                                }
                             } else {
-                                let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("ওটিপি দিন"), style: .alert)
-                                let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
-                                alert.addButtons([cancel])
-                                self.present(alert, animated: true)
+                                self.str_check_otp = "\(textField!.text!)"
+                                self.verify_this(str_show_loader: "yes")
                             }
                             
                             
-                        }
+                            
+                        }))
+                        
+                        // 4. Present the alert.
+                        self.present(alert, animated: true, completion: nil)
+                        
                     } else {
-                        self.str_check_otp = "\(textField!.text!)"
-                        self.verify_this(str_show_loader: "yes")
+                        let alert = UIAlertController(title: nil, message: "ওটিপি দিন", preferredStyle: .alert)
+                        
+                        //2. Add the text field. You can configure it however you need.
+                        alert.addTextField { (textField) in
+                            textField.placeholder = "otp..."
+                            textField.keyboardType = .numberPad
+                        }
+                        
+                        // 3. Grab the value from the text field, and print it when the user clicks OK.
+                        alert.addAction(UIAlertAction(title: "ঠিক আছে", style: .default, handler: { [weak alert] (_) in
+                            let textField = alert?.textFields![0]
+                            print("Text field: \(textField!.text!)")
+                            
+                            if ("\(textField!.text!)" == "") {
+                                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                    print(language as Any)
+                                    
+                                    if (language == "en") {
+                                        let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter OTP"), style: .alert)
+                                        let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                                        alert.addButtons([cancel])
+                                        self.present(alert, animated: true)
+                                    } else {
+                                        let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("ওটিপি দিন"), style: .alert)
+                                        let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                                        alert.addButtons([cancel])
+                                        self.present(alert, animated: true)
+                                    }
+                                    
+                                    
+                                }
+                            } else {
+                                self.str_check_otp = "\(textField!.text!)"
+                                self.verify_this(str_show_loader: "yes")
+                            }
+                            
+                            
+                            
+                        }))
+                        
+                        // 4. Present the alert.
+                        self.present(alert, animated: true, completion: nil)
+                        
                     }
                     
                     
-                    
-                }))
+                }
                 
-                // 4. Present the alert.
-                self.present(alert, animated: true, completion: nil)
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
             } else {
                 self.accept_booking_WB(str_show_loader: "yes")
             }

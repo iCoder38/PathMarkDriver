@@ -7594,6 +7594,7 @@
                         <outlet property="lbl_my_earnings" destination="a4T-ia-xe8" id="075-7n-gs2"/>
                         <outlet property="lbl_my_earnings_text" destination="VJh-Qg-e0j" id="tz3-Vr-lzY"/>
                         <outlet property="lbl_total_earning" destination="dDc-5e-2xk" id="HJc-Xl-nlB"/>
+                        <outlet property="lbl_total_earning_text" destination="dx2-5c-2Tq" id="QTm-Vg-y1I"/>
                         <outlet property="tbleView" destination="o1J-Ve-iiR" id="hmk-GQ-HHj"/>
                         <outlet property="view_3" destination="UzB-CX-BbD" id="yFb-I3-B7e"/>
                         <outlet property="view_4" destination="LpD-SI-ltu" id="9UX-ac-s6c"/>
@@ -7784,6 +7785,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="btn_read_more" destination="xYY-qg-KwY" id="sfH-mt-5S4"/>
                                             <outlet property="img_profile" destination="89i-OW-Ad6" id="IGb-jb-lGj"/>
                                             <outlet property="img_star_five" destination="sHB-8X-LGD" id="c6k-5g-E40"/>
                                             <outlet property="img_star_four" destination="EqX-ca-sUu" id="5Sk-bb-dBC"/>
@@ -12082,6 +12084,7 @@
                                             <outlet property="lbl_from" destination="l7F-eZ-CbH" id="fLH-jE-OjT"/>
                                             <outlet property="lbl_star_count" destination="Xjl-Fp-mpc" id="egA-qA-D2S"/>
                                             <outlet property="lbl_to" destination="hII-xL-dLu" id="5AW-mp-OWa"/>
+                                            <outlet property="lbl_write_your_comment_text" destination="ZH5-TW-vM3" id="IOa-oF-cqk"/>
                                             <outlet property="txt_view" destination="Wvo-Bm-tyo" id="NXp-4R-pmw"/>
                                             <outlet property="view_fare" destination="au8-Zd-bHC" id="jbV-UE-NbT"/>
                                             <outlet property="view_from_to" destination="S34-7x-gtb" id="Fj1-FH-Awc"/>
@@ -12841,8 +12844,8 @@
         <image name="logo" width="1024" height="1024"/>
         <image name="logo-white" width="800" height="269"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="message" width="24" height="24"/>
         <image name="message" catalog="system" width="128" height="116"/>
+        <image name="message" width="24" height="24"/>
         <image name="new-password" width="138" height="138"/>
         <image name="paperclip" catalog="system" width="121" height="128"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>

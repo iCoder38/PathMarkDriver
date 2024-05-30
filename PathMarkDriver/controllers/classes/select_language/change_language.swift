@@ -41,6 +41,8 @@ class change_language: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
         self.btn_english.addTarget(self, action: #selector(english_click_method), for: .touchUpInside)
         self.btn_bangla.addTarget(self, action: #selector(bangla_click_method), for: .touchUpInside)
         

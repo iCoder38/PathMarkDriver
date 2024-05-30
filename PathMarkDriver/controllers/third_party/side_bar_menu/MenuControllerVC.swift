@@ -97,7 +97,7 @@ class MenuControllerVC: UIViewController {
                 if (language == "en") {
                     btn_panic.setTitle("PANIC SOS", for: .normal)
                 } else {
-                    btn_panic.setTitle("প্যানিক এসওএস", for: .normal)
+                    btn_panic.setTitle("জটিল সংকট", for: .normal)
                 }
                 
                 
@@ -157,24 +157,25 @@ class MenuControllerVC: UIViewController {
         ]
         
         // bn
-        self.arr_driver_title_bn = ["ড্যাশবোর্ড",
-                                 "প্রোফাইল আপডেট করুন",
-                                 "বুকিংস ",
-                                 "উপার্জন",
-                                 "রিভিউ ও রেটিং",
-                                 "উত্তোলন",
+        self.arr_driver_title_bn = ["হোম", // home
+                                 "প্রোফাইল আপডেট করুন", // edit profile
+                                 "বুকিং ", // bookings
+                                 "আয়", // earning
+                                 "পর্যালোচনা এবং রেটিং", // review
+                                 "উত্তোলন", // cashout
                                  // String(self.str_menu_title_set_working_details),
-                                 "গাড়ির তথ্যাদি আপডেট করুন",
-                                 "ডকুমেন্ট আপলোড করুন",
-                                 "যারিব সম্পর্কে জানুন",
+                                 "গাড়ির বিবরণ আপডেট করুন", // update vehicle details
+                                 "নথি আপলোড করুন", // upload documents
+                                 "যারিব সম্পর্কে জানুন", // about zarib
                                  // String(self.str_menu_title_change_password),
-                                 "প্রাইভেসি পলিসি",
-                                 "দয়া করে শর্তাদি এবং শর্ত নির্বাচন করুন",
-                                 "আপনাদের করা প্রশ্নের উত্তরসমূহ",
-                                 "জরুরী যোগাযোগ",
-                                 "হেল্প",
-                                    "ভাষা পরিবর্তন করুন",
-                                 "লগ-আউট করুন",
+                                 "প্রাইভেসি পলিসি",// privacy
+                                 "শর্তাবলী", // terms
+                                 "আপনাদের করা প্রশ্নের উত্তরসমূহ",// faq
+                                 "যুররী যোগাযোগ", // emergency
+                                    // "শেয়ার্ড বুকিং",
+                                 "হেল্প", // help
+                                    "ভাষা পরিবর্তন করুন", // change
+                                 "লগ-আউট করুন", // logout
         ]
         
         self.arr_driver_image = ["home",
@@ -652,19 +653,44 @@ extension MenuControllerVC: UITableViewDataSource {
     }
     
     @objc func validation_before_logout() {
-        let refreshAlert = UIAlertController(title: "Logout", message: "Do you want to log out?", preferredStyle: UIAlertController.Style.alert)
+        
+         
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    let refreshAlert = UIAlertController(title: "Logout", message: "Do you want to log out?", preferredStyle: UIAlertController.Style.alert)
 
-        refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
-              print("Handle Ok logic here")
-            
-            self.logoutWB(str_show_loader: "yes")
-        }))
-        refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
-              print("Handle Ok logic here")
-            
-             
-        }))
-        self.present(refreshAlert, animated: true, completion: nil)
+                    refreshAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
+                          print("Handle Ok logic here")
+                        
+                        self.logoutWB(str_show_loader: "yes")
+                    }))
+                    refreshAlert.addAction(UIAlertAction(title: "No", style: .cancel, handler: { (action: UIAlertAction!) in
+                          print("Handle Ok logic here")
+                        
+                         
+                    }))
+                    self.present(refreshAlert, animated: true, completion: nil)
+                } else {
+                    let refreshAlert = UIAlertController(title: nil, message: "আপনি কি লগ আউট করতে চান?", preferredStyle: UIAlertController.Style.alert)
+
+                    refreshAlert.addAction(UIAlertAction(title: "হ্যাঁ", style: .default, handler: { (action: UIAlertAction!) in
+                          print("Handle Ok logic here")
+                        
+                        self.logoutWB(str_show_loader: "yes")
+                    }))
+                    refreshAlert.addAction(UIAlertAction(title: "না", style: .cancel, handler: { (action: UIAlertAction!) in
+                          print("Handle Ok logic here")
+                        
+                         
+                    }))
+                    self.present(refreshAlert, animated: true, completion: nil)
+                }
+            }
+        
+        
+        
         
     }
     

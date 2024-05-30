@@ -469,13 +469,35 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
                                     // false
                                     self.str_switch_value = "0"
                                     self.switch_value.isOn = false
-                                    self.lbl_offline_status.text = "You are offline"
+                                    
+                                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                        print(language as Any)
+                                        
+                                        if (language == "en") {
+                                            self.lbl_offline_status.text = "You are offline"
+                                        } else {
+                                            self.lbl_offline_status.text = "আপনি অফলাইনে আছেন"
+                                        }
+                                    }
+                                    
+                                    
                                     self.view_offline.backgroundColor = .systemOrange
                                 } else {
                                     // true
                                     self.str_switch_value = "1"
                                     self.switch_value.isOn = true
-                                    self.lbl_offline_status.text = "You are online"
+                                    
+                                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                        print(language as Any)
+                                        
+                                        if (language == "en") {
+                                            self.lbl_offline_status.text = "You are online"
+                                        } else {
+                                            self.lbl_offline_status.text = "আপনি অনলাইনে আছেন"
+                                        }
+                                    }
+                                    
+                                    
                                     self.view_offline.backgroundColor = .systemGreen
                                 }
                             }
@@ -823,13 +845,29 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
                                     // false
                                     self.str_switch_value = "0"
                                     self.switch_value.isOn = false
-                                    self.lbl_offline_status.text = "You are offline"
+                                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                        print(language as Any)
+                                        
+                                        if (language == "en") {
+                                            self.lbl_offline_status.text = "You are offline"
+                                        } else {
+                                            self.lbl_offline_status.text = "আপনি অফলাইনে আছেন"
+                                        }
+                                    }
                                     self.view_offline.backgroundColor = .systemOrange
                                 } else {
                                     // true
                                     self.str_switch_value = "1"
                                     self.switch_value.isOn = true
-                                    self.lbl_offline_status.text = "You are online"
+                                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                                        print(language as Any)
+                                        
+                                        if (language == "en") {
+                                            self.lbl_offline_status.text = "You are online"
+                                        } else {
+                                            self.lbl_offline_status.text = "আপনি অনলাইনে আছেন"
+                                        }
+                                    }
                                     self.view_offline.backgroundColor = .systemGreen
                                 }
                             }

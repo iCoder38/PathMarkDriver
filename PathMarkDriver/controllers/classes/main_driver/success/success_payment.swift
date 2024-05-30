@@ -125,8 +125,8 @@ class success_payment: UIViewController {
                         self.present(alert, animated: true)
                         
                     } else {
-                        let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("কিছু মন্তব্য লিখুন"), style: .alert)
-                        let cancel = NewYorkButton(title: "বরখাস্ত করা", style: .cancel)
+                        let alert = NewYorkAlertController(title: String("সতর্কতা").uppercased(), message: String("আপনার মন্তব্য লিখুন"), style: .alert)
+                        let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
                         alert.addButtons([cancel])
                         self.present(alert, animated: true)
                     }
@@ -493,6 +493,24 @@ extension success_payment: UITableViewDataSource , UITableViewDelegate {
 
 class success_payment_table_cell: UITableViewCell {
     
+    @IBOutlet weak var lbl_write_your_comment_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_write_your_comment_text.text = "Write your comment"
+                } else {
+                    lbl_write_your_comment_text.text = "আপনার মন্তব্য লিখুন"
+                }
+                
+                
+            }
+            
+            
+        }
+    }
+    
     @IBOutlet weak var view_from_to:UIView! {
         didSet {
             view_from_to.backgroundColor = .white
@@ -547,13 +565,23 @@ class success_payment_table_cell: UITableViewCell {
     
     @IBOutlet weak var btn_submit:UIButton! {
         didSet {
-             
+            
             Utils.buttonStyle(button: btn_submit,
                               bCornerRadius: 12,
                               bBackgroundColor: UIColor(red: 246.0/255.0, green: 200.0/255.0, blue: 68.0/255.0, alpha: 1),
                               bTitle: "Submit",
                               bTitleColor: .black)
-            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_submit.setTitle("Submit", for: .normal)
+                } else {
+                    btn_submit.setTitle("জমা দিন", for: .normal)
+                }
+                
+                
+            }
             btn_submit.layer.masksToBounds = false
             btn_submit.layer.shadowColor = UIColor.black.cgColor
             btn_submit.layer.shadowOffset =  CGSize.zero

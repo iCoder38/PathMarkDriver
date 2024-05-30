@@ -476,16 +476,42 @@ class login_table_cell: UITableViewCell {
     
     @IBOutlet weak var txtEmailAddress:UITextField! {
         didSet {
-            Utils.textFieldUI(textField: txtEmailAddress,
-                              tfName: txtEmailAddress.text!,
-                              tfCornerRadius: 12,
-                              tfpadding: 20,
-                              tfBorderWidth: 0,
-                              tfBorderColor: .clear,
-                              tfAppearance: .dark,
-                              tfKeyboardType: .emailAddress,
-                              tfBackgroundColor: .white,
-                              tfPlaceholderText: "E-mail/Mobile No.")
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    Utils.textFieldUI(textField: txtEmailAddress,
+                                      tfName: txtEmailAddress.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .emailAddress,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "E-mail/Mobile No.")
+                } else {
+                    Utils.textFieldUI(textField: txtEmailAddress,
+                                      tfName: txtEmailAddress.text!,
+                                      tfCornerRadius: 12,
+                                      tfpadding: 20,
+                                      tfBorderWidth: 0,
+                                      tfBorderColor: .clear,
+                                      tfAppearance: .dark,
+                                      tfKeyboardType: .emailAddress,
+                                      tfBackgroundColor: .white,
+                                      tfPlaceholderText: "ই-মেইল/মোবাইল নম্বর")
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
+            
             
             txtEmailAddress.layer.masksToBounds = false
             txtEmailAddress.layer.shadowColor = UIColor.black.cgColor

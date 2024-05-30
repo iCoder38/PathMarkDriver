@@ -159,10 +159,10 @@ class select_profile: UIViewController {
                 lbl_title.text = "Hello, welcome to zarib app"
                 lbl_sub_title.text = "Get started now"
             } else {
-                btn_create_ac_account.setTitle("একটি অ্যাকাউন্ট তৈরি করুন", for: .normal)
-                btn_login.setTitle("প্রবেশ করুন", for: .normal)
-                lbl_title.text = "হ্যালো, জারিব অ্যাপে স্বাগতম"
-                lbl_sub_title.text = "এখনই শুরু কর"
+                btn_create_ac_account.setTitle("অ্যাকাউন্ট তৈরি করুন", for: .normal)
+                btn_login.setTitle("লগ-ইন", for: .normal)
+                lbl_title.text = "হ্যালো, যারিব অ্যাপে আপনাকে স্বাগতম !"
+                lbl_sub_title.text = "এখনই শুরু করুন"
             }
             
         }

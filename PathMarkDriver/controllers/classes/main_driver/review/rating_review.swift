@@ -430,6 +430,23 @@ extension rating_review: UITableViewDataSource , UITableViewDelegate {
 
 class rating_review_table_cell: UITableViewCell {
     
+    @IBOutlet weak var btn_read_more:UIButton! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+               print(language as Any)
+               
+               if (language == "en") {
+                   btn_read_more.setTitle("Read more", for: .normal)
+               } else {
+                   btn_read_more.setTitle("আরও পড়ুন", for: .normal)
+               }
+               
+            
+           }
+             
+        }
+    }
+    
     @IBOutlet weak var view_from_to:UIView! {
         didSet {
             view_from_to.backgroundColor = .white

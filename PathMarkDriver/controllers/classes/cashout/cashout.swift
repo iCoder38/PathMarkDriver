@@ -364,12 +364,18 @@ class cashout: UIViewController, UITextFieldDelegate {
                 let headers: HTTPHeaders = [
                     "token":String(token_id_is),
                 ]
-                
-                parameters = [
-                    "action"    : "cashoutrequest",
-                    "userId"    : String(myString),
-                    "requestAmount"    : String(self.txt_enter_price.text!)
-                ]
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    // if (language == "en") {
+                        parameters = [
+                            "action"    : "cashoutrequest",
+                            "userId"    : String(myString),
+                            "requestAmount"    : String(self.txt_enter_price.text!),
+                            "language":String(language)
+                        ]
+                    // }
+                }
                 
                 print(parameters as Any)
                 

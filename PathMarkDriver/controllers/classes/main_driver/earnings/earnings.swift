@@ -89,8 +89,26 @@ class earnings: UIViewController {
             btn_cashout.layer.cornerRadius = 12
             btn_cashout.clipsToBounds = true
             btn_cashout.backgroundColor = navigation_color
-            btn_cashout.setTitle("Cashout", for: .normal)
+            
             btn_cashout.setTitleColor(.white, for: .normal)
+            
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    btn_cashout.setTitle("Cashout", for: .normal)
+                } else {
+                    btn_cashout.setTitle("উত্তোলন", for: .normal)
+                }
+                
+             
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+            
         }
     }
     
@@ -136,7 +154,46 @@ class earnings: UIViewController {
     @IBOutlet weak var lbl_completed_trips_text:UILabel!
     
     @IBOutlet weak var lbl_total_earning:UILabel!
-    @IBOutlet weak var lbl_day:UILabel!
+    @IBOutlet weak var lbl_day:UILabel! {
+        didSet {
+            //
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_day.text = "TODAY"
+                } else {
+                    lbl_day.text = "আজ"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
+    
+    @IBOutlet weak var lbl_total_earning_text:UILabel! {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_total_earning_text.text = "Total earnings"
+                } else {
+                    lbl_total_earning_text.text = "মোট উপার্জন"
+                }
+                
+            } else {
+                print("=============================")
+                print("LOGIN : Select language error")
+                print("=============================")
+                UserDefaults.standard.set("en", forKey: str_language_convert)
+            }
+        }
+    }
     
     @IBOutlet weak var btn_drop:UIButton!
     
