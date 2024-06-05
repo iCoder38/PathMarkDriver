@@ -12,6 +12,7 @@ import Firebase
 // MARK:- LOCATION -
 import CoreLocation
 import MapKit
+import AVFAudio
 
 class schedule_notification: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
     
@@ -200,7 +201,7 @@ class schedule_notification: UIViewController, CLLocationManagerDelegate , MKMap
     
     @IBOutlet weak var lbl_date:UILabel!
     @IBOutlet weak var lbl_time:UILabel!
-    
+    var player: AVAudioPlayer?
     @IBOutlet weak var lbl_date_text:UILabel! {
         didSet {
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -236,6 +237,7 @@ class schedule_notification: UIViewController, CLLocationManagerDelegate , MKMap
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
+        
         print("==============================================")
         print(self.dict_get_all_data_from_notification as Any)
         print("==============================================")
@@ -248,6 +250,24 @@ class schedule_notification: UIViewController, CLLocationManagerDelegate , MKMap
          
         self.btn_accept.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
         self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+    }
+    
+     
+    
+    
+    func playNotificationSound() {
+        guard let soundURL = Bundle.main.url(forResource: "custom_not", withExtension: "wav") else {
+            print("Notification sound file not found")
+            return
+        }
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: soundURL)
+            player?.play()
+            print("PLAY NOTIFICATION")
+        } catch {
+            print("Error playing notification sound: \(error.localizedDescription)")
+        }
     }
     
     /*@objc func cancancel_ride_click_method() {

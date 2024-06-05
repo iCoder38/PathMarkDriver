@@ -1055,7 +1055,22 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 
             }  else if "\(item!["rideStatus"]!)" == "4" { // end
                 
-                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                if "\(item!["status"]!)" == "2" {
+                    
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "invoice_id") as? invoice
+                     push!.dict_all_details = (item! as NSDictionary)
+                    self.navigationController?.pushViewController(push!, animated: true)
+                    
+                } else {
+                    
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ride_history_details_id") as? ride_history_details
+                    push!.dict_get_booking_details = (item! as NSDictionary)
+                    self.navigationController?.pushViewController(push!, animated: true)
+                    
+                }
+                
+                
+                /*if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                     print(language as Any)
                     
                     if (language == "en") {
@@ -1063,7 +1078,6 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
                             
                         }))
-                         
                         self.present(alert, animated: true, completion: nil)
                         
                     } else {
@@ -1080,9 +1094,7 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                     print("LOGIN : Select language error")
                     print("=============================")
                     UserDefaults.standard.set("en", forKey: str_language_convert)
-                }
-                
-                
+                }*/
                 
             }
 

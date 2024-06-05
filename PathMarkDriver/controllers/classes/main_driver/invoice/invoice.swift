@@ -157,14 +157,14 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
         print(self.dict_all_details as Any)
         
     
-        self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["estimatedPrice"]!)"
+        self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
         self.lbl_distance.text = "\(self.dict_all_details["totalDistance"]!) km"
         
         self.lbl_pick_up.text = "\(self.dict_all_details["RequestPickupAddress"]!)"
         self.lbl_drop.text = "\(self.dict_all_details["RequestDropAddress"]!)"
         
-        self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["estimatedPrice"]!)"
-        self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["estimatedPrice"]!)"
+        self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
+        self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
         
         self.btn_cash.addTarget(self, action: #selector(cash_payment_WB), for: .touchUpInside)
         self.iAmHereForLocationPermission()

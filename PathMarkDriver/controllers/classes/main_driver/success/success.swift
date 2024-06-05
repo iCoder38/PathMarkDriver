@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFAudio
 
 class success: UIViewController {
 
@@ -132,14 +133,36 @@ class success: UIViewController {
         }
     }
     
+    var player: AVAudioPlayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // self.playNotificationSound()
         
         self.btn_received_payment.addTarget(self, action: #selector(push_to_dashboard_click_method), for: .touchUpInside)
         
         self.lbl_cash.text = "\(self.get_done_payment_details_from_notificaion["totalAmount"]!)"
         self.lbl_cash_text.text = "\(self.get_done_payment_details_from_notificaion["paymentMethod"]!)"
     }
+    
+    
+    func playNotificationSound() {
+        guard let soundURL = Bundle.main.url(forResource: "custom_not", withExtension: "wav") else {
+            print("Notification sound file not found")
+            return
+        }
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: soundURL)
+            player?.play()
+            print("PLAY NOTIFICATION")
+        } catch {
+            print("Error playing notification sound: \(error.localizedDescription)")
+        }
+    }
+    
+    
     
     @objc func push_to_dashboard_click_method() {
         // send to review

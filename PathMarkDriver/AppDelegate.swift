@@ -11,7 +11,7 @@ import Firebase
 
 import UserNotifications
 import GoogleMaps
-
+import AVFoundation
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
@@ -108,12 +108,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print("Firebase registration token: \(fcmToken)")
     }
     
+    /*func playNotificationSound() {
+        guard let soundURL = Bundle.main.url(forResource: "custom_not", withExtension: "wav") else {
+            print("Notification sound file not found")
+            return
+        }
+        
+        do {
+            let player = try AVAudioPlayer(contentsOf: soundURL)
+            player.play()
+        } catch {
+            print("Error playing notification sound: \(error.localizedDescription)")
+        }
+    }*/
     
     // MARK:- WHEN APP IS IN FOREGROUND - ( after click popup ) -
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         //print("User Info = ",notification.request.content.userInfo)
-        completionHandler([.alert, .badge, .sound,.banner])
+        completionHandler([.alert, .badge, .sound, .banner])
+        
+        // playNotificationSound()
         
         print("User Info dishu = ",notification.request.content.userInfo)
         
@@ -121,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         print(dict as Any)
         
         /*
-         User Info dishu =  [AnyHashable("RequestPickupLatLong"): 28.5849492,77.05828439999999, AnyHashable("distance"): 21.9, AnyHashable("estimateAmount"): 21.9, AnyHashable("deviceToken"): fxAsM18HlUdQi_KqGt508b:APA91bF7gVb0tUqkJi3DP9B6capyIJ22MmI3QFl3oCUEuMvonKKXubjqhRENpVn17jDx4nNRNUjx7CbYyF_D8jucJFd2esI-NRpDSCbL9Tq4w376rDNzreB2gBALE3ohM6L4npRG3yvr, AnyHashable("bookingId"): 83, AnyHashable("duration"): 1 hour 3 mins, AnyHashable("google.c.sender.id"): 750959835757, AnyHashable("type"): request, AnyHashable("google.c.a.e"): 1, AnyHashable("RequestDropAddress"): 290, Patparganj Industrial Area, Patparganj, Delhi, 110092, India , AnyHashable("RequestDropLatLong"): 28.643166852250797,77.31291197240353, AnyHashable("CustomerPhone"): 6867675443, AnyHashable("gcm.message_id"): 1699543611604198, AnyHashable("google.c.fid"): fxAsM18HlUdQi_KqGt508b, AnyHashable("CustomerImage"): , AnyHashable("message"): New booking request for Confir or Cancel., AnyHashable("device"): iOS, AnyHashable("CustomerName"): p driver 128, AnyHashable("aps"): {
+         User Info dishu =  [AnyHashable("RequestPickupLatLong"): 28.5849492,77.05828439999999, AnyHashable("distance"): 21.9, AnyHashable("estimateAmount"): 21.9, AnyHashable("deviceToken"): "", AnyHashable("bookingId"): 83, AnyHashable("duration"): 1 hour 3 mins, AnyHashable("google.c.sender.id"): 750959835757, AnyHashable("type"): request, AnyHashable("google.c.a.e"): 1, AnyHashable("RequestDropAddress"): 290, Patparganj Industrial Area, Patparganj, Delhi, 110092, India , AnyHashable("RequestDropLatLong"): 28.643166852250797,77.31291197240353, AnyHashable("CustomerPhone"): 6867675443, AnyHashable("gcm.message_id"): 1699543611604198, AnyHashable("google.c.fid"): fxAsM18HlUdQi_KqGt508b, AnyHashable("CustomerImage"): , AnyHashable("message"): New booking request for Confir or Cancel., AnyHashable("device"): iOS, AnyHashable("CustomerName"): p driver 128, AnyHashable("aps"): {
              alert = "New booking request for Confir or Cancel.";
          }, AnyHashable("RequestPickupAddress"): Sector 10 Dwarka, Dwarka, Delhi, 110075, India]
          */
@@ -129,9 +144,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // if user send request
         if (dict["type"] == nil) {
             print("NOTIFICATION FROM SOMEWHERE ELSE")
+            
         } else if (dict["type"] as! String) == "request" {
             
             if (dict["bookingTime"] == nil) {
+                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
       
                 let destinationController = storyboard.instantiateViewController(withIdentifier:"instant_booking_accept_decline_id") as? instant_booking_accept_decline
@@ -152,7 +169,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 window?.makeKeyAndVisible()
+                
             } else {
+                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
       
                 let destinationController = storyboard.instantiateViewController(withIdentifier:"schedule_notification_id") as? schedule_notification
@@ -173,6 +192,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 window?.makeKeyAndVisible()
+                
             }
                 
             
@@ -230,6 +250,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // MARK:- WHEN APP IS IN BACKGROUND - ( after click popup ) -
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
         print("User Info = ",response.notification.request.content.userInfo)
         
         let dict = response.notification.request.content.userInfo
@@ -264,6 +285,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         } else if (dict["type"] as! String) == "request" {
             
             if (dict["bookingTime"] == nil) {
+                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
       
                 let destinationController = storyboard.instantiateViewController(withIdentifier:"instant_booking_accept_decline_id") as? instant_booking_accept_decline
@@ -284,6 +306,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 
                 window?.makeKeyAndVisible()
+                
             } else {
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
       

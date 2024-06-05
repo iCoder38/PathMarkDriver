@@ -91,6 +91,8 @@
 		B9A5918F2A6FE07C003DEC9F /* driver_dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A5918E2A6FE07C003DEC9F /* driver_dashboard.swift */; };
 		B9ACC43B2A67C100000A4530 /* upload_vehicle_insurance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACC43A2A67C100000A4530 /* upload_vehicle_insurance.swift */; };
 		B9ACC43E2A680AFF000A4530 /* upload_reg_permit.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACC43D2A680AFF000A4530 /* upload_reg_permit.swift */; };
+		B9BE72002C0DF47100FB48D8 /* custom_notification.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B9BE71FF2C0DF47100FB48D8 /* custom_notification.mp3 */; };
+		B9BE72022C0DF6F400FB48D8 /* custom_not.wav in Resources */ = {isa = PBXBuildFile; fileRef = B9BE72012C0DF6F400FB48D8 /* custom_not.wav */; };
 		B9C29A922ADD20AE00574A94 /* map_view.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9C29A912ADD20AE00574A94 /* map_view.swift */; };
 		B9D834592AF53547003884D9 /* about_us.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9D834582AF53547003884D9 /* about_us.swift */; };
 		B9DAF6F32AD446DD00739122 /* upload_vehicle_reg_document.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */; };
@@ -226,6 +228,8 @@
 		B9A5918E2A6FE07C003DEC9F /* driver_dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = driver_dashboard.swift; sourceTree = "<group>"; };
 		B9ACC43A2A67C100000A4530 /* upload_vehicle_insurance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_insurance.swift; sourceTree = "<group>"; };
 		B9ACC43D2A680AFF000A4530 /* upload_reg_permit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_reg_permit.swift; sourceTree = "<group>"; };
+		B9BE71FF2C0DF47100FB48D8 /* custom_notification.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = custom_notification.mp3; sourceTree = "<group>"; };
+		B9BE72012C0DF6F400FB48D8 /* custom_not.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = custom_not.wav; sourceTree = "<group>"; };
 		B9C29A912ADD20AE00574A94 /* map_view.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = map_view.swift; sourceTree = "<group>"; };
 		B9D834582AF53547003884D9 /* about_us.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = about_us.swift; sourceTree = "<group>"; };
 		B9DAF6F22AD446DC00739122 /* upload_vehicle_reg_document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_reg_document.swift; sourceTree = "<group>"; };
@@ -500,6 +504,8 @@
 		B9852D812A651A8B008244F3 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B9BE71FF2C0DF47100FB48D8 /* custom_notification.mp3 */,
+				B9BE72012C0DF6F400FB48D8 /* custom_not.wav */,
 				B93500D92B107E7B004D8C95 /* share_list */,
 				B93500D72B107E68004D8C95 /* cancel_your_ride */,
 				B93500D62B107E56004D8C95 /* decline_request */,
@@ -1041,6 +1047,7 @@
 				B9852DD12A651B47008244F3 /* Poppins-Italic.ttf in Resources */,
 				B9852DC32A651B47008244F3 /* Poppins-Medium.ttf in Resources */,
 				B9852D5E2A651885008244F3 /* LaunchScreen.storyboard in Resources */,
+				B9BE72002C0DF47100FB48D8 /* custom_notification.mp3 in Resources */,
 				B9852D5B2A651885008244F3 /* Assets.xcassets in Resources */,
 				B9852D592A651884008244F3 /* Main.storyboard in Resources */,
 				B9852DC02A651B47008244F3 /* Poppins-LightItalic.ttf in Resources */,
@@ -1052,6 +1059,7 @@
 				B9852DCE2A651B47008244F3 /* Poppins-ThinItalic.ttf in Resources */,
 				B9852DC12A651B47008244F3 /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				B9852DC62A651B47008244F3 /* Poppins-MediumItalic.ttf in Resources */,
+				B9BE72022C0DF6F400FB48D8 /* custom_not.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

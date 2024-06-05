@@ -27,10 +27,10 @@ class success_ride_done: UIViewController {
             print(language as Any)
             
             if (language == "en") {
-                self.lbl_price.text = "Waiting for customer to pay $\(self.str_final_price!)"
+                self.lbl_price.text = "Waiting for customer to pay \(str_bangladesh_currency_symbol) \(self.str_final_price!)"
                 self.btn_home.setTitle("Home", for: .normal)
             } else {
-                self.lbl_price.text = "গ্রাহক অর্থ প্রদানের জন্য অপেক্ষা করছেন $\(self.str_final_price!)"
+                self.lbl_price.text = "গ্রাহক অর্থ প্রদানের জন্য অপেক্ষা করছেন \(str_bangladesh_currency_symbol) \(self.str_final_price!)"
                 self.btn_home.setTitle("বাড়ি", for: .normal)
             }
             

@@ -8,6 +8,7 @@
 import UIKit
 import Alamofire
 import Firebase
+import AVFoundation
 
 // MARK:- LOCATION -
 import CoreLocation
@@ -180,6 +181,8 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     @IBOutlet weak var lbl_est_earn:UILabel!
     @IBOutlet weak var lbl_distance:UILabel!
     
+    var player: AVAudioPlayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -190,10 +193,27 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         
         // booking time 
         
+        // self.playNotificationSound()
+        
         self.parse_all_data_and_show_UI()
         
         self.btn_accept.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
         self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+    }
+    
+    func playNotificationSound() {
+        guard let soundURL = Bundle.main.url(forResource: "custom_not", withExtension: "wav") else {
+            print("Notification sound file not found")
+            return
+        }
+        
+        do {
+            player = try AVAudioPlayer(contentsOf: soundURL)
+            player?.play()
+            print("PLAY NOTIFICATION")
+        } catch {
+            print("Error playing notification sound: \(error.localizedDescription)")
+        }
     }
     
     @objc func cancancel_ride_click_method() {

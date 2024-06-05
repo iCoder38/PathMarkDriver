@@ -387,8 +387,21 @@ extension success_payment: UITableViewDataSource , UITableViewDelegate {
             }
             
         } else {
-            cell.lbl_from.text = (self.get_booking_details["RequestPickupAddress"] as! String)
-            cell.lbl_to.text = (self.get_booking_details["RequestDropAddress"] as! String)
+            
+            /*
+             "Actual_Drop_Address" = "Noida Sector 18, Noida, Uttar Pradesh 201301, India";
+             "Actual_PickupAddress" = "9/1, Block C, Yojna Vihar, Anand Vihar, Ghaziabad, Uttar Pradesh 110092, India ";
+             */
+            
+            if (self.get_booking_details["RequestPickupAddress"] == nil) {
+                cell.lbl_from.text = (self.get_booking_details["Actual_PickupAddress"] as! String)
+                cell.lbl_to.text = (self.get_booking_details["Actual_Drop_Address"] as! String)
+            } else {
+                cell.lbl_from.text = (self.get_booking_details["RequestPickupAddress"] as! String)
+                cell.lbl_to.text = (self.get_booking_details["RequestDropAddress"] as! String)
+            }
+            
+            
         }
         
         UserDefaults.standard.set(nil, forKey: "key_save_RequestDropAddress")
