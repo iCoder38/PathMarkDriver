@@ -193,6 +193,8 @@ class schedule_ride_details: UIViewController {
         }
     }
     
+    @IBOutlet weak var btn_chat:UIButton!
+    
     @IBOutlet weak var btn_pickup:UIButton! {
         didSet {
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -272,6 +274,18 @@ class schedule_ride_details: UIViewController {
         self.parse_data()
         
         self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+        
+        
+        self.btn_chat.addTarget(self, action: #selector(chat_click_method), for: .touchUpInside)
+    }
+    
+    @objc func chat_click_method() {
+        let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
+       
+        push!.get_all_data = self.dict_get_upcoming_ride_details
+        push!.str_booking_id = "\(self.dict_get_upcoming_ride_details["bookingId"]!)"
+        
+        self.navigationController?.pushViewController(push!, animated: true)
     }
     
     @objc func cancancel_ride_click_method() {
