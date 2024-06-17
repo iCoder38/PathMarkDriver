@@ -421,10 +421,25 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             annotationView.canShowCallout = true
             
             if(annotation.title == "Drop Location") {
-                annotationView.image = UIImage(systemName: "car")
+                //
+                print(self.get_booking_data_for_start_ride as Any)
+                
+                if (self.get_booking_data_for_start_ride["vehicleType"] == nil) {
+                    annotationView.image = UIImage(systemName: "car")
+                } else {
+                    if ("\(self.get_booking_data_for_start_ride["vehicleType"]!)" == "2") {
+                        annotationView.image = UIImage(systemName: "bicycle")
+                    } else {
+                        annotationView.image = UIImage(systemName: "car")
+                    }
+                }
+                
+                
             } else {
                 annotationView.image = UIImage(systemName: "person")
             }
+            
+            
             annotationView.tintColor = .systemBlue
             
             

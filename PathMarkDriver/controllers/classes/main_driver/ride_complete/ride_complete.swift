@@ -420,6 +420,11 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
             
             if(annotation.title == "Drop Location") {
                 annotationView.image = UIImage(systemName: "car")
+                if ("\(self.get_booking_data_for_end_ride["vehicleType"]!)" == "2") {
+                    annotationView.image = UIImage(systemName: "bicycle")
+                } else {
+                    annotationView.image = UIImage(systemName: "car")
+                }
             } else {
                 annotationView.image = UIImage(systemName: "person")
             }

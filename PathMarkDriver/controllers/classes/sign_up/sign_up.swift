@@ -33,12 +33,17 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     var arr_country_array:NSArray!
     
     var str_user_select_image:String! = "0"
+    var str_user_select_image_nid:String! = "1"
     var img_data_banner : Data!
     var img_Str_banner : String!
+    
+    var img_Str_banner_nid : String!
+    var img_data_banner_nid : Data!
     
     var str_country_id:String! = "18"
     
     var phone_number_code : String!
+    var str_nid_image_uplod:String!
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -595,55 +600,83 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     @objc func send_data_to_server() {
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
-        
+
         var lan:String!
+        if (self.str_nid_image_uplod != "1") { // nid image
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lan = "en"
+                    let alert = NewYorkAlertController(title: nil, message: "Please upload NID Image", style: .alert)
+                    let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    return
+                } else {
+                    lan = "bn"
+                    let alert = NewYorkAlertController(title: nil, message: "অনুগ্রহ করে NID ছবি আপলোড করুন", style: .alert)
+                    let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+                    alert.addButtons([cancel])
+                    self.present(alert, animated: true)
+                    return
+                }
+            } else {
+                lan = "en"
+                let alert = NewYorkAlertController(title: nil, message: "Please upload NID Image", style: .alert)
+                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+                alert.addButtons([cancel])
+                self.present(alert, animated: true)
+                return
+            }
+            
+        }
         
+        
+        
+        
+        
+        
+        
+        
+        
+
         // self.show_loading_UI()
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
             
             if (language == "en") {
                 lan = "en"
-                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-                } else {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
-                }
-            }
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
             } else {
                 lan = "bn"
-                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
             }
-            
-            
+        } else {
+            lan = "bn"
+            ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
         }
-        
-        //Set Your URL
+
+        // Set Your URL
         let api_url = application_base_url
         guard let url = URL(string: api_url) else {
             return
         }
-        
+
         var urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0 * 1000)
         urlRequest.httpMethod = "POST"
-        // urlRequest.allHTTPHeaderFields = ["token":String(token_id_is)]
-        urlRequest.addValue("application/json",
-                            forHTTPHeaderField: "Accept")
-        
-        //Set Your Parameter
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        // Set Your Parameter
         let parameterDict = NSMutableDictionary()
-         
+
         var str_device_token:String! = ""
-        
+
         if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
-            
             str_device_token = String(device_token)
         }
-        
-        // car information
+
+        // Car information
         parameterDict.setValue("registration", forKey: "action")
         parameterDict.setValue(String(cell.txt_full_name.text!), forKey: "fullName")
         parameterDict.setValue(String(cell.txtEmailAddress.text!), forKey: "email")
@@ -659,9 +692,9 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         parameterDict.setValue(String(str_device_token), forKey: "deviceToken")
         parameterDict.setValue(String(lan), forKey: "language")
         parameterDict.setValue(String(self.str_country_id), forKey: "countryId")
-        
+
         print(parameterDict as Any)
-        
+
         // Now Execute
         AF.upload(multipartFormData: { multiPart in
             for (key, value) in parameterDict {
@@ -676,18 +709,18 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                         let keyObj = key as! String + "[]"
                         if let string = element as? String {
                             multiPart.append(string.data(using: .utf8)!, withName: keyObj)
-                        } else
-                        if let num = element as? Int {
+                        } else if let num = element as? Int {
                             let value = "\(num)"
                             multiPart.append(value.data(using: .utf8)!, withName: keyObj)
                         }
                     })
                 }
             }
-            multiPart.append(self.img_data_banner, withName: "image", fileName: "register.png", mimeType: "image/png")
+            multiPart.append(self.img_data_banner, withName: "image", fileName: "sign_up_profile_image.png", mimeType: "image/png")
+            multiPart.append(self.img_data_banner_nid, withName: "ssnImage", fileName: "sign_up_nid_image.png", mimeType: "image/png")
         }, with: urlRequest)
         .uploadProgress(queue: .main, closure: { progress in
-            //Current upload progress of file
+            // Current upload progress of file
             print("Upload Progress: \(progress.fractionCompleted)")
         })
         .responseJSON(completionHandler: { data in
@@ -712,7 +745,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                         let defaults = UserDefaults.standard
                         defaults.setValue(dict, forKey: str_save_login_user_data)
                         
-                        // save email and password
+                        // Save email and password
                         let custom_email_pass = ["email":cell.txtEmailAddress.text!,
                                                  "password":cell.txtPassword.text!]
                         
@@ -732,15 +765,9 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                                 alert.addButtons([cancel])
                                 self.present(alert, animated: true)
                             }
-                            
-                             
                         }
                         
-                        
-                        
-                        // self.hide_loading_UI()
                         ERProgressHud.sharedInstance.hide()
-                        
                         self.navigationController?.popViewController(animated: true)
                         
                     } else if (dictionary["status"] as! String) == "Success" {
@@ -752,7 +779,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                         let defaults = UserDefaults.standard
                         defaults.setValue(dict, forKey: str_save_login_user_data)
                         
-                        // save email and password
+                        // Save email and password
                         let custom_email_pass = ["email":cell.txtEmailAddress.text!,
                                                  "password":cell.txtPassword.text!]
                         
@@ -772,13 +799,9 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                                 alert.addButtons([cancel])
                                 self.present(alert, animated: true)
                             }
-                            
-                             
                         }
                         
-                        // self.hide_loading_UI()
                         ERProgressHud.sharedInstance.hide()
-                        
                         self.navigationController?.popViewController(animated: true)
                         
                     } else {
@@ -789,11 +812,8 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                         ERProgressHud.sharedInstance.hide()
                     }
                     
-                    
-                    
-                }
-                catch {
-                    // catch error.
+                } catch {
+                    // Catch error.
                     print("catch error")
                     ERProgressHud.sharedInstance.hide()
                 }
@@ -805,10 +825,231 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
                 break
                 
             }
-            
-            
         })
+
     }
+//    {
+//        let indexPath = IndexPath.init(row: 0, section: 0)
+//        let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
+//        
+//        var lan:String!
+//        
+//        // self.show_loading_UI()
+//        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+//            print(language as Any)
+//            
+//            if (language == "en") {
+//                lan = "en"
+//                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+//                print(language as Any)
+//                
+//                if (language == "en") {
+//                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+//                } else {
+//                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+//                }
+//            }
+//            } else {
+//                lan = "bn"
+//                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
+//            }
+//            
+//            
+//        }
+//        
+//        //Set Your URL
+//        let api_url = application_base_url
+//        guard let url = URL(string: api_url) else {
+//            return
+//        }
+//        
+//        var urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10.0 * 1000)
+//        urlRequest.httpMethod = "POST"
+//        // urlRequest.allHTTPHeaderFields = ["token":String(token_id_is)]
+//        urlRequest.addValue("application/json",
+//                            forHTTPHeaderField: "Accept")
+//        
+//        //Set Your Parameter
+//        let parameterDict = NSMutableDictionary()
+//         
+//        var str_device_token:String! = ""
+//        
+//        if let device_token = UserDefaults.standard.string(forKey: "key_my_device_token") {
+//            
+//            str_device_token = String(device_token)
+//        }
+//        
+//        // car information
+//        parameterDict.setValue("registration", forKey: "action")
+//        parameterDict.setValue(String(cell.txt_full_name.text!), forKey: "fullName")
+//        parameterDict.setValue(String(cell.txtEmailAddress.text!), forKey: "email")
+//        parameterDict.setValue(String(phone_number_code), forKey: "countryCode")
+//        parameterDict.setValue(String(cell.txt_phone_number.text!), forKey: "contactNumber")
+//        parameterDict.setValue(String(cell.txtPassword.text!), forKey: "password")
+//        parameterDict.setValue("Driver", forKey: "role")
+//        parameterDict.setValue(String(cell.txt_nid_number.text!), forKey: "INDNo")
+//        parameterDict.setValue(String(cell.txt_address.text!), forKey: "address")
+//        parameterDict.setValue("", forKey: "latitude")
+//        parameterDict.setValue("", forKey: "longitude")
+//        parameterDict.setValue("iOS", forKey: "device")
+//        parameterDict.setValue(String(str_device_token), forKey: "deviceToken")
+//        parameterDict.setValue(String(lan), forKey: "language")
+//        parameterDict.setValue(String(self.str_country_id), forKey: "countryId")
+//        
+//        print(parameterDict as Any)
+//        
+//        // Now Execute
+//        AF.upload(multipartFormData: { multiPart in
+//            for (key, value) in parameterDict {
+//                if let temp = value as? String {
+//                    multiPart.append(temp.data(using: .utf8)!, withName: key as! String)
+//                }
+//                if let temp = value as? Int {
+//                    multiPart.append("\(temp)".data(using: .utf8)!, withName: key as! String)
+//                }
+//                if let temp = value as? NSArray {
+//                    temp.forEach({ element in
+//                        let keyObj = key as! String + "[]"
+//                        if let string = element as? String {
+//                            multiPart.append(string.data(using: .utf8)!, withName: keyObj)
+//                        } else
+//                        if let num = element as? Int {
+//                            let value = "\(num)"
+//                            multiPart.append(value.data(using: .utf8)!, withName: keyObj)
+//                        }
+//                    })
+//                }
+//            }
+//            multiPart.append(self.img_data_banner, withName: "image", fileName: "register.png", mimeType: "image/png")
+//        }, with: urlRequest)
+//        .uploadProgress(queue: .main, closure: { progress in
+//            //Current upload progress of file
+//            print("Upload Progress: \(progress.fractionCompleted)")
+//        })
+//        .responseJSON(completionHandler: { data in
+//            
+//            switch data.result {
+//                
+//            case .success(_):
+//                do {
+//                    
+//                    let dictionary = try JSONSerialization.jsonObject(with: data.data!, options: .fragmentsAllowed) as! NSDictionary
+//                    print(dictionary)
+//                    
+//                    var message : String!
+//                    message = (dictionary["msg"] as? String)
+//                    
+//                    if (dictionary["status"] as! String) == "success" {
+//                        print("yes")
+//                        
+//                        var dict: Dictionary<AnyHashable, Any>
+//                        dict = dictionary["data"] as! Dictionary<AnyHashable, Any>
+//                        
+//                        let defaults = UserDefaults.standard
+//                        defaults.setValue(dict, forKey: str_save_login_user_data)
+//                        
+//                        // save email and password
+//                        let custom_email_pass = ["email":cell.txtEmailAddress.text!,
+//                                                 "password":cell.txtPassword.text!]
+//                        
+//                        UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
+//                        
+//                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+//                            print(language as Any)
+//                            
+//                            if (language == "en") {
+//                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+//                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+//                                alert.addButtons([cancel])
+//                                self.present(alert, animated: true)
+//                            } else {
+//                                let alert = NewYorkAlertController(title: String("সফলতা").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+//                                let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+//                                alert.addButtons([cancel])
+//                                self.present(alert, animated: true)
+//                            }
+//                            
+//                             
+//                        }
+//                        
+//                        
+//                        
+//                        // self.hide_loading_UI()
+//                        ERProgressHud.sharedInstance.hide()
+//                        
+//                        self.navigationController?.popViewController(animated: true)
+//                        
+//                    } else if (dictionary["status"] as! String) == "Success" {
+//                        print("yes")
+//                        
+//                        var dict: Dictionary<AnyHashable, Any>
+//                        dict = dictionary["data"] as! Dictionary<AnyHashable, Any>
+//                        
+//                        let defaults = UserDefaults.standard
+//                        defaults.setValue(dict, forKey: str_save_login_user_data)
+//                        
+//                        // save email and password
+//                        let custom_email_pass = ["email":cell.txtEmailAddress.text!,
+//                                                 "password":cell.txtPassword.text!]
+//                        
+//                        UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)
+//                        
+//                        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+//                            print(language as Any)
+//                            
+//                            if (language == "en") {
+//                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+//                                let cancel = NewYorkButton(title: "Ok", style: .cancel)
+//                                alert.addButtons([cancel])
+//                                self.present(alert, animated: true)
+//                            } else {
+//                                let alert = NewYorkAlertController(title: String("সফলতা").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+//                                let cancel = NewYorkButton(title: "ঠিক আছে", style: .cancel)
+//                                alert.addButtons([cancel])
+//                                self.present(alert, animated: true)
+//                            }
+//                            
+//                             
+//                        }
+//                        
+//                        // self.hide_loading_UI()
+//                        ERProgressHud.sharedInstance.hide()
+//                        
+//                        self.navigationController?.popViewController(animated: true)
+//                        
+//                    } else {
+//                        let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+//                        let cancel = NewYorkButton(title: "Ok", style: .cancel)
+//                        alert.addButtons([cancel])
+//                        self.present(alert, animated: true)
+//                        ERProgressHud.sharedInstance.hide()
+//                    }
+//                    
+//                    
+//                    
+//                }
+//                catch {
+//                    // catch error.
+//                    print("catch error")
+//                    ERProgressHud.sharedInstance.hide()
+//                }
+//                break
+//                
+//            case .failure(_):
+//                print("failure")
+//                ERProgressHud.sharedInstance.hide()
+//                break
+//                
+//            }
+//            
+//            
+//        })
+//    }
+    
+    
+    
+    
+    
     @objc func alert_warning () {
         
         let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: "Field should not be empty.", style: .alert)
@@ -1039,21 +1280,47 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
         
-        let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        if (self.str_nid_image_uplod == "1") {
+            
+            
+            let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
 
-        cell.img_upload.image = image_data
-        let imageData:Data = image_data!.pngData()!
-        self.img_Str_banner = imageData.base64EncodedString()
-        self.dismiss(animated: true, completion: nil)
-        self.img_data_banner = image_data!.jpegData(compressionQuality: 0.2)!
-        self.dismiss(animated: true, completion: nil)
-   
-        self.str_user_select_image = "1"
+            cell.img_upload_nid.image = image_data
+            let imageData:Data = image_data!.pngData()!
+            self.img_Str_banner_nid = imageData.base64EncodedString()
+            self.dismiss(animated: true, completion: nil)
+            self.img_data_banner_nid = image_data!.jpegData(compressionQuality: 0.2)!
+            self.dismiss(animated: true, completion: nil)
+            
+            self.str_user_select_image_nid = "1"
+            
+        } else {
+            let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+
+            cell.img_upload.image = image_data
+            let imageData:Data = image_data!.pngData()!
+            self.img_Str_banner = imageData.base64EncodedString()
+            self.dismiss(animated: true, completion: nil)
+            self.img_data_banner = image_data!.jpegData(compressionQuality: 0.2)!
+            self.dismiss(animated: true, completion: nil)
+       
+            self.str_user_select_image = "1"
+        }
+        
+        
+        
     }
     
     @objc func terms_condition_click_method() {
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "terms_and_conditions_id") as? terms_and_conditions
         self.navigationController?.pushViewController(push!, animated: true)
+    }
+    
+    
+    
+    @objc func nid_image_click_method() {
+        self.str_nid_image_uplod = "1"
+        self.open_camera_gallery()
     }
 }
 
@@ -1088,7 +1355,7 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         cell.txt_phone_code.text = "+880"
         cell.txt_country.text = "Bangladesh"
         
-        cell.btn_accept_terms.addTarget(self, action: #selector(accept_terms_click_method), for: .touchUpInside)
+        // cell.btn_accept_terms.addTarget(self, action: #selector(accept_terms_click_method), for: .touchUpInside)
         
         cell.btnSignUp.addTarget(self, action: #selector(sign_up_click_method), for: .touchUpInside)
         
@@ -1103,6 +1370,8 @@ extension sign_up: UITableViewDataSource  , UITableViewDelegate {
         
         cell.btn_terms_and_condition.addTarget(self, action: #selector(terms_condition_click_method), for: .touchUpInside)
         cell.btn_disclaimer.isHidden = true
+        
+        cell.btn_upload_nid_image.addTarget(self, action: #selector(nid_image_click_method), for: .touchUpInside)
         
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
@@ -1442,6 +1711,13 @@ class sign_up_table_cell: UITableViewCell {
         }
     }
     
+    @IBOutlet weak var img_upload_nid:UIImageView! {
+        didSet {
+            img_upload_nid.layer.cornerRadius = 12
+            img_upload_nid.clipsToBounds = true
+        }
+    }
+    
     @IBOutlet weak var bgColor:UIImageView!
     
     @IBOutlet weak var viewBGForUpperImage:UIView! {
@@ -1470,6 +1746,29 @@ class sign_up_table_cell: UITableViewCell {
             txt_country.layer.shadowOffset =  CGSize.zero
             txt_country.layer.shadowOpacity = 0.5
             txt_country.layer.shadowRadius = 2
+            
+        }
+    }
+    
+    @IBOutlet weak var btn_upload_nid_image:UIButton!
+    @IBOutlet weak var txt_nid_image:UITextField! {
+        didSet {
+            Utils.textFieldUI(textField: txt_nid_image,
+                              tfName: txt_nid_image.text!,
+                              tfCornerRadius: 12,
+                              tfpadding: 20,
+                              tfBorderWidth: 0,
+                              tfBorderColor: .clear,
+                              tfAppearance: .dark,
+                              tfKeyboardType: .default,
+                              tfBackgroundColor: .white,
+                              tfPlaceholderText: "NID Image")
+            
+            txt_nid_image.layer.masksToBounds = false
+            txt_nid_image.layer.shadowColor = UIColor.black.cgColor
+            txt_nid_image.layer.shadowOffset =  CGSize.zero
+            txt_nid_image.layer.shadowOpacity = 0.5
+            txt_nid_image.layer.shadowRadius = 2
             
         }
     }

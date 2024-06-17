@@ -301,6 +301,7 @@ class schedule_ride_details: UIViewController {
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
          self.navigationController?.pushViewController(push, animated: true)
     }
+    
     @objc func back_page() {
         self.navigationController?.popViewController(animated: true)
     }
