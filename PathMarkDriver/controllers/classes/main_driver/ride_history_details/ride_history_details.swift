@@ -554,7 +554,7 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
                 discountAmount = convertToDouble("\(self.dict_get_booking_details["discountAmount"]!)")
             }
              
-            let totalAmount = discountAmount! + amount + bookingFees + cancellationFees!
+            let totalAmount =  amount + bookingFees + cancellationFees! - discountAmount!
             
             if "\(self.dict_get_booking_details["promotional_discount"]!)" != "" {
                 let pro_dis = convertToDouble("\(self.dict_get_booking_details["promotional_discount"]!)")
@@ -569,7 +569,7 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
                 print("total: \(f_f_total)")
                 // self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
                 
-                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
+                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(complete_cal!)"
                 cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
                 cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(complete_cal!)"
                 
