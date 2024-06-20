@@ -337,6 +337,10 @@ extension String {
 
 extension UIViewController {
     
+    func convertToDouble(_ string: String) -> Double? {
+        return Double(string)
+    }
+    
     func roundToTwoDecimalPlaces(_ number: Double) -> String {
         let roundedNumber = round(100 * number) / 100
         return String(format: "%.2f", roundedNumber)

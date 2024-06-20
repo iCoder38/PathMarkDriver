@@ -420,11 +420,26 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
             
             if(annotation.title == "Drop Location") {
                 annotationView.image = UIImage(systemName: "car")
-                if ("\(self.get_booking_data_for_end_ride["vehicleType"]!)" == "2") {
-                    annotationView.image = UIImage(systemName: "bicycle")
+                
+                if let vehicleType = self.get_booking_data_for_end_ride["vehicleType"] as? String {
+                    // vehicleType is available and it is a string
+                    print("Vehicle type: \(vehicleType)")
+                    if ("\(self.get_booking_data_for_end_ride["vehicleType"]!)" == "2") {
+                        annotationView.image = UIImage(systemName: "bicycle")
+                    } else {
+                        annotationView.image = UIImage(systemName: "car")
+                    }
                 } else {
+                    // vehicleType is not available
+                    print("Vehicle type is not available.")
                     annotationView.image = UIImage(systemName: "car")
                 }
+                
+//                if ("\(self.get_booking_data_for_end_ride["vehicleType"]!)" == "2") {
+//                    annotationView.image = UIImage(systemName: "bicycle")
+//                } else {
+//                    annotationView.image = UIImage(systemName: "car")
+//                }
             } else {
                 annotationView.image = UIImage(systemName: "person")
             }
@@ -555,6 +570,7 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
                             // self.pick_up_a_customer_click_method()
                             let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_ride_done_id") as! success_ride_done
                             
+                            push.dict_all_value = self.get_booking_data_for_end_ride
                             push.str_final_price = "\(JSON["FinalFare"]!)"
                             
                             self.navigationController?.pushViewController(push, animated: true)

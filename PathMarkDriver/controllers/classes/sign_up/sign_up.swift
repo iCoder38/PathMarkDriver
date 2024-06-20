@@ -34,6 +34,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     
     var str_user_select_image:String! = "0"
     var str_user_select_image_nid:String! = "1"
+    
     var img_data_banner : Data!
     var img_Str_banner : String!
     
@@ -43,7 +44,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     var str_country_id:String! = "18"
     
     var phone_number_code : String!
-    var str_nid_image_uplod:String!
+    // var str_nid_image_uplod:String!
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -516,7 +517,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
             
         }*/ else {
             
-            if (cell.txt_phone_number.text!.count == 10) {
+            if (cell.txt_phone_number.text!.count == 11) {
                 
                 
                 if (self.arr_country_array == nil) {
@@ -602,7 +603,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
 
         var lan:String!
-        if (self.str_nid_image_uplod != "1") { // nid image
+        if (self.str_user_select_image_nid != "1") { // nid image
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
                 
@@ -1150,7 +1151,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
            let updatedText = currentText.replacingCharacters(in: stringRange, with: string)
 
            // make sure the result is under 16 characters
-           return updatedText.count <= 10
+           return updatedText.count <= 11
            
        
        }
@@ -1190,8 +1191,13 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         
     }
     
+    @objc func nid_image_click_method() {
+        self.str_user_select_image_nid = "1"
+        self.open_camera_gallery()
+    }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        self.str_user_select_image_nid = "0"
         self.open_camera_gallery()
     }
     
@@ -1280,8 +1286,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! sign_up_table_cell
         
-        if (self.str_nid_image_uplod == "1") {
-            
+        if (self.str_user_select_image_nid == "1") {
             
             let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
 
@@ -1318,10 +1323,7 @@ class sign_up: UIViewController , UITextFieldDelegate, CLLocationManagerDelegate
     
     
     
-    @objc func nid_image_click_method() {
-        self.str_nid_image_uplod = "1"
-        self.open_camera_gallery()
-    }
+    
 }
 
 extension sign_up: UITableViewDataSource  , UITableViewDelegate {

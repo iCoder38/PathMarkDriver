@@ -110,6 +110,39 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
     
     @IBOutlet weak var lbl_trip_fare:UILabel!
     @IBOutlet weak var lbl_total:UILabel!
+    @IBOutlet weak var lbl_booking_fees:UILabel!
+    @IBOutlet weak var lbl_booking_fees_text:UILabel!  {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_booking_fees_text.text = "Booking Fee: "
+                } else {
+                    lbl_booking_fees_text.text = "সংরক্ষণ ফি:"
+                }
+                
+                
+            }
+        }
+    }
+    @IBOutlet weak var lbl_prevous_cancel_fee:UILabel!
+    @IBOutlet weak var lbl_prevous_cancel_fee_text:UILabel!  {
+        didSet {
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    lbl_prevous_cancel_fee_text.text = "Previous cancellation fee: "
+                } else {
+                    lbl_prevous_cancel_fee_text.text = "পূর্ববর্তী বাতিল ফি:"
+                }
+                
+                
+            }
+        }
+    }
+    
     
     @IBOutlet weak var lbl_trip_fare_text:UILabel! {
         didSet {
@@ -165,10 +198,63 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
         
         self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
         self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
+        self.lbl_booking_fees.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["bookingFee"]!)"
+        
+        if "\(self.dict_all_details["last_cancel_amount"]!)" == "" {
+            self.lbl_prevous_cancel_fee.isHidden = true
+            self.lbl_prevous_cancel_fee_text.isHidden = true
+        } else if "\(self.dict_all_details["last_cancel_amount"]!)" == "0" {
+            self.lbl_prevous_cancel_fee.isHidden = true
+            self.lbl_prevous_cancel_fee_text.isHidden = true
+        } else {
+            self.lbl_prevous_cancel_fee.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["last_cancel_amount"]!)"
+        }
+        
+        let cancellationFees:Double!
+        
+        if let amount = convertToDouble("\(self.dict_all_details["FinalFare"]!)"),
+           let bookingFees = convertToDouble("\(self.dict_all_details["bookingFee"]!)") {
+            
+            if "\(self.dict_all_details["last_cancel_amount"]!)" == "" {
+                 cancellationFees = convertToDouble("0.0")
+            } else {
+                 cancellationFees = convertToDouble("\(self.dict_all_details["last_cancel_amount"]!)")
+            }
+            
+            let totalAmount = amount + bookingFees + cancellationFees!
+            
+            if "\(self.dict_all_details["promotional_discount"]!)" != "" {
+                let pro_dis = convertToDouble("\(self.dict_all_details["promotional_discount"]!)")
+                print(pro_dis as Any)
+                let complete_cal = totalAmount - pro_dis!
+                print("Complete cal: \(complete_cal)")
+                
+                self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(complete_cal)"
+                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(complete_cal)"
+                
+                // also manage trip fare
+                self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
+                
+                let final_fare = convertToDouble("\(self.dict_all_details["FinalFare"]!)")
+                print("Final fare: \(final_fare!)")
+                
+                let f_f_total = final_fare! - pro_dis!
+                self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
+                
+            } else {
+                
+                self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+            }
+            
+        } else {
+            print("Invalid number format in one of the strings.")
+        }
         
         self.btn_cash.addTarget(self, action: #selector(cash_payment_WB), for: .touchUpInside)
         self.iAmHereForLocationPermission()
     }
+    
     
     
     
@@ -337,27 +423,27 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
         // let indexPath = IndexPath.init(row: 0, section: 0)
         // let cell = self.tbleView.cellForRow(at: indexPath) as! payment_table_cell
         
-         
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-                } else {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                    } else {
+                        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                    }
                 }
+            } else {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
             }
-                } else {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "ড্রাইভার খোঁজা হচ্ছে")
-                }
-                
-                
-            }
-         
+            
+            
+        }
+        
         
         
         self.view.endEditing(true)

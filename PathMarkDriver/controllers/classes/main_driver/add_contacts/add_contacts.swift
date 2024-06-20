@@ -360,9 +360,9 @@ class add_contacts: UIViewController , UITextFieldDelegate {
         if (self.dict_emergency == nil) {
             print("add contact")
             
-            if (self.txt_phone.text!.count == 10) {
+            /*if (self.txt_phone.text!.count == 10) {
                 self.add_emergency_phone()
-            } else if (self.txt_phone.text!.count == 11) {
+            } else */if (self.txt_phone.text!.count == 11) {
                 self.add_emergency_phone()
             } else {
                 let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String("Please enter valid phone number"), style: .alert)

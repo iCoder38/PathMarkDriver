@@ -35,7 +35,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
     var str_country_id:String!
     
     var str_user_select_image:String! = "0"
-    var str_user_select_image_nid:String! = "1"
+    var str_user_select_image_nid:String! = "0"
     var img_data_banner : Data!
     var img_Str_banner : String!
     
@@ -702,6 +702,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         self.open_camera_gallery()
+        self.str_nid_image_uplod = "0"
     }
     
     // MARK: - OPEN CAMERA OR GALLERY -
@@ -798,7 +799,6 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
         
         if (self.str_nid_image_uplod == "1") {
             
-            
             let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
 
             cell.img_upload_nid.image = image_data
@@ -809,6 +809,8 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
             self.dismiss(animated: true, completion: nil)
             
             self.str_user_select_image_nid = "1"
+            
+            self.update_nid_with_image()
             
         } else {
             let image_data = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
@@ -1144,7 +1146,7 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
         self.view.endEditing(true)
         
         var lan:String! = ""
-        if (self.str_nid_image_uplod != "1") { // nid image
+        /*if (self.str_nid_image_uplod != "1") { // nid image
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
                 
@@ -1182,8 +1184,16 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                      
                 }
             }
+        }*/
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            if (language == "en") {
+                lan = "en"
+                 
+            } else {
+                lan = "bn"
+                 
+            }
         }
-        
         
         
         var phone_number_code : String!
@@ -1397,10 +1407,10 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                                  
                                  UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)*/
                                 
-                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                                /*let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
                                 let cancel = NewYorkButton(title: "Ok", style: .cancel)
                                 alert.addButtons([cancel])
-                                self.present(alert, animated: true)
+                                self.present(alert, animated: true)*/
                                 
                                 // self.hide_loading_UI()
                                 ERProgressHud.sharedInstance.hide()
@@ -1424,10 +1434,10 @@ class edit_profile: UIViewController , UITextFieldDelegate, CLLocationManagerDel
                                  
                                  UserDefaults.standard.setValue(custom_email_pass, forKey: str_save_email_password)*/
                                 self.str_user_select_image_nid = "0"
-                                let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
+                                /*let alert = NewYorkAlertController(title: String("Success").uppercased(), message: (dictionary["msg"] as! String), style: .alert)
                                 let cancel = NewYorkButton(title: "Ok", style: .cancel)
                                 alert.addButtons([cancel])
-                                self.present(alert, animated: true)
+                                self.present(alert, animated: true)*/
                                 
                                 // self.hide_loading_UI()
                                 ERProgressHud.sharedInstance.hide()

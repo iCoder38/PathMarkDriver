@@ -190,18 +190,41 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
                 let item = arr_mut_order_history[0] as? [String:Any]
                 print(item as Any)
                 
+                let vehicle_car = ["Toyota",
+                                   "Honda",
+                                   "Nissan",
+                                   "Suzuki",
+                                   "Hyundai",
+                                   "Audi",
+                                   "BMW",
+                                   "Subaru"]
                 
-                if ("\(item!["vehicleType"]!)" == "1") {
-                    if (self.str_switch_value == "1") {
-                        marker.icon = UIImage(named: "map_car")
+                var car_type = "0"
+                for indexx in 0..<vehicle_car.count {
+                    if (String(vehicle_car[indexx]) == (item!["carBrand"] as! String)) {
+                        car_type = "1"
                     }
-                    
-                } else {
-                    if (self.str_switch_value == "1") {
+                }
+                
+                if (car_type == "1") {
+                    if ("\(item!["vehicleType"]!)" == "1") {
+                        marker.icon = UIImage(named: "map_car")
+                    } else {
                         marker.icon = UIImage(named: "map_bike")
                     }
-                    
+                } else {
+                    // if (self.str_switch_value == "1") {
+                    if ("\(item!["vehicleType"]!)" == "1") {
+                        marker.icon = UIImage(named: "map_car")
+                    } else {
+                        marker.icon = UIImage(named: "map_bike")
+                    }
+                        
+                    // }
                 }
+                
+                
+                
                 
                 
             }

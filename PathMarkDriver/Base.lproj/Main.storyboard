@@ -11415,7 +11415,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hM3-aw-Yc0">
-                                <rect key="frame" x="37" y="553" width="340" height="1"/>
+                                <rect key="frame" x="37" y="648" width="340" height="1"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="EZW-CY-707"/>
@@ -11443,7 +11443,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total : " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LGm-DL-oMG">
-                                <rect key="frame" x="19.999999999999996" y="556" width="51.666666666666657" height="46"/>
+                                <rect key="frame" x="19.999999999999996" y="657" width="51.666666666666657" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="BfZ-BL-Z8q"/>
                                 </constraints>
@@ -11461,7 +11461,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trip fare :" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="79o-g4-sd7">
-                                <rect key="frame" x="320" y="556" width="73.333333333333314" height="46"/>
+                                <rect key="frame" x="320" y="657" width="73.333333333333314" height="46"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="46" id="niE-ph-sqF"/>
                                 </constraints>
@@ -11469,8 +11469,44 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking fees:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sq-EO-Ucv">
+                                <rect key="frame" x="20.000000000000007" y="556" width="104.66666666666669" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="Mrx-KD-I5b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking fees:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76F-us-2XW">
+                                <rect key="frame" x="288" y="556" width="104.66666666666669" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="eM9-0p-tUV"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Previous Cancellation Fees:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dco-gO-xUE">
+                                <rect key="frame" x="21" y="608" width="190" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="hNU-SI-Wn1"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Booking fees:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6I-3v-Owu">
+                                <rect key="frame" x="288" y="608" width="104.66666666666669" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="99T-0s-mcg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YkA-wU-Oih">
-                                <rect key="frame" x="20" y="610" width="374" height="50"/>
+                                <rect key="frame" x="20" y="711" width="374" height="50"/>
                                 <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="S54-md-Gv8"/>
@@ -11482,17 +11518,21 @@
                         <viewLayoutGuide key="safeArea" id="ReT-Aj-2ti"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Dco-gO-xUE" firstAttribute="leading" secondItem="ReT-Aj-2ti" secondAttribute="leading" constant="21" id="01B-nv-2dz"/>
                             <constraint firstItem="ReT-Aj-2ti" firstAttribute="trailing" secondItem="fyK-hl-Ecx" secondAttribute="trailing" constant="20" id="0lH-lJ-vKa"/>
                             <constraint firstItem="tpK-jo-yUv" firstAttribute="leading" secondItem="ReT-Aj-2ti" secondAttribute="leading" constant="6" id="0yg-Sp-VlB"/>
                             <constraint firstItem="oTa-oh-aFT" firstAttribute="leading" secondItem="ReT-Aj-2ti" secondAttribute="leading" id="2e3-fC-Xot"/>
                             <constraint firstItem="kVz-Nh-zOt" firstAttribute="top" secondItem="cB5-Vm-LDR" secondAttribute="bottom" constant="8" symbolic="YES" id="4AB-LL-hcy"/>
                             <constraint firstItem="kVz-Nh-zOt" firstAttribute="trailing" secondItem="xhM-xJ-ZBU" secondAttribute="trailingMargin" id="4Zb-Gz-T4t"/>
+                            <constraint firstItem="Dco-gO-xUE" firstAttribute="top" secondItem="7Sq-EO-Ucv" secondAttribute="bottom" constant="6" id="4g7-Hv-JiM"/>
                             <constraint firstItem="ReT-Aj-2ti" firstAttribute="trailing" secondItem="cB5-Vm-LDR" secondAttribute="trailing" constant="20" id="4pd-yH-suJ"/>
                             <constraint firstItem="ReT-Aj-2ti" firstAttribute="trailing" secondItem="79o-g4-sd7" secondAttribute="trailing" constant="20.670000000000002" id="5Hb-OE-F7J"/>
                             <constraint firstItem="tpK-jo-yUv" firstAttribute="top" secondItem="oTa-oh-aFT" secondAttribute="bottom" constant="14" id="6nU-ku-nCQ"/>
-                            <constraint firstItem="YkA-wU-Oih" firstAttribute="top" secondItem="LGm-DL-oMG" secondAttribute="bottom" constant="8" symbolic="YES" id="8Fq-Y9-V8c"/>
+                            <constraint firstItem="YkA-wU-Oih" firstAttribute="top" secondItem="LGm-DL-oMG" secondAttribute="bottom" constant="8" id="8Fq-Y9-V8c"/>
+                            <constraint firstItem="J6I-3v-Owu" firstAttribute="top" secondItem="76F-us-2XW" secondAttribute="bottom" constant="6" id="8Jx-CK-M4g"/>
+                            <constraint firstItem="76F-us-2XW" firstAttribute="top" secondItem="8Iq-mI-B7Z" secondAttribute="bottom" constant="8" symbolic="YES" id="8cg-3E-7jK"/>
                             <constraint firstItem="ReT-Aj-2ti" firstAttribute="trailing" secondItem="YkA-wU-Oih" secondAttribute="trailing" constant="20" id="BAL-0i-iTC"/>
-                            <constraint firstItem="79o-g4-sd7" firstAttribute="top" secondItem="8Iq-mI-B7Z" secondAttribute="bottom" constant="8" symbolic="YES" id="CJy-Ld-e6k"/>
+                            <constraint firstItem="79o-g4-sd7" firstAttribute="top" secondItem="8Iq-mI-B7Z" secondAttribute="bottom" constant="109" id="CJy-Ld-e6k"/>
                             <constraint firstItem="oTa-oh-aFT" firstAttribute="top" secondItem="BdJ-62-eX7" secondAttribute="bottom" id="DvK-Kz-p2l"/>
                             <constraint firstItem="hM3-aw-Yc0" firstAttribute="leading" secondItem="xhM-xJ-ZBU" secondAttribute="leadingMargin" constant="17" id="HI3-H4-YPa"/>
                             <constraint firstItem="LGm-DL-oMG" firstAttribute="leading" secondItem="ReT-Aj-2ti" secondAttribute="leading" constant="20" id="KUH-2c-qbq"/>
@@ -11502,8 +11542,10 @@
                             <constraint firstItem="ReT-Aj-2ti" firstAttribute="trailing" secondItem="8Iq-mI-B7Z" secondAttribute="trailing" constant="20.670000000000002" id="SIt-o0-Fi3"/>
                             <constraint firstItem="cB5-Vm-LDR" firstAttribute="top" secondItem="oTa-oh-aFT" secondAttribute="bottom" constant="8" symbolic="YES" id="Skx-Er-2QS"/>
                             <constraint firstItem="BdJ-62-eX7" firstAttribute="trailing" secondItem="ReT-Aj-2ti" secondAttribute="trailing" id="SnS-G2-LZa"/>
+                            <constraint firstItem="ReT-Aj-2ti" firstAttribute="trailing" secondItem="76F-us-2XW" secondAttribute="trailing" constant="21.329999999999998" id="TFR-cW-Irr"/>
                             <constraint firstItem="FPB-oz-IgU" firstAttribute="leading" secondItem="ReT-Aj-2ti" secondAttribute="leading" id="TNF-Eu-Tg5"/>
                             <constraint firstItem="YkA-wU-Oih" firstAttribute="leading" secondItem="ReT-Aj-2ti" secondAttribute="leading" constant="20" id="XG5-5u-OiT"/>
+                            <constraint firstItem="ReT-Aj-2ti" firstAttribute="trailing" secondItem="J6I-3v-Owu" secondAttribute="trailing" constant="21.329999999999998" id="YIm-Q5-pHS"/>
                             <constraint firstItem="kVz-Nh-zOt" firstAttribute="leading" secondItem="xhM-xJ-ZBU" secondAttribute="leadingMargin" constant="34" id="bJe-2f-XUK"/>
                             <constraint firstItem="bIo-H5-8vL" firstAttribute="top" secondItem="fyK-hl-Ecx" secondAttribute="bottom" constant="24" id="bhw-eg-YSG"/>
                             <constraint firstItem="fyK-hl-Ecx" firstAttribute="top" secondItem="cB5-Vm-LDR" secondAttribute="bottom" constant="18" id="i8h-MH-d1n"/>
@@ -11512,8 +11554,10 @@
                             <constraint firstAttribute="trailingMargin" secondItem="hM3-aw-Yc0" secondAttribute="trailing" constant="17" id="l8K-UP-dDx"/>
                             <constraint firstItem="BdJ-62-eX7" firstAttribute="top" secondItem="FPB-oz-IgU" secondAttribute="bottom" id="pia-kB-2vZ"/>
                             <constraint firstItem="BdJ-62-eX7" firstAttribute="leading" secondItem="ReT-Aj-2ti" secondAttribute="leading" id="rdQ-27-scP"/>
-                            <constraint firstItem="LGm-DL-oMG" firstAttribute="top" secondItem="bIo-H5-8vL" secondAttribute="bottom" constant="8" symbolic="YES" id="sXH-Ny-0ZK"/>
-                            <constraint firstItem="hM3-aw-Yc0" firstAttribute="top" secondItem="bIo-H5-8vL" secondAttribute="bottom" constant="5" id="uaN-Q1-IM1"/>
+                            <constraint firstItem="LGm-DL-oMG" firstAttribute="top" secondItem="bIo-H5-8vL" secondAttribute="bottom" constant="109" id="sXH-Ny-0ZK"/>
+                            <constraint firstItem="7Sq-EO-Ucv" firstAttribute="top" secondItem="bIo-H5-8vL" secondAttribute="bottom" constant="8" symbolic="YES" id="tYW-Nw-BcS"/>
+                            <constraint firstItem="7Sq-EO-Ucv" firstAttribute="leading" secondItem="ReT-Aj-2ti" secondAttribute="leading" constant="20" id="tt3-Tn-A3s"/>
+                            <constraint firstItem="hM3-aw-Yc0" firstAttribute="top" secondItem="bIo-H5-8vL" secondAttribute="bottom" constant="100" id="uaN-Q1-IM1"/>
                             <constraint firstItem="FPB-oz-IgU" firstAttribute="top" secondItem="xhM-xJ-ZBU" secondAttribute="top" id="vmg-Rp-E1c"/>
                             <constraint firstItem="cB5-Vm-LDR" firstAttribute="leading" secondItem="ReT-Aj-2ti" secondAttribute="leading" constant="54" id="ycK-ue-nM4"/>
                         </constraints>
@@ -11524,10 +11568,14 @@
                     <connections>
                         <outlet property="btn_back" destination="kCb-iB-lcs" id="HLM-Fp-9T6"/>
                         <outlet property="btn_cash" destination="YkA-wU-Oih" id="isb-ze-JqL"/>
+                        <outlet property="lbl_booking_fees" destination="76F-us-2XW" id="nVy-hU-K8d"/>
+                        <outlet property="lbl_booking_fees_text" destination="7Sq-EO-Ucv" id="GhE-IN-mYt"/>
                         <outlet property="lbl_distance" destination="l1l-tN-qg1" id="JNm-Z0-5aU"/>
                         <outlet property="lbl_distance_text" destination="QVS-zG-FjP" id="QYz-tL-xsh"/>
                         <outlet property="lbl_drop" destination="fyK-hl-Ecx" id="X9v-nG-p1p"/>
                         <outlet property="lbl_pick_up" destination="cB5-Vm-LDR" id="97n-Gj-tcL"/>
+                        <outlet property="lbl_prevous_cancel_fee" destination="J6I-3v-Owu" id="EDZ-FJ-PaD"/>
+                        <outlet property="lbl_prevous_cancel_fee_text" destination="Dco-gO-xUE" id="0eu-r3-BvL"/>
                         <outlet property="lbl_price" destination="dGh-w4-yz3" id="ize-sd-JB4"/>
                         <outlet property="lbl_price_text" destination="NU6-O2-LkI" id="bud-xD-BQu"/>
                         <outlet property="lbl_total" destination="79o-g4-sd7" id="xyv-VM-eyy"/>
