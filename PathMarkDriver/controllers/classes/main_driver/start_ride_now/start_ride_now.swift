@@ -193,6 +193,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         print(self.get_booking_data_for_start_ride as Any)
         print("==================================================")
         
+        
         if (self.get_booking_data_for_start_ride["fullName"]) == nil {
             self.lbl_passenger_name.text = (self.get_booking_data_for_start_ride["CustomerName"] as! String)
             self.lbl_passenger_number.text = (self.get_booking_data_for_start_ride["CustomerPhone"] as! String)

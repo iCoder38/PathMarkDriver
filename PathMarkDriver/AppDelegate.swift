@@ -126,6 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         //print("User Info = ",notification.request.content.userInfo)
+        
         completionHandler([.alert, .badge, .sound, .banner])
         
         // playNotificationSound()
@@ -250,6 +251,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // MARK:- WHEN APP IS IN BACKGROUND - ( after click popup ) -
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+         
         
         print("User Info = ",response.notification.request.content.userInfo)
         

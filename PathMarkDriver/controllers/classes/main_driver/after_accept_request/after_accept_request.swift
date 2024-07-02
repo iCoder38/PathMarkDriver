@@ -12,6 +12,7 @@ import Firebase
 // MARK:- LOCATION -
 import CoreLocation
 import MapKit
+import SDWebImage
 
 class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
 
@@ -189,7 +190,7 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
     @objc func dialNumber() {
         
         let url: NSURL = URL(string: "tel://\(self.str_phone_number!)")! as NSURL
-            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
         
     }
     
@@ -205,10 +206,6 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
     @objc func chat_click() {
         
         let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "BooCheckChatId") as? BooCheckChat
-        // push!.str_get_user_id = "\(self.get_booking_data_for_pickup["userId"]!)"
-        
-        // push!.str_driver_id = "\(self.get_booking_data_for_pickup["userId"]!)"
-        
         
         push!.get_all_data = self.get_booking_data_for_pickup
         push!.str_booking_id = "\(self.get_booking_data_for_pickup["bookingId"]!)"
@@ -237,6 +234,11 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
                 self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["CustomerName"] as! String)
                 self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
                 self.str_phone_number =  (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
+                // img_passenger_profile
+                
+                self.img_passenger_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+                self.img_passenger_profile.sd_setImage(with: URL(string: (self.get_booking_data_for_pickup!["CustomerImage"] as! String)), placeholderImage: UIImage(named: "1024"))
+                
             }
             
         }

@@ -119,22 +119,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "09077C44-DDA7-467D-B9CA-35E3109D720F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "820"
-            endingLineNumber = "820"
-            landmarkName = "add_vehicle_WB(str_show_loader:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "E0062618-B433-438D-A90E-2B83FB8FAFFD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -204,8 +188,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/upload_documents/upload_documents.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "458"
-            endingLineNumber = "458"
+            startingLineNumber = "460"
+            endingLineNumber = "460"
             landmarkName = "four_click_method(sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -330,8 +314,8 @@
             filePath = "PathMarkDriver/controllers/classes/main_driver/after_accept_request/after_accept_request.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "827"
-            endingLineNumber = "827"
+            startingLineNumber = "829"
+            endingLineNumber = "829"
             landmarkName = "accept_booking_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -346,8 +330,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1003"
-            endingLineNumber = "1003"
+            startingLineNumber = "1012"
+            endingLineNumber = "1012"
             landmarkName = "upload_vehicle_details_WB(str_show_loader:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -362,8 +346,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1332"
-            endingLineNumber = "1332"
+            startingLineNumber = "1352"
+            endingLineNumber = "1352"
             landmarkName = "brand_click_method()"
             landmarkType = "7">
          </BreakpointContent>
@@ -378,8 +362,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1365"
-            endingLineNumber = "1365"
+            startingLineNumber = "1385"
+            endingLineNumber = "1385"
             landmarkName = "brand_click_method()"
             landmarkType = "7">
          </BreakpointContent>
@@ -394,8 +378,8 @@
             filePath = "PathMarkDriver/controllers/classes/driver_complete_registration/add_vehicle_details/add_vehicle_details.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1688"
-            endingLineNumber = "1688"
+            startingLineNumber = "1708"
+            endingLineNumber = "1708"
             landmarkName = "textFieldDidChange(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -451,16 +435,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F3204001-3A31-4CD9-84A0-9FE9EFDF1736"
+            uuid = "4B71A885-82AC-4CDD-AC87-187D158A9223"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PathMarkDriver/controllers/classes/main_driver/success_ride_done/success_ride_done.swift"
+            filePath = "PathMarkDriver/controllers/classes/main_driver/after_accept_request/after_accept_request.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
-            landmarkName = "booking_history_details_WB(str_show_loader:)"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "90A1FF99-034F-48B9-A1D8-5E536C55909E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PathMarkDriver/AppDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "userNotificationCenter(_:didReceive:withCompletionHandler:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

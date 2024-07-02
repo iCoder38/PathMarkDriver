@@ -79,7 +79,6 @@ class ride_history_details: UIViewController {
         print(self.dict_get_booking_details as Any)
         print("===================================")
         print("===================================")
-        
          
         let formattedString = roundToTwoDecimalPlaces(Double("\(self.dict_get_booking_details["FinalFare"]!)")!)
         

@@ -218,6 +218,8 @@ class upload_documents: UIViewController {
             self.tbleView.reloadData()
         }
         
+        ERProgressHud.sharedInstance.hide()
+        self.tbleView.reloadData()
         let indexPath = IndexPath.init(row: 0, section: 0)
         let cell = self.tbleView.cellForRow(at: indexPath) as! upload_documents_table_cell
         

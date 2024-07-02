@@ -126,6 +126,7 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
             }
         }
     }
+    
     @IBOutlet weak var lbl_prevous_cancel_fee:UILabel!
     @IBOutlet weak var lbl_prevous_cancel_fee_text:UILabel!  {
         didSet {
@@ -468,17 +469,31 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
                 let headers: HTTPHeaders = [
                     "token":String(token_id_is),
                 ]
+               
+                /*
+                 [action] => updatepayment
+                     [userId] => 292
+                     [bookingId] => 503
+                     [TIP] => 0
+                     [discountAmount] => 14.25
+                     [couponCode] => 50
+                     [totalAmount] => 14.25
+                     [paymentMethod] => Cash
+                     [transactionId] => Cash_1718893818002
+                     [paymentID] =>
+                     [language] => en
+                 */
                 
                 parameters = [
-                    "action"        : "updatepayment",
-                    "userId"        : String(myString),
-                    "bookingId"     : "\(self.dict_all_details["bookingId"]!)",
-                    "transactionId"  : String("cash_dummy_transaction_id"),
-                    "totalAmount"   : "\(self.dict_all_details["FinalFare"]!)",
-                    "TIP"           : String("0"),
+                    "action"            : "updatepayment",
+                    "userId"            : String(myString),
+                    "bookingId"         : "\(self.dict_all_details["bookingId"]!)",
+                    "transactionId"     : String("cash_dummy_transaction_id"),
+                    "totalAmount"       : "\(self.dict_all_details["FinalFare"]!)",
+                    "TIP"               : String("0"),
                     "discountAmount"    : String(""),
-                    "couponCode"    : String(""),
-                    "paymentMethod" : String("Cash"),
+                    "couponCode"        : String(""),
+                    "paymentMethod"     : String("Cash"),
                 ]
                 
                 print(parameters as Any)

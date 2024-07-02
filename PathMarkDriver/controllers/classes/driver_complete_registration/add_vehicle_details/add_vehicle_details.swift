@@ -816,6 +816,14 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             let x : Int = person["userId"] as! Int
             let myString = String(x)
             
+            var send_value_to_server:String!
+            
+            if (self.str_vehicle_type == "BIKE") {
+                send_value_to_server = "2"
+            } else {
+                send_value_to_server = "1"
+            }
+            
             let params = payload_add_vehicle_details(action: "addcarinformation",
                                                      userId: String(myString),
                                                      categoryId: String(self.str_vehicle_category_id),
@@ -823,7 +831,8 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                                                      carModel: String(cell.txt_modal.text!),
                                                      carYear: String(cell.txt_year.text!),
                                                      carColor: String(cell.txt_color.text!),
-                                                     carBrand:String(cell.txt_brand.text!))
+                                                     carBrand:String(cell.txt_brand.text!),
+                                                     vehicleType: String(send_value_to_server))
             
             print(params as Any)
             
@@ -1002,6 +1011,17 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     UserDefaults.standard.set("en", forKey: str_language_convert)
                 }
                 
+                
+                
+                var send_value_to_server:String!
+                if (self.str_vehicle_type == "BIKE") {
+                    send_value_to_server = "2"
+                } else {
+                    send_value_to_server = "1"
+                }
+                
+                
+                
                 print(self.strCarBrand as Any)
                 //Set Your Parameter
                 let parameterDict = NSMutableDictionary()
@@ -1014,7 +1034,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 parameterDict.setValue(String(self.strCarColor), forKey: "carColor")
                 parameterDict.setValue(String(self.strCarBrand), forKey: "carBrand")
                 parameterDict.setValue(String(lan), forKey: "language")
-                
+                parameterDict.setValue(String(send_value_to_server), forKey: "vehicleType")
                 
                 print(parameterDict as Any)
                 
@@ -1288,7 +1308,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             
             if (language == "en") {
                 
-                let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
+                let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024"]
                 
                 RPicker.selectOption(title: "Select", cancelText: "Cancel", dataArray: arr_year, selectedIndex: 0) { (selctedText, atIndex) in
                     cell.txt_year.text = String(selctedText)
@@ -1298,7 +1318,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                 
             } else {
                 
-                let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]
+                let arr_year = ["1997","1998","1999","2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024"]
                 
                 RPicker.selectOption(title: "নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_year, selectedIndex: 0) { (selctedText, atIndex) in
                     cell.txt_year.text = String(selctedText)

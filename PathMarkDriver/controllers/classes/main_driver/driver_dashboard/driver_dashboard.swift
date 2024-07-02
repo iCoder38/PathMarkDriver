@@ -190,41 +190,12 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
                 let item = arr_mut_order_history[0] as? [String:Any]
                 print(item as Any)
                 
-                let vehicle_car = ["Toyota",
-                                   "Honda",
-                                   "Nissan",
-                                   "Suzuki",
-                                   "Hyundai",
-                                   "Audi",
-                                   "BMW",
-                                   "Subaru"]
-                
-                var car_type = "0"
-                for indexx in 0..<vehicle_car.count {
-                    if (String(vehicle_car[indexx]) == (item!["carBrand"] as! String)) {
-                        car_type = "1"
-                    }
-                }
-                
-                if (car_type == "1") {
-                    if ("\(item!["vehicleType"]!)" == "1") {
-                        marker.icon = UIImage(named: "map_car")
-                    } else {
-                        marker.icon = UIImage(named: "map_bike")
-                    }
+                // noOfPassagenger
+                if ("\(item!["vehicleType"]!)" == "2") {
+                    marker.icon = UIImage(named: "map_bike")
                 } else {
-                    // if (self.str_switch_value == "1") {
-                    if ("\(item!["vehicleType"]!)" == "1") {
-                        marker.icon = UIImage(named: "map_car")
-                    } else {
-                        marker.icon = UIImage(named: "map_bike")
-                    }
-                        
-                    // }
+                    marker.icon = UIImage(named: "map_car")
                 }
-                
-                
-                
                 
                 
             }
@@ -241,20 +212,20 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
     }
 
         // CLLocationManagerDelegate method to handle authorization changes
-        func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-            switch status {
-            case .authorizedWhenInUse, .authorizedAlways:
-                locationManager.startUpdatingLocation()
-            case .denied, .restricted:
-                // Handle the case where the user denied location permissions
-                print("Location access denied")
-            case .notDetermined:
-                // Handle the case where location permission is not determined
-                locationManager.requestWhenInUseAuthorization()
-            @unknown default:
-                fatalError()
-            }
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways:
+            locationManager.startUpdatingLocation()
+        case .denied, .restricted:
+            // Handle the case where the user denied location permissions
+            print("Location access denied")
+        case .notDetermined:
+            // Handle the case where location permission is not determined
+            locationManager.requestWhenInUseAuthorization()
+        @unknown default:
+            fatalError()
         }
+    }
     /*@objc func custom_google_map() {
         // Create a GMSCameraPosition that tells the map to display the coordinate at zoom level 10.
         let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 10.0)
@@ -448,8 +419,10 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
                     "action"        : "editprofile",
                     "userId"        : String(myString),
                     "deviceToken"   : String(self.str_token_id),
-                    "latitude"      : String(self.strSaveLatitude),
-                    "longitude"     : String(self.strSaveLongitude),
+                     "latitude"      : "28.663360225298394", // String(self.strSaveLatitude),
+                     "longitude"     : "77.32386478305855", // String(self.strSaveLongitude),
+//                    "latitude"      : String(self.strSaveLatitude),
+//                    "longitude"     : String(self.strSaveLongitude),
                     "device"        : String("iOS")
                 ]
                 

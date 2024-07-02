@@ -118,6 +118,7 @@ struct payload_add_vehicle_details: Encodable {
     let carYear :String
     let carColor :String
     let carBrand :String
+    let vehicleType :String
 }
 
 struct payload_upload_driving_license: Encodable {
