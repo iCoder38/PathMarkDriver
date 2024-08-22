@@ -122,7 +122,6 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
                     lbl_booking_fees_text.text = "সংরক্ষণ ফি:"
                 }
                 
-                
             }
         }
     }

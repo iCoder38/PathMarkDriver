@@ -246,7 +246,10 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         self.lbl_from.text = (self.dict_get_all_data_from_notification["RequestPickupAddress"] as! String)
         self.lbl_to.text = (self.dict_get_all_data_from_notification["RequestDropAddress"] as! String)
         
-        self.lbl_est_earn.text = "\(self.dict_get_all_data_from_notification["estimateAmount"]!)"
+        let doublePrice1 = Double("\(self.dict_get_all_data_from_notification["estimateAmount"]!)")
+        let formattedNumber1 = String(format: "%.2f", doublePrice1!)
+        self.lbl_est_earn.text = String(formattedNumber1)
+        
         self.lbl_distance.text = "\(self.dict_get_all_data_from_notification["distance"]!)"
         
         self.btn_distance.setTitle("", for: .normal)
