@@ -568,9 +568,28 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
                 print("total: \(f_f_total)")
                 // self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
                 
-                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(complete_cal!)"
-                cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
-                cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(complete_cal!)"
+                
+                
+                let doublePrice1 = Double("\(complete_cal!)")
+                let formattedNumber = String(format: "%.2f", doublePrice1!)
+                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(formattedNumber)"
+                
+                
+                
+                
+                
+                let doublePrice2 = Double("\(f_f_total)")
+                let formattedNumber2 = String(format: "%.2f", doublePrice2!)
+                cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(formattedNumber2)"
+                
+                
+                
+                let doublePrice3 = Double("\(complete_cal!)")
+                let formattedNumber3 = String(format: "%.2f", doublePrice3!)
+                cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(formattedNumber3)"
+                
+                
+                
                 
                 if "\(self.dict_get_booking_details["discountAmount"]!)" == "" {
                     cell.lbl_discount.text = "\(str_bangladesh_currency_symbol) 0"
@@ -584,8 +603,17 @@ extension ride_history_details: UITableViewDataSource , UITableViewDelegate {
                 print("NO promotional_discount")
                 
                 self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
-                cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
-                cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+                
+                
+                let doublePrice2 = Double("\(totalAmount)")
+                let formattedNumber2 = String(format: "%.2f", doublePrice2!)
+                cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(formattedNumber2)"
+                // cell.lbl_fare.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+                
+                
+                
+                
+                cell.lbl_total_amount.text = "\(str_bangladesh_currency_symbol) \(formattedNumber2)"
                 
                 if "\(self.dict_get_booking_details["discountAmount"]!)" == "" {
                     cell.lbl_discount.text = "\(str_bangladesh_currency_symbol) 0"

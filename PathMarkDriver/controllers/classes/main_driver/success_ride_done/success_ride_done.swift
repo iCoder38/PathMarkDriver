@@ -187,10 +187,17 @@ class success_ride_done: UIViewController {
                                         print(language as Any)
                                         
                                         if (language == "en") {
-                                            self.lbl_price.text = "Waiting for customer to pay \(str_bangladesh_currency_symbol) \(complete_cal)"
+                                            
+                                            let doublePrice1 = Double("\(complete_cal)")
+                                            let formattedNumber1 = String(format: "%.2f", doublePrice1!)
+                                            self.lbl_price.text = "Waiting for customer to pay \(str_bangladesh_currency_symbol) \(formattedNumber1)"
+                                            
                                             self.btn_home.setTitle("Home", for: .normal)
                                         } else {
-                                            self.lbl_price.text = "গ্রাহক অর্থ প্রদানের জন্য অপেক্ষা করছেন \(str_bangladesh_currency_symbol) \(complete_cal)"
+                                            let doublePrice1 = Double("\(complete_cal)")
+                                            let formattedNumber1 = String(format: "%.2f", doublePrice1!)
+                                            self.lbl_price.text = "গ্রাহক অর্থ প্রদানের জন্য অপেক্ষা করছেন \(str_bangladesh_currency_symbol) \(formattedNumber1)"
+                                            
                                             self.btn_home.setTitle("বাড়ি", for: .normal)
                                         }
                                         
@@ -208,10 +215,18 @@ class success_ride_done: UIViewController {
                                         print(language as Any)
                                         
                                         if (language == "en") {
-                                            self.lbl_price.text = "Waiting for customer to pay \(str_bangladesh_currency_symbol) \(totalAmount)"
+                                            
+                                            let doublePrice1 = Double("\(totalAmount)")
+                                            let formattedNumber1 = String(format: "%.2f", doublePrice1!)
+                                            self.lbl_price.text = "Waiting for customer to pay \(str_bangladesh_currency_symbol) \(formattedNumber1)"
+                                            
                                             self.btn_home.setTitle("Home", for: .normal)
                                         } else {
-                                            self.lbl_price.text = "গ্রাহক অর্থ প্রদানের জন্য অপেক্ষা করছেন \(str_bangladesh_currency_symbol) \(totalAmount)"
+                                            
+                                            let doublePrice1 = Double("\(totalAmount)")
+                                            let formattedNumber1 = String(format: "%.2f", doublePrice1!)
+                                            self.lbl_price.text = "গ্রাহক অর্থ প্রদানের জন্য অপেক্ষা করছেন \(str_bangladesh_currency_symbol) \(formattedNumber1)"
+                                            
                                             self.btn_home.setTitle("বাড়ি", for: .normal)
                                         }
                                         

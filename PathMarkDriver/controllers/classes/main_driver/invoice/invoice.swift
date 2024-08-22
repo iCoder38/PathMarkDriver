@@ -190,15 +190,23 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
         
         print(self.dict_all_details as Any)
         
-    
-        self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
+        let doublePrice2 = Double("\(self.dict_all_details["FinalFare"]!)")
+        let formattedNumber2 = String(format: "%.2f", doublePrice2!)
+        self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(formattedNumber2)"
+        
         self.lbl_distance.text = "\(self.dict_all_details["totalDistance"]!) km"
         
         self.lbl_pick_up.text = "\(self.dict_all_details["RequestPickupAddress"]!)"
         self.lbl_drop.text = "\(self.dict_all_details["RequestDropAddress"]!)"
         
-        self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
-        self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
+        let doublePrice122 = Double("\(self.dict_all_details["FinalFare"]!)")
+        let formattedNumber122 = String(format: "%.2f", doublePrice122!)
+        self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(formattedNumber122)"
+        
+        let doublePrice12 = Double("\(self.dict_all_details["FinalFare"]!)")
+        let formattedNumber12 = String(format: "%.2f", doublePrice12!)
+        self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(formattedNumber12)"
+        
         self.lbl_booking_fees.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["bookingFee"]!)"
         
         if "\(self.dict_all_details["last_cancel_amount"]!)" == "" {
@@ -230,22 +238,37 @@ class invoice: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
                 let complete_cal = totalAmount - pro_dis!
                 print("Complete cal: \(complete_cal)")
                 
-                self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(complete_cal)"
-                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(complete_cal)"
+                let doublePrice1 = Double("\(complete_cal)")
+                let formattedNumber1 = String(format: "%.2f", doublePrice1!)
+                self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(formattedNumber1)"
+                
+                let doublePrice2 = Double("\(complete_cal)")
+                let formattedNumber2 = String(format: "%.2f", doublePrice2!)
+                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(formattedNumber2)"
                 
                 // also manage trip fare
-                self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(self.dict_all_details["FinalFare"]!)"
+                let doublePrice122 = Double("\(self.dict_all_details["FinalFare"]!)")
+                let formattedNumber122 = String(format: "%.2f", doublePrice122!)
+                self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(formattedNumber122)"
                 
                 let final_fare = convertToDouble("\(self.dict_all_details["FinalFare"]!)")
                 print("Final fare: \(final_fare!)")
                 
                 let f_f_total = final_fare! - pro_dis!
-                self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(f_f_total)"
+                
+                let doublePrice1221 = Double("\(f_f_total)")
+                let formattedNumber1221 = String(format: "%.2f", doublePrice1221!)
+                self.lbl_trip_fare.text = "\(str_bangladesh_currency_symbol) \(formattedNumber1221)"
                 
             } else {
                 
-                self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
-                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(totalAmount)"
+                let doublePrice1 = Double("\(totalAmount)")
+                let formattedNumber1 = String(format: "%.2f", doublePrice1!)
+                self.lbl_total.text = "\(str_bangladesh_currency_symbol) \(formattedNumber1)"
+                
+                let doublePrice2 = Double("\(totalAmount)")
+                let formattedNumber2 = String(format: "%.2f", doublePrice2!)
+                self.lbl_price.text = "\(str_bangladesh_currency_symbol) \(formattedNumber2)"
             }
             
         } else {
