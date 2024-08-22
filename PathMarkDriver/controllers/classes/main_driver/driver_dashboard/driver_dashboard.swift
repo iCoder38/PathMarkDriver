@@ -419,10 +419,10 @@ class driver_dashboard: UIViewController, CLLocationManagerDelegate  {
                     "action"        : "editprofile",
                     "userId"        : String(myString),
                     "deviceToken"   : String(self.str_token_id),
-                     "latitude"      : "28.663360225298394", // String(self.strSaveLatitude),
-                     "longitude"     : "77.32386478305855", // String(self.strSaveLongitude),
-//                    "latitude"      : String(self.strSaveLatitude),
-//                    "longitude"     : String(self.strSaveLongitude),
+//                     "latitude"      : "28.663360225298394", // String(self.strSaveLatitude),
+//                     "longitude"     : "77.32386478305855", // String(self.strSaveLongitude),
+                    "latitude"      : String(self.strSaveLatitude),
+                    "longitude"     : String(self.strSaveLongitude),
                     "device"        : String("iOS")
                 ]
                 

@@ -224,6 +224,9 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
                 self.lbl_passenger_name.text = (self.get_booking_data_for_pickup["CustomerName"] as! String)
                 self.lbl_passenger_number.text = (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
                 self.str_phone_number =  (self.get_booking_data_for_pickup["CustomerPhone"] as! String)
+                
+                self.img_passenger_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+                self.img_passenger_profile.sd_setImage(with: URL(string: (self.get_booking_data_for_pickup!["CustomerImage"] as! String)), placeholderImage: UIImage(named: "1024"))
             }
         } else {
             if (self.get_booking_data_for_pickup["CustomerName"] == nil) {

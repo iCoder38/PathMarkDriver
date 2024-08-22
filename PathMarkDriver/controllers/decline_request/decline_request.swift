@@ -590,13 +590,26 @@ class decline_request: UIViewController {
                      [cancelReason] => My reason is not listed
                      [cancelComment] => hmm
                  */
+                
+                var lan:String!
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                }
+                 
                 parameters = [
                     "action"        : "ridecancel",
                     "userId"        : String(myString),
                     "bookingId"     : "\(self.dict_booking_details["bookingId"]!)",
                     "userType"      : String("Driver"),
                     "cancelReason"  : String(self.str_reason_select),
-                    "cancelComment" : String(self.txt_view.text)
+                    "cancelComment" : String(self.txt_view.text),
+                    "language"      : String(lan)
                 ]
                 
                 print(parameters as Any)

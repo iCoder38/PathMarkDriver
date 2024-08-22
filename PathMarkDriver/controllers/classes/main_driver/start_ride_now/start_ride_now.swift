@@ -8,10 +8,12 @@
 import UIKit
 import Alamofire
 import Firebase
+import SDWebImage
 
 // MARK:- LOCATION -
 import CoreLocation
 import MapKit
+import GoogleMaps
 
 class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
 
@@ -40,6 +42,8 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     var strSaveZipcodeName:String!
     
     var str_phone_number:String!
+    
+    @IBOutlet weak var mapViewGoogle: GMSMapView!
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -198,15 +202,23 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             self.lbl_passenger_name.text = (self.get_booking_data_for_start_ride["CustomerName"] as! String)
             self.lbl_passenger_number.text = (self.get_booking_data_for_start_ride["CustomerPhone"] as! String)
             self.str_phone_number = (self.get_booking_data_for_start_ride["CustomerPhone"] as! String)
+            
+            self.img_passenger_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+            self.img_passenger_profile.sd_setImage(with: URL(string: (self.get_booking_data_for_start_ride!["CustomerImage"] as! String)), placeholderImage: UIImage(named: "1024"))
+            
         } else {
             self.lbl_passenger_name.text = (self.get_booking_data_for_start_ride["fullName"] as! String)
             self.lbl_passenger_number.text = (self.get_booking_data_for_start_ride["contactNumber"] as! String)
             self.str_phone_number = (self.get_booking_data_for_start_ride["contactNumber"] as! String)
+            
+            self.img_passenger_profile.sd_imageIndicator = SDWebImageActivityIndicator.grayLarge
+            self.img_passenger_profile.sd_setImage(with: URL(string: (self.get_booking_data_for_start_ride!["image"] as! String)), placeholderImage: UIImage(named: "1024"))
         }
         
         
         self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
         
+        // self.setupMap()
         self.current_location_click_method()
     }
     
@@ -214,7 +226,6 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
 
         let url: NSURL = URL(string: "tel://\(self.str_phone_number!)")! as NSURL
             UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
-        
     }
     
     @objc func chat_click() {
@@ -237,6 +248,40 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(myAlert!, animated: true, completion: nil)
     }
+    
+    func setupMap() {
+        // Set the initial camera position (optional)
+        let camera = GMSCameraPosition.camera(withLatitude: 37.7749, longitude: -122.4194, zoom: 10.0)
+        mapViewGoogle.camera = camera
+        
+        // Add markers for customer and driver locations
+        let customerLocation = CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194)
+        let driverLocation = CLLocationCoordinate2D(latitude: 37.7849, longitude: -122.4094)
+        
+        addMarker(at: customerLocation, title: "Customer")
+        addMarker(at: driverLocation, title: "Driver")
+        
+        // Draw the path between customer and driver
+        drawPath(from: customerLocation, to: driverLocation)
+    }
+        
+        func addMarker(at location: CLLocationCoordinate2D, title: String) {
+            let marker = GMSMarker()
+            marker.position = location
+            marker.title = title
+            marker.map = mapViewGoogle
+        }
+        
+        func drawPath(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
+            let path = GMSMutablePath()
+            path.add(source)
+            path.add(destination)
+            
+            let polyline = GMSPolyline(path: path)
+            polyline.strokeColor = .blue
+            polyline.strokeWidth = 4.0
+            polyline.map = mapViewGoogle
+        }
     
     @objc func current_location_click_method() {
         
@@ -460,20 +505,17 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     }
     
     @objc func check_and_verify_otp(str_show_loader:String) {
-        print(self.get_booking_data_for_start_ride as Any)
+        // print(self.get_booking_data_for_start_ride as Any)
         
+        self.verify_this(str_show_loader: "yes")
         
-        if ("\(self.get_booking_data_for_start_ride["RideCode"]!)" == "0") {
+        /*if ("\(self.get_booking_data_for_start_ride["RideCode"]!)" == "0") {
             self.accept_booking_WB(str_show_loader: "yes")
         } else if ("\(self.get_booking_data_for_start_ride["RideCode"]!)" == "") {
             self.accept_booking_WB(str_show_loader: "yes")
         } else {
             
             if (self.str_otp_status == "0") {
-                
-                
-                
-                
                 
                 if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                     print(language as Any)
@@ -593,7 +635,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             } else {
                 self.accept_booking_WB(str_show_loader: "yes")
             }
-        }
+        }*/
     }
     
     @objc func verify_this(str_show_loader:String) {
@@ -650,7 +692,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
                     "action"    : "bookingverify",
                     "driverId"  : String(myString),
                     "bookingId" : "\(self.get_booking_data_for_start_ride["bookingId"]!)",
-                    "RideCode"  : String(self.str_check_otp),
+                    "RideCode"  : "\(self.get_booking_data_for_start_ride["RideCode"]!)",
                     "language"  : String(lan)
                 ]
                 
@@ -686,7 +728,9 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
                                 UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             }
                             
-                            ERProgressHud.sharedInstance.hide()
+                            self.accept_booking_WB(str_show_loader: "no")
+                            
+                            /*ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)
                             
                             self.str_otp_status = "1"
@@ -707,7 +751,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
                                 }
                                 
                                  
-                            }
+                            }*/
                             
                             
                             
