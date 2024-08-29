@@ -14,6 +14,24 @@ import AVFoundation
 import CoreLocation
 import MapKit
 
+import GoogleMaps
+
+// google maps
+// NEW
+var getLoginUserLatitudeTo:String!
+var getLoginUserLongitudeTo:String!
+var getLoginUserAddressTo:String!
+var getLoginUserLatitudeFrom:String!
+var getLoginUserLongitudeFrom:String!
+var getLoginUserAddressFrom:String!
+var mapView: GMSMapView!
+
+var doublePlaceStartLat:Double!
+var doublePlaceStartLong:Double!
+        
+var doublePlaceFinalLat:Double!
+var doublePlaceFinalLong:Double!
+
 class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
 
     var dict_get_all_data_from_notification:NSDictionary!
@@ -29,6 +47,23 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     var strSaveLocalAddressMini:String!
     var strSaveStateName:String!
     var strSaveZipcodeName:String!
+    
+    // google maps
+    // NEW
+    var getLoginUserLatitudeTo:String!
+    var getLoginUserLongitudeTo:String!
+    var getLoginUserAddressTo:String!
+    var getLoginUserLatitudeFrom:String!
+    var getLoginUserLongitudeFrom:String!
+    var getLoginUserAddressFrom:String!
+    var mapView: GMSMapView!
+    
+    var doublePlaceStartLat:Double!
+    var doublePlaceStartLong:Double!
+            
+    var doublePlaceFinalLat:Double!
+    var doublePlaceFinalLong:Double!
+    
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -173,7 +208,7 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         }
     }
     
-    @IBOutlet weak var mapView:MKMapView!
+    // @IBOutlet weak var mapView:MKMapView!
     
     @IBOutlet weak var lbl_from:UILabel!
     @IBOutlet weak var lbl_to:UILabel!
@@ -255,11 +290,13 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         self.btn_distance.setTitle("", for: .normal)
         self.btn_est_earn.setTitle("", for: .normal)
         
-        self.current_location_click_method()
+        self.handleEveythingFromGoogleMapInit()
+        
+        // self.current_location_click_method()
         
     }
 
-    @objc func current_location_click_method() {
+    /*@objc func current_location_click_method() {
         
          self.iAmHereForLocationPermission()
     }
@@ -443,7 +480,7 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         }
 
         return annotationView
-    }
+    }*/
     
     @objc func validation_before_accept_booking() {
         self.accept_booking_WB(str_show_loader: "yes")
@@ -883,4 +920,168 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         }
         
     }
+    
+    
+    
+    
+    
+    @objc func handleEveythingFromGoogleMapInit() {
+        
+        
+        /*print(self.getLoginUserLatitudeTo as Any)
+        print(self.getLoginUserLongitudeTo as Any)
+        print(self.getLoginUserAddressTo as Any)
+        
+        print(self.getLoginUserLatitudeFrom as Any)
+        print(self.getLoginUserLongitudeFrom as Any)
+        print(self.getLoginUserAddressFrom as Any)
+        
+        UserDefaults.standard.set("", forKey: "key_map_view_lat_long")
+        UserDefaults.standard.set(nil, forKey: "key_map_view_lat_long")
+        
+        UserDefaults.standard.set("", forKey: "key_map_view_address")
+        UserDefaults.standard.set(nil, forKey: "key_map_view_address")
+        
+        UserDefaults.standard.set("", forKey: "keyUserSelectWhichProfile")
+        UserDefaults.standard.set(nil, forKey: "keyUserSelectWhichProfile")
+        */
+        self.initializeMap()
+    }
+    
+    func initializeMap() {
+        
+        print("==============================================")
+        print(self.dict_get_all_data_from_notification as Any)
+        print("==============================================")
+       
+        let separateDropLocation    = (self.dict_get_all_data_from_notification["RequestDropLatLong"] as! String)
+        let separateRequestLocation    = (self.dict_get_all_data_from_notification["RequestPickupLatLong"] as! String)
+        
+        let separateDropLocationArr = separateDropLocation.components(separatedBy: ",")
+        let separateRequestLocationArr = separateRequestLocation.components(separatedBy: ",")
+        
+        let dropLatitude    = separateDropLocationArr[0]
+        let dropLongitude   = separateDropLocationArr[1]
+        
+        let requestLatitude    = separateRequestLocationArr[0]
+        let requestLongitude   = separateRequestLocationArr[1]
+        
+        self.doublePlaceStartLat = Double(requestLatitude)
+        self.doublePlaceStartLong = Double(requestLongitude)
+        
+        self.doublePlaceFinalLat = Double(dropLatitude)
+        self.doublePlaceFinalLong = Double(dropLongitude)
+        
+        debugPrint(doublePlaceStartLat as Any)
+        debugPrint(doublePlaceStartLong as Any)
+        debugPrint(doublePlaceFinalLat as Any)
+        debugPrint(doublePlaceFinalLong as Any)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 10.0)
+        mapView = GMSMapView(frame: .zero)
+        mapView.camera = camera
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mapView)
+        
+        // Set up constraints for mapView
+        NSLayoutConstraint.activate([
+            // Set mapView's leading and trailing constraints to the view's leading and trailing edges
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            // Set mapView's top constraint to 220 points from the top of the view
+            mapView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            
+            // Set mapView's bottom constraint to be equal to the view's bottom anchor to make it extend to the bottom
+            mapView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        // Ensure overlayView is added after mapView so it's on top
+        // view.bringSubviewToFront(view_navigation_bar)
+         view.bringSubviewToFront(view_big)
+        
+        let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
+        let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
+        
+        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.dict_get_all_data_from_notification["RequestPickupAddress"] as! String))
+        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.dict_get_all_data_from_notification["RequestDropAddress"] as! String))
+        
+        fetchRoute(from: placeACoordinate, to: placeBCoordinate)
+    }
+    
+    func addMarker(at position: CLLocationCoordinate2D, title: String, snippet: String) {
+        let marker = GMSMarker()
+        marker.position = position
+        marker.title = title
+        marker.snippet = snippet
+        marker.map = mapView
+    }
+    
+    func fetchRoute(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D) {
+        let origin = "\(self.doublePlaceStartLat!),\(self.doublePlaceStartLong!)"
+        let destination = "\(self.doublePlaceFinalLat!),\(self.doublePlaceFinalLong!)"
+        let apiKey = GOOGLE_MAP_API
+        
+        debugPrint(origin)
+        debugPrint(destination)
+        
+        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "please wait...")
+        
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&key=\(apiKey)"
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Network error")
+                return
+            }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let routes = json["routes"] as? [[String: Any]],
+                   let route = routes.first,
+                   let overviewPolyline = route["overview_polyline"] as? [String: Any],
+                   let points = overviewPolyline["points"] as? String {
+                    
+                    DispatchQueue.main.async {
+                        self.drawPath(fromEncodedPath: points)
+                    }
+                }
+            } catch {
+                print("JSON parsing error")
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func drawPath(fromEncodedPath encodedPath: String) {
+        guard let path = GMSPath(fromEncodedPath: encodedPath) else {
+            print("Failed to decode path")
+            return
+        }
+        
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeColor = .blue
+        polyline.strokeWidth = 5.0
+        polyline.map = mapView
+        
+        // Call zoom function
+        zoomToFitRoute(withPath: path)
+    }
+    
+    func zoomToFitRoute(withPath path: GMSPath) {
+        let bounds = GMSCoordinateBounds(path: path)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+        mapView.animate(with: update)
+        
+        
+        ERProgressHud.sharedInstance.hide()
+        
+    }
+    
 }

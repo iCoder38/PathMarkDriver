@@ -3966,25 +3966,17 @@
                                     <constraint firstItem="750-pa-snO" firstAttribute="leading" secondItem="zub-gP-K8T" secondAttribute="trailing" constant="-70" id="yrc-zV-18t"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcU-o2-0co">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="900"/>
-                                <standardMapConfiguration key="preferredConfiguration"/>
-                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sl7-NO-3bL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="HOp-05-EsK" firstAttribute="bottom" secondItem="sl7-NO-3bL" secondAttribute="bottom" constant="34" id="CNN-39-ill"/>
                             <constraint firstItem="19g-WB-ME3" firstAttribute="top" secondItem="1lB-zh-x6F" secondAttribute="top" id="ERb-i0-ZRS"/>
-                            <constraint firstItem="HOp-05-EsK" firstAttribute="top" secondItem="zcU-o2-0co" secondAttribute="bottom" id="Jgv-ot-pnF"/>
                             <constraint firstItem="19g-WB-ME3" firstAttribute="trailing" secondItem="sl7-NO-3bL" secondAttribute="trailing" id="Mso-tN-eR5"/>
                             <constraint firstItem="sl7-NO-3bL" firstAttribute="trailing" secondItem="HOp-05-EsK" secondAttribute="trailing" id="TDE-h0-gSI"/>
-                            <constraint firstItem="zcU-o2-0co" firstAttribute="leading" secondItem="sl7-NO-3bL" secondAttribute="leading" id="asx-UC-k4D"/>
                             <constraint firstItem="19g-WB-ME3" firstAttribute="leading" secondItem="sl7-NO-3bL" secondAttribute="leading" id="fg1-LN-eoM"/>
                             <constraint firstAttribute="bottom" secondItem="19g-WB-ME3" secondAttribute="bottom" id="ktB-lC-sV7"/>
                             <constraint firstItem="HOp-05-EsK" firstAttribute="leading" secondItem="sl7-NO-3bL" secondAttribute="leading" id="kuw-kC-vKG"/>
-                            <constraint firstItem="zcU-o2-0co" firstAttribute="trailing" secondItem="sl7-NO-3bL" secondAttribute="trailing" id="oW3-S5-gQe"/>
-                            <constraint firstItem="zcU-o2-0co" firstAttribute="top" secondItem="1lB-zh-x6F" secondAttribute="top" id="sjZ-qh-MFp"/>
                         </constraints>
                     </view>
                     <size key="freeformSize" width="393" height="1200"/>
@@ -3999,7 +3991,6 @@
                         <outlet property="lbl_est_earn_text" destination="Sha-yc-51l" id="uO7-vt-s1U"/>
                         <outlet property="lbl_from" destination="Z0G-X8-JEf" id="zIW-Xz-QWw"/>
                         <outlet property="lbl_to" destination="LFQ-bG-5r9" id="nKN-Ms-vNg"/>
-                        <outlet property="mapView" destination="zcU-o2-0co" id="5A4-ne-cve"/>
                         <outlet property="view_big" destination="HOp-05-EsK" id="e6H-L6-osA"/>
                     </connections>
                 </viewController>

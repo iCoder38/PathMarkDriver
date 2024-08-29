@@ -462,36 +462,6 @@
             endingLineNumber = "1210"
             landmarkName = "showHideBigViewClick()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1527CBAF-00F0-45C5-B376-41C6F95A8306 - 1b00e1ba9759a280"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.start_ride_now.showHideBigViewClick() -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/start_ride_now/start_ride_now.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1211"
-                  endingLineNumber = "1211">
-               </Location>
-               <Location
-                  uuid = "1527CBAF-00F0-45C5-B376-41C6F95A8306 - f1b589831ec0d1bc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in PathMarkDriver.start_ride_now.showHideBigViewClick() -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/start_ride_now/start_ride_now.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "1211"
-                  endingLineNumber = "1211">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
