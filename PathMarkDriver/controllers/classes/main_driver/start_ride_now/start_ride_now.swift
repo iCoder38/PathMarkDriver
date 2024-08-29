@@ -43,7 +43,24 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
     
     var str_phone_number:String!
     
-    @IBOutlet weak var mapViewGoogle: GMSMapView!
+    //
+    // google maps
+    var mapView: GMSMapView!
+    var doublePlaceStartLat:Double!
+    var doublePlaceStartLong:Double!
+    
+    var doublePlaceFinalLat:Double!
+    var doublePlaceFinalLong:Double!
+    
+    var updateTimer: Timer?
+    var mapViewBottomConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var btnShowBigView:UIButton! {
+        didSet {
+            btnShowBigView.tag = 0
+            btnShowBigView.isHidden = true
+        }
+    }
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -167,7 +184,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         }
     }
     
-    @IBOutlet weak var mapView:MKMapView!
+    // @IBOutlet weak var mapView:MKMapView!
     
     @IBOutlet weak var img_passenger_profile:UIImageView! {
         didSet {
@@ -219,7 +236,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
         
         // self.setupMap()
-        self.current_location_click_method()
+        // self.current_location_click_method()
     }
     
     @objc func dialNumber() {
@@ -249,7 +266,7 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         present(myAlert!, animated: true, completion: nil)
     }
     
-    func setupMap() {
+    /*func setupMap() {
         // Set the initial camera position (optional)
         let camera = GMSCameraPosition.camera(withLatitude: 37.7749, longitude: -122.4194, zoom: 10.0)
         mapViewGoogle.camera = camera
@@ -263,16 +280,16 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         
         // Draw the path between customer and driver
         drawPath(from: customerLocation, to: driverLocation)
-    }
+    }*/
         
-        func addMarker(at location: CLLocationCoordinate2D, title: String) {
+        /*func addMarker(at location: CLLocationCoordinate2D, title: String) {
             let marker = GMSMarker()
             marker.position = location
             marker.title = title
             marker.map = mapViewGoogle
-        }
+        }*/
         
-        func drawPath(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
+        /*func drawPath(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) {
             let path = GMSMutablePath()
             path.add(source)
             path.add(destination)
@@ -281,14 +298,14 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
             polyline.strokeColor = .blue
             polyline.strokeWidth = 4.0
             polyline.map = mapViewGoogle
-        }
+        }*/
     
-    @objc func current_location_click_method() {
+    /*@objc func current_location_click_method() {
         
          self.iAmHereForLocationPermission()
-    }
+    }*/
     
-    @objc func iAmHereForLocationPermission() {
+    /*@objc func iAmHereForLocationPermission() {
         // Ask for Authorisation from the User.
         self.locationManager.requestAlwaysAuthorization()
 
@@ -313,10 +330,10 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
                 break
             }
         }
-    }
+    }*/
     
     // MARK:- GET CUSTOMER LOCATION -
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    /*func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         
@@ -434,16 +451,16 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         // self.tbleView.reloadData()
         
         // speed = distance / time
-    }
+    }*/
     
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+    /*func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.systemOrange
         renderer.lineWidth = 4.0
         return renderer
-    }
+    }*/
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    /*func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         // Don't want to show a custom image if the annotation is the user's location.
         guard !(annotation is MKUserLocation) else {
             return nil
@@ -492,11 +509,19 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         }
 
         return annotationView
-    }
+    }*/
     
     @objc func get_and_parse_UI() {
+        self.btnShowBigView.addTarget(self, action: #selector(showHideBigViewClick), for: .touchUpInside)
+        
         self.lbl_from.text = (self.get_booking_data_for_start_ride["RequestPickupAddress"] as! String)
         self.lbl_to.text = (self.get_booking_data_for_start_ride["RequestDropAddress"] as! String)
+        
+        
+        // GOOGLE MAPS IMPLEMENTED
+        self.setupLocationManager()
+        self.initializeMap()
+        self.initializeViewBig()
     }
     
     @objc func validation_before_accept_booking() {
@@ -972,4 +997,247 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    func initializeMap() {
+        
+        print("=====================================")
+        print("=====================================")
+        print(self.str_from_direct_notification_start_ride as Any)
+        print(self.get_booking_data_for_start_ride as Any)
+        print("=====================================")
+        print("=====================================")
+        
+        let separateDropLocation    = (self.get_booking_data_for_start_ride["RequestDropLatLong"] as! String)
+        let separateRequestLocation    = (self.get_booking_data_for_start_ride["RequestPickupLatLong"] as! String)
+        
+        let separateDropLocationArr = separateDropLocation.components(separatedBy: ",")
+        let separateRequestLocationArr = separateRequestLocation.components(separatedBy: ",")
+        
+        let dropLatitude    = separateDropLocationArr[0]
+        let dropLongitude   = separateDropLocationArr[1]
+        
+        let requestLatitude    = separateRequestLocationArr[0]
+        let requestLongitude   = separateRequestLocationArr[1]
+        
+        self.doublePlaceStartLat = Double(requestLatitude)
+        self.doublePlaceStartLong = Double(requestLongitude)
+        
+        self.doublePlaceFinalLat = Double(dropLatitude)
+        self.doublePlaceFinalLong = Double(dropLongitude)
+        
+        debugPrint(doublePlaceStartLat as Any)
+        debugPrint(doublePlaceStartLong as Any)
+        debugPrint(doublePlaceFinalLat as Any)
+        debugPrint(doublePlaceFinalLong as Any)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 10.0)
+        mapView = GMSMapView(frame: .zero)
+        mapView.camera = camera
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mapView)
+        
+        mapViewBottomConstraint = mapView.bottomAnchor.constraint(equalTo: view_big.topAnchor)
+                
+                NSLayoutConstraint.activate([
+                    mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    mapView.topAnchor.constraint(equalTo: view.topAnchor, constant: 88),
+                    mapViewBottomConstraint
+                ])
+        
+        // Ensure overlayView is added after mapView so it's on top
+        view.bringSubviewToFront(view_navigation_bar)
+        // view.bringSubviewToFront(view_set_name)
+        
+        let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
+        let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
+        
+        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.get_booking_data_for_start_ride["RequestPickupAddress"] as! String))
+        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.get_booking_data_for_start_ride["RequestDropAddress"] as! String))
+        
+        fetchRoute(from: placeACoordinate, to: placeBCoordinate)
+    }
+    
+    func initializeViewBig() {
+        view_big.translatesAutoresizingMaskIntoConstraints = false
+                view_big.backgroundColor = .white
+                view.addSubview(view_big)
+                
+                // Set up constraints for view_big
+                NSLayoutConstraint.activate([
+                    view_big.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    view_big.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    view_big.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                    view_big.heightAnchor.constraint(equalToConstant: 300)
+                ])
+    }
+    
+    func addMarker(at position: CLLocationCoordinate2D, title: String, snippet: String) {
+        let marker = GMSMarker()
+        marker.position = position
+        marker.title = title
+        marker.snippet = snippet
+        marker.map = mapView
+    }
+    
+    func fetchRoute(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D) {
+        let origin = "\(self.doublePlaceStartLat!),\(self.doublePlaceStartLong!)"
+        let destination = "\(self.doublePlaceFinalLat!),\(self.doublePlaceFinalLong!)"
+        let apiKey = GOOGLE_MAP_API
+        
+        debugPrint(origin)
+        debugPrint(destination)
+        
+        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "please wait...")
+        
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&key=\(apiKey)"
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Network error")
+                return
+            }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let routes = json["routes"] as? [[String: Any]],
+                   let route = routes.first,
+                   let overviewPolyline = route["overview_polyline"] as? [String: Any],
+                   let points = overviewPolyline["points"] as? String {
+                    
+                    DispatchQueue.main.async {
+                        self.drawPath(fromEncodedPath: points)
+                    }
+                }
+            } catch {
+                print("JSON parsing error")
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func drawPath(fromEncodedPath encodedPath: String) {
+        guard let path = GMSPath(fromEncodedPath: encodedPath) else {
+            print("Failed to decode path")
+            return
+        }
+        
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeColor = .blue
+        polyline.strokeWidth = 5.0
+        polyline.map = mapView
+        
+        // Call zoom function
+        zoomToFitRoute(withPath: path)
+    }
+    
+    func zoomToFitRoute(withPath path: GMSPath) {
+        let bounds = GMSCoordinateBounds(path: path)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+        mapView.animate(with: update)
+        
+        self.view.bringSubviewToFront(self.view_big)
+        
+        // 400 milliseconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            ERProgressHud.sharedInstance.hide()
+           
+        }
+        
+        
+        
+        // self.refresh_location_in_firebase()
+    }
+    
+    
+    func startLocationUpdates() {
+        // Start a timer to fetch the location every 10 seconds
+        updateTimer = Timer.scheduledTimer(timeInterval: 10.0, target: self, selector: #selector(updateLocation), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateLocation() {
+            // Request location updates
+            locationManager.requestLocation()
+        }
+    
+    deinit {
+            // Invalidate the timer when the view controller is deinitialized
+            updateTimer?.invalidate()
+        }
+    
+    // for current location
+    func setupLocationManager() {
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        
+        let currentLatitude = location.coordinate.latitude
+        let currentLongitude = location.coordinate.longitude
+        
+        print("Current Location: Latitude \(currentLatitude), Longitude \(currentLongitude)")
+        
+        self.strSaveLatitude = "\(currentLatitude)"
+        self.strSaveLongitude = "\(currentLongitude)"
+        
+        locationManager.stopUpdatingLocation()
+        // self.refresh_location_in_firebase()
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to get user's location: \(error.localizedDescription)")
+    }
+    
+    @objc func showHideBigViewClick() {
+        if (self.btnShowBigView.tag == 0) {
+            // Hide the view with animation
+            UIView.animate(withDuration: 0.5, animations: {
+                // Slide view_big back into place
+                self.view_big.transform = CGAffineTransform(translationX: 0, y: self.view_big.frame.height)
+                
+                // Update the mapView's bottom constraint to leave space for view_big
+                self.mapViewBottomConstraint.constant = self.view_big.frame.height
+                self.view.layoutIfNeeded()
+            })
+            self.btnShowBigView.tag = 1
+        } else {
+            // Show the view with animation
+            self.view_big.isHidden = false
+            self.view_big.transform = CGAffineTransform(translationX: 0, y: self.view_big.frame.height) // Set initial position off-screen
+            UIView.animate(withDuration: 0.5, animations: {
+                // Slide view_big out of the screen
+                self.view_big.transform = .identity
+                
+                
+                // Update the mapView's bottom constraint to make it fill the space
+                self.mapViewBottomConstraint.constant = 0
+                self.view.layoutIfNeeded()
+            }) { _ in
+                self.view_big.isHidden = false
+            }
+            
+            self.btnShowBigView.tag = 0
+        }
+        debugPrint("\(self.btnShowBigView.tag)")
+        
+    }
+
 }

@@ -43,10 +43,10 @@ let CART_COUNT_COLOR        = UIColor.black
 
 
 let str_language_convert = "key_selected_language"
+var countryCodeForGoogleSearch = "BD"
 
 
-
-
+var GOOGLE_MAP_API = "AIzaSyB3sYhSTD7GEn1j6SsH-QL_GVNG6oUsfM0"
 
 // URLs
 let URL_HARILOSS_SUPPORT_GROUP  = "https://www.google.co.in"

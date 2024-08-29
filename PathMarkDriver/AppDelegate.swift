@@ -10,7 +10,10 @@ import UIKit
 import Firebase
 
 import UserNotifications
+
 import GoogleMaps
+import GooglePlaces
+
 import AVFoundation
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
@@ -22,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         FirebaseApp.configure()
         
-        GMSServices.provideAPIKey("AIzaSyAmJSVlEKQx8s6XRKeQ1-sb-r1-ItQO6OU")
+        GMSPlacesClient.provideAPIKey(GOOGLE_MAP_API)
+        GMSServices.provideAPIKey(GOOGLE_MAP_API)
 
         
         if #available(iOS 10.0, *) {
