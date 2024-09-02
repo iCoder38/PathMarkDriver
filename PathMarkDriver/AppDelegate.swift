@@ -187,7 +187,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             
            print(type(of: dict["bookingTime"]))
             
-            if (dict["bookingTime"] == nil) {
+            if (dict["bookingTime"] == nil || dict["bookingTime"] as! String == "") {
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
       
