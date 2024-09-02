@@ -525,13 +525,32 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
                     "token":String(token_id_is),
                 ]
 
-
+                var lan:String!
+                
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                    
+                    
+                } else {
+                    print("=============================")
+                    print("LOGIN : Select language error")
+                    print("=============================")
+                    UserDefaults.standard.set("en", forKey: str_language_convert)
+                }
+                
                 parameters = [
                     "action"        : "rideend",
                     "driverId"      : String(myString),
                     "bookingId"     : "\(self.get_booking_data_for_end_ride["bookingId"]!)",
                     "Actual_Drop_Address"  : (self.get_booking_data_for_end_ride["RequestDropAddress"] as! String),
                     "Actual_Drop_Lat_Long" : (self.get_booking_data_for_end_ride["RequestDropLatLong"] as! String),
+                    "language"      : String(lan)
                 ]
                 
                 print(parameters as Any)

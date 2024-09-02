@@ -19,7 +19,8 @@ import AVFoundation
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
 
     var window: UIWindow?
-
+    var dict:NSDictionary!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
@@ -129,28 +130,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     // MARK:- WHEN APP IS IN FOREGROUND - ( after click popup ) -
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        //print("User Info = ",notification.request.content.userInfo)
+        
         
         completionHandler([.alert, .badge, .sound, .banner])
         
-        // playNotificationSound()
+        let dictFromNotification = notification.request.content.userInfo
         
-        print("User Info dishu = ",notification.request.content.userInfo)
+        if let jsonString = dictFromNotification[AnyHashable("data")] as? String {
+            // Convert the JSON string to Data
+            if let jsonData = jsonString.data(using: .utf8) {
+                do {
+                    // Deserialize JSON data to NSDictionary
+                    if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                        // Successfully converted to NSDictionary
+                        print("Data dictionary: \(jsonDict)")
+                        print(type(of: jsonDict))
+                        
+                        dict = jsonDict as NSDictionary
+                        print(self.dict as Any)
+                        
+                        
+                        // Handle optional values safely
+                        
+                    } else {
+                        print("Failed to convert JSON to NSDictionary")
+                    }
+                } catch {
+                    print("Error deserializing JSON: \(error)")
+                }
+            } else {
+                print("Failed to convert JSON string to Data")
+            }
+        } else {
+            print("No valid JSON string found for 'data' key")
+        }
+       
         
-        let dict = notification.request.content.userInfo
+        handleNotification()
+        
+    }
+        
+    func handleNSNull(_ value: Any?) -> Any? {
+        if value is NSNull {
+            return nil
+        }
+        return value
+    }
+    
+    func handleNotification() {
         print(dict as Any)
-        
-        /*
-         User Info dishu =  [AnyHashable("RequestPickupLatLong"): 28.5849492,77.05828439999999, AnyHashable("distance"): 21.9, AnyHashable("estimateAmount"): 21.9, AnyHashable("deviceToken"): "", AnyHashable("bookingId"): 83, AnyHashable("duration"): 1 hour 3 mins, AnyHashable("google.c.sender.id"): 750959835757, AnyHashable("type"): request, AnyHashable("google.c.a.e"): 1, AnyHashable("RequestDropAddress"): 290, Patparganj Industrial Area, Patparganj, Delhi, 110092, India , AnyHashable("RequestDropLatLong"): 28.643166852250797,77.31291197240353, AnyHashable("CustomerPhone"): 6867675443, AnyHashable("gcm.message_id"): 1699543611604198, AnyHashable("google.c.fid"): fxAsM18HlUdQi_KqGt508b, AnyHashable("CustomerImage"): , AnyHashable("message"): New booking request for Confir or Cancel., AnyHashable("device"): iOS, AnyHashable("CustomerName"): p driver 128, AnyHashable("aps"): {
-             alert = "New booking request for Confir or Cancel.";
-         }, AnyHashable("RequestPickupAddress"): Sector 10 Dwarka, Dwarka, Delhi, 110075, India]
-         */
-        
-        // if user send request
         if (dict["type"] == nil) {
             print("NOTIFICATION FROM SOMEWHERE ELSE")
             
         } else if (dict["type"] as! String) == "request" {
+            
+            
+           print(type(of: dict["bookingTime"]))
             
             if (dict["bookingTime"] == nil) {
                 
@@ -251,19 +286,47 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
     }
     
-    
     // MARK:- WHEN APP IS IN BACKGROUND - ( after click popup ) -
     @available(iOS 10.0, *)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
-         
+        let dictFromNotification = response.notification.request.content.userInfo
         
-        print("User Info = ",response.notification.request.content.userInfo)
+        if let jsonString = dictFromNotification[AnyHashable("data")] as? String {
+            // Convert the JSON string to Data
+            if let jsonData = jsonString.data(using: .utf8) {
+                do {
+                    // Deserialize JSON data to NSDictionary
+                    if let jsonDict = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                        // Successfully converted to NSDictionary
+                        print("Data dictionary: \(jsonDict)")
+                        print(type(of: jsonDict))
+                        
+                        dict = jsonDict as NSDictionary
+                        print(self.dict as Any)
+                        
+                        
+                        // Handle optional values safely
+                        
+                    } else {
+                        print("Failed to convert JSON to NSDictionary")
+                    }
+                } catch {
+                    print("Error deserializing JSON: \(error)")
+                }
+            } else {
+                print("Failed to convert JSON string to Data")
+            }
+        } else {
+            print("No valid JSON string found for 'data' key")
+        }
+       
         
-        let dict = response.notification.request.content.userInfo
-        print(dict as Any)
+        handleNotification()
         
-        if (dict["type"] == nil) {
+        
+        
+        /*if (dict["type"] == nil) {
             print("NOTIFICATION FROM SOMEWHERE ELSE")
         }   else if (dict["type"] as! String) == "Chat" {
             
@@ -384,7 +447,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             
             window?.makeKeyAndVisible()
         }
-          
+          */
         
         
     }

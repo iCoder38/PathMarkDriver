@@ -57,7 +57,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
-        self.iAmHereForLocationPermission()
+        
         
         /*let defaults = UserDefaults.standard
         defaults.setValue(nil, forKey: str_save_login_user_data)
@@ -70,6 +70,29 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
         // UserDefaults.standard.set("bn", forKey: str_language_convert)
         
         // self.remember_me()
+        
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                
+            } else {
+                
+            }
+            
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error:")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+             
+            self.tbleView.reloadData()
+        }
+        self.iAmHereForLocationPermission()
+        
+        
     }
     
     @objc func remember_me() {
@@ -155,9 +178,11 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
                                 
                             } else {
                                 print("=============================")
-                                print("LOGIN : Select language error")
+                                print("LOGIN : Select language error: LOGIN")
                                 print("=============================")
                                 UserDefaults.standard.set("en", forKey: str_language_convert)
+                                remember_me()
+                                self.tbleView.reloadData()
                             }
                             
                         } else {
@@ -400,6 +425,48 @@ extension login: UITableViewDataSource  , UITableViewDelegate{
             UserDefaults.standard.set("en", forKey: str_language_convert)
         }
         
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                Utils.textFieldUI(textField: cell.txtEmailAddress,
+                                  tfName: cell.txtEmailAddress.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .emailAddress,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "E-mail/Mobile No.")
+            } else {
+                Utils.textFieldUI(textField: cell.txtEmailAddress,
+                                  tfName: cell.txtEmailAddress.text!,
+                                  tfCornerRadius: 12,
+                                  tfpadding: 20,
+                                  tfBorderWidth: 0,
+                                  tfBorderColor: .clear,
+                                  tfAppearance: .dark,
+                                  tfKeyboardType: .emailAddress,
+                                  tfBackgroundColor: .white,
+                                  tfPlaceholderText: "ই-মেইল/মোবাইল নম্বর")
+            }
+            
+        } else {
+            print("=============================")
+            print("LOGIN : Select language error")
+            print("=============================")
+            UserDefaults.standard.set("en", forKey: str_language_convert)
+        }
+        
+        
+        
+        cell.txtEmailAddress.layer.masksToBounds = false
+        cell.txtEmailAddress.layer.shadowColor = UIColor.black.cgColor
+        cell.txtEmailAddress.layer.shadowOffset =  CGSize.zero
+        cell.txtEmailAddress.layer.shadowOpacity = 0.5
+        cell.txtEmailAddress.layer.shadowRadius = 2
+        
         return cell
     }
     
@@ -477,47 +544,7 @@ class login_table_cell: UITableViewCell {
     @IBOutlet weak var txtEmailAddress:UITextField! {
         didSet {
             
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    Utils.textFieldUI(textField: txtEmailAddress,
-                                      tfName: txtEmailAddress.text!,
-                                      tfCornerRadius: 12,
-                                      tfpadding: 20,
-                                      tfBorderWidth: 0,
-                                      tfBorderColor: .clear,
-                                      tfAppearance: .dark,
-                                      tfKeyboardType: .emailAddress,
-                                      tfBackgroundColor: .white,
-                                      tfPlaceholderText: "E-mail/Mobile No.")
-                } else {
-                    Utils.textFieldUI(textField: txtEmailAddress,
-                                      tfName: txtEmailAddress.text!,
-                                      tfCornerRadius: 12,
-                                      tfpadding: 20,
-                                      tfBorderWidth: 0,
-                                      tfBorderColor: .clear,
-                                      tfAppearance: .dark,
-                                      tfKeyboardType: .emailAddress,
-                                      tfBackgroundColor: .white,
-                                      tfPlaceholderText: "ই-মেইল/মোবাইল নম্বর")
-                }
-                
-            } else {
-                print("=============================")
-                print("LOGIN : Select language error")
-                print("=============================")
-                UserDefaults.standard.set("en", forKey: str_language_convert)
-            }
-            
-            
-            
-            txtEmailAddress.layer.masksToBounds = false
-            txtEmailAddress.layer.shadowColor = UIColor.black.cgColor
-            txtEmailAddress.layer.shadowOffset =  CGSize.zero
-            txtEmailAddress.layer.shadowOpacity = 0.5
-            txtEmailAddress.layer.shadowRadius = 2
+           
              
         }
     }
