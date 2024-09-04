@@ -8,11 +8,12 @@
 import UIKit
 import Alamofire
 import MapKit
+import GoogleMaps
 
 class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDelegate {
-
+    
     var get_booking_data_for_end_ride:NSDictionary!
-
+    
     let locationManager = CLLocationManager()
     
     // MARK:- SAVE LOCATION STRING -
@@ -24,6 +25,17 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
     var strSaveLocalAddressMini:String!
     var strSaveStateName:String!
     var strSaveZipcodeName:String!
+    
+    // google maps
+    var mapView: GMSMapView!
+    var doublePlaceStartLat:Double!
+    var doublePlaceStartLong:Double!
+    
+    var doublePlaceFinalLat:Double!
+    var doublePlaceFinalLong:Double!
+    
+    var updateTimer: Timer?
+    var mapViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var view_big:UIView! {
         didSet {
@@ -39,22 +51,15 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
     
     @IBOutlet weak var view_navigation_title:UILabel! {
         didSet {
-             
-            
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
                 print(language as Any)
                 
                 if (language == "en") {
                     view_navigation_title.text = "ENJOY YOUR RIDE"
-                    
                 } else {
                     view_navigation_title.text = "আপনার রাইড উপভোগ করুন"
-                     
                 }
-                
-                 
             }
-            
             view_navigation_title.textColor = .white
         }
     }
@@ -70,7 +75,7 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
                     btn_ride_complete.setTitle("শেষ রাইড", for: .normal)
                 }
                 
-                 
+                
             }
             
             btn_ride_complete.setTitleColor(.white, for: .normal)
@@ -87,7 +92,7 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
             
         }
     }
-     
+    
     @IBOutlet weak var btn_distance:UIButton! {
         didSet {
             btn_distance.setTitleColor(.white, for: .normal)
@@ -96,6 +101,7 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
             btn_distance.backgroundColor = UIColor.init(red: 227.0/255.0, green: 230.0/255.0, blue: 244.0/255.0, alpha: 1)
         }
     }
+    
     @IBOutlet weak var btn_est_earn:UIButton! {
         didSet {
             btn_est_earn.setTitleColor(.white, for: .normal)
@@ -124,7 +130,9 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
     @IBOutlet weak var lbl_distance:UILabel!
     @IBOutlet weak var lbl_duration:UILabel!
     
-    @IBOutlet weak var mapView:MKMapView!
+    @IBOutlet weak var btnHome:UIButton!
+    
+    // @IBOutlet weak var mapView:MKMapView!
     
     @IBOutlet weak var lbl_avg_time_text:UILabel! {
         didSet {
@@ -137,10 +145,11 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
                     lbl_avg_time_text.text = "গড় সময়"
                 }
                 
-                 
+                
             }
         }
     }
+    
     @IBOutlet weak var lbl_distance_text:UILabel! {
         didSet {
             if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -151,8 +160,6 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
                 } else {
                     lbl_distance_text.text = "দূরত্ব"
                 }
-                
-                 
             }
         }
     }
@@ -160,47 +167,62 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        // 
+        //
+        self.btnHome.addTarget(self, action: #selector(homeClickMethod), for: .touchUpInside)
         
         self.get_and_parse_UI()
     }
     
-    @objc func get_and_parse_UI() {
+    @objc func homeClickMethod() {
+        var window: UIWindow?
         
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let destinationController = storyboard.instantiateViewController(withIdentifier:"driver_dashboard_id") as? driver_dashboard
+        let frontNavigationController = UINavigationController(rootViewController: destinationController!)
+        let rearViewController = storyboard.instantiateViewController(withIdentifier:"MenuControllerVCId") as? MenuControllerVC
+        let mainRevealController = SWRevealViewController()
+        mainRevealController.rearViewController = rearViewController
+        mainRevealController.frontViewController = frontNavigationController
+        DispatchQueue.main.async {
+            UIApplication.shared.keyWindow?.rootViewController = mainRevealController
+        }
+        window?.makeKeyAndVisible()
+    }
+    
+    @objc func get_and_parse_UI() {
         
         print(self.get_booking_data_for_end_ride as Any)
         
         /*
-         
-         */
-        /*
          Optional({
-             CustomerImage = "https://demo4.evirtualservices.net/pathmark/img/uploads/users/1703176416PLUDIN_1703144035652.png";
-             CustomerName = "biz@1";
-             CustomerPhone = 9865325241;
-             RequestDropAddress = "Dwarka Sector 10 Metro Station Dwarka Sector 10 Metro Station";
-             RequestDropLatLong = "28.5811442,77.0574403";
-             RequestPickupAddress = "Sector 10 Dwarka, South West Delhi New Delhi, India - 110075";
-             RequestPickupLatLong = "28.58723476883466,77.06057780713161";
-             RideCode = 632009;
-             aps =     {
-                 alert = "New booking request for Confir or Cancel.";
-             };
-             bookingDate = "12-31-1969";
-             bookingId = 140;
-             device = iOS;
-             deviceToken = "c5gz-g9rUEqUs2qZ6PW93c:APA91bF9mr0vAtxGCzJr-_3bSVlPQUWFbfWxmOoUG0sp0VVC-oG4zPgZIT5Wdsy3UeaEwohqAAZbYgLy3R9nF640iEDIfDF4Htpe4CuZqPzdul-qPHCFl-zGeVBtmktw6aHswSrQNgOs";
-             distance = "0.8";
-             duration = "4 mins";
-             estimateAmount = "54.6";
-             "gcm.message_id" = 1707466258089135;
-             "google.c.a.e" = 1;
-             "google.c.fid" = "c5gz-g9rUEqUs2qZ6PW93c";
-             "google.c.sender.id" = 750959835757;
-             message = "New booking request for Confir or Cancel.";
-             type = request;
+         CustomerImage = "https://demo4.evirtualservices.net/pathmark/img/uploads/users/1703176416PLUDIN_1703144035652.png";
+         CustomerName = "biz@1";
+         CustomerPhone = 9865325241;
+         RequestDropAddress = "Dwarka Sector 10 Metro Station Dwarka Sector 10 Metro Station";
+         RequestDropLatLong = "28.5811442,77.0574403";
+         RequestPickupAddress = "Sector 10 Dwarka, South West Delhi New Delhi, India - 110075";
+         RequestPickupLatLong = "28.58723476883466,77.06057780713161";
+         RideCode = 632009;
+         aps =     {
+         alert = "New booking request for Confir or Cancel.";
+         };
+         bookingDate = "12-31-1969";
+         bookingId = 140;
+         device = iOS;
+         deviceToken = "c5gz-g9rUEqUs2qZ6PW93c:APA91bF9mr0vAtxGCzJr-_3bSVlPQUWFbfWxmOoUG0sp0VVC-oG4zPgZIT5Wdsy3UeaEwohqAAZbYgLy3R9nF640iEDIfDF4Htpe4CuZqPzdul-qPHCFl-zGeVBtmktw6aHswSrQNgOs";
+         distance = "0.8";
+         duration = "4 mins";
+         estimateAmount = "54.6";
+         "gcm.message_id" = 1707466258089135;
+         "google.c.a.e" = 1;
+         "google.c.fid" = "c5gz-g9rUEqUs2qZ6PW93c";
+         "google.c.sender.id" = 750959835757;
+         message = "New booking request for Confir or Cancel.";
+         type = request;
          })
          */
+        
         //
         UserDefaults.standard.set((self.get_booking_data_for_end_ride["RequestDropAddress"]!), forKey: "key_save_RequestDropAddress")
         UserDefaults.standard.set((self.get_booking_data_for_end_ride["RequestPickupAddress"]!), forKey: "key_save_RequestPickupAddress")
@@ -230,231 +252,233 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
         
         self.btn_ride_complete.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
         
-        self.current_location_click_method()
+        
+        
+        self.initializeMap()
+        
+        // self.current_location_click_method()
         
     }
+    
+    
+    /*@objc func current_location_click_method() {
      
-    
-    @objc func current_location_click_method() {
-        
-         self.iAmHereForLocationPermission()
-    }
-    
-    @objc func iAmHereForLocationPermission() {
-        // Ask for Authorisation from the User.
-        self.locationManager.requestAlwaysAuthorization()
-
-        // For use in foreground
-        self.locationManager.requestWhenInUseAuthorization()
-              
-        if CLLocationManager.locationServicesEnabled() {
-            switch CLLocationManager.authorizationStatus() {
-            case .notDetermined, .restricted, .denied:
-                print("No access")
-                self.strSaveLatitude = "0"
-                self.strSaveLongitude = "0"
-                
-            case .authorizedAlways, .authorizedWhenInUse:
-                print("Access")
-                          
-                locationManager.delegate = self
-                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-                locationManager.startUpdatingLocation()
-                      
-            @unknown default:
-                break
-            }
-        }
-    }
-    
-    // MARK:- GET CUSTOMER LOCATION -
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
-        
-        let location = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
-        print(location)
-        
-        self.strSaveLatitude = "\(locValue.latitude)"
-        self.strSaveLongitude = "\(locValue.longitude)"
-        
-        print("**********************")
-        let customer_lat_long = "\(self.get_booking_data_for_end_ride["RequestDropLatLong"]!)".components(separatedBy: ",")
-        print(customer_lat_long)
-        let restaurantLatitudeDouble    = Double(String(customer_lat_long[0]))
-        let restaurantLongitudeDouble   = Double(String(customer_lat_long[1]))
-        let driverLatitudeDouble        = Double(String(self.strSaveLatitude))
-        let driverLongitudeDouble       = Double(String(self.strSaveLongitude))
-        
-        print(restaurantLatitudeDouble as Any)
-        print(restaurantLongitudeDouble as Any)
-        print(driverLatitudeDouble as Any)
-        print(driverLongitudeDouble as Any)
-        
-        let coordinate₀ = CLLocation(latitude: restaurantLatitudeDouble!, longitude: restaurantLongitudeDouble!)
-        let coordinate₁ = CLLocation(latitude: driverLatitudeDouble!, longitude: driverLongitudeDouble!)
-        
-        /************************************** CUSTOMER LATITUTDE AND LONGITUDE  ********************************/
-        // first location
-        let sourceLocation = CLLocationCoordinate2D(latitude: restaurantLatitudeDouble!, longitude: restaurantLongitudeDouble!)
-        /********************************************************************************************************************/
-        
-        
-        /************************************* DRIVER LATITUTDE AND LONGITUDE ******************************************/
-        // second location
-        let destinationLocation = CLLocationCoordinate2D(latitude: driverLatitudeDouble!, longitude: driverLongitudeDouble!)
-        /********************************************************************************************************************/
-        
-        print(sourceLocation)
-        print(destinationLocation)
-        
-        let sourcePin = customPin(pinTitle: "Drop Location", pinSubTitle: "", location: sourceLocation)
-        
-        let destinationPin = customPin(pinTitle: "Pick Location", pinSubTitle: "", location: destinationLocation)
-        
-        /***************** REMOVE PREVIUOS ANNOTATION TO GENERATE NEW ANNOTATION *******************************************/
-        self.mapView.removeAnnotations(self.mapView.annotations)
-        /********************************************************************************************************************/
-        
-        self.mapView.addAnnotation(sourcePin)
-        self.mapView.addAnnotation(destinationPin)
-        
-        let sourcePlaceMark = MKPlacemark(coordinate: sourceLocation)
-        let destinationPlaceMark = MKPlacemark(coordinate: destinationLocation)
-        
-        let directionRequest = MKDirections.Request()
-        directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
-        directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
-        directionRequest.transportType = .automobile
-        
-        let directions = MKDirections(request: directionRequest)
-        directions.calculate { (response, error) in
-            guard let directionResonse = response else {
-                if let error = error {
-                    print("we have error getting directions==\(error.localizedDescription)")
-                }
-                return
-            }
-            
-            /***************** REMOVE PREVIUOS POLYLINE TO GENERATE NEW POLYLINE *******************************/
-            let overlays = self.mapView.overlays
-            self.mapView.removeOverlays(overlays)
-            /************************************************************************************/
-            
-            
-            /***************** GET DISTANCE BETWEEN TWO CORDINATES *******************************/
-            
-            let distanceInMeters = coordinate₀.distance(from: coordinate₁)
-            // print(distanceInMeters as Any)
-            
-            // remove decimal
-            let distanceFloat: Double = (distanceInMeters as Any as! Double)
-            
-            //            cell.lbl_distance.text = (String(format: "%.0f Miles away", distanceFloat/1609.344))
-            
-            print(String(format: "%.0f", distanceFloat/1000))
-            // cell.lbl_distance.text = (String(format: "%.0f", distanceFloat/1000))
-            
-            print(String(format: "Distance : %.0f KM away", distanceFloat/1000))
-            print(String(format: "Distance : %.0f Miles away", distanceFloat/1609.344))
-            
-            /************************************************************************/
-            
-            /***************** GENERATE NEW POLYLINE *******************************/
-            
-            let route = directionResonse.routes[0]
-            self.mapView.addOverlay(route.polyline, level: .aboveRoads)
-            let rect = route.polyline.boundingMapRect
-            self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
-            
-            /***********************************************************************/
-            
-        }
-        
-        self.mapView.delegate = self
-        
-        // self.locManager.stopUpdatingLocation()
-        
-        self.locationManager.startUpdatingLocation()
-        
-        // self.locManager.stopUpdatingLocation()
-        
-        print("=================================")
-        print("LOCATION UPDATE")
-        print("=================================")
-        
-        // self.tbleView.reloadData()
-        
-        // speed = distance / time
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.systemPurple
-        renderer.lineWidth = 4.0
-        return renderer
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        // Don't want to show a custom image if the annotation is the user's location.
-        guard !(annotation is MKUserLocation) else {
-            return nil
-        }
-
-        // Better to make this class property
-        let annotationIdentifier = "AnnotationIdentifier"
-
-        var annotationView: MKAnnotationView?
-        if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
-            annotationView = dequeuedAnnotationView
-            annotationView?.annotation = annotation
-        }
-        else {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        }
-
-        if let annotationView = annotationView {
-            // Configure your annotation view here
-            annotationView.canShowCallout = true
-            
-            if(annotation.title == "Drop Location") {
-                annotationView.image = UIImage(systemName: "car")
-                
-                if let vehicleType = self.get_booking_data_for_end_ride["vehicleType"] as? String {
-                    // vehicleType is available and it is a string
-                    print("Vehicle type: \(vehicleType)")
-                    if ("\(self.get_booking_data_for_end_ride["vehicleType"]!)" == "2") {
-                        annotationView.image = UIImage(systemName: "bicycle")
-                    } else {
-                        annotationView.image = UIImage(systemName: "car")
-                    }
-                } else {
-                    // vehicleType is not available
-                    print("Vehicle type is not available.")
-                    annotationView.image = UIImage(systemName: "car")
-                }
-                
-//                if ("\(self.get_booking_data_for_end_ride["vehicleType"]!)" == "2") {
-//                    annotationView.image = UIImage(systemName: "bicycle")
-//                } else {
-//                    annotationView.image = UIImage(systemName: "car")
-//                }
-            } else {
-                annotationView.image = UIImage(systemName: "person")
-            }
-            annotationView.tintColor = .systemBlue
-            
-            
-        }
-
-        return annotationView
-    }
+     self.iAmHereForLocationPermission()
+     }
+     
+     @objc func iAmHereForLocationPermission() {
+     // Ask for Authorisation from the User.
+     self.locationManager.requestAlwaysAuthorization()
+     
+     // For use in foreground
+     self.locationManager.requestWhenInUseAuthorization()
+     
+     if CLLocationManager.locationServicesEnabled() {
+     switch CLLocationManager.authorizationStatus() {
+     case .notDetermined, .restricted, .denied:
+     print("No access")
+     self.strSaveLatitude = "0"
+     self.strSaveLongitude = "0"
+     
+     case .authorizedAlways, .authorizedWhenInUse:
+     print("Access")
+     
+     locationManager.delegate = self
+     locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+     locationManager.startUpdatingLocation()
+     
+     @unknown default:
+     break
+     }
+     }
+     }
+     
+     // MARK:- GET CUSTOMER LOCATION -
+     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+     guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+     print("locations = \(locValue.latitude) \(locValue.longitude)")
+     
+     let location = CLLocation(latitude: locValue.latitude, longitude: locValue.longitude)
+     print(location)
+     
+     self.strSaveLatitude = "\(locValue.latitude)"
+     self.strSaveLongitude = "\(locValue.longitude)"
+     
+     print("**********************")
+     let customer_lat_long = "\(self.get_booking_data_for_end_ride["RequestDropLatLong"]!)".components(separatedBy: ",")
+     print(customer_lat_long)
+     let restaurantLatitudeDouble    = Double(String(customer_lat_long[0]))
+     let restaurantLongitudeDouble   = Double(String(customer_lat_long[1]))
+     let driverLatitudeDouble        = Double(String(self.strSaveLatitude))
+     let driverLongitudeDouble       = Double(String(self.strSaveLongitude))
+     
+     print(restaurantLatitudeDouble as Any)
+     print(restaurantLongitudeDouble as Any)
+     print(driverLatitudeDouble as Any)
+     print(driverLongitudeDouble as Any)
+     
+     let coordinate₀ = CLLocation(latitude: restaurantLatitudeDouble!, longitude: restaurantLongitudeDouble!)
+     let coordinate₁ = CLLocation(latitude: driverLatitudeDouble!, longitude: driverLongitudeDouble!)
+     
+     /************************************** CUSTOMER LATITUTDE AND LONGITUDE  ********************************/
+     // first location
+     let sourceLocation = CLLocationCoordinate2D(latitude: restaurantLatitudeDouble!, longitude: restaurantLongitudeDouble!)
+     /********************************************************************************************************************/
+     
+     
+     /************************************* DRIVER LATITUTDE AND LONGITUDE ******************************************/
+     // second location
+     let destinationLocation = CLLocationCoordinate2D(latitude: driverLatitudeDouble!, longitude: driverLongitudeDouble!)
+     /********************************************************************************************************************/
+     
+     print(sourceLocation)
+     print(destinationLocation)
+     
+     let sourcePin = customPin(pinTitle: "Drop Location", pinSubTitle: "", location: sourceLocation)
+     
+     let destinationPin = customPin(pinTitle: "Pick Location", pinSubTitle: "", location: destinationLocation)
+     
+     /***************** REMOVE PREVIUOS ANNOTATION TO GENERATE NEW ANNOTATION *******************************************/
+     self.mapView.removeAnnotations(self.mapView.annotations)
+     /********************************************************************************************************************/
+     
+     self.mapView.addAnnotation(sourcePin)
+     self.mapView.addAnnotation(destinationPin)
+     
+     let sourcePlaceMark = MKPlacemark(coordinate: sourceLocation)
+     let destinationPlaceMark = MKPlacemark(coordinate: destinationLocation)
+     
+     let directionRequest = MKDirections.Request()
+     directionRequest.source = MKMapItem(placemark: sourcePlaceMark)
+     directionRequest.destination = MKMapItem(placemark: destinationPlaceMark)
+     directionRequest.transportType = .automobile
+     
+     let directions = MKDirections(request: directionRequest)
+     directions.calculate { (response, error) in
+     guard let directionResonse = response else {
+     if let error = error {
+     print("we have error getting directions==\(error.localizedDescription)")
+     }
+     return
+     }
+     
+     /***************** REMOVE PREVIUOS POLYLINE TO GENERATE NEW POLYLINE *******************************/
+     let overlays = self.mapView.overlays
+     self.mapView.removeOverlays(overlays)
+     /************************************************************************************/
+     
+     
+     /***************** GET DISTANCE BETWEEN TWO CORDINATES *******************************/
+     
+     let distanceInMeters = coordinate₀.distance(from: coordinate₁)
+     // print(distanceInMeters as Any)
+     
+     // remove decimal
+     let distanceFloat: Double = (distanceInMeters as Any as! Double)
+     
+     //            cell.lbl_distance.text = (String(format: "%.0f Miles away", distanceFloat/1609.344))
+     
+     print(String(format: "%.0f", distanceFloat/1000))
+     // cell.lbl_distance.text = (String(format: "%.0f", distanceFloat/1000))
+     
+     print(String(format: "Distance : %.0f KM away", distanceFloat/1000))
+     print(String(format: "Distance : %.0f Miles away", distanceFloat/1609.344))
+     
+     /************************************************************************/
+     
+     /***************** GENERATE NEW POLYLINE *******************************/
+     
+     let route = directionResonse.routes[0]
+     self.mapView.addOverlay(route.polyline, level: .aboveRoads)
+     let rect = route.polyline.boundingMapRect
+     self.mapView.setRegion(MKCoordinateRegion(rect), animated: true)
+     
+     /***********************************************************************/
+     
+     }
+     
+     self.mapView.delegate = self
+     
+     // self.locManager.stopUpdatingLocation()
+     
+     self.locationManager.startUpdatingLocation()
+     
+     // self.locManager.stopUpdatingLocation()
+     
+     print("=================================")
+     print("LOCATION UPDATE")
+     print("=================================")
+     
+     // self.tbleView.reloadData()
+     
+     // speed = distance / time
+     }
+     
+     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+     let renderer = MKPolylineRenderer(overlay: overlay)
+     renderer.strokeColor = UIColor.systemPurple
+     renderer.lineWidth = 4.0
+     return renderer
+     }
+     
+     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+     // Don't want to show a custom image if the annotation is the user's location.
+     guard !(annotation is MKUserLocation) else {
+     return nil
+     }
+     
+     // Better to make this class property
+     let annotationIdentifier = "AnnotationIdentifier"
+     
+     var annotationView: MKAnnotationView?
+     if let dequeuedAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) {
+     annotationView = dequeuedAnnotationView
+     annotationView?.annotation = annotation
+     }
+     else {
+     annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+     annotationView?.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+     }
+     
+     if let annotationView = annotationView {
+     // Configure your annotation view here
+     annotationView.canShowCallout = true
+     
+     if(annotation.title == "Drop Location") {
+     annotationView.image = UIImage(systemName: "car")
+     
+     if let vehicleType = self.get_booking_data_for_end_ride["vehicleType"] as? String {
+     // vehicleType is available and it is a string
+     print("Vehicle type: \(vehicleType)")
+     if ("\(self.get_booking_data_for_end_ride["vehicleType"]!)" == "2") {
+     annotationView.image = UIImage(systemName: "bicycle")
+     } else {
+     annotationView.image = UIImage(systemName: "car")
+     }
+     } else {
+     // vehicleType is not available
+     print("Vehicle type is not available.")
+     annotationView.image = UIImage(systemName: "car")
+     }
+     
+     //                if ("\(self.get_booking_data_for_end_ride["vehicleType"]!)" == "2") {
+     //                    annotationView.image = UIImage(systemName: "bicycle")
+     //                } else {
+     //                    annotationView.image = UIImage(systemName: "car")
+     //                }
+     } else {
+     annotationView.image = UIImage(systemName: "person")
+     }
+     annotationView.tintColor = .systemBlue
+     
+     
+     }
+     
+     return annotationView
+     }*/
     
     
     @objc func validation_before_accept_booking() {
-        
-        
         
         if let language = UserDefaults.standard.string(forKey: str_language_convert) {
             print(language as Any)
@@ -482,17 +506,9 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
                 }))
                 self.present(alert, animated: true, completion: nil)
             }
-            
-             
         }
-        
-        
-        
-        
-        
-        
-        
     }
+    
     @objc func accept_booking_WB(str_show_loader:String) {
         
         if (str_show_loader == "yes") {
@@ -524,7 +540,7 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
                 let headers: HTTPHeaders = [
                     "token":String(token_id_is),
                 ]
-
+                
                 var lan:String!
                 
                 if let language = UserDefaults.standard.string(forKey: str_language_convert) {
@@ -582,7 +598,7 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
                                 UserDefaults.standard.set("", forKey: str_save_last_api_token)
                                 UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             }
-
+                            
                             ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)
                             
@@ -684,4 +700,165 @@ class ride_complete: UIViewController, CLLocationManagerDelegate , MKMapViewDele
         
     }
     
+    
+    
+    
+    
+    func initializeMap() {
+        
+        print("=====================================")
+        print("=====================================")
+        print(self.get_booking_data_for_end_ride as Any)
+        print("=====================================")
+        print("=====================================")
+        
+        let separateDropLocation    = (self.get_booking_data_for_end_ride["RequestDropLatLong"] as! String)
+        let separateRequestLocation    = (self.get_booking_data_for_end_ride["RequestPickupLatLong"] as! String)
+        
+        let separateDropLocationArr = separateDropLocation.components(separatedBy: ",")
+        let separateRequestLocationArr = separateRequestLocation.components(separatedBy: ",")
+        
+        let dropLatitude    = separateDropLocationArr[0]
+        let dropLongitude   = separateDropLocationArr[1]
+        
+        let requestLatitude    = separateRequestLocationArr[0]
+        let requestLongitude   = separateRequestLocationArr[1]
+        
+        self.doublePlaceStartLat = Double(requestLatitude)
+        self.doublePlaceStartLong = Double(requestLongitude)
+        
+        self.doublePlaceFinalLat = Double(dropLatitude)
+        self.doublePlaceFinalLong = Double(dropLongitude)
+        
+        debugPrint(doublePlaceStartLat as Any)
+        debugPrint(doublePlaceStartLong as Any)
+        debugPrint(doublePlaceFinalLat as Any)
+        debugPrint(doublePlaceFinalLong as Any)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!, zoom: 10.0)
+        mapView = GMSMapView(frame: .zero)
+        mapView.camera = camera
+        mapView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(mapView)
+        
+        mapViewBottomConstraint = mapView.bottomAnchor.constraint(equalTo: view_big.topAnchor)
+        
+        NSLayoutConstraint.activate([
+            mapView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mapView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            mapView.topAnchor.constraint(equalTo: view.topAnchor, constant: 88),
+            mapViewBottomConstraint
+        ])
+        
+        // Ensure overlayView is added after mapView so it's on top
+        view.bringSubviewToFront(view_navigation_bar)
+        // view.bringSubviewToFront(view_set_name)
+        
+        let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
+        let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
+        
+        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.get_booking_data_for_end_ride["RequestPickupAddress"] as! String), color: .green)
+        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.get_booking_data_for_end_ride["RequestDropAddress"] as! String), color: .yellow)
+        
+        fetchRoute(from: placeACoordinate, to: placeBCoordinate)
+    }
+    
+    func initializeViewBig() {
+        view_big.translatesAutoresizingMaskIntoConstraints = false
+        view_big.backgroundColor = .white
+        view.addSubview(view_big)
+        
+        // Set up constraints for view_big
+        NSLayoutConstraint.activate([
+            view_big.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view_big.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view_big.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            view_big.heightAnchor.constraint(equalToConstant: 300)
+        ])
+    }
+    
+    func addMarker(at position: CLLocationCoordinate2D, title: String, snippet: String,color: UIColor) {
+        let marker = GMSMarker()
+        marker.position = position
+        marker.title = title
+        marker.snippet = snippet
+        
+        // Set marker icon color
+        marker.icon = GMSMarker.markerImage(with: color)
+        
+        marker.map = mapView
+    }
+    
+    func fetchRoute(from start: CLLocationCoordinate2D, to end: CLLocationCoordinate2D) {
+        let origin = "\(self.doublePlaceStartLat!),\(self.doublePlaceStartLong!)"
+        let destination = "\(self.doublePlaceFinalLat!),\(self.doublePlaceFinalLong!)"
+        let apiKey = GOOGLE_MAP_API
+        
+        debugPrint(origin)
+        debugPrint(destination)
+        
+        ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "please wait...")
+        
+        let urlString = "https://maps.googleapis.com/maps/api/directions/json?origin=\(origin)&destination=\(destination)&key=\(apiKey)"
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid URL")
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Network error")
+                return
+            }
+            
+            do {
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let routes = json["routes"] as? [[String: Any]],
+                   let route = routes.first,
+                   let overviewPolyline = route["overview_polyline"] as? [String: Any],
+                   let points = overviewPolyline["points"] as? String {
+                    
+                    DispatchQueue.main.async {
+                        self.drawPath(fromEncodedPath: points)
+                    }
+                }
+            } catch {
+                print("JSON parsing error")
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func drawPath(fromEncodedPath encodedPath: String) {
+        guard let path = GMSPath(fromEncodedPath: encodedPath) else {
+            print("Failed to decode path")
+            return
+        }
+        
+        let polyline = GMSPolyline(path: path)
+        polyline.strokeColor = .blue
+        polyline.strokeWidth = 5.0
+        polyline.map = mapView
+        
+        // Call zoom function
+        zoomToFitRoute(withPath: path)
+    }
+    
+    func zoomToFitRoute(withPath path: GMSPath) {
+        let bounds = GMSCoordinateBounds(path: path)
+        let update = GMSCameraUpdate.fit(bounds, withPadding: 100.0)
+        mapView.animate(with: update)
+        
+        self.view.bringSubviewToFront(self.view_big)
+        
+        // 400 milliseconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            ERProgressHud.sharedInstance.hide()
+            
+        }
+        
+        // self.refresh_location_in_firebase()
+    }
 }

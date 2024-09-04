@@ -64,6 +64,7 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     var doublePlaceFinalLat:Double!
     var doublePlaceFinalLong:Double!
     
+    var timer: Timer?
     
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
@@ -221,6 +222,7 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        startTimer()
         
         print("==============================================")
         print(self.dict_get_all_data_from_notification as Any)
@@ -234,6 +236,27 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         
         self.btn_accept.addTarget(self, action: #selector(validation_before_accept_booking), for: .touchUpInside)
         self.btn_decline.addTarget(self, action: #selector(cancancel_ride_click_method), for: .touchUpInside)
+    }
+    
+    func startTimer() {
+        // Invalidate any existing timer to avoid multiple timers running at the same time
+        timer?.invalidate()
+        
+        // Create and start a new timer
+        timer = Timer.scheduledTimer(withTimeInterval: 35.0, repeats: true) { [weak self] _ in
+            self?.timerAction()
+        }
+    }
+
+    func timerAction() {
+        // This method will be called every 35 seconds
+        print("Timer triggered!")
+        cancancel_ride_click_method()
+    }
+
+    deinit {
+        // Invalidate the timer when the view controller is deallocated to prevent memory leaks
+        timer?.invalidate()
     }
     
     func playNotificationSound() {
@@ -258,6 +281,8 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         myAlert!.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         myAlert!.modalTransitionStyle = UIModalTransitionStyle.crossDissolve
         present(myAlert!, animated: true, completion: nil)*/
+        
+        self.timer?.invalidate()
         
         var window: UIWindow?
         
@@ -483,8 +508,9 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
     }*/
     
     @objc func validation_before_accept_booking() {
+        
+        self.timer?.invalidate()
         self.accept_booking_WB(str_show_loader: "yes")
- 
     }
     
     @objc func accept_booking_WB(str_show_loader:String) {
@@ -1004,17 +1030,21 @@ class instant_booking_accept_decline: UIViewController, CLLocationManagerDelegat
         let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
         let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
         
-        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.dict_get_all_data_from_notification["RequestPickupAddress"] as! String))
-        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.dict_get_all_data_from_notification["RequestDropAddress"] as! String))
+        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.dict_get_all_data_from_notification["RequestPickupAddress"] as! String), color: .green)
+        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.dict_get_all_data_from_notification["RequestDropAddress"] as! String), color: .yellow)
         
         fetchRoute(from: placeACoordinate, to: placeBCoordinate)
     }
     
-    func addMarker(at position: CLLocationCoordinate2D, title: String, snippet: String) {
+    func addMarker(at position: CLLocationCoordinate2D, title: String, snippet: String,color: UIColor) {
         let marker = GMSMarker()
         marker.position = position
         marker.title = title
         marker.snippet = snippet
+        
+        // Set marker icon color
+            marker.icon = GMSMarker.markerImage(with: color)
+        
         marker.map = mapView
     }
     

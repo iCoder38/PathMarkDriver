@@ -1059,8 +1059,8 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
         let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
         let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
         
-        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.get_booking_data_for_start_ride["RequestPickupAddress"] as! String))
-        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.get_booking_data_for_start_ride["RequestDropAddress"] as! String))
+        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.get_booking_data_for_start_ride["RequestPickupAddress"] as! String), color: .green)
+        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.get_booking_data_for_start_ride["RequestDropAddress"] as! String), color: .yellow)
         
         fetchRoute(from: placeACoordinate, to: placeBCoordinate)
     }
@@ -1079,11 +1079,15 @@ class start_ride_now: UIViewController, CLLocationManagerDelegate , MKMapViewDel
                 ])
     }
     
-    func addMarker(at position: CLLocationCoordinate2D, title: String, snippet: String) {
+    func addMarker(at position: CLLocationCoordinate2D, title: String, snippet: String,color: UIColor) {
         let marker = GMSMarker()
         marker.position = position
         marker.title = title
         marker.snippet = snippet
+        
+        // Set marker icon color
+            marker.icon = GMSMarker.markerImage(with: color)
+        
         marker.map = mapView
     }
     

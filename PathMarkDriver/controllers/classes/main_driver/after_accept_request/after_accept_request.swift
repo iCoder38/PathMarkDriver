@@ -1072,31 +1072,35 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
         let placeACoordinate = CLLocationCoordinate2D(latitude: doublePlaceStartLat!, longitude: doublePlaceStartLong!)
         let placeBCoordinate = CLLocationCoordinate2D(latitude: doublePlaceFinalLat!, longitude: doublePlaceFinalLong!)
         
-        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.get_booking_data_for_pickup["RequestPickupAddress"] as! String))
-        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.get_booking_data_for_pickup["RequestDropAddress"] as! String))
+        addMarker(at: placeACoordinate, title: "Origin", snippet: (self.get_booking_data_for_pickup["RequestPickupAddress"] as! String), color: .green)
+        addMarker(at: placeBCoordinate, title: "Destination", snippet: (self.get_booking_data_for_pickup["RequestDropAddress"] as! String), color: .yellow)
         
         fetchRoute(from: placeACoordinate, to: placeBCoordinate)
     }
     
     func initializeViewBig() {
         view_big.translatesAutoresizingMaskIntoConstraints = false
-                view_big.backgroundColor = .white
-                view.addSubview(view_big)
-                
-                // Set up constraints for view_big
-                NSLayoutConstraint.activate([
-                    view_big.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    view_big.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                    view_big.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                    view_big.heightAnchor.constraint(equalToConstant: 300)
-                ])
+        view_big.backgroundColor = .white
+        view.addSubview(view_big)
+        
+        // Set up constraints for view_big
+        NSLayoutConstraint.activate([
+            view_big.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            view_big.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            view_big.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            view_big.heightAnchor.constraint(equalToConstant: 300)
+        ])
     }
     
-    func addMarker(at position: CLLocationCoordinate2D, title: String, snippet: String) {
+    func addMarker(at position: CLLocationCoordinate2D, title: String, snippet: String,color: UIColor) {
         let marker = GMSMarker()
         marker.position = position
         marker.title = title
         marker.snippet = snippet
+        
+        // Set marker icon color
+            marker.icon = GMSMarker.markerImage(with: color)
+        
         marker.map = mapView
     }
     
@@ -1170,8 +1174,6 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
            
         }
         
-        
-        
         // self.refresh_location_in_firebase()
     }
     
@@ -1182,14 +1184,14 @@ class after_accept_request: UIViewController, CLLocationManagerDelegate , MKMapV
     }
     
     @objc func updateLocation() {
-            // Request location updates
-            locationManager.requestLocation()
-        }
+        // Request location updates
+        locationManager.requestLocation()
+    }
     
     deinit {
-            // Invalidate the timer when the view controller is deinitialized
-            updateTimer?.invalidate()
-        }
+        // Invalidate the timer when the view controller is deinitialized
+        updateTimer?.invalidate()
+    }
     
     // for current location
     func setupLocationManager() {

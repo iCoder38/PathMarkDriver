@@ -984,10 +984,10 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
         
         if self.str_which_panel_select == "0" {
             let item = self.arr_mut_dashboard_data[indexPath.row] as? [String:Any]
+            print(item as Any)
             
             if "\(item!["rideStatus"]!)" == "4" {
                 
-              
                 if "\(item!["status"]!)" == "2" {
                     
                     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "invoice_id") as? invoice
@@ -1005,10 +1005,18 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 
             } else if "\(item!["rideStatus"]!)" == "1" {
                 
-                let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
-                push!.dict_get_upcoming_ride_details = (item! as NSDictionary)
-                push!.str_from_noti = "no"
-                self.navigationController?.pushViewController(push!, animated: true)
+                if (item!["bookingTime"] == nil || (item!["bookingTime"] as! String == "")) {
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "after_accept_request_id") as! after_accept_request
+                    push.str_from_direct_notification = "yes"
+                    push.get_booking_data_for_pickup = (item! as NSDictionary)
+                    self.navigationController?.pushViewController(push, animated: true)
+                } else {
+                    let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
+                    push!.dict_get_upcoming_ride_details = (item! as NSDictionary)
+                    push!.str_from_noti = "no"
+                    self.navigationController?.pushViewController(push!, animated: true)
+                }
+                
             }
             
             
@@ -1029,7 +1037,7 @@ extension ride_history: UITableViewDataSource , UITableViewDelegate {
                 
             } else if "\(item!["rideStatus"]!)" == "1" { // after accept
                 
-                if item!["bookingTime"] == nil {
+                if (item!["bookingTime"] == nil || (item!["bookingTime"] as! String == "")) {
                     let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "schedule_ride_details_id") as? schedule_ride_details
                     push!.dict_get_upcoming_ride_details = (item! as NSDictionary)
                     push!.str_from_noti = "no"

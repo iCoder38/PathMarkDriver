@@ -571,6 +571,7 @@ class schedule_ride_details: UIViewController {
         print("date is today and pickup")
        
         let string = "\(self.dict_get_upcoming_ride_details["bookingTime"]!)"
+        print(string as Any)
         // let string = "14:22"
 
         // set time format from server time
