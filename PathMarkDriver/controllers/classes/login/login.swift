@@ -186,14 +186,29 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
                             }
                             
                         } else {
-                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
+                            
+                            
+                            
+                            // everything is done not push to verify screen for OTP
+                            
+                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "verify_phone_number_id") as! verify_phone_number
+                            
+                            push.strGetLoginUserID = "\(person["userId"]!)"
+                            push.strGetLoginEmailAddress = "\(person["email"]!)"
+                            
+                            
                             self.navigationController?.pushViewController(push, animated: true)
+                            
+                            /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "driver_dashboard_id") as! driver_dashboard
+                            self.navigationController?.pushViewController(push, animated: true)*/
                         }
                         
                     }
                 }
                 
             }
+        } else {
+            debugPrint("NO DATA IS STORED IN LOCAL DATABASE")
         }
     }
 
@@ -316,6 +331,7 @@ class login: UIViewController , UITextFieldDelegate , CLLocationManagerDelegate 
                 print(strSuccess as Any)
                 if strSuccess == String("success") {
                     print("yes")
+                    
                     let defaults = UserDefaults.standard
                     defaults.setValue(JSON["data"], forKey: str_save_login_user_data)
                     

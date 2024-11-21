@@ -67,6 +67,7 @@ class MenuControllerVC: UIViewController {
     var str_menu_title_faq:String! = "FAQ(s)"
     var str_menu_title_change_language:String! = "Change Language"
     var str_menu_title_logout:String! = "Logout"
+    var str_menu_title_admin_payment_history:String! = "Admin payment history"
     
     // driver
     var arr_driver_title: NSArray!
@@ -145,6 +146,7 @@ class MenuControllerVC: UIViewController {
                                  // String(self.str_menu_title_set_working_details),
                                  String(self.str_menu_title_update_vehicle_details),
                                  String(self.str_menu_title_upload_documents),
+                                 String(self.str_menu_title_admin_payment_history),
                                  String(self.str_menu_title_about_us),
                                  // String(self.str_menu_title_change_password),
                                  String(self.str_menu_title_privacy_policy),
@@ -166,6 +168,7 @@ class MenuControllerVC: UIViewController {
                                  // String(self.str_menu_title_set_working_details),
                                  "গাড়ির বিবরণ আপডেট করুন", // update vehicle details
                                  "নথি আপলোড করুন", // upload documents
+                                    "নথি আপলোড করুন",
                                  "যারিব সম্পর্কে জানুন", // about zarib
                                  // String(self.str_menu_title_change_password),
                                  "প্রাইভেসি পলিসি",// privacy
@@ -186,6 +189,7 @@ class MenuControllerVC: UIViewController {
                                  "cashout",
                                  // "gh",
                                  "edit1",
+                                 "file",
                                  "file",
                                  "logo-white",
                                  // "AppIcon",
@@ -528,6 +532,15 @@ extension MenuControllerVC: UITableViewDataSource {
             let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
             self.view.window?.rootViewController = sw
             let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "ride_history_id")
+            let navigationController = UINavigationController(rootViewController: destinationController!)
+            sw.setFront(navigationController, animated: true)
+            
+        }  else if (arr_driver_title [indexPath.row] as! String) == String(self.str_menu_title_admin_payment_history) {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let sw = storyboard.instantiateViewController(withIdentifier: "sw") as! SWRevealViewController
+            self.view.window?.rootViewController = sw
+            let destinationController = self.storyboard?.instantiateViewController(withIdentifier: "admin_payment_history_id")
             let navigationController = UINavigationController(rootViewController: destinationController!)
             sw.setFront(navigationController, animated: true)
             

@@ -144,6 +144,8 @@ class select_profile: UIViewController {
                 }
                 
             }
+        } else {
+            debugPrint("DATA NOT STORED IN LOCAL DATABASE")
         }
     }
     

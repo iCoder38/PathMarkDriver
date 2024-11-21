@@ -25,6 +25,8 @@
 		B9514E1D2AA8909E005EDF39 /* double-check.gif in Resources */ = {isa = PBXBuildFile; fileRef = B9514E1C2AA8909E005EDF39 /* double-check.gif */; };
 		B9514E202AA8A018005EDF39 /* success.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9514E1F2AA8A018005EDF39 /* success.swift */; };
 		B9514E232AA8AB5B005EDF39 /* earnings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9514E222AA8AB5B005EDF39 /* earnings.swift */; };
+		B95C040C2CEF0F0E006CF214 /* admin_payment_history.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95C040B2CEF0F0E006CF214 /* admin_payment_history.swift */; };
+		B95C040E2CEF1BD3006CF214 /* pay.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95C040D2CEF1BD3006CF214 /* pay.swift */; };
 		B95DB63F2A657CD700DAFA99 /* add_vehicle_details.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DB63E2A657CD700DAFA99 /* add_vehicle_details.swift */; };
 		B95DB6422A658AA000DAFA99 /* upload_documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95DB6412A658AA000DAFA99 /* upload_documents.swift */; };
 		B967A84D2AFA5EFD001D5715 /* edit_profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = B967A84C2AFA5EFD001D5715 /* edit_profile.swift */; };
@@ -87,6 +89,7 @@
 		B98988FE2A8619F6003B1BD3 /* emergency_contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98988FD2A8619F6003B1BD3 /* emergency_contacts.swift */; };
 		B98989012A861CE0003B1BD3 /* add_contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98989002A861CE0003B1BD3 /* add_contacts.swift */; };
 		B98989042A861F0D003B1BD3 /* help.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98989032A861F0D003B1BD3 /* help.swift */; };
+		B98DF8D52C93063600BE03B6 /* forgot_password.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DF8D42C93063600BE03B6 /* forgot_password.swift */; };
 		B99FEBE82AD6BE9900BD0A07 /* success_registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99FEBE72AD6BE9900BD0A07 /* success_registration.swift */; };
 		B9A5918F2A6FE07C003DEC9F /* driver_dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A5918E2A6FE07C003DEC9F /* driver_dashboard.swift */; };
 		B9ACC43B2A67C100000A4530 /* upload_vehicle_insurance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9ACC43A2A67C100000A4530 /* upload_vehicle_insurance.swift */; };
@@ -153,6 +156,8 @@
 		B9514E1C2AA8909E005EDF39 /* double-check.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "double-check.gif"; sourceTree = "<group>"; };
 		B9514E1F2AA8A018005EDF39 /* success.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = success.swift; sourceTree = "<group>"; };
 		B9514E222AA8AB5B005EDF39 /* earnings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = earnings.swift; sourceTree = "<group>"; };
+		B95C040B2CEF0F0E006CF214 /* admin_payment_history.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = admin_payment_history.swift; sourceTree = "<group>"; };
+		B95C040D2CEF1BD3006CF214 /* pay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pay.swift; sourceTree = "<group>"; };
 		B95DB63E2A657CD700DAFA99 /* add_vehicle_details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = add_vehicle_details.swift; sourceTree = "<group>"; };
 		B95DB6412A658AA000DAFA99 /* upload_documents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_documents.swift; sourceTree = "<group>"; };
 		B967A84C2AFA5EFD001D5715 /* edit_profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = edit_profile.swift; sourceTree = "<group>"; };
@@ -224,6 +229,7 @@
 		B98988FD2A8619F6003B1BD3 /* emergency_contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = emergency_contacts.swift; sourceTree = "<group>"; };
 		B98989002A861CE0003B1BD3 /* add_contacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = add_contacts.swift; sourceTree = "<group>"; };
 		B98989032A861F0D003B1BD3 /* help.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = help.swift; sourceTree = "<group>"; };
+		B98DF8D42C93063600BE03B6 /* forgot_password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = forgot_password.swift; sourceTree = "<group>"; };
 		B99FEBE72AD6BE9900BD0A07 /* success_registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = success_registration.swift; sourceTree = "<group>"; };
 		B9A5918E2A6FE07C003DEC9F /* driver_dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = driver_dashboard.swift; sourceTree = "<group>"; };
 		B9ACC43A2A67C100000A4530 /* upload_vehicle_insurance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_insurance.swift; sourceTree = "<group>"; };
@@ -381,6 +387,15 @@
 				B9514E222AA8AB5B005EDF39 /* earnings.swift */,
 			);
 			path = earnings;
+			sourceTree = "<group>";
+		};
+		B95C040A2CEF0EFB006CF214 /* admin_payment */ = {
+			isa = PBXGroup;
+			children = (
+				B95C040B2CEF0F0E006CF214 /* admin_payment_history.swift */,
+				B95C040D2CEF1BD3006CF214 /* pay.swift */,
+			);
+			path = admin_payment;
 			sourceTree = "<group>";
 		};
 		B95DB63D2A657CA100DAFA99 /* add_vehicle_details */ = {
@@ -638,6 +653,7 @@
 		B9852DD92A651EEA008244F3 /* classes */ = {
 			isa = PBXGroup;
 			children = (
+				B98DF8D32C93062800BE03B6 /* forgot_password */,
 				B9446EE92BFE355800D4BC44 /* select_profile */,
 				B97AAA172B7397FA005FD6DD /* schedule_notification */,
 				B9E184AB2B71FC12004AFB50 /* language_splash */,
@@ -732,6 +748,14 @@
 			path = help;
 			sourceTree = "<group>";
 		};
+		B98DF8D32C93062800BE03B6 /* forgot_password */ = {
+			isa = PBXGroup;
+			children = (
+				B98DF8D42C93063600BE03B6 /* forgot_password.swift */,
+			);
+			path = forgot_password;
+			sourceTree = "<group>";
+		};
 		B99FEBE42AD6BE3E00BD0A07 /* sucess */ = {
 			isa = PBXGroup;
 			children = (
@@ -807,6 +831,7 @@
 		B9E1B42F2A84FD1C0060DCAF /* main_driver */ = {
 			isa = PBXGroup;
 			children = (
+				B95C040A2CEF0EFB006CF214 /* admin_payment */,
 				B9DEC7482B71229A00B07F92 /* terms */,
 				B90A4D412B6A8E5800329695 /* invoice */,
 				B967A84B2AFA5EE1001D5715 /* edit_profile */,
@@ -1235,6 +1260,7 @@
 				B9852DA92A651B0D008244F3 /* MenuControllerVCTableCell.swift in Sources */,
 				B93E4FF82AA9A9E400C5F918 /* rating_review.swift in Sources */,
 				B98988F82A860BD2003B1BD3 /* schedule_ride_details.swift in Sources */,
+				B95C040E2CEF1BD3006CF214 /* pay.swift in Sources */,
 				B9852DD82A651BA4008244F3 /* sign_up.swift in Sources */,
 				B9E713B52AF8F60B007CC10E /* cashout.swift in Sources */,
 				B93500DF2B107E9C004D8C95 /* decline_request.swift in Sources */,
@@ -1260,7 +1286,9 @@
 				B9852D9A2A651AE7008244F3 /* AlertView.swift in Sources */,
 				B9852DDC2A651F0D008244F3 /* verify_phone_number.swift in Sources */,
 				B93500DB2B107E8A004D8C95 /* shared_booking.swift in Sources */,
+				B98DF8D52C93063600BE03B6 /* forgot_password.swift in Sources */,
 				B9E184AD2B71FC24004AFB50 /* language_splash.swift in Sources */,
+				B95C040C2CEF0F0E006CF214 /* admin_payment_history.swift in Sources */,
 				B9852DA02A651AF9008244F3 /* ERProgressHud.swift in Sources */,
 				B91A02BF2B68C5340029DFEB /* change_language.swift in Sources */,
 				B9852D522A651884008244F3 /* AppDelegate.swift in Sources */,
