@@ -109,6 +109,7 @@
 		B9E1B43F2A850E4B0060DCAF /* custom_alert_show.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B43E2A850E4B0060DCAF /* custom_alert_show.swift */; };
 		B9E1B4422A85159C0060DCAF /* ride_invoice_details.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E1B4412A85159C0060DCAF /* ride_invoice_details.swift */; };
 		B9E713B52AF8F60B007CC10E /* cashout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E713B42AF8F60B007CC10E /* cashout.swift */; };
+		B9EE0A1E2CEF56C30031E16F /* bKash_payment_gateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EE0A1D2CEF56C30031E16F /* bKash_payment_gateway.swift */; };
 		B9FE3F1E2A666069009A2E5C /* loading_gif.gif in Resources */ = {isa = PBXBuildFile; fileRef = B9FE3F1D2A666069009A2E5C /* loading_gif.gif */; };
 		B9FE3F212A666FB1009A2E5C /* upload_vehicle_license.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FE3F202A666FB1009A2E5C /* upload_vehicle_license.swift */; };
 		D9BEA99E23D57AE1483B2493 /* Pods_PathMarkDriver_PathMarkDriverUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6FF3D20FD9F81B60841AC1C /* Pods_PathMarkDriver_PathMarkDriverUITests.framework */; };
@@ -249,6 +250,7 @@
 		B9E1B43E2A850E4B0060DCAF /* custom_alert_show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = custom_alert_show.swift; sourceTree = "<group>"; };
 		B9E1B4412A85159C0060DCAF /* ride_invoice_details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ride_invoice_details.swift; sourceTree = "<group>"; };
 		B9E713B42AF8F60B007CC10E /* cashout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cashout.swift; sourceTree = "<group>"; };
+		B9EE0A1D2CEF56C30031E16F /* bKash_payment_gateway.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = bKash_payment_gateway.swift; sourceTree = "<group>"; };
 		B9FE3F1D2A666069009A2E5C /* loading_gif.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading_gif.gif; sourceTree = "<group>"; };
 		B9FE3F202A666FB1009A2E5C /* upload_vehicle_license.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = upload_vehicle_license.swift; sourceTree = "<group>"; };
 		D6FF3D20FD9F81B60841AC1C /* Pods_PathMarkDriver_PathMarkDriverUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PathMarkDriver_PathMarkDriverUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -394,6 +396,7 @@
 			children = (
 				B95C040B2CEF0F0E006CF214 /* admin_payment_history.swift */,
 				B95C040D2CEF1BD3006CF214 /* pay.swift */,
+				B9EE0A1D2CEF56C30031E16F /* bKash_payment_gateway.swift */,
 			);
 			path = admin_payment;
 			sourceTree = "<group>";
@@ -1301,6 +1304,7 @@
 				B9852D542A651884008244F3 /* SceneDelegate.swift in Sources */,
 				B95DB6422A658AA000DAFA99 /* upload_documents.swift in Sources */,
 				B98507A32B22F8A0001343BE /* BooCheckChat.swift in Sources */,
+				B9EE0A1E2CEF56C30031E16F /* bKash_payment_gateway.swift in Sources */,
 				B95DB63F2A657CD700DAFA99 /* add_vehicle_details.swift in Sources */,
 				B9A5918F2A6FE07C003DEC9F /* driver_dashboard.swift in Sources */,
 				B9852D942A651AE7008244F3 /* NewYorkAlertViewType.swift in Sources */,

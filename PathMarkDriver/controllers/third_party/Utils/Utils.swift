@@ -41,6 +41,44 @@ let NAVIGATION_BACK_COLOR   = UIColor.white
 let CART_COUNT_COLOR        = UIColor.black
 
 
+// bkash
+var bkash_app_key = "0vWQuCRGiUX7EPVjQDr0EUAYtc"
+var bkash_app_secret_key = "jcUNPBgbcqEDedNKdvE4G1cAK7D3hCjmJccNPZZBq96QIxxwAMEx"
+
+var bkash_user_name = "01770618567"
+var bkash_password = "D7DaC<*E*eG"
+
+// BKASH ( test mode )
+var bkash_generate_token = "https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/token/grant"
+var bkash_create_payment = "https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/create"
+var bkash_execute_payment = "https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout/execute"
+
+// call back URL
+var bkash_call_back_URL = "http://mamtechit.com/callback"
+
+// 01770618567
+// D7DaC<*E*eG
+// 0vWQuCRGiUX7EPVjQDr0EUAYtc
+// jcUNPBgbcqEDedNKdvE4G1cAK7D3hCjmJccNPZZBq96QIxxwAMEx
+
+// bkash => team
+// var bkash_app_key = "0vWQuCRGiUX7EPVjQDr0EUAYtc"
+// var bkash_app_secret_key = "jcUNPBgbcqEDedNKdvE4G1cAK7D3hCjmJccNPZZBq96QIxxwAMEx"
+
+// var bkash_user_name = "01770618567"
+// var bkash_password = "D7DaC<*E*eG"
+
+// bkash => from dashbaord
+/*var bkash_app_key = "4f6o0cjiki2rfm34kfdadl1eqq"
+var bkash_app_secret_key = "2is7hdktrekvrbljjh44ll3d9l1dtjo4pasmjvs5vl5qr3fug4b"
+
+var bkash_user_name = "sandboxTokenizedUser02"
+var bkash_password = "sandboxTokenizedUser02@12345"*/
+
+
+
+
+
 
 let str_language_convert = "key_selected_language"
 var countryCodeForGoogleSearch = "BD"

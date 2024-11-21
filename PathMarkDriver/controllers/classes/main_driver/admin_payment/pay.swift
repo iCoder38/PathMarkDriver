@@ -127,20 +127,33 @@ class pay: UIViewController {
     
     // payment api
    
+    func generateRandomCashCode() -> String {
+        let randomNumber = Int.random(in: 100_000_000...999_999_999) // Generate a 9-digit random number
+        return "Cash_\(randomNumber)"
+    }
     
-    @objc func paymentWB(str_show_loader:String) {
+    @objc func paymentWB() {
         
-        if (str_show_loader == "yes") {
-            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
-                print(language as Any)
-                
-                if (language == "en") {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
-                } else {
-                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
-                }
+        if (self.strUserSelectPaymentType == "2") {
+            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "bKash_payment_gateway_id") as! bKash_payment_gateway
+            
+            push.doublePayment = String(self.strAmount)
+            
+            self.navigationController?.pushViewController(push, animated: true)
+            
+            return
+        }
+        
+        if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+            print(language as Any)
+            
+            if (language == "en") {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+            } else {
+                ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
             }
         }
+        
         
         self.view.endEditing(true)
         
@@ -172,11 +185,11 @@ class pay: UIViewController {
                 
                 /*
                  [action] => updateadminpayment
-                     [userId] => 320
-                     [amount] => 2.17
-                     [PaymentMethod] => Cash
-                     [transactionId] => Cash_1732179592477
-                     [language] => en
+                 [userId] => 320
+                 [amount] => 2.17
+                 [PaymentMethod] => Cash
+                 [transactionId] => Cash_1732179592477
+                 [language] => en
                  */
                 
                 if (self.strUserSelectPaymentType == "1") {
@@ -185,9 +198,9 @@ class pay: UIViewController {
                         "userId"        : String(myString),
                         "amount"        : String(self.strAmount),
                         "PaymentMethod" : String("Cash"),
-                        "transactionId" : String("Cash_1234567"),
+                        "transactionId" : generateRandomCashCode(),
                         "language"      : String(lan),
-                       
+                        
                     ]
                 } else {
                     parameters = [
@@ -197,7 +210,7 @@ class pay: UIViewController {
                         "userId"    : String(myString),
                         "userId"    : String(""),
                         "language"  : String(lan),
-                       
+                        
                     ]
                 }
                 
@@ -224,13 +237,14 @@ class pay: UIViewController {
                         if strSuccess == String("success") {
                             print("yes")
                             
-                            let str_token = (JSON["AuthToken"] as! String)
-                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            /*let str_token = (JSON["AuthToken"] as! String)
+                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)*/
                             
                             ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)
                             
+                            self.navigationController?.popViewController(animated: true)
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_wb()
@@ -302,7 +316,7 @@ class pay: UIViewController {
                             UserDefaults.standard.set("", forKey: str_save_last_api_token)
                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
                             
-                            self.paymentWB(str_show_loader: "no")
+                            self.paymentWB()
                             
                         } else {
                             ERProgressHud.sharedInstance.hide()

@@ -297,7 +297,14 @@ class admin_payment_history: UIViewController {
         
         // self.lbl_day.text = "TODAY"
         
-        self.earning_history(str_show_loader: "yes", pageNumber: 1)
+        
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.profileWB()
     }
     
     @objc func pay_click_method() {
@@ -341,7 +348,7 @@ class admin_payment_history: UIViewController {
         // self.earning_history(str_show_loader: "yes", pageNumber: 1)
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    /*func scrollViewDidScroll(_ scrollView: UIScrollView) {
                 
         if scrollView == self.tbleView {
             let isReachingEnd = scrollView.contentOffset.y >= 0
@@ -357,6 +364,194 @@ class admin_payment_history: UIViewController {
                 }
             }
         }
+    }*/
+    
+    @objc func profileWB() {
+        
+         
+            if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                print(language as Any)
+                
+                if (language == "en") {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "Please wait...")
+                } else {
+                    ERProgressHud.sharedInstance.showDarkBackgroundView(withTitle: "অপেক্ষা করুন")
+                }
+            }
+      
+        
+        self.view.endEditing(true)
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        
+        if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+            print(person)
+            
+            let x : Int = person["userId"] as! Int
+            let myString = String(x)
+            
+            if let token_id_is = UserDefaults.standard.string(forKey: str_save_last_api_token) {
+                print(token_id_is as Any)
+                
+                let headers: HTTPHeaders = [
+                    "token":String(token_id_is),
+                ]
+                var lan:String!
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                }
+                    
+                parameters = [
+                    "action"    : "profile",
+                    "userId"    : String(myString),
+                    "language"  : String(lan),
+                   
+                ]
+                
+                print(parameters as Any)
+                
+                AF.request(application_base_url, method: .post, parameters: parameters as? Parameters,headers: headers).responseJSON {
+                    response in
+                    // debugPrint(response.result)
+                    
+                    switch response.result {
+                    case let .success(value):
+                        
+                        let JSON = value as! NSDictionary
+                        print(JSON as Any)
+                        
+                        var strSuccess : String!
+                        strSuccess = (JSON["status"]as Any as? String)?.lowercased()
+                        
+                        var message : String!
+                        message = (JSON["msg"] as? String)
+                        
+                        print(strSuccess as Any)
+                        if strSuccess == String("success") {
+                            print("yes")
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            // ERProgressHud.sharedInstance.hide()
+                            self.dismiss(animated: true)
+                           
+                            let get_data = (JSON["data"] as! NSDictionary)
+                            
+                            let value = "\(get_data["wallet"]!)"
+                            
+                            if value.hasPrefix("-") {
+                                let sign = "-"
+                                let numericValue = value.dropFirst() // Removes the first character (minus sign)
+                                print("Sign: \(sign), Numeric Value: \(numericValue)")
+                                self.strStoreAmount = "\(numericValue)"
+                                self.lblAdminPayableAmount.text = "\(str_bangladesh_currency_symbol) \(numericValue)"
+                                self.btnPay.isHidden = false
+                            } else {
+                                self.strStoreAmount = "\(str_bangladesh_currency_symbol) 0"
+                                self.lblAdminPayableAmount.text = "\(str_bangladesh_currency_symbol) 0"
+                                self.btnPay.isHidden = true
+                                
+                            }
+                            
+                           
+                            self.earning_history(str_show_loader: "no", pageNumber: 1)
+                            
+                        } else if message == String(not_authorize_api) {
+                            self.login_refresh_token_wb2()
+                            
+                        } else {
+                            
+                            print("no")
+                            ERProgressHud.sharedInstance.hide()
+                            
+                            var strSuccess2 : String!
+                            strSuccess2 = JSON["msg"]as Any as? String
+                            
+                            let alert = NewYorkAlertController(title: String("Alert").uppercased(), message: String(strSuccess2), style: .alert)
+                            let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                            alert.addButtons([cancel])
+                            self.present(alert, animated: true)
+                            
+                        }
+                        
+                    case let .failure(error):
+                        print(error)
+                        ERProgressHud.sharedInstance.hide()
+                        
+                        self.please_check_your_internet_connection()
+                        
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func login_refresh_token_wb2() {
+        
+        var parameters:Dictionary<AnyHashable, Any>!
+        if let get_login_details = UserDefaults.standard.value(forKey: str_save_email_password) as? [String:Any] {
+            print(get_login_details as Any)
+            
+            if let person = UserDefaults.standard.value(forKey: str_save_login_user_data) as? [String:Any] {
+                
+                let x : Int = person["userId"] as! Int
+                let myString = String(x)
+                
+                parameters = [
+                    "action"    : "gettoken",
+                    "userId"    : String(myString),
+                    "email"     : (get_login_details["email"] as! String),
+                    "role"      : (person["role"] as! String)
+                ]
+            }
+            
+            print("parameters-------\(String(describing: parameters))")
+            
+            AF.request(application_base_url, method: .post, parameters: parameters as? Parameters).responseJSON { [self]
+                response in
+                
+                switch(response.result) {
+                case .success(_):
+                    if let data = response.value {
+                        
+                        let JSON = data as! NSDictionary
+                        print(JSON)
+                        
+                        var strSuccess : String!
+                        strSuccess = JSON["status"] as? String
+                        
+                        if strSuccess.lowercased() == "success" {
+                            
+                            let str_token = (JSON["AuthToken"] as! String)
+                            UserDefaults.standard.set("", forKey: str_save_last_api_token)
+                            UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                            
+                            self.earning_history(str_show_loader: "no", pageNumber: page)
+                            
+                        } else {
+                            ERProgressHud.sharedInstance.hide()
+                        }
+                        
+                    }
+                    
+                case .failure(_):
+                    print("Error message:\(String(describing: response.error))")
+                    ERProgressHud.sharedInstance.hide()
+                    self.please_check_your_internet_connection()
+                    
+                    break
+                }
+            }
+        }
+        
     }
     
     @objc func earning_history(str_show_loader:String,pageNumber: Int) {
@@ -434,44 +629,10 @@ class admin_payment_history: UIViewController {
                             
                             ERProgressHud.sharedInstance.hide()
                             self.dismiss(animated: true)
-                            /*
-                             status = success;
-                             totalAmount = "947.0999999999999";
-                             totalDriverAmount = "644.02";
-                             totalRide = 15;
-                             */
                             
-                            
-                            
-                            /*self.lbl_my_earnings.text = "\(JSON["totalRide"]!)"
-                            // self.lbl_spend_time.text = "n.a."// "\(JSON["msg"]!)"
-                            self.lbl_completed_trips.text = "\(JSON["totalRide_conditon"]!)"
-                            self.lbl_total_earning.text = "\(str_bangladesh_currency_symbol) \(JSON["totalDriverAmount"]!)"
-                            self.lbl_total_earning.textColor = .systemGreen*/
-                            var sumAmount = 0.0
                             var ar : NSArray!
                             ar = (JSON["data"] as! Array<Any>) as NSArray
                             self.arr_earnings.addObjects(from: ar as! [Any])
-                            
-                            for indexx in 0..<self.arr_earnings.count {
-                                let item = self.arr_earnings[indexx] as? [String:Any]
-                                print(item as Any)
-                                
-                                if "\(item!["PaymentMethod"]!)" == "Cash" {
-                                    if "\(item!["status"]!)" == "1" {
-                                        self.btnPay.isHidden = false;
-                                        let morePrecisePI = Double("\(item!["amount"]!)")
-                                        sumAmount += morePrecisePI!
-                                    }
-                                }
-                                
-                            }
-                            
-                            print(sumAmount as Any)
-                            
-                            self.strStoreAmount = "\(sumAmount)"
-                            
-                            self.lblAdminPayableAmount.text = "\(str_bangladesh_currency_symbol) \(sumAmount)"
                             
                             self.tbleView.delegate = self
                             self.tbleView.dataSource = self
@@ -480,7 +641,6 @@ class admin_payment_history: UIViewController {
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_wb()
-                            
                         } else {
                             
                             print("no")
@@ -615,7 +775,7 @@ extension admin_payment_history: UITableViewDataSource , UITableViewDelegate {
         cell.backgroundColor = .clear
         
         let item = self.arr_earnings[indexPath.row] as? [String:Any]
-        print(item as Any)
+        // print(item as Any)
         /*
          PaymentMethod = BKash;
          adminpaymentId = 7;
@@ -639,7 +799,6 @@ extension admin_payment_history: UITableViewDataSource , UITableViewDelegate {
                 cell.lbl_amount.text = "Pending"
                 cell.lbl_amount.textColor = .red
             }
-            
             
         } else {
             cell.lbl_amount.text = "Approved"
