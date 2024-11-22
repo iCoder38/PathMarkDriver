@@ -445,14 +445,27 @@ class admin_payment_history: UIViewController {
                            
                             let get_data = (JSON["data"] as! NSDictionary)
                             
-                            let value = "\(get_data["wallet"]!)"
+                            // let value = "\(get_data["wallet"]!)"
+                            let value = "1"
                             
                             if value.hasPrefix("-") {
                                 let sign = "-"
-                                let numericValue = value.dropFirst() // Removes the first character (minus sign)
+                                let numericValue = value.dropFirst()
                                 print("Sign: \(sign), Numeric Value: \(numericValue)")
-                                self.strStoreAmount = "\(numericValue)"
-                                self.lblAdminPayableAmount.text = "\(str_bangladesh_currency_symbol) \(numericValue)"
+                                
+                                 if let walletValue = Double(numericValue) {
+                                    //if let walletValue = Double("1") {
+                                    // Format to 2 decimal places
+                                    let formattedWallet = String(format: "%.2f", walletValue)
+                                    print("Formatted Wallet Value: \(formattedWallet)")
+                                    self.strStoreAmount = "\(formattedWallet)"
+                                    self.lblAdminPayableAmount.text = "\(str_bangladesh_currency_symbol) \(formattedWallet)"
+                                } else {
+                                    print("Invalid number format")
+                                }
+                                
+                                
+                                
                                 self.btnPay.isHidden = false
                             } else {
                                 self.strStoreAmount = "\(str_bangladesh_currency_symbol) 0"

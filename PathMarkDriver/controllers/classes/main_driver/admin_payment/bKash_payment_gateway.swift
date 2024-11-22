@@ -435,17 +435,24 @@ class bKash_payment_gateway: UIViewController, WKNavigationDelegate,WKUIDelegate
                  "paymentMethod" : String("Cash"),
                  */
                 
+                var lan:String!
+                if let language = UserDefaults.standard.string(forKey: str_language_convert) {
+                    print(language as Any)
+                    
+                    if (language == "en") {
+                        lan = "en"
+                    } else {
+                        lan = "bn"
+                    }
+                }
+                
                 parameters = [
-                    "action"            : "updatepayment",
-                    "userId"            : String(myString),
-                    "bookingId"         : String(self.str_booking_id),
-                    "transactionId"     : String(self.trxId),
-                    "totalAmount"       : String(self.doublePayment),
-                    "TIP"               : String("0"),
-                    "discountAmount"    : String(self.getDiscountAmount),
-                    "couponCode"        : String(self.getCouponCode),
-                    "paymentMethod"     : String("Card"),
-                    "paymentID"         : String(self.strPaymentId)
+                    "action"        : "updateadminpayment",
+                    "userId"        : String(myString),
+                    "amount"        : "\(self.doublePayment!)",
+                    "PaymentMethod" : String("BKash"),
+                    "transactionId" : String(self.trxId),
+                    "language"      : String(lan),
                 ]
                 
                 print(parameters as Any)
@@ -470,15 +477,16 @@ class bKash_payment_gateway: UIViewController, WKNavigationDelegate,WKUIDelegate
                         if strSuccess == String("success") {
                             print("yes")
                             
-                            let str_token = (JSON["AuthToken"] as! String)
+                            /*let str_token = (JSON["AuthToken"] as! String)
                              UserDefaults.standard.set("", forKey: str_save_last_api_token)
-                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)
+                             UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)*/
                             
                             ERProgressHud.sharedInstance.hide()
+                            self.navigationController?.popViewController(animated: true)
                             
-                            let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_payment_id") as? success_payment
+                            /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_payment_id") as? success_payment
                             push!.get_booking_details = self.dict_full
-                            self.navigationController?.pushViewController(push!, animated: true)
+                            self.navigationController?.pushViewController(push!, animated: true)*/
                             
                         } else if message == String(not_authorize_api) {
                             self.login_refresh_token_wb()
