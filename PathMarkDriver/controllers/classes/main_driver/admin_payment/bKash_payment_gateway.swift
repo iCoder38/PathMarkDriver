@@ -373,10 +373,17 @@ class bKash_payment_gateway: UIViewController, WKNavigationDelegate,WKUIDelegate
                                 
                             } else {
                                 print("SOMETHING WENT WRONG")
+                                ERProgressHud.sharedInstance.hide()
                                 self.lbl_message.text = "Payment failed."
                                 self.btn_home.isHidden = false
                                 self.btn_home.setTitleColor(.black, for: .normal)
                                 self.btn_home.addTarget(self, action: #selector(home_click_method), for: .touchUpInside)
+                                
+                                let alert = NewYorkAlertController(title: String("Payment failed.").uppercased(), message: String("Please try again after sometime."), style: .alert)
+                                let cancel = NewYorkButton(title: "dismiss", style: .cancel)
+                                alert.addButtons([cancel])
+                                self.present(alert, animated: true)
+                                
                             }
                         }
                         
@@ -482,7 +489,11 @@ class bKash_payment_gateway: UIViewController, WKNavigationDelegate,WKUIDelegate
                              UserDefaults.standard.set(str_token, forKey: str_save_last_api_token)*/
                             
                             ERProgressHud.sharedInstance.hide()
-                            self.navigationController?.popViewController(animated: true)
+                            
+                            if let navigationController = self.navigationController {
+                                navigationController.popToRootViewController(animated: true)
+                            }
+
                             
                             /*let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "success_payment_id") as? success_payment
                             push!.get_booking_details = self.dict_full

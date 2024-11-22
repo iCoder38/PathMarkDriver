@@ -37,9 +37,9 @@ class admin_payment_history: UIViewController {
                 print(language as Any)
                 
                 if (language == "en") {
-                    view_navigation_title.text = "Earnings"
+                    view_navigation_title.text = "Admin payment history"
                 } else {
-                    view_navigation_title.text = "উপার্জন"
+                    view_navigation_title.text = "অ্যাডমিন পেমেন্ট ইতিহাস"
                 }
                 
              
@@ -304,6 +304,7 @@ class admin_payment_history: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        self.arr_earnings.removeAllObjects()
         self.profileWB()
     }
     
@@ -445,8 +446,8 @@ class admin_payment_history: UIViewController {
                            
                             let get_data = (JSON["data"] as! NSDictionary)
                             
-                            // let value = "\(get_data["wallet"]!)"
-                            let value = "1"
+                            let value = "\(get_data["wallet"]!)"
+                            // let value = "-1" // testing porpose only
                             
                             if value.hasPrefix("-") {
                                 let sign = "-"

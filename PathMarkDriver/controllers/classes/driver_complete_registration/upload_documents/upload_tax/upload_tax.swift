@@ -192,7 +192,19 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
     // MARK: - OPEN CAMERA or GALLERY -
     @objc func open_camera_or_gallery(str_type:String) {
         
-        var documentPicker: UIDocumentPickerViewController!
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        
+        if str_type == "c" {
+            imagePicker.sourceType = .camera
+        } else {
+            imagePicker.sourceType = .photoLibrary
+        }
+        
+        imagePicker.allowsEditing = false
+        self.present(imagePicker, animated: true, completion: nil)
+        
+        /*var documentPicker: UIDocumentPickerViewController!
         
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -203,7 +215,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
         documentPicker.delegate = self
         documentPicker.allowsMultipleSelection = true
         documentPicker.modalPresentationStyle = .formSheet
-        self.present(documentPicker, animated: true)
+        self.present(documentPicker, animated: true)*/
         
     }
     
@@ -252,6 +264,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
         self.img_data_banner = image_data!.jpegData(compressionQuality: 0.2)!
         self.dismiss(animated: true, completion: nil)
         
+        self.validation_before_upload_tax()
     }
     
     @objc func validation_before_upload_tax() {
@@ -356,7 +369,7 @@ class upload_tax: UIViewController, UINavigationControllerDelegate, UIImagePicke
                             })
                         }
                     }
-                    multiPart.append(self.img_data_banner, withName: "taxTokenImage", fileName: "upload_tax.pdf", mimeType: "pdf")
+                    multiPart.append(self.img_data_banner, withName: "taxTokenImage", fileName: "upload_tax.png", mimeType: "image/png")
                 }, with: urlRequest)
                 .uploadProgress(queue: .main, closure: { progress in
                     //Current upload progress of file

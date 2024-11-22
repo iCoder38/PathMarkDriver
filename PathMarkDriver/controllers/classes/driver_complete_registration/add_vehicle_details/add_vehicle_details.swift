@@ -1365,42 +1365,42 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                         self.strCarColor = String(selctedText)
                         
                         if (cell.txt_brand.text == "Aprilia") {
-                            self.strCarBrand = "Aprilia"
+                            self.strCarBrand = "1"
                         } else if (cell.txt_brand.text == "Bajaj") {
-                            self.strCarBrand = "Bajaj"
+                            self.strCarBrand = "2"
                         } else if (cell.txt_brand.text == "Benelli") {
-                            self.strCarBrand = "Benelli"
+                            self.strCarBrand = "3"
                         } else if (cell.txt_brand.text == "Beetle Bolt") {
-                            self.strCarBrand = "Beetle Bolt"
+                            self.strCarBrand = "4"
                         } else if (cell.txt_brand.text == "Hero") {
-                            self.strCarBrand = "Hero"
+                            self.strCarBrand = "5"
                         } else if (cell.txt_brand.text == "Honda") {
-                            self.strCarBrand = "Honda"
+                            self.strCarBrand = "6"
                         } else if (cell.txt_brand.text == "Runner") {
-                            self.strCarBrand = "Runner"
+                            self.strCarBrand = "7"
                         } else if (cell.txt_brand.text == "Keeway") {
-                            self.strCarBrand = "Keeway"
+                            self.strCarBrand = "8"
                         } else if (cell.txt_brand.text == "Yamaha") {
-                            self.strCarBrand = "Yamaha"
+                            self.strCarBrand = "9"
                         } else if (cell.txt_brand.text == "Lifan") {
-                            self.strCarBrand = "Lifan"
+                            self.strCarBrand = "10"
                         } else if (cell.txt_brand.text == "TVS") {
-                            self.strCarBrand = "TVS"
+                            self.strCarBrand = "11"
                         } else if (cell.txt_brand.text == "Suzuki") {
-                            self.strCarBrand = "Suzuki"
+                            self.strCarBrand = "12"
                         } else if (cell.txt_brand.text == "Victor R") {
-                            self.strCarBrand = "Victor R"
+                            self.strCarBrand = "13"
                         } else if (cell.txt_brand.text == "Walton") {
-                            self.strCarBrand = "Walton"
+                            self.strCarBrand = "14"
                         } else {
-                            self.strCarBrand = "Walton"
+                            self.strCarBrand = "15"
                         }
                         
-                        
-                        
                         print(self.strCarBrand as Any)
+                        
                     }
                 } else {
+                   
                     let arr_brand = ["Toyota",
                                      "Honda",
                                      "Nissan",
@@ -1414,14 +1414,30 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     RPicker.selectOption(title: "Select brand", cancelText: "Cancel", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
                         cell.txt_brand.text = String(selctedText)
                         self.strCarBrand = String(selctedText)
+                        
+                        if (cell.txt_brand.text == "Toyota") {
+                            self.strCarBrand = "1"
+                        } else if (cell.txt_brand.text == "Honda") {
+                            self.strCarBrand = "2"
+                        } else if (cell.txt_brand.text == "Nissan") {
+                            self.strCarBrand = "3"
+                        } else if (cell.txt_brand.text == "Suzuki") {
+                            self.strCarBrand = "4"
+                        } else if (cell.txt_brand.text == "Hyundai") {
+                            self.strCarBrand = "5"
+                        } else if (cell.txt_brand.text == "Audi") {
+                            self.strCarBrand = "6"
+                        } else if (cell.txt_brand.text == "BMW") {
+                            self.strCarBrand = "7"
+                        } else if (cell.txt_brand.text == "Subaru") {
+                            self.strCarBrand = "8"
+                        }
+                        print(self.strCarBrand as Any)
                     }
                 }
                 
-                
-                
-                
             } else {
-                
+               
                 if (self.str_vehicle_type == "BIKE") {
                     let arr_brand = ["এপ্রিলিয়া",
                                      "বাজাজ",
@@ -1442,53 +1458,36 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
                         cell.txt_brand.text = String(selctedText)
                         
-                        /*
-                         ["Aprilia",
-                         "Bajaj",
-                         "Benelli",
-                         "Beetle Bolt",
-                         "Hero",
-                         "Honda",
-                         "Runner",
-                         "Keeway",
-                         "Yamaha",
-                         "Lifan",
-                         "TVS",
-                         "Suzuki",
-                         "Victor R",
-                         "Walton",
-                         ]
-                         */
                         if (cell.txt_brand.text == "এপ্রিলিয়া") {
-                            self.strCarBrand = "Aprilia"
+                            self.strCarBrand = "1"
                         } else if (cell.txt_brand.text == "বাজাজ") {
-                            self.strCarBrand = "Bajaj"
+                            self.strCarBrand = "2"
                         } else if (cell.txt_brand.text == "বেনেলি") {
-                            self.strCarBrand = "Benelli"
+                            self.strCarBrand = "3"
                         } else if (cell.txt_brand.text == "বিটল বোল্ট") {
-                            self.strCarBrand = "Beetle Bolt"
+                            self.strCarBrand = "4"
                         } else if (cell.txt_brand.text == "হিরো") {
-                            self.strCarBrand = "Hero"
+                            self.strCarBrand = "5"
                         } else if (cell.txt_brand.text == "হোন্ডা") {
-                            self.strCarBrand = "Honda"
+                            self.strCarBrand = "6"
                         } else if (cell.txt_brand.text == "রানার") {
-                            self.strCarBrand = "Runner"
+                            self.strCarBrand = "7"
                         } else if (cell.txt_brand.text == "কেওয়ে") {
-                            self.strCarBrand = "Keeway"
+                            self.strCarBrand = "8"
                         } else if (cell.txt_brand.text == "ইয়ামাহা") {
-                            self.strCarBrand = "Yamaha"
+                            self.strCarBrand = "9"
                         } else if (cell.txt_brand.text == "লাইফান") {
-                            self.strCarBrand = "Lifan"
+                            self.strCarBrand = "10"
                         } else if (cell.txt_brand.text == "টিভি") {
-                            self.strCarBrand = "TVS"
+                            self.strCarBrand = "11"
                         } else if (cell.txt_brand.text == "সুজুকি") {
-                            self.strCarBrand = "Suzuki"
+                            self.strCarBrand = "12"
                         } else if (cell.txt_brand.text == "ভিক্টর আর") {
-                            self.strCarBrand = "Victor R"
+                            self.strCarBrand = "13"
                         } else if (cell.txt_brand.text == "ওয়ালটন") {
-                            self.strCarBrand = "Walton"
+                            self.strCarBrand = "14"
                         } else {
-                            self.strCarBrand = "Walton"
+                            self.strCarBrand = "15"
                         }
                         
                         
@@ -1497,6 +1496,7 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                         
                     }
                 } else {
+                   
                     let arr_brand = ["টয়োটা",
                                      "হোন্ডা",
                                      "নিসান",
@@ -1510,33 +1510,22 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
                     RPicker.selectOption(title: "ব্র্যান্ড নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_brand, selectedIndex: 0) { (selctedText, atIndex) in
                         cell.txt_brand.text = String(selctedText)
                         
-                        /*
-                         ["Toyota",
-                         "Honda",
-                         "Nissan",
-                         "Suzuki",
-                         "Hyundai",
-                         "Audi",
-                         "BMW",
-                         "Subaru",
-                         ]
-                         */
                         if (cell.txt_brand.text == "টয়োটা") {
-                            self.strCarBrand = "Toyota"
+                            self.strCarBrand = "1"
                         } else if (cell.txt_brand.text == "হোন্ডা") {
-                            self.strCarBrand = "Honda"
+                            self.strCarBrand = "2"
                         } else if (cell.txt_brand.text == "নিসান") {
-                            self.strCarBrand = "Nissan"
+                            self.strCarBrand = "3"
                         } else if (cell.txt_brand.text == "সুজুকি") {
-                            self.strCarBrand = "Suzuki"
+                            self.strCarBrand = "4"
                         } else if (cell.txt_brand.text == "হুন্ডাই") {
-                            self.strCarBrand = "Hyundai"
+                            self.strCarBrand = "5"
                         } else if (cell.txt_brand.text == "অডি") {
-                            self.strCarBrand = "Audi"
+                            self.strCarBrand = "6"
                         } else if (cell.txt_brand.text == "বিএমডাব্লু") {
-                            self.strCarBrand = "BMW"
+                            self.strCarBrand = "7"
                         } else if (cell.txt_brand.text == "সুবারু") {
-                            self.strCarBrand = "Subaru"
+                            self.strCarBrand = "8"
                         }
                         
                         print(self.strCarBrand as Any)
@@ -1571,94 +1560,98 @@ class add_vehicle_details: UIViewController , UITextFieldDelegate, UINavigationC
             
             if (language == "en") {
                 
-                
-                let arr_color = ["white",
-                                 "black",
+                let arr_color = ["Red",
+                                 "Black",
+                                 "White",
                                  "Gray",
-                                 "Silver",
-                                 "Red",
-                                 "Blue",
+                                 "Metallic Grey",
                                  "Yellow",
+                                 "Blue",
+                                 "Silver",
                                  "Green",
                                  "Beige",
-                                 "Gold",
-                                 "Metallic Gray"]
+                                 "Gold"]
                 
                 RPicker.selectOption(title: "Select color", cancelText: "Cancel", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
                     cell.txt_color.text = String(selctedText)
                     self.strCarColor = String(selctedText)
+                    
+                    if (String(selctedText) == "Red") {
+                        self.strCarColor = "1"
+                    } else if (String(selctedText) == "Black") {
+                        self.strCarColor = "2"
+                    } else if (String(selctedText) == "White") {
+                        self.strCarColor = "3"
+                    } else if (String(selctedText) == "Gray") {
+                        self.strCarColor = "4"
+                    } else if (String(selctedText) == "Metallic Grey") {
+                        self.strCarColor = "5"
+                    } else if (String(selctedText) == "Yellow") {
+                        self.strCarColor = "6"
+                    } else if (String(selctedText) == "Blue") {
+                        self.strCarColor = "7"
+                    } else if (String(selctedText) == "Silver") {
+                        self.strCarColor = "8"
+                    } else if (String(selctedText) == "Green") {
+                        self.strCarColor = "9"
+                    } else if (String(selctedText) == "Beige") {
+                        self.strCarColor = "10"
+                    } else if (String(selctedText) == "Gold") {
+                        self.strCarColor = "11"
+                    }
+                    
+                    print(self.strCarColor as Any)
                 }
                 
                 
             } else {
-                
-                
-                let arr_color = ["সাদা",
+              
+                let arr_color = ["লাল",
                                  "কালো",
+                                 "সাদা",
                                  "ধূসর",
-                                 "রৌপ্য",
-                                 "লাল",
-                                 "নীল",
+                                 "ধাতব ধূসর",
                                  "হলুদ",
+                                 "নীল",
+                                 "রৌপ্য",
                                  "সবুজ",
                                  "বেইজ",
-                                 "স্বর্ণ",
-                                 "ধাতব ধূসর"]
+                                 "স্বর্ণ"]
                 
                 RPicker.selectOption(title: "রঙ নির্বাচন করুন", cancelText: "বাতিল করুন", dataArray: arr_color, selectedIndex: 0) { (selctedText, atIndex) in
                     cell.txt_color.text = String(selctedText)
                     // strCarColor
-                    if (cell.txt_color.text == "সাদা") {
-                        self.strCarColor = "white"
+                    if (cell.txt_color.text == "লাল") {
+                        self.strCarColor = "1"
                     } else if (cell.txt_color.text == "কালো") {
-                        self.strCarColor = "black"
+                        self.strCarColor = "2"
+                    } else if (cell.txt_color.text == "সাদা") {
+                        self.strCarColor = "3"
                     } else if (cell.txt_color.text == "ধূসর") {
-                        self.strCarColor = "Gray"
-                    } else if (cell.txt_color.text == "রৌপ্য") {
-                        self.strCarColor = "Silver"
-                    } else if (cell.txt_color.text == "লাল") {
-                        self.strCarColor = "Red"
-                    } else if (cell.txt_color.text == "নীল") {
-                        self.strCarColor = "Blue"
-                    } else if (cell.txt_color.text == "হলুদ") {
-                        self.strCarColor = "Yellow"
-                    } else if (cell.txt_color.text == "সবুজ") {
-                        self.strCarColor = "Green"
-                    } else if (cell.txt_color.text == "বেইজ") {
-                        self.strCarColor = "Beige"
-                    } else if (cell.txt_color.text == "স্বর্ণ") {
-                        self.strCarColor = "Gold"
+                        self.strCarColor = "4"
                     } else if (cell.txt_color.text == "ধাতব ধূসর") {
-                        self.strCarColor = "Metallic Gray"
+                        self.strCarColor = "5"
+                    } else if (cell.txt_color.text == "হলুদ") {
+                        self.strCarColor = "6"
+                    } else if (cell.txt_color.text == "নীল") {
+                        self.strCarColor = "7"
+                    } else if (cell.txt_color.text == "রৌপ্য") {
+                        self.strCarColor = "8"
+                    } else if (cell.txt_color.text == "সবুজ") {
+                        self.strCarColor = "9"
+                    } else if (cell.txt_color.text == "বেইজ") {
+                        self.strCarColor = "10"
+                    } else if (cell.txt_color.text == "স্বর্ণ") {
+                        self.strCarColor = "11"
                     } else {
-                        self.strCarColor = "Metallic Gray"
+                        self.strCarColor = "12"
                     }
                     
                     print(self.strCarColor as Any)
                     
-                    
                 }
                 
-                /*
-                 ["white",
-                 "black",
-                 "Gray",
-                 "Silver",
-                 "Red",
-                 "Blue",
-                 "Yellow",
-                 "Green",
-                 "Beige",
-                 "Gold",
-                 "Metallic Gray"]
-                 */
-                
-                
-                
-                
-                
             }
-            
             
         } else {
             print("=============================")
