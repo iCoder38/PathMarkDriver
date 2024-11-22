@@ -28,6 +28,12 @@ class verify_phone_number: UIViewController , UITextFieldDelegate {
     var strGetLoginEmailAddress:String!
     var str_save_otp:String!
     
+    @IBOutlet weak var btnBack:UIButton! {
+        didSet {
+            btnBack.addTarget(self
+                              , action: #selector(back_click_method), for: .touchUpInside)
+        }
+    }
     @IBOutlet weak var view_navigation_bar:UIView! {
         didSet {
             view_navigation_bar.backgroundColor = navigation_color
@@ -377,7 +383,7 @@ extension verify_phone_number: UITableViewDataSource  , UITableViewDelegate {
         cell.otpTextFieldView.delegate = self
         cell.otpTextFieldView.initializeUI()
         
-        // cell.lblDummyOTP.text = String(self.getOPT)
+         cell.lblDummyOTP.text = String(self.getOPT)
         
         return cell
     }
@@ -450,7 +456,7 @@ extension verify_phone_number: UITableViewDataSource  , UITableViewDelegate {
 
 
 class verify_phone_number_table_cell: UITableViewCell {
-    // @IBOutlet weak var lblDummyOTP:UILabel!
+     @IBOutlet weak var lblDummyOTP:UILabel!
     @IBOutlet var otpTextFieldView: OTPFieldView!
 
     

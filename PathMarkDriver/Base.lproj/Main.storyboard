@@ -765,13 +765,27 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1sy-3x-3l2">
+                                        <rect key="frame" x="8" y="40" width="40" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="I1u-Lp-XQQ"/>
+                                            <constraint firstAttribute="height" constant="40" id="Q0G-tR-BVj"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="18"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" image="arrow.left" catalog="system"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="IMO-MG-1ss" firstAttribute="leading" secondItem="VpN-sP-hzw" secondAttribute="leading" constant="8" id="CyE-vz-mhT"/>
                                     <constraint firstAttribute="trailing" secondItem="IMO-MG-1ss" secondAttribute="trailing" constant="8" id="Dst-B1-Rfk"/>
                                     <constraint firstAttribute="bottom" secondItem="IMO-MG-1ss" secondAttribute="bottom" constant="4" id="ZfT-xn-5Gd"/>
+                                    <constraint firstItem="1sy-3x-3l2" firstAttribute="leading" secondItem="VpN-sP-hzw" secondAttribute="leading" constant="8" id="gec-DU-a2Q"/>
                                     <constraint firstAttribute="height" constant="88" id="qI2-Do-R2o"/>
+                                    <constraint firstItem="1sy-3x-3l2" firstAttribute="top" secondItem="VpN-sP-hzw" secondAttribute="top" constant="40" id="qU4-ie-Iwv"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="p2F-kN-RoJ">
@@ -845,6 +859,13 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="df2-kM-h2v">
+                                                    <rect key="frame" x="29" y="463" width="344" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="XTQ-Xp-p1q" firstAttribute="leading" secondItem="hhm-bA-4xN" secondAttribute="leadingMargin" id="1hj-5M-sa9"/>
@@ -865,6 +886,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="lblDummyOTP" destination="df2-kM-h2v" id="jmJ-xc-3oi"/>
                                             <outlet property="otpTextFieldView" destination="nfK-J7-u6b" id="xeF-sB-dFw"/>
                                         </connections>
                                     </tableViewCell>
@@ -889,6 +911,7 @@
                     </view>
                     <size key="freeformSize" width="393" height="1200"/>
                     <connections>
+                        <outlet property="btnBack" destination="1sy-3x-3l2" id="MrY-hx-Qlh"/>
                         <outlet property="tbleView" destination="p2F-kN-RoJ" id="kks-VF-vZb"/>
                         <outlet property="view_navigation_bar" destination="VpN-sP-hzw" id="GzR-AA-yB3"/>
                         <outlet property="view_navigation_title" destination="IMO-MG-1ss" id="xlv-Ve-LDx"/>

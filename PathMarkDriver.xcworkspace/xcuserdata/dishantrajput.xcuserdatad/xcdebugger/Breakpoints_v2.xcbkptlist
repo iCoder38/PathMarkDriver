@@ -114,36 +114,6 @@
             endingLineNumber = "567"
             landmarkName = "login_refresh_token_wb()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "B84BA536-83B8-4B69-A5F0-47C669705370 - 4e212998204810e6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.edit_profile.login_refresh_token_wb() -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "568"
-                  endingLineNumber = "568">
-               </Location>
-               <Location
-                  uuid = "B84BA536-83B8-4B69-A5F0-47C669705370 - 4e212998204810e6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "PathMarkDriver.edit_profile.login_refresh_token_wb() -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "568"
-                  endingLineNumber = "568">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -240,36 +210,6 @@
             endingLineNumber = "189"
             landmarkName = "profileWB()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4574D8CE-3BD1-454A-895B-AEB3486F4287 - d49de374472d5677"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.edit_profile.profileWB() -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "191"
-                  endingLineNumber = "191">
-               </Location>
-               <Location
-                  uuid = "4574D8CE-3BD1-454A-895B-AEB3486F4287 - d49de374472d5677"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in PathMarkDriver.edit_profile.profileWB() -&gt; ()"
-                  moduleName = "PathMarkDriver"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/dishantrajput/Documents/evs/PathMarkDriver/PathMarkDriver/controllers/classes/main_driver/edit_profile/edit_profile.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "191"
-                  endingLineNumber = "191">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -573,6 +513,22 @@
             startingLineNumber = "1435"
             endingLineNumber = "1435"
             landmarkName = "brand_click_method()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9940431A-8597-48C5-9667-2F85FF1721AB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PathMarkDriver/controllers/classes/login/login.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "remember_me()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
