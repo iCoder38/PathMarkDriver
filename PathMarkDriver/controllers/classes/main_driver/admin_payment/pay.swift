@@ -35,7 +35,7 @@ class pay: UIViewController, UITextFieldDelegate {
                 print(language as Any)
                 
                 if (language == "en") {
-                    view_navigation_title.text = "Send commision"
+                    view_navigation_title.text = "Send commission"
                 } else {
                     view_navigation_title.text = "কমিশন পাঠান"
                 }
@@ -121,7 +121,15 @@ class pay: UIViewController, UITextFieldDelegate {
         self.btnCommisionCash.addTarget(self, action: #selector(commisionCashClickMethod), for: .touchUpInside)
         self.btnCommisionBkash.addTarget(self, action: #selector(bkashClickMethod), for: .touchUpInside)
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboardOutClick))
+        view.addGestureRecognizer(tap)
+      
+    
         self.btnSubmit.addTarget(self, action: #selector(paymentWB), for: .touchUpInside)
+    }
+    
+    @objc func dismissKeyboardOutClick() {
+        self.view.endEditing(true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
