@@ -8,8 +8,14 @@
 import UIKit
 import Alamofire
 
-class pay: UIViewController {
-
+class pay: UIViewController, UITextFieldDelegate {
+    
+    var strAmount:String!
+    var strUserSelectPaymentType:String! = "0"
+    
+    var maxAllowedNumber: Double!
+    var convertedPrice: Double!
+    
     @IBOutlet weak var btn_back:UIButton! {
         didSet {
             btn_back.tintColor = .white
@@ -34,7 +40,7 @@ class pay: UIViewController {
                     view_navigation_title.text = "কমিশন পাঠান"
                 }
                 
-             
+                
             } else {
                 print("=============================")
                 print("LOGIN : Select language error")
@@ -88,15 +94,27 @@ class pay: UIViewController {
         }
     }
     
-    var strAmount:String!
-    var strUserSelectPaymentType:String! = "0"
-    
     @IBOutlet weak var btnCommisionCash:UIButton!
     @IBOutlet weak var btnCommisionBkash:UIButton!
-   
+    
+    @IBOutlet weak var txtPrice:UITextField! {
+        didSet {
+            txtPrice.backgroundColor = .white
+            txtPrice.textAlignment = .center
+            txtPrice.keyboardType = .numberPad
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.txtPrice.delegate = self
+        
         self.lblAmount.text = str_bangladesh_currency_symbol+" "+String(self.strAmount)
+        self.lblAmount.isHidden = true
+        
+        self.txtPrice.text = String(self.strAmount)
+        // str_bangladesh_currency_symbol+" "+String(self.strAmount)
         
         self.btn_back.addTarget(self, action: #selector(back_click_method), for: .touchUpInside)
         
@@ -104,6 +122,10 @@ class pay: UIViewController {
         self.btnCommisionBkash.addTarget(self, action: #selector(bkashClickMethod), for: .touchUpInside)
         
         self.btnSubmit.addTarget(self, action: #selector(paymentWB), for: .touchUpInside)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
     }
     
     @objc func commisionCashClickMethod() {
@@ -126,7 +148,7 @@ class pay: UIViewController {
     
     
     // payment api
-   
+    
     func generateRandomCashCode() -> String {
         let randomNumber = Int.random(in: 100_000_000...999_999_999) // Generate a 9-digit random number
         return "Cash_\(randomNumber)"
@@ -134,10 +156,52 @@ class pay: UIViewController {
     
     @objc func paymentWB() {
         
+        let stringNumber = self.strAmount
+        if let doubleValue = Double(stringNumber!) {
+            // print("The double value is: \(doubleValue)")
+            self.maxAllowedNumber = doubleValue
+        } else {
+            // print("Invalid number format")
+        }
+        
+        // entered amount
+        if let doubleValueE = Double(self.txtPrice.text!) {
+            // print("The double value is: \(doubleValueE)")
+            self.convertedPrice = doubleValueE
+        } else {
+            // print("Invalid number format")
+        }
+        // print("Converted value: \(self.txtPrice.text!)")
+        if let text = self.txtPrice.text, let doubleValue = Double(text) {
+            print("Converted value: \(doubleValue)")
+        } else {
+            print("Invalid input. Cannot convert to Double.")
+        }
+        
+        // print(self.maxAllowedNumber as Any)
+        // print(self.convertedPrice as Any)
+        
+        
+        if (self.maxAllowedNumber == nil) {
+            return
+        }
+        if (self.convertedPrice == nil) {
+            return
+        }
+        
+        if (self.maxAllowedNumber < self.convertedPrice) {
+            
+            let alert = UIAlertController(title: "Invalid Input", message: "Amount should be less than \(str_bangladesh_currency_symbol)\(String(self.strAmount))", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    present(alert, animated: true, completion: nil)
+            
+            return
+        }
+       
         if (self.strUserSelectPaymentType == "2") {
             let push = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "bKash_payment_gateway_id") as! bKash_payment_gateway
             
-            push.doublePayment = String(self.strAmount)
+            push.doublePayment = String(self.txtPrice.text!)
             
             self.navigationController?.pushViewController(push, animated: true)
             
@@ -196,7 +260,7 @@ class pay: UIViewController {
                     parameters = [
                         "action"        : "updateadminpayment",
                         "userId"        : String(myString),
-                        "amount"        : String(self.strAmount),
+                        "amount"        : String(self.txtPrice.text!) ,
                         "PaymentMethod" : String("Cash"),
                         "transactionId" : generateRandomCashCode(),
                         "language"      : String(lan),
@@ -336,5 +400,32 @@ class pay: UIViewController {
         
     }
     
+    /*func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+            
+            // Get the updated text after the new input
+            let currentText = textField.text ?? ""
+            let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+            
+            // Check if the updated text can be converted to a Double
+            if let enteredNumber = Double(updatedText) {
+                if enteredNumber > self.maxAllowedNumber {
+                    showAlert(message: "The number cannot exceed \(maxAllowedNumber!).")
+                    return false // Prevent further input
+                }
+            } else if !updatedText.isEmpty {
+                // Handle invalid input (non-numeric characters)
+                // showAlert(message: "Please enter a valid number.")
+                return false
+            }
+
+            return true // Allow valid input
+        }
+    
+    // Function to show an alert
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Invalid Input", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }*/
     
 }

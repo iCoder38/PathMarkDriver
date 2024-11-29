@@ -827,7 +827,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter 4 digits OTP Code that you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6U-fO-RdS">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter 6 digits OTP Code that you" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6U-fO-RdS">
                                                     <rect key="frame" x="20" y="241" width="353" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="gFx-w3-vYQ"/>
@@ -13316,12 +13316,21 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yyY-Dm-pTl">
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="128"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="32"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="avL-fl-C9m" secondAttribute="bottom" constant="8" id="0gf-v5-YxL"/>
                                     <constraint firstAttribute="height" constant="128" id="4t6-hL-5iz"/>
+                                    <constraint firstItem="yyY-Dm-pTl" firstAttribute="top" secondItem="m9T-P3-h6P" secondAttribute="top" id="6eY-ms-WJ8"/>
+                                    <constraint firstAttribute="bottom" secondItem="yyY-Dm-pTl" secondAttribute="bottom" id="9zb-nn-WMw"/>
                                     <constraint firstItem="avL-fl-C9m" firstAttribute="top" secondItem="m9T-P3-h6P" secondAttribute="top" constant="8" id="DQR-KG-I4d"/>
+                                    <constraint firstAttribute="trailing" secondItem="yyY-Dm-pTl" secondAttribute="trailing" id="EM6-Cf-ZhQ"/>
+                                    <constraint firstItem="yyY-Dm-pTl" firstAttribute="leading" secondItem="m9T-P3-h6P" secondAttribute="leading" id="RxU-GS-22C"/>
                                     <constraint firstAttribute="trailing" secondItem="avL-fl-C9m" secondAttribute="trailing" constant="8" id="Yro-rV-x7q"/>
                                     <constraint firstItem="avL-fl-C9m" firstAttribute="leading" secondItem="m9T-P3-h6P" secondAttribute="leading" constant="8" id="cQo-hb-iHX"/>
                                 </constraints>
@@ -13345,8 +13354,8 @@
                                             <constraint firstAttribute="height" constant="34" id="ffn-Ff-PN3"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commision send through Cash" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpc-JW-gem">
-                                        <rect key="frame" x="49.999999999999986" y="8" width="197.66666666666663" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commission send through Cash" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mpc-JW-gem">
+                                        <rect key="frame" x="50" y="8" width="204" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="eNP-WX-cHL"/>
                                         </constraints>
@@ -13385,8 +13394,8 @@
                                             <constraint firstAttribute="height" constant="34" id="nJI-sC-m6M"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commision send through Bkash" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ym4-Px-A0S">
-                                        <rect key="frame" x="50" y="8" width="204" height="28"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commission send through Bkash" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ym4-Px-A0S">
+                                        <rect key="frame" x="50" y="8" width="210" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="EAz-ji-bfZ"/>
                                         </constraints>
@@ -13451,6 +13460,7 @@
                         <outlet property="btn_back" destination="dX6-eG-OkI" id="WuF-7J-kbV"/>
                         <outlet property="lblAmount" destination="avL-fl-C9m" id="NQu-jD-sbP"/>
                         <outlet property="lblMessage" destination="S9D-jC-hme" id="gvy-Gp-cwf"/>
+                        <outlet property="txtPrice" destination="yyY-Dm-pTl" id="tTf-1D-YoP"/>
                         <outlet property="viewOne" destination="fcq-Sw-yYN" id="U7u-Sk-83z"/>
                         <outlet property="viewTwo" destination="euZ-1k-MRV" id="rV5-3J-J7l"/>
                         <outlet property="view_navigation_bar" destination="PeY-RF-HjJ" id="clg-vO-JB7"/>
@@ -13464,7 +13474,7 @@
         <!--Kash payment gateway-->
         <scene sceneID="DFw-q5-xiX">
             <objects>
-                <viewController storyboardIdentifier="bKash_payment_gateway_id" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hJb-FE-Qhc" customClass="bKash_payment_gateway" customModule="PathMark" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="bKash_payment_gateway_id" useStoryboardIdentifierAsRestorationIdentifier="YES" id="hJb-FE-Qhc" customClass="bKash_payment_gateway" customModule="PathMarkDriver" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MIv-u3-Ar0">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
